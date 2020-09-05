@@ -1,0 +1,135 @@
+
+
+/* ORG HTMLIZE CSS ***********************************************************/
+/* Version: 9.1.9 */
+
+
+.org-builtin {
+    /* font-lock-builtin-face */
+    color: #b218b2;
+}
+.org-comment {
+    /* font-lock-comment-face */
+    color: #0006;
+    font-style: italic;
+}
+.org-comment-delimiter {
+    /* font-lock-comment-delimiter-face */
+    color: #0006;
+    font-style: italic;
+}
+.org-constant {
+    /* font-lock-constant-face */
+    color: #1f5bff;
+}
+.org-css-property {
+    /* css-property */
+    color: #00af00;
+}
+.org-css-selector {
+    /* css-selector */
+    color: #ef2929;
+}
+.org-csv-separator {
+    /* csv-separator-face */
+    color: #cc0000;
+}
+.org-doc {
+    /* font-lock-doc-face */
+    color: #cc0000;
+    font-style: italic;
+}
+.org-function-name {
+    /* font-lock-function-name-face */
+    color: #ef2929;
+}
+.org-keyword {
+    /* font-lock-keyword-face */
+    color: #00af00;
+}
+.org-negation-char {
+    /* font-lock-negation-char-face */
+    color: #cc0000;
+}
+.org-preprocessor {
+    /* font-lock-preprocessor-face */
+    color: #b218b2;
+}
+.org-regexp-grouping-backslash {
+    /* font-lock-regexp-grouping-backslash */
+    color: #ff8700;
+}
+.org-regexp-grouping-construct {
+    /* font-lock-regexp-grouping-construct */
+    color: #b218b2;
+}
+.org-rainbow-delimiters-base-error {
+    /* rainbow-delimiters-base-error-face */
+    color: #88090B;
+}
+.org-rainbow-delimiters-depth-1 {
+    /* rainbow-delimiters-depth-1-face */
+    color: #cc0000;
+}
+.org-rainbow-delimiters-depth-2 {
+    /* rainbow-delimiters-depth-2-face */
+    color: #1f5bff;
+}
+.org-rainbow-delimiters-depth-3 {
+    /* rainbow-delimiters-depth-3-face */
+    color: #00af00;
+}
+.org-rainbow-delimiters-depth-4 {
+    /* rainbow-delimiters-depth-4-face */
+    color: #ff4ea3;
+}
+.org-rainbow-delimiters-depth-5 {
+    /* rainbow-delimiters-depth-5-face */
+    color: #00d7af;
+}
+.org-rainbow-delimiters-depth-6 {
+    /* rainbow-delimiters-depth-6-face */
+    color: #ff8700;
+}
+.org-rainbow-delimiters-depth-7 {
+    /* rainbow-delimiters-depth-7-face */
+    color: #b218b2;
+}
+.org-rainbow-delimiters-depth-8 {
+    /* rainbow-delimiters-depth-8-face */
+    color: #c4a000;
+    /* font-weight: bold; */
+}
+.org-rainbow-delimiters-depth-9 {
+    /* rainbow-delimiters-depth-9-face */
+    color: #5f5f5f;
+}
+.org-rainbow-delimiters-mismatched {
+    /* rainbow-delimiters-mismatched-face */
+    color: #ffffff;
+    background-color: #a40000;
+    font-weight: bold;
+}
+.org-rainbow-delimiters-unmatched {
+    /* rainbow-delimiters-unmatched-face */
+    color: #ffffff;
+    background-color: #a40000;
+    font-weight: bold;
+}
+.org-string {
+    /* font-lock-string-face */
+    color: #ff1f8b;
+}
+.org-type {
+    /* font-lock-type-face */
+    color: #18b2b2;
+}
+.org-variable-name {
+    /* font-lock-variable-name-face */
+    color: #ff8700;
+}
+.org-warning-1 {
+    /* font-lock-warning-face */
+    color: #cc0000;
+    font-weight: bold;
+}

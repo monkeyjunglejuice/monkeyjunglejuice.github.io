@@ -1,0 +1,277 @@
+
+
+/* SAKURA.CSS OVERRIDES ******************************************************/
+
+
+html {
+    font-size: 62.5%; /* = 10px */
+    font-family: 'Iosevka Curly Slab Web', monospace;
+    font-weight: 300;
+    font-stretch: expanded;
+}
+
+body {
+    font-size: 1.9rem;
+    line-height: 1.5;
+    max-width: 38em;
+    margin: auto;
+    color: #000;
+    background-color: cornsilk;
+    padding: 13px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: manual;
+    -moz-hyphens: manual;
+    -webkit-hyphens: manual;
+    hyphens: manual;
+}
+
+h1 {
+    font-family: 'Iosevka Etoile Web', monospace;
+    font-weight: 100;
+    font-size: 8.4rem;
+    line-height: 1.1;
+    margin-top: 5rem;
+    margin-bottom: 4.5rem;
+}
+
+h2 {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-weight: 500;
+    font-size: 3.2rem;
+    letter-spacing: 0.05em;
+    
+    line-height: 1.1;
+    margin-top: 5rem;
+    margin-bottom: 4.5rem;
+}
+
+h3 {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-weight: 500;
+    font-size: 2.4rem;
+    letter-spacing: 0.05em;
+    
+    line-height: 1.1;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+h4 {
+    font-family: 'Iosevka Curly Slab Web', monospace;
+    font-weight: 300;
+    font-size: 1.9rem;
+    line-height: 1.5;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+h5, h6 {
+    font-family: 'Iosevka Curly Slab Web', monospace;
+    font-weight: 300;
+    font-size: 1.9rem;
+    line-height: 1.5;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+a {
+    text-decoration: underline;
+    color: #000f;
+}
+
+a:hover {
+    color: #000f;
+    text-decoration: none;
+    border-bottom: 1px solid;
+}
+
+p {
+    margin-top: 0px;
+    margin-bottom: 2rem;
+}
+
+b, strong {
+    font-weight: 500;
+}
+
+small, sub, sup {
+    font-size: 80%;
+}
+
+ul {
+    padding-left: 1.5em;
+    margin-top: 0px;
+    margin-bottom: 2rem;
+}
+
+li {
+    margin-bottom: 0;
+}
+
+pre {
+    font-family: 'Iosevka Curly Web', monospace;
+    font-weight: 400;
+    font-stretch: normal;
+    background-color: transparent;
+    display: block;
+    overflow-x: auto;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    margin-bottom: 2rem;
+    padding: 1.5em 0 1.5em 1.5em;
+    border: 0 none;
+    border-left: 3px dotted #000a;
+    box-shadow: none;
+    overflow: visible;
+}
+
+code {
+    font-family: 'Iosevka Curly Web', monospace;
+    font-weight: 400;
+    font-size: 1em;
+    font-stretch: expanded;
+    background-color: #0001;
+    border-radius: 1em;
+    padding: 0em 0.3em 0.05em 0.3em;
+    white-space: pre-wrap;
+}
+
+blockquote {
+    font-style: italic;
+    padding: 0 1.5rem 0 1.5rem;
+    border: 0 none;
+}
+
+blockquote p {
+    text-align: center;
+}
+
+hr {
+    border-color: #0004;
+}
+
+
+/* IDs AND CLASSES ***********************************************************/
+
+
+#site-name {
+    font-family: 'Alegreya SC', serif;
+    font-weight: 800;
+    float: left;
+}
+
+#preamble {
+    border-bottom: 1px dotted;
+}
+
+#preamble nav {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-weight: 500;
+    font-size: 80%;
+    letter-spacing: 0.1em;
+    text-align: right;
+}
+
+#preamble nav a {
+    text-decoration: none;
+}
+
+#preamble nav a:hover {
+    border-bottom: 0 none;
+}
+
+#postamble {
+    border-top: 1px dotted;
+    margin-top: 5rem;
+}
+
+#postamble p {
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-weight: 500;
+    font-size: 80%;
+    letter-spacing: 0.1em;
+    text-align: center;
+}
+
+#content header {
+    border-bottom: 1px dotted;
+}
+
+#content p {
+    padding-left: 1.5em;
+}
+
+.title {
+    text-align: center;
+    /* margin-bottom: 3.5rem; */
+    margin-bottom: 5rem;
+}
+
+.subtitle {
+    text-align: center;
+    margin-top:0;
+    /* margin-bottom: 5rem; */
+    margin-bottom: 0;
+    font-family: 'Alegreya Sans SC', sans-serif;
+    font-size: 80%;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+#table-of-contents h2 {
+    font-family: 'Iosevka Curly Web', monospace;
+    font-weight: 300;
+    font-size: 1.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin-bottom: 2.0rem;
+}
+
+#table-of-contents li {
+    font-family: 'Iosevka Curly Web', monospace;
+    list-style-type: none;
+}
+
+#table-of-contents li,
+#table-of-contents li ul,
+#table-of-contents li ol {
+    margin-bottom: 0;
+}
+
+pre.src::before {
+    background-color: #ffff;
+    color: #000c;
+    top: -5px;
+    right: 0px;
+    padding: 0 0.4em;
+    border: 0 none;
+    border-radius: 1em;
+    font-weight: 800;
+    font-size: 80%;
+    text-transform: uppercase;
+}
+
+.index ul {
+    list-style-type: none;
+    /* padding-left: 0; */
+}
+
+.index ul li {
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.box, .note {
+    font-family: 'Iosevka Curly Web', monospace;
+}
+
+.box {
+    font-weight: 400;
+}
