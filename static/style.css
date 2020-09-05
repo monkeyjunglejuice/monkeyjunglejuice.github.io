@@ -130,6 +130,7 @@ pre {
     border-left: 3px dotted #000a;
     box-shadow: none;
     overflow: visible;
+    word-break: keep-all;
 }
 
 code {
