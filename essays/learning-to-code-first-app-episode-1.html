@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-05 Sat 22:48 -->
+<!-- 2020-09-07 Mon 17:24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first App in Lisp</title>
@@ -41,19 +41,24 @@ I was tired to manipulate CSV tables per hand using a spreadsheet program, so I 
 </p>
 
 <p>
-I&rsquo;ve discovered early that the best way to understand something is to actually teach it. So I&rsquo;ve decided to make a little blog series out of it to track my learning process and to refine the app with each episode, until I&rsquo;m happy with it or too bored &#x2013; whatever happens first.<br>
+I&rsquo;ve discovered early that the best way to understand something is to actually teach it (or: if you cannot explain it, you don&rsquo;t understand it). So I&rsquo;ve decided to make a little blog series out of it to track my learning process and to refine the app with each episode, until I&rsquo;m happy with it or too bored &#x2013; whatever happens first.<br>
 </p>
 
 <p>
-It&rsquo;s not a tutorial in the sense how these things should be done, and the code will be full of all kind of clumsy noob things. Don&rsquo;t hold back your tipps and suggestions &#x2014; let me know in the comments below! I appreciate it, since it will help me learning.<br>
+It&rsquo;s not a howto, and the code will be full of all kind of clumsy noob things. Can you spot them? Don&rsquo;t hold back your tipps and suggestions &#x2013; let me know in the comments below. I appreciate that, since it will help me learning.<br>
 </p>
 
 <p>
 <code>(automate *the-boring-stuff* #'with-lisp)</code><br>
 </p>
+</div>
+</div>
 
+<div id="outline-container-org0c98bd1" class="outline-2">
+<h2 id="org0c98bd1">Why Lisp and not language XYZ?</h2>
+<div class="outline-text-2" id="text-org0c98bd1">
 <p>
-Why Lisp and not language XYZ? I&rsquo;ve choosen Lisp, because to me (a unprejudiced first-time programmer) Lisp looks like the simplest and most comprehensible programming language, after thorough investigation (<a href="best-programming-language-for-beginner.html">read my reasoning here</a>). I think Lisp is really mind-blowing and maybe the most brilliant <i>tool to think in</i>.<br>
+I&rsquo;ve choosen Lisp, because to me (a unprejudiced first-time programmer) Lisp looks like the simplest and most comprehensible programming language, after thorough investigation (<a href="best-programming-language-for-beginner.html">read my reasoning here</a>). It just makes sooo much sense. I think Lisp is really mind-blowing and maybe the <i>most brilliant tool to think in</i>.<br>
 </p>
 
 <p>
@@ -70,6 +75,10 @@ So welcome to the 1st episode and enjoy the glorious piece of alien technology ;
 <h2 id="org8c698f3">What the App should do</h2>
 <div class="outline-text-2" id="text-org8c698f3">
 <p>
+Before we start, we&rsquo;ll need a features list:<br>
+</p>
+
+<p>
 a) It takes a CSV file and then &#x2026;<br>
 b) deletes some specified columns<br>
 c) performs search and replace<br>
@@ -84,7 +93,7 @@ f) &#x2026; and spits out a sweet cleaned CSV!<br>
 <h2 id="org1021645">Woohoo, let&rsquo;s begin!</h2>
 <div class="outline-text-2" id="text-org1021645">
 <p>
-For those who don&rsquo;t know: &ldquo;CSV&rdquo; stands for &ldquo;Comma Separated Values&rdquo;. It is a simple text file that resembles a table: The table rows are represented by rows in the text file, and the table columns by comma-separated values. Example:<br>
+For those who don&rsquo;t know: &ldquo;CSV&rdquo; stands for &ldquo;Comma Separated Values&rdquo;. It is a simple text file that resembles a table: The table rows are represented by rows in the text file, and the table columns by comma-separated values. Assume we&rsquo;ve downloaded a CSV named  <code>orders-export.csv</code> with recent orders from our online shop. When we open that file in a text editor, it looks like this example:<br>
 </p>
 
 <div class="org-src-container">
@@ -96,11 +105,11 @@ For those who don&rsquo;t know: &ldquo;CSV&rdquo; stands for &ldquo;Comma Separa
 </div>
 
 <p>
-At first, our little app has open and read the original CSV file, and then transform the content (let&rsquo;s call it <i>data</i> from now on) into some form it can work with. So we&rsquo;ll need a <i>data structure</i>. That&rsquo;s is a generic term for things like lists, tables, trees, arrays, etc. Essentially, data structures are like containers with drawers and compartments.<br>
+At first, our little app (it&rsquo;s merely a script, but let&rsquo;s call it &ldquo;app&rdquo;) has open and read the original CSV file, and then transform the content (let&rsquo;s call it <i>data</i> from now on) into some form it can work with. So we&rsquo;ll need a <i>data structure</i>. That&rsquo;s is a generic term for things like lists, tables, trees, arrays, etc. Essentially, data structures are like containers with drawers and compartments.<br>
 </p>
 
 <p>
-Let&rsquo;s go with a very simple data structure: <i>Yo dawg, I heard you like Lisp? We can make every single row a list, and then put those lists into another list, and then you&rsquo;ll have a list of lists!</i><br>
+Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard you like Lisp? So we&rsquo;ll make every single row a list, and then put those lists into another list, and then you&rsquo;ll have a list of lists!</i> That&rsquo;s how our data structure should look like, written in Lisp code:<br>
 </p>
 
 <div class="org-src-container">
@@ -116,11 +125,11 @@ Let&rsquo;s go with a very simple data structure: <i>Yo dawg, I heard you like L
 <h3 id="org32cce39">Using the CL-CSV Library</h3>
 <div class="outline-text-3" id="text-org32cce39">
 <p>
-Now we know how our data should look like. But still, we have to perform the actual converison to get there. Let&rsquo;s check <a href="http://quickdocs.org">http://quickdocs.org</a> for a library to work with CSV files. Turns out, <a href="http://quickdocs.org/cl-csv/">there&rsquo;s a library <i>&ldquo;cl-csv&rdquo;</i></a> for that, which is capable to do &#x2026; well, a lot of things. Opening files and other stuff included. Neat! So a good chunk of the work is already done by somebody else. That&rsquo;s bad for the learning effect, but good for making something happen quickly and getting immediate gratification! :D<br>
+We know how our data should look like, but still, we have to perform the actual converison to get there. Let&rsquo;s check <a href="http://quickdocs.org">http://quickdocs.org</a> for a library to work with CSV files. Turns out, <a href="http://quickdocs.org/cl-csv/">there&rsquo;s a library <i>&ldquo;cl-csv&rdquo;</i></a> for that, which is capable to do &#x2026; well, a lot of things. Opening files and other stuff included. Neat! So a good chunk of the work is already done by somebody else. That&rsquo;s bad for the learning effect of course, but good for making something happen quickly and getting immediate gratification! :D<br>
 </p>
 
 <p>
-To use the functionality from the library, we must load it first. There&rsquo;s a <a href="https://www.quicklisp.org/beta/">package manager for Common Lisp called &ldquo;Quicklisp&rdquo;</a>. In the REPL, we can use the following command; it downloads the library, saves it in your <i>~/quicklisp</i> folder and loads it into our program:<br>
+To use the functionality from the library, we must load it first. There&rsquo;s a <a href="https://www.quicklisp.org/beta/">package manager for Common Lisp called &ldquo;Quicklisp&rdquo;</a>. In the REPL, we can use the following command; it downloads the library, saves its code in your <code>~/quicklisp/</code> directory and loads it into our program:<br>
 </p>
 
 <div class="org-src-container">
@@ -172,7 +181,7 @@ Here&rsquo;s an example: <code>(+ 1 2 3)</code> Yup, that was addition. The <cod
 </p>
 
 <p>
-The arguments can be anything &#x2014; numbers like in the example above, while many functions accept also other things as arguments &#x2013; they may work on lists and even on other functions.<br>
+The arguments can be anything &#x2013; numbers like in the example above, while many functions accept also other things as arguments &#x2013; they may work on lists and even on other functions.<br>
 </p>
 
 <p>
@@ -199,7 +208,7 @@ Is it a good idea to load the whole CSV at once? Well, probably not. Imagine you
 </p>
 
 <p>
-The data structure stored in the variable is a list, and within that list are other lists (I&rsquo;ve said that before, didn&rsquo;t I?), each representing a row of the original CSV. Just a quick reminder, it looks like that:<br>
+The data structure stored in the variable is a list, and within that list are other lists (I&rsquo;ve said that before, didn&rsquo;t I?), each representing a row of the original CSV. Just a quick reminder, it looks like this:<br>
 </p>
 
 <div class="org-src-container">
