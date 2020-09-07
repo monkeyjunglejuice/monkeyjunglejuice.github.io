@@ -1,2 +1,2 @@
-My personal blog about learning to program and other thinks I find interesting.
+My personal blog about learning programming and other things I find interesting.
 https://monkeyjunglejuice.github.io
