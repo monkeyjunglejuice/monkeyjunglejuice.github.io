@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-08 Tue 01:14 -->
+<!-- 2020-09-08 Tue 15:31 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first App in Lisp</title>
@@ -11,15 +11,13 @@
 >
 <meta name="keywords" content="lisp, tutorial, common lisp, first app, learn lisp, csv, cl-csv">
 <link rel="stylesheet" href="../files/fonts/iosevka-etoile/fonts.css" type="text/css"/>
-<link rel="stylesheet" href="../files/fonts/iosevka-curly-slab/fonts.css" type="text/css"/>
 <link rel="stylesheet" href="../files/fonts/iosevka-curly/fonts.css" type="text/css"/>
 <link rel="stylesheet" href="../files/fonts/alegreya-sans/fonts.css" type="text/css"/>
 <link rel="stylesheet" href="../files/fonts/alegreya/fonts.css" type="text/css"/>
 <link rel="stylesheet" href="../static/sanitize.css-12.0.1/sanitize.css" type="text/css"/>
 <link rel="stylesheet" href="../static/sanitize.css-12.0.1/forms.css" type="text/css"/>
-<link rel="stylesheet" href="../static/org-default.css" type="text/css"/>
-<link rel="stylesheet" href="../static/org-htmlize.css" type="text/css"/>
-<link rel="stylesheet" href="../static/sakura.css" type="text/css"/>
+<link rel="stylesheet" href="../static/org.css" type="text/css"/>
+
 <link rel="stylesheet" href="../static/style.css" type="text/css"/>
 <script src="../static/head.js"></script>
 </head>
@@ -114,10 +112,10 @@ Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard yo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'((<span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-  (<span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-  (<span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-  (<span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">))</span>
+<pre class="src src-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -134,7 +132,7 @@ To use the functionality from the library, we must load it first. There&rsquo;s 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -151,8 +149,8 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> (cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-<span class="org-doc">"Contains the original table in list form."</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<span class="org-doc">"Contains the original table in list form."</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -213,10 +211,10 @@ The data structure stored in the variable is a list, and within that list are ot
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'((<span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-  (<span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-  (<span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-  (<span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">))</span>
+<pre class="src src-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -285,10 +283,10 @@ The expression <code>(cl-csv:read-csv #P"template.csv")</code> returns the conte
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &lt;- There, earmuffs again!</span>
-  (car (cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">))</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &lt;- There, earmuffs again!</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>car <span class="org-rainbow-delimiters-depth-3">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
 <span class="org-doc">"Contains the names of the columns we would like to have in our cleaned CSV,</span>
-<span class="org-doc">specified within the first row of the file 'template.csv'"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<span class="org-doc">specified within the first row of the file 'template.csv'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -301,9 +299,9 @@ What we&rsquo;ll have in that variable, looks like that: <code>("Order No." "Nam
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> (car *input-table*<span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>car *input-table*<span class="org-rainbow-delimiters-depth-2">)</span>
 <span class="org-doc">"Contains the original table header, which is the first row</span>
-<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -320,9 +318,9 @@ Whatever the default predicate for <code>:test</code> is &#x2013; it doesn&rsquo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> (col-name<span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-rainbow-delimiters-depth-2">(</span>col-name<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-doc">"Get the position number of a column by the column name"</span>
-  (position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parinfer-pretty-parensXdim-paren">))</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -331,8 +329,8 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
-    (mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -360,10 +358,10 @@ Filter the input row:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> (input-row<span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-rainbow-delimiters-depth-2">(</span>input-row<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-doc">"Filter a row of the input-table to create a row for the output table"</span>
-  (<span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
-        collect (nth x input-row<span class="org-parinfer-pretty-parensXdim-paren">)))</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
+        collect <span class="org-rainbow-delimiters-depth-3">(</span>nth x input-row<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -372,8 +370,8 @@ Create the output-table. We take the function defined above and map it onto each
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
-  (mapcar #'create-output-row *input-table*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'create-output-row *input-table*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -382,7 +380,7 @@ Write the new CSV to the file system:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>

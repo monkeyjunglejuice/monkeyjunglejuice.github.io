@@ -5,7 +5,7 @@
 
 html {
     font-size: 62.5%; /* = 10px */
-    font-family: 'Iosevka Curly Slab Web', monospace;
+    font-family: 'Iosevka Curly Web', monospace;
     font-weight: 300;
     font-stretch: expanded;
 }
@@ -63,7 +63,7 @@ h3 {
 }
 
 h4 {
-    font-family: 'Iosevka Curly Slab Web', monospace;
+    font-family: 'Iosevka Curly Web', monospace;
     font-weight: 300;
     font-size: 1.9rem;
     line-height: 1.5;
@@ -72,7 +72,7 @@ h4 {
 }
 
 h5, h6 {
-    font-family: 'Iosevka Curly Slab Web', monospace;
+    font-family: 'Iosevka Curly Web', monospace;
     font-weight: 300;
     font-size: 1.9rem;
     line-height: 1.5;
