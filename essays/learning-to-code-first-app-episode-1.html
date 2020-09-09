@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-08 Tue 20:49 -->
+<!-- 2020-09-09 Wed 12:59 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first App in Lisp</title>
@@ -10,22 +10,20 @@
 <meta name="description" content="Me coding my first little app in Lisp, piece by piece - 1st episode"
 >
 <meta name="keywords" content="lisp, tutorial, common lisp, first app, learn lisp, csv, cl-csv">
-<link rel="stylesheet" href="../files/fonts/iosevka-etoile/fonts.css" type="text/css"/>
-<link rel="stylesheet" href="../files/fonts/iosevka-curly/fonts.css" type="text/css"/>
-<link rel="stylesheet" href="../files/fonts/alegreya-sans/fonts.css" type="text/css"/>
-<link rel="stylesheet" href="../files/fonts/alegreya/fonts.css" type="text/css"/>
+<link rel="preload" as="font" href="../files/fonts/iosevka-curly-slab/woff2/iosevka-curly-slab-thin.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../files/fonts/iosevka-curly-slab/fonts.css" type="text/css">
+<link rel="stylesheet" href="../files/fonts/iosevka-curly/fonts.css" type="text/css">
+<link rel="stylesheet" href="../files/fonts/alegreya/fonts.css" type="text/css">
+<link rel="stylesheet" href="../static/sanitize/sanitize.css" type="text/css">
+<link rel="stylesheet" href="../static/sanitize/forms.css" type="text/css">
+<link rel="stylesheet" href="../static/org.css" type="text/css">
+<link rel="stylesheet" href="../static/style.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="../files/monkeyjunglejuice.svg">
-<link rel="stylesheet" href="../static/sanitize/sanitize.css" type="text/css"/>
-<link rel="stylesheet" href="../static/sanitize/forms.css" type="text/css"/>
-<link rel="stylesheet" href="../static/org.css" type="text/css"/>
-<link rel="stylesheet" href="../static/style.css" type="text/css"/>
 <script src="../static/head.js"></script>
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="main"><a id="site-name" href="../index.html">MonkeyJungleJuice</a>
-                                          <a id="github" href="https://github.com/monkeyjunglejuice">Github</a>
-                         </nav>
+<nav id="main"><a id="site-name" href="../index.html">MonkeyJungleJuice</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
 </div>
 <div id="content">
 <header>
@@ -285,8 +283,8 @@ The expression <code>(cl-csv:read-csv #P"template.csv")</code> returns the conte
 <div class="org-src-container">
 <pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &lt;- There, earmuffs again!</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>car <span class="org-rainbow-delimiters-depth-3">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-<span class="org-doc">"Contains the names of the columns we would like to have in our cleaned CSV,</span>
-<span class="org-doc">specified within the first row of the file 'template.csv'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-doc">"Contains the names of the columns we would like to have in the</span>
+<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 

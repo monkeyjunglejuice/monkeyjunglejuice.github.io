@@ -27,6 +27,7 @@ body {
     font-size: 1.35rem; } }
 
 h1, h2, h3, h4, h5, h6 {
+    text-transform: capitalize;
     overflow-wrap: break-word;
     word-wrap: break-word;
     -ms-word-break: break-all;
@@ -38,39 +39,35 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-family: 'Iosevka Etoile Web', serif;
+    font-family: 'Iosevka Curly Slab Web', monospace;
     font-weight: 100;
     font-size: 6.4rem;
-    line-height: 1.1;
+    line-height: 1.2;
     margin-top: 5rem;
     margin-bottom: 4.5rem;
 }
 
 h2 {
-    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Alegreya SC', serif;
     font-weight: 500;
     font-size: 3.2rem;
-    letter-spacing: 0.05em;
-    
-    line-height: 1.1;
+    line-height: 1.2;
     margin-top: 5rem;
     margin-bottom: 4.5rem;
 }
 
 h3 {
-    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Alegreya SC', serif;
     font-weight: 500;
     font-size: 2.4rem;
-    letter-spacing: 0.05em;
-    
-    line-height: 1.1;
+    line-height: 1.2;
     margin-top: 5rem;
     margin-bottom: 2rem;
 }
 
 h4 {
-    font-family: 'Iosevka Curly Web', monospace;
-    font-weight: 300;
+    font-family: 'Alegreya SC', serif;
+    font-weight: 500;
     font-size: 1.9rem;
     line-height: 1.5;
     margin-top: 5rem;
@@ -103,11 +100,11 @@ p {
 }
 
 b, strong {
-    font-weight: 500;
+    font-weight: 400;
 }
 
 small, sub, sup {
-    font-size: 80%;
+    font-size: 1.5rem;
 }
 
 ul {
@@ -139,7 +136,7 @@ img {
 pre {
     font-family: 'Iosevka Curly Web', monospace;
     font-weight: 400;
-    font-stretch: normal;
+    font-stretch: expanded;
     background-color: transparent;
     display: block;
     overflow-x: auto;
@@ -149,15 +146,15 @@ pre {
     margin-left: 0px;
     padding: 1.5em 0 1.5em 1.5em;
     border: 0 none;
-    border-left: 3px dotted #000a;
+    border-left: 2px dotted;
     box-shadow: none;
     overflow: visible;
     word-break: keep-all;
 }
 
 code {
-    font-weight: 400;
-    font-size: 1em;
+    font-family: 'Iosevka Curly Web', monospace;
+    font-weight: 300;
     font-stretch: expanded;
     background-color: #0001;
     border-radius: 1em;
@@ -240,8 +237,6 @@ label, legend, fieldset {
 
 
 #site-name {
-    font-family: 'Alegreya SC', serif;
-    font-weight: 800;
     float: left;
 }
 
@@ -250,9 +245,9 @@ label, legend, fieldset {
 }
 
 #preamble nav {
-    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Alegreya SC', serif;
     font-weight: 500;
-    font-size: 80%;
+    font-size: 1.5rem;
     letter-spacing: 0.1em;
     text-align: right;
 }
@@ -271,9 +266,9 @@ label, legend, fieldset {
 }
 
 #postamble p {
-    font-family: 'Alegreya Sans SC', sans-serif;
+    font-family: 'Alegreya SC', serif;
     font-weight: 500;
-    font-size: 80%;
+    font-size: 1.5rem;
     letter-spacing: 0.1em;
     text-align: center;
 }
@@ -295,10 +290,9 @@ label, legend, fieldset {
 .subtitle {
     text-align: center;
     margin-top:0;
-    /* margin-bottom: 5rem; */
     margin-bottom: 0;
-    font-family: 'Alegreya Sans SC', sans-serif;
-    font-size: 80%;
+    font-family: 'Alegreya SC', serif;
+    font-size: 1.5rem;
     font-weight: 500;
     letter-spacing: 0.1em;
 }
@@ -308,7 +302,6 @@ label, legend, fieldset {
     font-weight: 300;
     font-size: 1.9rem;
     text-transform: uppercase;
-    letter-spacing: 0;
     margin-bottom: 2.0rem;
 }
 
@@ -332,7 +325,7 @@ pre.src::before {
     border: 0 none;
     border-radius: 1em;
     font-weight: 800;
-    font-size: 80%;
+    font-size: 1.5rem;
     text-transform: uppercase;
 }
 
@@ -346,8 +339,8 @@ pre.src::before {
     margin-bottom: 1rem;
 }
 
-.box, .note {
-    font-family: 'Iosevka Curly Web', monospace;
+.note {
+
 }
 
 .box {
