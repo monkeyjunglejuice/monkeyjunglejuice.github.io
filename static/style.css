@@ -44,7 +44,7 @@ h1 {
     font-weight: 100;
     font-size: 6.4rem;
     line-height: 1.2;
-    margin-top: 5rem;
+    margin-top: 5.0rem;
     margin-bottom: 4.5rem;
 }
 
@@ -53,7 +53,7 @@ h2 {
     font-weight: 500;
     font-size: 3.2rem;
     line-height: 1.2;
-    margin-top: 5rem;
+    margin-top: 5.0rem;
     margin-bottom: 4.5rem;
 }
 
@@ -62,8 +62,8 @@ h3 {
     font-weight: 500;
     font-size: 2.4rem;
     line-height: 1.2;
-    margin-top: 5rem;
-    margin-bottom: 2rem;
+    margin-top: 5.0rem;
+    margin-bottom: 2.0rem;
 }
 
 h4 {
@@ -71,8 +71,8 @@ h4 {
     font-weight: 400;
     font-size: 1.9rem;
     line-height: 1.5;
-    margin-top: 5rem;
-    margin-bottom: 2rem;
+    margin-top: 5.0rem;
+    margin-bottom: 2.0rem;
 }
 
 h5, h6 {
@@ -80,8 +80,8 @@ h5, h6 {
     font-weight: 300;
     font-size: 1.9rem;
     line-height: 1.5;
-    margin-top: 5rem;
-    margin-bottom: 2rem;
+    margin-top: 5.0rem;
+    margin-bottom: 2.0rem;
 }
 
 a {
@@ -97,7 +97,7 @@ a:hover {
 
 p {
     margin-top: 0px;
-    margin-bottom: 2rem;
+    margin-bottom: 2.0rem;
 }
 
 b, strong {
@@ -112,7 +112,7 @@ small, sub, sup {
 ul {
     padding-left: 1.5em;
     margin-top: 0px;
-    margin-bottom: 2rem;
+    margin-bottom: 2.0rem;
 }
 
 li {
@@ -144,7 +144,7 @@ pre {
     overflow-x: auto;
     margin-top: 0px;
     margin-right: 0px;
-    margin-bottom: 2rem;
+    margin-bottom: 2.0rem;
     margin-left: 0px;
     padding: 1.5em 0 1.5em 1.5em;
     border: 0 none;
@@ -231,7 +231,7 @@ input[type="checkbox"]:focus {
 
 label, legend, fieldset {
   display: block;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-weight: 600; }
 
 
@@ -264,7 +264,7 @@ label, legend, fieldset {
 
 #postamble {
     border-top: 1px dotted;
-    margin-top: 5rem;
+    margin-top: 5.0rem;
 }
 
 #postamble p {
@@ -277,6 +277,7 @@ label, legend, fieldset {
 
 #content header {
     border-bottom: 1px dotted;
+    margin-bottom: 5.0rem;
 }
 
 #content p {
@@ -285,7 +286,7 @@ label, legend, fieldset {
 
 .title {
     text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: 5.0rem;
 }
 
 .subtitle {
@@ -337,7 +338,7 @@ pre.src::before {
 
 .index ul li {
     font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 1.0rem;
 }
 
 .note {
