@@ -27,6 +27,7 @@ body {
     font-size: 1.35rem; } }
 
 h1, h2, h3, h4, h5, h6 {
+    letter-spacing: 0.1em;
     text-transform: capitalize;
     overflow-wrap: break-word;
     word-wrap: break-word;
