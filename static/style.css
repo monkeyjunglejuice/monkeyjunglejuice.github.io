@@ -102,6 +102,7 @@ p {
 
 b, strong {
     font-weight: 400;
+    font-style: italic;
 }
 
 small, sub, sup {
