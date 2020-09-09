@@ -10,7 +10,7 @@
 
 @font-face {
 	font-family: 'Iosevka Curly Slab Web';
-	font-display: swap;
+	/* font-display: swap; */
 	font-weight: 100;
 	font-stretch: expanded;
 	font-style: normal;
