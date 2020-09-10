@@ -106,7 +106,7 @@ b, strong {
 }
 
 small, sub, sup {
-    font-size: 0.789em  /* 1.5rem */
+    font-size: 0.789em;  /* 1.5rem */
 }
 
 ul {
@@ -249,7 +249,7 @@ label, legend, fieldset {
 #preamble nav {
     font-family: 'Alegreya SC', serif;
     font-weight: 500;
-    font-size: 0.789em /* 1.5rem */
+    font-size: 0.789em; /* 1.5rem */
     letter-spacing: 0.1em;
     text-align: right;
 }
@@ -270,7 +270,7 @@ label, legend, fieldset {
 #postamble p {
     font-family: 'Alegreya SC', serif;
     font-weight: 500;
-    font-size: 0.789em /* 1.5rem */
+    font-size: 0.789em; /* 1.5rem */
     letter-spacing: 0.1em;
     text-align: center;
 }
@@ -294,7 +294,7 @@ label, legend, fieldset {
     margin-top:0;
     margin-bottom: 0;
     font-family: 'Alegreya SC', serif;
-    font-size: 0.789em /* 1.5rem */
+    font-size: 0.789em; /* 1.5rem */
     font-weight: 500;
     letter-spacing: 0.1em;
 }
@@ -302,7 +302,7 @@ label, legend, fieldset {
 #table-of-contents h2 {
     font-family: 'Iosevka Curly Web', monospace;
     font-weight: 300;
-    font-size: 1em /* 1.9rem */
+    font-size: 1em; /* 1.9rem */
     text-transform: uppercase;
     margin-bottom: 2.0rem;
 }
@@ -327,7 +327,7 @@ pre.src::before {
     border: 0 none;
     border-radius: 1em;
     font-weight: 800;
-    font-size: 0.789em /* 1.5rem */
+    font-size: 0.789em; /* 1.5rem */
     text-transform: uppercase;
 }
 
