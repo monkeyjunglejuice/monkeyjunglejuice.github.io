@@ -348,3 +348,10 @@ pre.src::before {
 .box {
     font-weight: 400;
 }
+
+
+/* 3rd PARTY *****************************************************************/
+
+.disqus-footer__logo {
+    display: none;
+}
