@@ -267,12 +267,11 @@ label, legend, fieldset {
     margin-top: 5.0rem;
 }
 
-#postamble p {
+#postamble p.footer {
     font-family: 'Alegreya SC', serif;
     font-weight: 500;
     font-size: 0.789em; /* 1.5rem */
     letter-spacing: 0.1em;
-    text-align: center;
 }
 
 #content header {
@@ -351,6 +350,7 @@ pre.src::before {
 
 
 /* 3rd PARTY *****************************************************************/
+
 
 .disqus-footer__logo {
     display: none;
