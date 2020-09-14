@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-11 Fri 13:40 -->
+<!-- 2020-09-14 Mon 18:03 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first App in Lisp</title>
@@ -31,36 +31,36 @@
 <h1 class="title">Learning to code: Writing my first App in Lisp</h1>
 <p class="subtitle">Project &ldquo;CSV Cleaner&rdquo; | 1st Episode</p>
 </header>
-<div id="outline-container-org70e61c4" class="outline-2">
-<h2 id="org70e61c4">Use Case</h2>
-<div class="outline-text-2" id="text-org70e61c4">
+<div id="outline-container-org8aa358c" class="outline-2">
+<h2 id="org8aa358c">The Use Case</h2>
+<div class="outline-text-2" id="text-org8aa358c">
 <p>
-I was tired to manipulate CSV tables per hand using a spreadsheet program, so I wondered how to automate the process and let it contribute to my mission to become a programmer. To be honest, this app itself doesn&rsquo;t do exciting things, but it&rsquo;s got the right amount of triviality to be suitable as a first project.<br>
+I was tired to manipulate CSV tables per hand using a spreadsheet program, so I wondered how to automate the process and let it contribute to my mission to become a programmer. To be honest, this app itself doesn&rsquo;t do exciting things, but it&rsquo;s got the right amount of triviality to be suitable as a first coding project.<br>
 </p>
 
 <p>
-I&rsquo;ve discovered early that the best way to understand something is to actually teach it (or: if you cannot explain it, you don&rsquo;t understand it). So I&rsquo;ve decided to make a little blog series out of it to track my learning process and to refine the app with each episode, until I&rsquo;m happy with it or too bored &#x2013; whatever happens first.<br>
+I&rsquo;ve discovered early that the best way to understand something is to actually teach it (or put differently: if you cannot explain it, you don&rsquo;t understand it). So I&rsquo;ve decided to make a little blog series out of it to track my learning process (and to refine/refactor the app with each episode), until I&rsquo;m happy with it or too bored &#x2013; whatever happens first.<br>
 </p>
 
 <p>
-It&rsquo;s not a howto, and the code will be full of all kind of clumsy noob things. Can you spot them? Don&rsquo;t hold back your tipps and suggestions &#x2013; let me know in the comments below. I appreciate that, since it will help me learning.<br>
+This is no best-practise howto, because the code will be full of all kind of clumsy noob things. Can you spot them? Don&rsquo;t hold back your tipps and suggestions, please let me know in the comments below. I&rsquo;ll appreciate that!<br>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org0c98bd1" class="outline-2">
-<h2 id="org0c98bd1">Why Lisp and not language XYZ?</h2>
-<div class="outline-text-2" id="text-org0c98bd1">
+<div id="outline-container-org59a0eb4" class="outline-2">
+<h2 id="org59a0eb4">Why Common Lisp and not language XYZ?</h2>
+<div class="outline-text-2" id="text-org59a0eb4">
 <p>
 <code>(automate *the-boring-stuff* #'with-lisp)</code><br>
 </p>
 
 <p>
-I&rsquo;ve choosen Lisp, because to me (a unprejudiced first-time programmer) Lisp looks like the simplest and most comprehensible programming language, after thorough investigation (<a href="best-programming-language-for-beginner.html">read my reasoning here</a>). It just makes sooo much sense. I think Lisp is really mind-blowing and maybe the <i>most brilliant tool to think in</i>.<br>
+I&rsquo;ve choosen Common Lisp, because to me &#x2014; a unprejudiced first-time programmer &#x2014; Lisp looks like the simplest and most comprehensible programming language, after thorough investigation (<a href="best-programming-language-for-beginner.html">read my reasoning here</a>). Lisp is mind-expanding and I suppose it&rsquo;s <i>a brilliant tool to think in</i>.<br>
 </p>
 
 <p>
-If you wanna follow along or tinker with the code, download it here. You&rsquo;ll need a Lisp to run it. If you have none yet, <a href="https://portacle.github.io/">I recommend Portacle</a>.<br>
+If you wanna follow along or tinker with the code, download it here. You&rsquo;ll need Common Lisp to run it. <a href="https://portacle.github.io/">I recommend Portacle</a>, if there isn&rsquo;t yet any Common Lisp environment installed on your machine.<br>
 </p>
 
 <p>
@@ -73,7 +73,7 @@ So welcome to the 1st episode and enjoy the glorious piece of alien technology ;
 <h2 id="org8c698f3">What the App should do</h2>
 <div class="outline-text-2" id="text-org8c698f3">
 <p>
-Before we start, we&rsquo;ll need a features list:<br>
+Before we start, we&rsquo;ll need to define the features for our little app (it&rsquo;s merely a script, but let&rsquo;s call it &ldquo;app&rdquo;):<br>
 </p>
 
 <p>
@@ -103,7 +103,7 @@ For those who don&rsquo;t know: &ldquo;CSV&rdquo; stands for &ldquo;Comma Separa
 </div>
 
 <p>
-At first, our little app (it&rsquo;s merely a script, but let&rsquo;s call it &ldquo;app&rdquo;) has open and read the original CSV file, and then transform the content (let&rsquo;s call it <i>data</i> from now on) into some form it can work with. So we&rsquo;ll need a <i>data structure</i>. That&rsquo;s is a generic term for things like lists, tables, trees, arrays, etc. Essentially, data structures are like containers with drawers and compartments.<br>
+At first, our little app has to open and read the original CSV file, and then transform the content (let&rsquo;s call it <i>data</i> from now on) into some form it can work with. So we&rsquo;ll need a <i>data structure</i>. That&rsquo;s is a generic term for things like lists, tables, trees, arrays, etc. Essentially, data structures are like containers with drawers and compartments.<br>
 </p>
 
 <p>
