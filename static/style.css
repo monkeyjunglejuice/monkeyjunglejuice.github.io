@@ -289,13 +289,14 @@ label, legend, fieldset {
 }
 
 .subtitle {
-    text-align: center;
-    margin-top:0;
-    margin-bottom: 0;
     font-family: 'Alegreya SC', serif;
     font-size: 0.789em; /* 1.5rem */
     font-weight: 500;
+    text-align: center;
     letter-spacing: 0.1em;
+    margin-top:0;
+    margin-bottom: 0;
+    padding: 0;
 }
 
 #table-of-contents h2 {
