@@ -27,7 +27,6 @@ body {
     font-size: 1.4rem; } }
 
 h1, h2, h3, h4, h5, h6 {
-    letter-spacing: 0.1em;
     text-transform: capitalize;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -53,6 +52,7 @@ h2 {
     font-weight: 500;
     font-size: 1.684em; /* 3.2rem */
     line-height: 1.2;
+    letter-spacing: 0.1em;
     margin-top: 5.0rem;
     margin-bottom: 4.5rem;
 }
@@ -62,6 +62,7 @@ h3 {
     font-weight: 500;
     font-size: 1.263em; /* 2.4rem */
     line-height: 1.2;
+    letter-spacing: 0.1em;
     margin-top: 5.0rem;
     margin-bottom: 2.0rem;
 }
@@ -306,6 +307,8 @@ label, legend, fieldset {
     font-family: 'Iosevka Curly Web', monospace;
     font-weight: 300;
     font-size: 1em; /* 1.9rem */
+    line-height: 1.5;
+    letter-spacing: 0;
     text-transform: uppercase;
     margin-bottom: 2.0rem;
 }
