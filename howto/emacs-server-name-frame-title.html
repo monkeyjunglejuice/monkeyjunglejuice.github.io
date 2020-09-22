@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-22 Tue 19:20 -->
+<!-- 2020-09-22 Tue 22:37 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs server name in the frame title</title>
@@ -31,7 +31,7 @@
 <h1 class="title">How to display the Emacs server name in the frame title</h1>
 <p class="subtitle">Multiple Emacs servers</p>
 </header><p>
-As you may know, the usual way to run Emacs is to <a href="https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Emacs-Server">start a server instance</a> &#x2014; e.g. at login &#x2014; and use the <a href="https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Invoking-emacsclient">Emacs client</a> to edit files.<br>
+As you may know, the usual way to run Emacs is to <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html">start a server instance</a> &#x2014; e.g. at login &#x2014; and use the <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html">Emacs client</a> to edit files.<br>
 </p>
 
 <p>
@@ -69,7 +69,7 @@ The simplest way to set a custom frame title goes like this:<br>
 </pre>
 </div>
 <p>
-You put the expression into your <code>~/.emacs.d/init.el</code> or <code>~/.emacs</code> file, whatever exists on your system. <code>%b</code> stands for the name of the buffer you&rsquo;re currently in, and <code>%f</code> for the path of the file you&rsquo;re editing. You&rsquo;ll find a <a href="https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#g_t_0025_002dConstructs">full list of all variables</a> here.<br>
+You put the expression into your <code>~/.emacs.d/init.el</code> or <code>~/.emacs</code> file, whatever exists on your system. <code>%b</code> stands for the name of the buffer you&rsquo;re currently in, and <code>%f</code> for the path of the file you&rsquo;re editing. You&rsquo;ll find a <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/_0025_002dConstructs.html">full list of all variables</a> here.<br>
 </p>
 
 <p>
@@ -96,7 +96,7 @@ Turns out, the server starts towards the end of the initialization, after all th
 </p>
 
 <p>
-We have to make sure the frame title will be set <i>after</i> the server has started. We can <a href="https://www.gnu.org/software/emacs/manual/html_mono/emacs.html#Hooks">use a hook</a> for that. There are many standard hooks in Emacs, and we have to <a href="https://www.gnu.org/software/emacs/manual/html_mono/elisp.html#Init-File">find the right one</a> that runs after the server has been started. According to the <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html">startup summary</a>, it seems like the <code>emacs-startup-hook</code> is run before <code>server-start</code> and therefore shouldn&rsquo;t work, but &#x2026; surprise, it works nevertheless!<br>
+We have to make sure the frame title will be set <i>after</i> the server has started. We can <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html">use a hook</a> for that. There are many standard hooks in Emacs, and we have to <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Init-File.html">find the right one</a> that runs after the server has been started. According to the <a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html">startup summary</a>, it seems like the <code>emacs-startup-hook</code> is run before <code>server-start</code> and therefore shouldn&rsquo;t work, but &#x2026; surprise, it works nevertheless:<br>
 </p>
 
 <div class="org-src-container">
@@ -147,7 +147,7 @@ Then run the hook to call the function:<br>
 <h2 id="orgbc255e1">Conclusion</h2>
 <div class="outline-text-2" id="text-orgbc255e1">
 <p>
-You can (mis)use the principle for other things, like have a different theme for each server instance, or &#x2026; let me know in the comments what you are doing with multiple Emacs servers :)<br>
+You can use the principle for all kind of things, like assigning different themes to server instances, or &#x2026; let me know in the comments what you are doing with multiple Emacs servers :)<br>
 </p>
 </div>
 </div>
