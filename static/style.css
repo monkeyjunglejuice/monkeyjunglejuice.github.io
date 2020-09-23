@@ -356,6 +356,11 @@ pre.src::before {
     margin-bottom: 1.5rem;
 }
 
+.index ul li:before {
+    content: '★';
+    margin-right: 0.5em;
+}
+
 .note {
 
 }
