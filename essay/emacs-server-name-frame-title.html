@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-22 Tue 22:37 -->
+<!-- 2020-09-23 Wed 19:20 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs server name in the frame title</title>
@@ -10,16 +10,16 @@
 <meta name="description" content="Mini-Howto"
 >
 <meta name="keywords" content="howto, emacs server, server name, frame title, emacs, elisp">
-<link rel="preload" as="font" href="/files/fonts/iosevka-curly-slab/woff2/iosevka-curly-slab-extendedthin.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="/static/fonts/iosevka-curly-slab/woff2/iosevka-curly-slab-extendedthin.woff2" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/static/sanitize/sanitize.css" type="text/css">
 <link rel="stylesheet" href="/static/sanitize/forms.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
-<link rel="stylesheet" href="/files/fonts/iosevka-curly-slab/fonts.css" type="text/css">
-<link rel="stylesheet" href="/files/fonts/iosevka-curly/fonts.css" type="text/css">
-<link rel="stylesheet" href="/files/fonts/alegreya/fonts.css" type="text/css">
-<link rel="icon" type="image/svg+xml" href="/files/monkeyjunglejuice.svg">
-<link rel="apple-touch-icon" href="/files/monkeyjunglejuice-icon180.png">
+<link rel="stylesheet" href="/static/fonts/iosevka-curly-slab/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka-curly/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/alegreya/fonts.css" type="text/css">
+<link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
+<link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <script defer src="/static/head.js"></script>
 </head>
 <body>
@@ -83,7 +83,7 @@ So what to do, if you want to have the server name there? Is there a variable <c
 We&rsquo;ll need to find another way to put the server name into the string. Luckily, Emacs already provides a variable <code>server-name</code> that holds the name of the Emacs server. The value of <code>server-name</code> is a string, and the <code>concat</code> function puts several strings together into one (you&rsquo;ve noticed the string with a space <code>" "</code> between the quotes? That&rsquo;s the separator between the file path and the server name; we&rsquo;re concatenating 3 strings here). We may do something like that:<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-rainbow-delimiters-depth-2">(</span>concat <span class="org-string">"%b %f"</span> <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-2">)</span>
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-rainbow-delimiters-depth-2">(</span>concat <span class="org-string">"%b %f"</span> <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -143,9 +143,9 @@ Then run the hook to call the function:<br>
 </pre>
 </div>
 
-<div id="outline-container-orgbc255e1" class="outline-2">
-<h2 id="orgbc255e1">Conclusion</h2>
-<div class="outline-text-2" id="text-orgbc255e1">
+<div id="outline-container-org27661fd" class="outline-2">
+<h2 id="org27661fd">Conclusion</h2>
+<div class="outline-text-2" id="text-org27661fd">
 <p>
 You can use the principle for all kind of things, like assigning different themes to server instances, or &#x2026; let me know in the comments what you are doing with multiple Emacs servers :)<br>
 </p>
