@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-24 Thu 18:51 -->
+<!-- 2020-09-24 Thu 19:09 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -155,11 +155,13 @@ To update the frame title when the server is started from within Emacs, we&rsquo
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Run the hook to call the function at startup</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
           <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
+            <span class="org-doc">"Things to do at startup after 'init.el'."</span>
             <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Call the function after entering or leaving 'server-mode', too</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'server-mode-hook
           <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
+            <span class="org-doc">"Things to do after entering or leaving 'server-mode'."</span>
             <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
