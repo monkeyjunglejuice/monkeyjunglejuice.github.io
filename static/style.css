@@ -357,7 +357,9 @@ pre.src::before {
 }
 
 .index ul li:before {
-    content: '★';
+    content: '✶';
+    font-family: 'Alegreya SC', serif; 
+    font-weight: 500;
     margin-right: 0.5em;
 }
 
