@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-24 Thu 13:55 -->
+<!-- 2020-09-24 Thu 17:11 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -35,30 +35,28 @@ As you may know, the most convenient way to use Emacs is to <a href="https://www
 </p>
 
 <p>
-There are some scenarios why one would run <i>more than one</i> Emacs server instance: Maybe to run some Emacs application servers, or to outsource tasks to another Emacs process for load balancing.<br>
+There are some scenarios why one would run <i>more than one</i> Emacs server instance: Maybe to outsource tasks to another Emacs process for whatever reason <code>(server-eval-at "foo" '(* 3 3))</code>, or to have separate workspaces &#x2013; eg. one for work and another for personal stuff &#x2013; like I do (there may be more sophisticated ways to implement workspaces in Emacs tough).<br>
 </p>
 
 <p>
-The server feature comes also handy to have separate workspaces, eg. one for coding and a second one for writing &#x2013; like I do (there may be more sophisticated ways to implement workspaces in Emacs tough).<br>
+You can start the servers via shell commands in your terminal, or put the commands into your autostart:<br>
 </p>
-
-<p>
-Start the servers as shell commands or put the commands into your autostart apps.<br>
-</p>
-<pre class="example">
-$ emacs --daemon=coding
-$ emacs --daemon=writing
+<div class="org-src-container">
+<pre class="src src-shell">emacs --daemon=work
+emacs --daemon=personal
 </pre>
+</div>
 
 <p>
-And then connect via:<br>
+And then connect to a server like:<br>
 </p>
-<pre class="example">
-$ emacsclient -s writing -nc
+<div class="org-src-container">
+<pre class="src src-shell">emacsclient -s personal -nc
 </pre>
+</div>
 
 <p>
-I thought it would be nice to see the server name in my <del>window</del> frame title to know in which frame I am (&rsquo;coding&rsquo; or &rsquo;writing&rsquo;). <i>By the way, a &rsquo;frame&rsquo; in Emacs terminology means the ordinary desktop window.</i><br>
+I thought it would be nice to see the server name in my <del>window</del> frame title to know in which frame I am (&rsquo;work&rsquo; or &rsquo;personal&rsquo;). <i>By the way, a &rsquo;frame&rsquo; in Emacs terminology means the ordinary desktop window.</i><br>
 </p>
 
 <p>
@@ -88,11 +86,11 @@ We&rsquo;ll need to find another way to put the server name into the string. Luc
 </div>
 
 <p>
-But &#x2026; meh. It&rsquo;s valid code, still doesn&rsquo;t work. &ldquo;server&rdquo; appears in the frame title instead of &ldquo;writing&rdquo;. &ldquo;server&rdquo; is the default value of <code>server-name</code>.<br>
+But &#x2026; meh. It&rsquo;s valid code, still doesn&rsquo;t work. &ldquo;server&rdquo; appears in the frame title instead of &ldquo;personal&rdquo;, because &ldquo;server&rdquo; is the default value of <code>server-name</code>.<br>
 </p>
 
 <p>
-Turns out, the server starts towards the end of the initialization, after all the things in &rsquo;init.el&rsquo; have done their thing. We cannot set the frame title just plainly in &rsquo;init.el&rsquo;, because if we do so, the frame title will be set <i>before</i> the server has been started and got its name, still with the default value of <code>server-name</code>.<br>
+Turns out, the server starts towards the end of the initialization process, after all the things in &rsquo;init.el&rsquo; have done their thing. We cannot set the frame title just plainly in &rsquo;init.el&rsquo;, because if we do so, the frame title will be set <i>before</i> the server has been started and got its name, still with the default value of <code>server-name</code>.<br>
 </p>
 
 <p>
@@ -108,7 +106,7 @@ We have to make sure the frame title will be set <i>after</i> the server has sta
 </div>
 
 <p>
-What if we want to run Emacs without server mode? In that case, the default value of <code>server-name</code> will be shown again. To get rid of it, we&rsquo;ll have to extend the <code>setq</code> form a bit:<br>
+What if we want to run Emacs without server-mode? In that case, the default value of <code>server-name</code> will be shown again. To get rid of it, we&rsquo;ll have to extend the <code>setq</code> form a bit:<br>
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
@@ -139,7 +137,7 @@ Or even better &#x2013; let&rsquo;s define a separate named function to set the 
 </pre>
 </div>
 <p>
-The solution above works only if one summons the server via command line argument, e. g. <code>emacs --daemon=writing</code>. But it doesn&rsquo;t work when starting the server from within emacs via evaluating the function <code>(server-mode)</code>, <code>(server-start)</code> or the respective &rsquo;M-x&rsquo; key commands.<br>
+The solution above works only if one summons the server via command line argument like described in the beginning (e. g. <code>emacs --daemon=personal</code>). But it doesn&rsquo;t work when starting the server from within Emacs via calling the function <code>(server-mode)</code>, <code>(server-start)</code> or the respective &rsquo;M-x &#x2026;&rsquo; key commands.<br>
 </p>
 
 <div id="outline-container-orgcc8adb2" class="outline-2">
