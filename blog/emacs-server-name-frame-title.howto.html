@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-24 Thu 13:42 -->
+<!-- 2020-09-24 Thu 13:55 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -24,7 +24,7 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="main"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<nav id="main"><a id="site-name" href="/">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
 </div>
 <div id="content">
 <header>
@@ -139,7 +139,7 @@ Or even better &#x2013; let&rsquo;s define a separate named function to set the 
 </pre>
 </div>
 <p>
-The solution above works only if one summons the server via command line argument, e. g. <code>emacs --daemon=writing</code>. But it does not work when starting the server from within emacs via evaluating the function <code>(server-mode)</code>, <code>(server-start)</code> or the respective &rsquo;M-x&rsquo; key commands.<br>
+The solution above works only if one summons the server via command line argument, e. g. <code>emacs --daemon=writing</code>. But it doesn&rsquo;t work when starting the server from within emacs via evaluating the function <code>(server-mode)</code>, <code>(server-start)</code> or the respective &rsquo;M-x&rsquo; key commands.<br>
 </p>
 
 <div id="outline-container-orgcc8adb2" class="outline-2">
