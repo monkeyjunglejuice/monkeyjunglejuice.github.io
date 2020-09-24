@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-23 Wed 22:00 -->
+<!-- 2020-09-24 Thu 13:42 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -31,11 +31,11 @@
 <h1 class="title">How to display the Emacs Server Name in the Frame Title?</h1>
 <p class="subtitle">A short How-To</p>
 </header><p>
-As you may know, the usual way to run Emacs is to <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html">start a server instance</a> &#x2014; e.g. at login &#x2014; and use the <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html">Emacs client</a> to edit files.<br>
+As you may know, the most convenient way to use Emacs is to <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html">start a server instance</a> &#x2014; e.g. at login &#x2014; and use the <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html">Emacs client</a> to edit files.<br>
 </p>
 
 <p>
-There are some scenarios why one would run <i>more than one</i> Emacs server instance: Maybe to run some Emacs application servers, or to outsource tasks for load balancing reasons.<br>
+There are some scenarios why one would run <i>more than one</i> Emacs server instance: Maybe to run some Emacs application servers, or to outsource tasks to another Emacs process for load balancing.<br>
 </p>
 
 <p>
@@ -58,7 +58,7 @@ $ emacsclient -s writing -nc
 </pre>
 
 <p>
-I thought it would be nice to see the server name in my frame title to know in which <del>window</del> frame I am (<i>&rsquo;coding&rsquo;</i> or <i>&rsquo;writing&rsquo;</i>). By the way, a &rsquo;frame&rsquo; is the ordinary desktop window in Emacs terminology.<br>
+I thought it would be nice to see the server name in my <del>window</del> frame title to know in which frame I am (&rsquo;coding&rsquo; or &rsquo;writing&rsquo;). <i>By the way, a &rsquo;frame&rsquo; in Emacs terminology means the ordinary desktop window.</i><br>
 </p>
 
 <p>
@@ -108,7 +108,7 @@ We have to make sure the frame title will be set <i>after</i> the server has sta
 </div>
 
 <p>
-What if we want to run Emacs without server mode? In that case, the default value of <code>server-name</code> will be shown again. To get rid of it, we&rsquo;ll have to extend the <code>setq</code> form a bit. Finally :) You can put that into your &rsquo;init.el&rsquo;:<br>
+What if we want to run Emacs without server mode? In that case, the default value of <code>server-name</code> will be shown again. To get rid of it, we&rsquo;ll have to extend the <code>setq</code> form a bit:<br>
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
@@ -124,24 +124,23 @@ What if we want to run Emacs without server mode? In that case, the default valu
 Or even better &#x2013; let&rsquo;s define a separate named function to set the frame title. That looks a bit more tidy when you hook more than one functions into <code>emacs-startup-hook</code>:<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-frame-title</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Define the function</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-frame-title</span> <span class="org-rainbow-delimiters-depth-2">()</span>
   <span class="org-doc">"Set a custom frame title."</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">setq</span> frame-title-format
         <span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-string">"%b %f"</span>
                 <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-5">(</span>not <span class="org-rainbow-delimiters-depth-6">(</span>equal server-name <span class="org-string">"server"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
                   <span class="org-rainbow-delimiters-depth-5">(</span>concat <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
 
-<p>
-Then run the hook to call the function:<br>
-</p>
-<div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Run the hook to call the function</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
           <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
             <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
+<p>
+The solution above works only if one summons the server via command line argument, e. g. <code>emacs --daemon=writing</code>. But it does not work when starting the server from within emacs via evaluating the function <code>(server-mode)</code>, <code>(server-start)</code> or the respective &rsquo;M-x&rsquo; key commands.<br>
+</p>
 
 <div id="outline-container-orgcc8adb2" class="outline-2">
 <h2 id="orgcc8adb2">Conclusion</h2>
