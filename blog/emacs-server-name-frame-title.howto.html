@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-24 Thu 17:11 -->
+<!-- 2020-09-24 Thu 18:51 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -113,7 +113,7 @@ What if we want to run Emacs without server-mode? In that case, the default valu
           <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
             <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">setq</span> frame-title-format
                   <span class="org-rainbow-delimiters-depth-4">(</span>concat <span class="org-string">"%b %f"</span>
-                          <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-6">(</span>not <span class="org-rainbow-delimiters-depth-7">(</span>equal server-name <span class="org-string">"server"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                          <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-6">(</span>server-running-p<span class="org-rainbow-delimiters-depth-6">)</span>
                             <span class="org-rainbow-delimiters-depth-6">(</span>concat <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
@@ -127,7 +127,7 @@ Or even better &#x2013; let&rsquo;s define a separate named function to set the 
   <span class="org-doc">"Set a custom frame title."</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">setq</span> frame-title-format
         <span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-string">"%b %f"</span>
-                <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-5">(</span>not <span class="org-rainbow-delimiters-depth-6">(</span>equal server-name <span class="org-string">"server"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-5">(</span>server-running-p<span class="org-rainbow-delimiters-depth-5">)</span>
                   <span class="org-rainbow-delimiters-depth-5">(</span>concat <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Run the hook to call the function</span>
@@ -137,14 +137,41 @@ Or even better &#x2013; let&rsquo;s define a separate named function to set the 
 </pre>
 </div>
 <p>
-The solution above works only if one summons the server via command line argument like described in the beginning (e. g. <code>emacs --daemon=personal</code>). But it doesn&rsquo;t work when starting the server from within Emacs via calling the function <code>(server-mode)</code>, <code>(server-start)</code> or the respective &rsquo;M-x &#x2026;&rsquo; key commands.<br>
+The solution above works now if one summons the server via command line argument like described in the beginning (e. g. <code>emacs --daemon=personal</code>). But it doesn&rsquo;t work when starting the server from within Emacs via calling the function <code>server-mode</code> or the respective &rsquo;M-x server-mode&rsquo; command.<br>
+</p>
+
+<p>
+To update the frame title when the server is started from within Emacs, we&rsquo;ll use another hook:<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Define the function</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-frame-title</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-doc">"Set a custom frame title."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">setq</span> frame-title-format
+        <span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-string">"%b %f"</span>
+                <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-5">(</span>server-running-p<span class="org-rainbow-delimiters-depth-5">)</span>
+                  <span class="org-rainbow-delimiters-depth-5">(</span>concat <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Run the hook to call the function at startup</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
+          <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
+            <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Call the function after entering or leaving 'server-mode', too</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'server-mode-hook
+          <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
+            <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+<p>
+That&rsquo;s all :)<br>
 </p>
 
 <div id="outline-container-orgcc8adb2" class="outline-2">
 <h2 id="orgcc8adb2">Conclusion</h2>
 <div class="outline-text-2" id="text-orgcc8adb2">
 <p>
-You can use the principle for all kind of things, like assigning different themes to server instances, or &#x2026; let me know in the comments what you are doing with multiple Emacs servers :)<br>
+You can use the principle for all kind of things, like assigning different themes to server instances, or, or, or &#x2026; let me know in the comments what you are doing with multiple Emacs servers :)<br>
 </p>
 </div>
 </div>
