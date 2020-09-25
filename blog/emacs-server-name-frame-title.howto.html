@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-24 Thu 20:37 -->
+<!-- 2020-09-25 Fri 13:13 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -11,8 +11,7 @@
 >
 <meta name="keywords" content="howto, emacs server, server name, frame title, emacs, elisp">
 <link rel="preload" as="font" href="/static/fonts/iosevka-curly-slab/woff2/iosevka-curly-slab-extendedthin.woff2" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/static/sanitize/sanitize.css" type="text/css">
-<link rel="stylesheet" href="/static/sanitize/forms.css" type="text/css">
+<link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/iosevka-curly-slab/fonts.css" type="text/css">
@@ -155,13 +154,13 @@ To update the frame title when the server is started from within Emacs, we&rsquo
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Run the hook to call the function while starting</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
           <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
-            <span class="org-doc">"Things to do after loading init files."</span>
+            <span class="org-doc">"Functions to call after loading init files."</span>
             <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Call the function after entering or leaving 'server-mode'</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'server-mode-hook
           <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
-            <span class="org-doc">"Things to do after entering or leaving 'server-mode'."</span>
+            <span class="org-doc">"Functions to call after entering or leaving 'server-mode'."</span>
             <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
