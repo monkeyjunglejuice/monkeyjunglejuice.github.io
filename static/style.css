@@ -347,17 +347,17 @@ pre.src::before {
     text-transform: uppercase;
 }
 
-#content nav ul {
+#content nav.index ul {
     list-style-type: none;
     /* padding-left: 0; */
 }
 
-#content nav ul li {
+#content nav.index ul li {
     font-weight: 400;
     margin-bottom: 1.5rem;
 }
 
-#content nav ul li:before {
+#content nav.index ul li:before {
     content: '✶';
     font-family: 'Alegreya SC', serif; 
     font-weight: 500;
