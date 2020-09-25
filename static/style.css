@@ -87,13 +87,13 @@ h5, h6 {
 
 a {
     text-decoration: underline;
-    color: #000f;
+    color: inherit;
 }
 
 a:hover {
-    color: #000f;
     text-decoration: none;
     border-bottom: 1px solid;
+    color: inherit;
 }
 
 p {
@@ -159,10 +159,10 @@ code {
     font-family: 'Iosevka Curly Web', monospace;
     font-weight: 400;
     font-stretch: expanded;
-    background-color: #fffc;
-    border-radius: 1px;
+    background-color: #0001;
+    border-radius: 2px;
     padding: 0em 0.15em 0em 0.15em;
-    white-space: pre-wrap;
+    white-space: nowrap;
 }
 
 pre > code {
@@ -200,7 +200,7 @@ textarea {
     white-space: nowrap;
     background-color: #ff780075;
     color: #000;
-    border-radius: 1px;
+    border-radius: 2px;
     border: 2px solid #000;
     cursor: pointer;
     box-sizing: border-box;
@@ -243,7 +243,7 @@ input[type="checkbox"]:focus {
 label, legend, fieldset {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: 600; }
+  font-weight: 500; }
 
 
 /* IDs AND CLASSES ***********************************************************/
@@ -306,8 +306,8 @@ label, legend, fieldset {
 
 .subtitle {
     font-family: 'Alegreya SC', serif;
-    font-size: 0.789em; /* 1.5rem */
     font-weight: 500;
+    font-size: 0.789em; /* 1.5rem */
     text-align: center;
     letter-spacing: 0.1em;
     margin-top:0;
@@ -343,9 +343,10 @@ pre.src::before {
     padding: 0 0.4em;
     border: 0 none;
     border-radius: 1em;
-    font-weight: 800;
+    font-family: 'Alegreya SC', serif;
+    font-weight: 500;
     font-size: 0.789em; /* 1.5rem */
-    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 #content nav.index ul {
@@ -360,8 +361,8 @@ pre.src::before {
 
 #content nav.index ul li:before {
     content: '✶';
-    font-family: 'Alegreya SC', serif; 
-    font-weight: 500;
+    font-family: 'Alegreya', serif; 
+    font-weight: 400;
     margin-right: 0.5em;
 }
 
