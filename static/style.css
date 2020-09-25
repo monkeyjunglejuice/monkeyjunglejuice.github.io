@@ -336,7 +336,7 @@ label, legend, fieldset {
 }
 
 pre.src::before {
-    background-color: #ffff;
+    background-color: #0001;
     color: #000c;
     top: -5px;
     right: 0px;
