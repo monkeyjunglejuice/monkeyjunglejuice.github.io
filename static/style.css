@@ -3,7 +3,7 @@
 
 html {
     font-size: 62.5%; /* = 10px */
-    font-family: 'Iosevka Curly Web', monospace;
+    font-family: 'Iosevka Curly Slab Web', monospace;
 }
 
 body {
@@ -47,28 +47,28 @@ h1 {
 }
 
 h2 {
-    font-family: 'Alegreya SC', serif;
-    font-weight: 500;
-    font-size: 1.684em; /* 3.2rem */
+    font-family: 'Alegreya', serif;
+    font-weight: 400;
+    font-size: 1.895em; /* 3.6rem */
+    font-style: italic;
     line-height: 1.2;
-    letter-spacing: 0.1em;
     margin-top: 5.0rem;
     margin-bottom: 4.5rem;
 }
 
 h3 {
-    font-family: 'Alegreya SC', serif;
-    font-weight: 500;
-    font-size: 1.263em; /* 2.4rem */
+    font-family: 'Alegreya', serif;
+    font-weight: 400;
+    font-size: 1.474em; /* 2.8rem */
+    font-style: italic;
     line-height: 1.2;
-    letter-spacing: 0.1em;
     margin-top: 5.0rem;
     margin-bottom: 2.0rem;
 }
 
 h4 {
-    font-family: 'Iosevka Curly Web', monospace;
-    font-weight: 400;
+    font-family: 'Iosevka Curly Slab Web', monospace;
+    font-weight: 300;
     font-size: 1em; /* 1.9rem */
     line-height: 1.5;
     margin-top: 5.0rem;
@@ -76,12 +76,13 @@ h4 {
 }
 
 h5, h6 {
-    font-family: 'Iosevka Curly Web', monospace;
+    font-family: 'Iosevka Curly Slab Web', monospace;
     font-weight: 300;
     font-size: 1em; /* 1.9rem */
     line-height: 1.5;
-    margin-top: 5.0rem;
+    margin-top: 2.0rem;
     margin-bottom: 2.0rem;
+    padding-left: 1.5em;
 }
 
 a {
@@ -156,11 +157,11 @@ pre {
 
 code {
     font-family: 'Iosevka Curly Web', monospace;
-    font-weight: 300;
+    font-weight: 400;
     font-stretch: expanded;
-    background-color: #0001;
-    border-radius: 1em;
-    padding: 0em 0.3em 0.05em 0.3em;
+    background-color: #fffc;
+    border-radius: 1px;
+    padding: 0em 0.15em 0em 0.15em;
     white-space: pre-wrap;
 }
 
