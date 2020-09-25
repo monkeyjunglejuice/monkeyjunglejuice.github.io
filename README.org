@@ -1,2 +1,5 @@
-My personal blog about learning programming and other things I find interesting:
+* My personal blog about learning programming and other things I find interesting
+
 https://monkeyjunglejuice.github.io
+
+/Blog software: nothing but Emacs and Org-mode, with the help of a bit CSS and nice fonts./
