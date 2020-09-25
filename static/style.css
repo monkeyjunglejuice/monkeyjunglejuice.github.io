@@ -282,6 +282,7 @@ label, legend, fieldset {
     font-weight: 500;
     font-size: 0.789em; /* 1.5rem */
     letter-spacing: 0.1em;
+    text-align: center;
 }
 
 #content header {
@@ -346,17 +347,17 @@ pre.src::before {
     text-transform: uppercase;
 }
 
-.index ul {
+#content nav ul {
     list-style-type: none;
     /* padding-left: 0; */
 }
 
-.index ul li {
+#content nav ul li {
     font-weight: 400;
     margin-bottom: 1.5rem;
 }
 
-.index ul li:before {
+#content nav ul li:before {
     content: '✶';
     font-family: 'Alegreya SC', serif; 
     font-weight: 500;
