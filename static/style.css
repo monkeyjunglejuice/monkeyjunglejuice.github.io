@@ -110,19 +110,27 @@ small, sub, sup {
     font-size: 0.789em;  /* 1.5rem */
 }
 
-ul {
+li {
+    margin-top: 2.0rem;
+}
+
+ul, ol {
     padding-left: 1.5em;
-    margin-top: 0px;
+    margin-top: 0;
     margin-bottom: 2.0rem;
 }
 
-li {
-    margin-bottom: 0;
+ul li {
+    list-style-type: '— ';
+}
+
+ul li li {
+    list-style-type: '— ';
 }
 
 blockquote {
     font-style: italic;
-    padding: 0 1.5rem 0 1.5rem;
+    padding: 0 2rem 0 2rem;
     border: 0 none;
 }
 
@@ -319,6 +327,7 @@ label, legend, fieldset {
     font-weight: 300;
     font-size: 1em; /* 1.9rem */
     line-height: 1.5;
+    font-style: normal;
     letter-spacing: 0;
     text-transform: uppercase;
     margin-bottom: 2.0rem;
@@ -332,6 +341,7 @@ label, legend, fieldset {
 #table-of-contents li,
 #table-of-contents li ul,
 #table-of-contents li ol {
+    margin-top: 0;
     margin-bottom: 0;
 }
 
@@ -359,17 +369,25 @@ pre.src::before {
     margin-bottom: 1.5rem;
 }
 
-#content nav.index ul li:before {
-    content: '✶';
-    font-family: 'Alegreya', serif; 
-    font-weight: 400;
-    margin-right: 0.5em;
-}
-
 .note {
 
 }
 
 .box {
     font-weight: 400;
+    margin-top: 5.0rem;
+    margin-bottom: 5.0rem;
+    padding-left: 1.5em;
+}
+
+.box li li {
+    font-weight: 300;
+}
+
+.box ul li {
+    list-style-type: '★ ';
+}
+
+.box ul li li {
+    list-style-type: '→ ';
 }
