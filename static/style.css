@@ -121,11 +121,11 @@ ul, ol {
 }
 
 ul li {
-    list-style-type: '— ';
+    list-style-type: '– ';
 }
 
 ul li li {
-    list-style-type: '— ';
+    list-style-type: '– ';
 }
 
 blockquote {
