@@ -1,5 +1,5 @@
-* My personal blog about learning programming and other things I find interesting
+* My personal [[https://monkeyjunglejuice.github.io][blog about learning programming]], beginning and "being a noob"
 
-https://monkeyjunglejuice.github.io
 
-/Blog software: nothing but Emacs and Org-mode, with the help of a bit CSS and nice fonts./
+
+_Entirely published with Emacs and Org-mode and the help of a bit CSS and nice fonts._
