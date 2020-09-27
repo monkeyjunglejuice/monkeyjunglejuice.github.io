@@ -1,5 +1,4 @@
-* My personal [[https://monkeyjunglejuice.github.io][blog about learning programming]], beginning and "being a noob"
+* My personal [[https://monkeyjunglejuice.github.io][blog about learning programming]]
+... and a few other things I'm interested in.
 
-
-
-_Entirely published with Emacs and Org-mode and the help of a bit CSS and nice fonts._
+/Published with nothing but [[https:/www.gnu.org/software/emacs//][Emacs]], [[https://orgmode.org/][Org-mode]], a bit CSS and nice fonts./
