@@ -125,10 +125,6 @@ ul li {
     list-style-type: '– ';
 }
 
-ul li li {
-    list-style-type: '– ';
-}
-
 blockquote {
     font-style: italic;
     padding: 0 2rem 0 2rem;
