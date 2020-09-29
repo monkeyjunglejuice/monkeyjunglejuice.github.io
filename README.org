@@ -1,5 +1,3 @@
-#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io">
-
 * My personal [[https://monkeyjunglejuice.github.io][blog about learning programming]]
 ... and a few other things I'm interested in.
 
