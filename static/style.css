@@ -376,6 +376,17 @@ fieldset {
   margin-bottom: 0;
 }
 
+.index {
+  font-weight: 400;
+  margin-bottom: 5rem;
+  padding-left: 1.5em;
+}
+
+.index ul li {
+  list-style-type: '★ ';
+  margin-bottom: 1.5rem;
+}
+
 .box {
   font-weight: 400;
   margin-top: 5rem;
@@ -430,10 +441,4 @@ pre.src::before {
   font-weight: 500;
   font-size: 0.789em; /* 1.5rem */
   letter-spacing: 0.1em;
-}
-
-#content nav.index ul li {
-  list-style-type: '★ ';
-  font-weight: 400;
-  margin-bottom: 1.5rem;
 }
