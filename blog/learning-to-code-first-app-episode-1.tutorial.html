@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-09-29 Tue 20:35 -->
+<!-- 2020-10-22 Thu 11:41 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first App in Lisp</title>
@@ -31,9 +31,9 @@
 <h1 class="title">Learning to code: Writing my first App in Lisp</h1>
 <p class="subtitle">Project &ldquo;CSV Cleaner&rdquo; | 1st Episode</p>
 </header>
-<div id="outline-container-org52f436c" class="outline-2">
-<h2 id="org52f436c">The Use Case</h2>
-<div class="outline-text-2" id="text-org52f436c">
+<div id="outline-container-org7cab00b" class="outline-2">
+<h2 id="org7cab00b">The Use Case</h2>
+<div class="outline-text-2" id="text-org7cab00b">
 <p>
 I was tired to manipulate CSV tables per hand using a spreadsheet program, so I wondered how to automate the process and let it contribute to my mission to become a programmer. To be honest, this app itself doesn&rsquo;t do exciting things, but it&rsquo;s got the right amount of triviality to be suitable as a first coding project.<br>
 </p>
@@ -48,9 +48,9 @@ This is no best-practise howto, because the code will be full of all kind of clu
 </div>
 </div>
 
-<div id="outline-container-orgb4b1e34" class="outline-2">
-<h2 id="orgb4b1e34">Why Common Lisp and not Language XYZ?</h2>
-<div class="outline-text-2" id="text-orgb4b1e34">
+<div id="outline-container-org538dd95" class="outline-2">
+<h2 id="org538dd95">Why Common Lisp and not Language XYZ?</h2>
+<div class="outline-text-2" id="text-org538dd95">
 <p>
 <code>(automate *the-boring-stuff* #'with-lisp)</code><br>
 </p>
@@ -69,9 +69,9 @@ So welcome to the 1st episode and enjoy the glorious piece of alien technology ;
 </div>
 </div>
 
-<div id="outline-container-org89640df" class="outline-2">
-<h2 id="org89640df">What the App should do</h2>
-<div class="outline-text-2" id="text-org89640df">
+<div id="outline-container-org3c024db" class="outline-2">
+<h2 id="org3c024db">What the App should do</h2>
+<div class="outline-text-2" id="text-org3c024db">
 <p>
 Before we start, we&rsquo;ll need to define the features for our little app (it&rsquo;s merely a script, but let&rsquo;s call it &ldquo;app&rdquo;):<br>
 </p>
@@ -87,18 +87,18 @@ f) &#x2026; and spits out a sweet cleaned CSV!<br>
 </div>
 </div>
 
-<div id="outline-container-orgab582d6" class="outline-2">
-<h2 id="orgab582d6">Woohoo, let&rsquo;s begin!</h2>
-<div class="outline-text-2" id="text-orgab582d6">
+<div id="outline-container-org7bf54ef" class="outline-2">
+<h2 id="org7bf54ef">Woohoo, let&rsquo;s begin!</h2>
+<div class="outline-text-2" id="text-org7bf54ef">
 <p>
 For those who don&rsquo;t know: &ldquo;CSV&rdquo; stands for &ldquo;Comma Separated Values&rdquo;. It is a simple text file that resembles a table: The table rows are represented by rows in the text file, and the table columns by comma-separated values. Assume we&rsquo;ve downloaded a CSV named  <code>orders-export.csv</code> with recent orders from our online shop. When we open that file in a text editor, it looks like this example:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-csv">Order No.<span class="org-csv-separator">,</span>Name<span class="org-csv-separator">,</span>City<span class="org-csv-separator">,</span>Article<span class="org-csv-separator">,</span>Size<span class="org-csv-separator">,</span>Status
-1001<span class="org-csv-separator">,</span>Chris<span class="org-csv-separator">,</span>Manchester<span class="org-csv-separator">,</span>Red thong<span class="org-csv-separator">,</span>XXL<span class="org-csv-separator">,</span>Paid
-1002<span class="org-csv-separator">,</span>Monica<span class="org-csv-separator">,</span>Adelaide<span class="org-csv-separator">,</span>Yoni eggs<span class="org-csv-separator">,</span>Huge<span class="org-csv-separator">,</span>Payment pending
-1003<span class="org-csv-separator">,</span>Hendrik<span class="org-csv-separator">,</span>Stockholm<span class="org-csv-separator">,</span>Hemorrhoid healing stones<span class="org-csv-separator">,</span>9<span class="org-csv-separator">,</span>Paid
+<pre class="src src-csv">Order No.,Name,City,Article,Size,Status
+1001,Chris,Manchester,Red thong,XXL,Paid
+1002,Monica,Adelaide,Yoni eggs,Huge,Payment pending
+1003,Hendrik,Stockholm,Hemorrhoid healing stones,9,Paid
 </pre>
 </div>
 
@@ -119,9 +119,9 @@ Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard yo
 </div>
 </div>
 
-<div id="outline-container-orga93e2a1" class="outline-3">
-<h3 id="orga93e2a1">Using the CL-CSV Library</h3>
-<div class="outline-text-3" id="text-orga93e2a1">
+<div id="outline-container-org4298cdc" class="outline-3">
+<h3 id="org4298cdc">Using the CL-CSV Library</h3>
+<div class="outline-text-3" id="text-org4298cdc">
 <p>
 We know how our data should look like, but still, we have to perform the actual converison to get there. Let&rsquo;s check <a href="http://quickdocs.org">http://quickdocs.org</a> for a library to work with CSV files. Turns out, <a href="http://quickdocs.org/cl-csv/">there&rsquo;s a library <i>&ldquo;cl-csv&rdquo;</i></a> for that, which is capable to do &#x2026; well, a lot of things. Opening files and other stuff included. Neat! So a good chunk of the work is already done by somebody else. That&rsquo;s bad for the learning effect of course, but good for making something happen quickly and getting immediate gratification! :D<br>
 </p>
@@ -198,9 +198,9 @@ I&rsquo;ve also read that you mark global/special variables with <code>*earmuffs
 </div>
 </div>
 
-<div id="outline-container-orga417439" class="outline-3">
-<h3 id="orga417439">Deleting Columns from the CSV</h3>
-<div class="outline-text-3" id="text-orga417439">
+<div id="outline-container-org8b14dd7" class="outline-3">
+<h3 id="org8b14dd7">Deleting Columns from the CSV</h3>
+<div class="outline-text-3" id="text-org8b14dd7">
 <p>
 Is it a good idea to load the whole CSV at once? Well, probably not. Imagine you have a CSV that is a few gigabytes big. In that case, you would likely work sequentially, for instance load a row, perform your operations on it, store it somehow, and then proceed with the next row. The CSVs I work with are barely bigger than a few megabytes, so I&rsquo;m going this way for now.<br>
 </p>
@@ -386,9 +386,9 @@ Write the new CSV to the file system:<br>
 </div>
 </div>
 
-<div id="outline-container-org7a368b6" class="outline-2">
-<h2 id="org7a368b6">Conclusion</h2>
-<div class="outline-text-2" id="text-org7a368b6">
+<div id="outline-container-org276d940" class="outline-2">
+<h2 id="org276d940">Conclusion</h2>
+<div class="outline-text-2" id="text-org276d940">
 <p>
 It works! Features a) and b) and f) accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and adding may be easier than removing :)<br>
 </p>
