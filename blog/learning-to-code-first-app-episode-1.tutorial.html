@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-10-23 Fri 20:27 -->
+<!-- 2020-12-25 Fri 16:28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first App in Lisp</title>
@@ -31,9 +31,9 @@
 <h1 class="title">Learning to code: Writing my first App in Lisp</h1>
 <p class="subtitle">Project &ldquo;CSV Cleaner&rdquo; | 1st Episode</p>
 </header>
-<div id="outline-container-org7cab00b" class="outline-2">
-<h2 id="org7cab00b">The Use Case</h2>
-<div class="outline-text-2" id="text-org7cab00b">
+<div id="outline-container-org5ee62a0" class="outline-2">
+<h2 id="org5ee62a0">The Use Case</h2>
+<div class="outline-text-2" id="text-org5ee62a0">
 <p>
 I was tired to manipulate CSV tables per hand using a spreadsheet program, so I wondered how to automate the process and let it contribute to my mission to become a programmer. To be honest, this app itself doesn&rsquo;t do exciting things, but it&rsquo;s got the right amount of triviality to be suitable as a first coding project.<br>
 </p>
@@ -48,9 +48,9 @@ This is no best-practise howto, because the code will be full of all kind of clu
 </div>
 </div>
 
-<div id="outline-container-org538dd95" class="outline-2">
-<h2 id="org538dd95">Why Common Lisp and not Language XYZ?</h2>
-<div class="outline-text-2" id="text-org538dd95">
+<div id="outline-container-org602f5be" class="outline-2">
+<h2 id="org602f5be">Why Common Lisp and not Language XYZ?</h2>
+<div class="outline-text-2" id="text-org602f5be">
 <p>
 <code>(automate *the-boring-stuff* #'with-lisp)</code><br>
 </p>
@@ -64,32 +64,32 @@ If you wanna follow along or tinker with the code, download it here. You&rsquo;l
 </p>
 
 <p>
-So welcome to the 1st episode and enjoy the glorious piece of alien technology ;)<br>
+So welcome to the 1st episode and enjoy the glorious piece of alien technology.<br>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org3c024db" class="outline-2">
-<h2 id="org3c024db">What the App should do</h2>
-<div class="outline-text-2" id="text-org3c024db">
+<div id="outline-container-orgd789039" class="outline-2">
+<h2 id="orgd789039">What the App should do</h2>
+<div class="outline-text-2" id="text-orgd789039">
 <p>
 Before we start, we&rsquo;ll need to define the features for our little app (it&rsquo;s merely a script, but let&rsquo;s call it &ldquo;app&rdquo;):<br>
 </p>
 
-<p>
-a) It takes a CSV file and then &#x2026;<br>
-b) deletes some specified columns<br>
-c) performs search and replace<br>
-d) does some more operations on the content<br>
-e) sets the pipe &rsquo;|&rsquo; as the delimiter char<br>
-f) &#x2026; and spits out a sweet cleaned CSV!<br>
-</p>
+<ol class="org-ol">
+<li>It takes a CSV file and then &#x2026;<br></li>
+<li>deletes some specified columns<br></li>
+<li>performs search and replace<br></li>
+<li>does some more operations on the content<br></li>
+<li>sets the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
+<li>and spits out a sweet cleaned CSV!<br></li>
+</ol>
 </div>
 </div>
 
-<div id="outline-container-org7bf54ef" class="outline-2">
-<h2 id="org7bf54ef">Woohoo, let&rsquo;s begin!</h2>
-<div class="outline-text-2" id="text-org7bf54ef">
+<div id="outline-container-orgb6e3cb6" class="outline-2">
+<h2 id="orgb6e3cb6">Woohoo, let&rsquo;s begin!</h2>
+<div class="outline-text-2" id="text-orgb6e3cb6">
 <p>
 For those who don&rsquo;t know: &ldquo;CSV&rdquo; stands for &ldquo;Comma Separated Values&rdquo;. It is a simple text file that resembles a table: The table rows are represented by rows in the text file, and the table columns by comma-separated values. Assume we&rsquo;ve downloaded a CSV named  <code>orders-export.csv</code> with recent orders from our online shop. When we open that file in a text editor, it looks like this example:<br>
 </p>
@@ -111,17 +111,17 @@ Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard yo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp">'<span class="org-parenthesis">((</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parenthesis">)</span>
+  <span class="org-parenthesis">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">)</span>
+  <span class="org-parenthesis">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parenthesis">)</span>
+  <span class="org-parenthesis">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">))</span>
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org4298cdc" class="outline-3">
-<h3 id="org4298cdc">Using the CL-CSV Library</h3>
-<div class="outline-text-3" id="text-org4298cdc">
+<div id="outline-container-orge655f6a" class="outline-3">
+<h3 id="orge655f6a">Using the CL-CSV Library</h3>
+<div class="outline-text-3" id="text-orge655f6a">
 <p>
 We know how our data should look like, but still, we have to perform the actual converison to get there. Let&rsquo;s check <a href="http://quickdocs.org">http://quickdocs.org</a> for a library to work with CSV files. Turns out, <a href="http://quickdocs.org/cl-csv/">there&rsquo;s a library <i>&ldquo;cl-csv&rdquo;</i></a> for that, which is capable to do &#x2026; well, a lot of things. Opening files and other stuff included. Neat! So a good chunk of the work is already done by somebody else. That&rsquo;s bad for the learning effect of course, but good for making something happen quickly and getting immediate gratification! :D<br>
 </p>
@@ -131,7 +131,7 @@ To use the functionality from the library, we must load it first. There&rsquo;s 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parenthesis">)</span>
 </pre>
 </div>
 
@@ -148,8 +148,8 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-<span class="org-doc">"Contains the original table in list form."</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parenthesis">)</span>
+<span class="org-doc">"Contains the original table in list form."</span><span class="org-parenthesis">)</span>
 </pre>
 </div>
 
@@ -198,9 +198,9 @@ I&rsquo;ve also read that you mark global/special variables with <code>*earmuffs
 </div>
 </div>
 
-<div id="outline-container-org8b14dd7" class="outline-3">
-<h3 id="org8b14dd7">Deleting Columns from the CSV</h3>
-<div class="outline-text-3" id="text-org8b14dd7">
+<div id="outline-container-orgd1d16c4" class="outline-3">
+<h3 id="orgd1d16c4">Deleting Columns from the CSV</h3>
+<div class="outline-text-3" id="text-orgd1d16c4">
 <p>
 Is it a good idea to load the whole CSV at once? Well, probably not. Imagine you have a CSV that is a few gigabytes big. In that case, you would likely work sequentially, for instance load a row, perform your operations on it, store it somehow, and then proceed with the next row. The CSVs I work with are barely bigger than a few megabytes, so I&rsquo;m going this way for now.<br>
 </p>
@@ -210,10 +210,10 @@ The data structure stored in the variable is a list, and within that list are ot
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp">'<span class="org-parenthesis">((</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parenthesis">)</span>
+  <span class="org-parenthesis">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">)</span>
+  <span class="org-parenthesis">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parenthesis">)</span>
+  <span class="org-parenthesis">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">))</span>
 </pre>
 </div>
 
@@ -282,10 +282,10 @@ The expression <code>(cl-csv:read-csv #P"template.csv")</code> returns the conte
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &lt;- There, earmuffs again!</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>car <span class="org-rainbow-delimiters-depth-3">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &lt;- There, earmuffs again!</span>
+  <span class="org-parenthesis">(</span>car <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parenthesis">))</span>
 <span class="org-doc">"Contains the names of the columns we would like to have in the</span>
-<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-parenthesis">)</span>
 </pre>
 </div>
 
@@ -298,9 +298,9 @@ What we&rsquo;ll have in that variable, looks like that: <code>("Order No." "Nam
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>car *input-table*<span class="org-rainbow-delimiters-depth-2">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-parenthesis">(</span>car *input-table*<span class="org-parenthesis">)</span>
 <span class="org-doc">"Contains the original table header, which is the first row</span>
-<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-parenthesis">)</span>
 </pre>
 </div>
 
@@ -317,9 +317,9 @@ Whatever the default predicate for <code>:test</code> is &#x2013; it doesn&rsquo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-rainbow-delimiters-depth-2">(</span>col-name<span class="org-rainbow-delimiters-depth-2">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-parenthesis">(</span>col-name<span class="org-parenthesis">)</span>
   <span class="org-doc">"Get the position number of a column by the column name"</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-parenthesis">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parenthesis">))</span>
 </pre>
 </div>
 
@@ -328,8 +328,8 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
-    <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
+    <span class="org-parenthesis">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parenthesis">))</span>
 </pre>
 </div>
 
@@ -357,10 +357,10 @@ Filter the input row:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-rainbow-delimiters-depth-2">(</span>input-row<span class="org-rainbow-delimiters-depth-2">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-parenthesis">(</span>input-row<span class="org-parenthesis">)</span>
   <span class="org-doc">"Filter a row of the input-table to create a row for the output table"</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
-        collect <span class="org-rainbow-delimiters-depth-3">(</span>nth x input-row<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-parenthesis">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
+        collect <span class="org-parenthesis">(</span>nth x input-row<span class="org-parenthesis">)))</span>
 </pre>
 </div>
 
@@ -369,8 +369,8 @@ Create the output-table. We take the function defined above and map it onto each
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'create-output-row *input-table*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
+  <span class="org-parenthesis">(</span>mapcar #'create-output-row *input-table*<span class="org-parenthesis">))</span>
 </pre>
 </div>
 
@@ -379,24 +379,24 @@ Write the new CSV to the file system:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parenthesis">)</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org276d940" class="outline-2">
-<h2 id="org276d940">Conclusion</h2>
-<div class="outline-text-2" id="text-org276d940">
+<div id="outline-container-orge048877" class="outline-2">
+<h2 id="orge048877">Conclusion</h2>
+<div class="outline-text-2" id="text-orge048877">
 <p>
-It works! Features a) and b) and f) accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and adding may be easier than removing :)<br>
+It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and adding may be easier than removing :)<br>
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Updated: <span class="date">2020-09-29 Tue 20:35</span> by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></p>
+<p class="footer">Updated: <span class="date">2020-12-25 Fri 16:28</span> by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

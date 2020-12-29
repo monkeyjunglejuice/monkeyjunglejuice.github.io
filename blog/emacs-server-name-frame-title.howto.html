@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-10-23 Fri 20:27 -->
+<!-- 2020-12-25 Fri 16:28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -63,7 +63,7 @@ I thought it would be nice to see the server name in my <del>window</del> frame 
 The simplest way to set a custom frame title goes like this:<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-string">"%b %f"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-string">"%b %f"</span><span class="org-parenthesis">)</span>
 </pre>
 </div>
 
@@ -75,7 +75,7 @@ You put the expression into your <code>~/.emacs.d/init.el</code> or <code>~/.ema
 So what to do, if you want to have the server name there? Is there a variable <code>%X</code> for the server name? Of course not.<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-string">"%b %f %X"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-string">"%b %f %X"</span><span class="org-parenthesis">)</span>
 </pre>
 </div>
 
@@ -83,7 +83,7 @@ So what to do, if you want to have the server name there? Is there a variable <c
 We&rsquo;ll need to find another way to put the server name into the string. Luckily, Emacs already provides a variable <code>server-name</code> that holds the name of the Emacs server. The value of <code>server-name</code> is a string, and the <code>concat</code> function puts several strings together into one (you&rsquo;ve noticed the string with a space <code>" "</code> between the quotes? That&rsquo;s the separator between the file path and the server name; we&rsquo;re concatenating 3 strings here). We may do something like that:<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-rainbow-delimiters-depth-2">(</span>concat <span class="org-string">"%b %f"</span> <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">setq</span> frame-title-format <span class="org-parenthesis">(</span>concat <span class="org-string">"%b %f"</span> <span class="org-string">" "</span> server-name<span class="org-parenthesis">))</span>
 </pre>
 </div>
 
@@ -100,10 +100,10 @@ We have to make sure the frame title will be set <i>after</i> the server has sta
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
-          <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
-            <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">setq</span> frame-title-format
-                  <span class="org-rainbow-delimiters-depth-4">(</span>concat <span class="org-string">"%b %f"</span> <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-parenthesis">(</span>add-hook 'emacs-startup-hook
+          <span class="org-parenthesis">(</span><span class="org-keyword">lambda</span> <span class="org-parenthesis">()</span>
+            <span class="org-parenthesis">(</span><span class="org-keyword">setq</span> frame-title-format
+                  <span class="org-parenthesis">(</span>concat <span class="org-string">"%b %f"</span> <span class="org-string">" "</span> server-name<span class="org-parenthesis">))))</span>
 </pre>
 </div>
 
@@ -111,12 +111,12 @@ We have to make sure the frame title will be set <i>after</i> the server has sta
 What if we want to run Emacs without server-mode? In that case, the default value of <code>server-name</code> will be shown again. To get rid of it, we&rsquo;ll have to extend the <code>setq</code> form a bit:<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
-          <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
-            <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">setq</span> frame-title-format
-                  <span class="org-rainbow-delimiters-depth-4">(</span>concat <span class="org-string">"%b %f"</span>
-                          <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-6">(</span>server-running-p<span class="org-rainbow-delimiters-depth-6">)</span>
-                            <span class="org-rainbow-delimiters-depth-6">(</span>concat <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-emacs-lisp"><span class="org-parenthesis">(</span>add-hook 'emacs-startup-hook
+          <span class="org-parenthesis">(</span><span class="org-keyword">lambda</span> <span class="org-parenthesis">()</span>
+            <span class="org-parenthesis">(</span><span class="org-keyword">setq</span> frame-title-format
+                  <span class="org-parenthesis">(</span>concat <span class="org-string">"%b %f"</span>
+                          <span class="org-parenthesis">(</span><span class="org-keyword">when</span> <span class="org-parenthesis">(</span>server-running-p<span class="org-parenthesis">)</span>
+                            <span class="org-parenthesis">(</span>concat <span class="org-string">" "</span> server-name<span class="org-parenthesis">))))))</span>
 </pre>
 </div>
 
@@ -125,17 +125,17 @@ Or even better &#x2013; let&rsquo;s define a separate named function to set the 
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Define the function</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-frame-title</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-frame-title</span> <span class="org-parenthesis">()</span>
   <span class="org-doc">"Set a custom frame title."</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">setq</span> frame-title-format
-        <span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-string">"%b %f"</span>
-                <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-5">(</span>server-running-p<span class="org-rainbow-delimiters-depth-5">)</span>
-                  <span class="org-rainbow-delimiters-depth-5">(</span>concat <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-parenthesis">(</span><span class="org-keyword">setq</span> frame-title-format
+        <span class="org-parenthesis">(</span>concat <span class="org-string">"%b %f"</span>
+                <span class="org-parenthesis">(</span><span class="org-keyword">when</span> <span class="org-parenthesis">(</span>server-running-p<span class="org-parenthesis">)</span>
+                  <span class="org-parenthesis">(</span>concat <span class="org-string">" "</span> server-name<span class="org-parenthesis">)))))</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Run the hook to call the function</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
-          <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
-            <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-parenthesis">(</span>add-hook 'emacs-startup-hook
+          <span class="org-parenthesis">(</span><span class="org-keyword">lambda</span> <span class="org-parenthesis">()</span>
+            <span class="org-parenthesis">(</span>my-frame-title<span class="org-parenthesis">)))</span>
 </pre>
 </div>
 <p>
@@ -147,41 +147,41 @@ To update the frame title when the server is started from within Emacs, we&rsquo
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Define the function</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-frame-title</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my-frame-title</span> <span class="org-parenthesis">()</span>
   <span class="org-doc">"Set a custom frame title."</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">setq</span> frame-title-format
-        <span class="org-rainbow-delimiters-depth-3">(</span>concat <span class="org-string">"%b %f"</span>
-                <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-5">(</span>server-running-p<span class="org-rainbow-delimiters-depth-5">)</span>
-                  <span class="org-rainbow-delimiters-depth-5">(</span>concat <span class="org-string">" "</span> server-name<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-parenthesis">(</span><span class="org-keyword">setq</span> frame-title-format
+        <span class="org-parenthesis">(</span>concat <span class="org-string">"%b %f"</span>
+                <span class="org-parenthesis">(</span><span class="org-keyword">when</span> <span class="org-parenthesis">(</span>server-running-p<span class="org-parenthesis">)</span>
+                  <span class="org-parenthesis">(</span>concat <span class="org-string">" "</span> server-name<span class="org-parenthesis">)))))</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Run the hook to call the function while starting</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'emacs-startup-hook
-          <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
+<span class="org-parenthesis">(</span>add-hook 'emacs-startup-hook
+          <span class="org-parenthesis">(</span><span class="org-keyword">lambda</span> <span class="org-parenthesis">()</span>
             <span class="org-doc">"Functions to call after loading init files."</span>
-            <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+            <span class="org-parenthesis">(</span>my-frame-title<span class="org-parenthesis">)))</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Call the function after entering or leaving 'server-mode'</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>add-hook 'server-mode-hook
-          <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">()</span>
+<span class="org-parenthesis">(</span>add-hook 'server-mode-hook
+          <span class="org-parenthesis">(</span><span class="org-keyword">lambda</span> <span class="org-parenthesis">()</span>
             <span class="org-doc">"Functions to call after entering or leaving 'server-mode'."</span>
-            <span class="org-rainbow-delimiters-depth-3">(</span>my-frame-title<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+            <span class="org-parenthesis">(</span>my-frame-title<span class="org-parenthesis">)))</span>
 </pre>
 </div>
 <p>
-That&rsquo;s all :)<br>
+That&rsquo;s all!<br>
 </p>
 
-<div id="outline-container-org600cf42" class="outline-2">
-<h2 id="org600cf42">Conclusion</h2>
-<div class="outline-text-2" id="text-org600cf42">
+<div id="outline-container-org95a072a" class="outline-2">
+<h2 id="org95a072a">Conclusion</h2>
+<div class="outline-text-2" id="text-org95a072a">
 <p>
-You can use the principle for all kind of things, like assigning different themes to server instances, or, or, or &#x2026; let me know in the comments what you are doing with multiple Emacs servers :)<br>
+You can use the principle for all kind of things, like assigning different themes to server instances, or, or, or &#x2026; let me know in the comments what you are doing with multiple Emacs servers.<br>
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Updated: <span class="date">2020-10-12 Mon 11:42</span> by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></p>
+<p class="footer">Updated: <span class="date">2020-12-25 Fri 16:24</span> by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
