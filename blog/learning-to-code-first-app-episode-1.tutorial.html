@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2020-12-25 Fri 16:28 -->
+<!-- 2021-01-10 Sun 17:28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first App in Lisp</title>
@@ -167,7 +167,7 @@ But not just collections of things are written in list form; in fact all the sou
 </p>
 
 <p>
-Example: Functions. They are fundamental building blocks in all programms. You define a function (specify what it does) -&gt; then apply the function to something -&gt; and then it returns a result.<br>
+Example: Functions. They are fundamental building blocks in all programms. You define a function (specify what it does) → then apply the function to something → and then it returns a result.<br>
 </p>
 
 <p>
@@ -226,7 +226,7 @@ The thing is: those columns are not columns like in a spreadsheet. In fact, ther
 </p>
 
 <p>
-So we have to build a relation &#x2013; make a connection between a particular &ldquo;column&rdquo; header (eg. &ldquo;Size&rdquo; and the corresponding content like &ldquo;XXL&rdquo;, &ldquo;Huge&rdquo; and &ldquo;9&rdquo;.<br>
+So we have to build a relation and make a connection between a particular &ldquo;column&rdquo; header &#x2013; eg. &ldquo;Size&rdquo; &#x2013; and the corresponding content &#x2013; like &ldquo;XXL&rdquo;, &ldquo;Huge&rdquo; and &ldquo;9&rdquo;.<br>
 </p>
 
 <p>
@@ -282,7 +282,7 @@ The expression <code>(cl-csv:read-csv #P"template.csv")</code> returns the conte
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &lt;- There, earmuffs again!</span>
+<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &#8592; There, earmuffs again!</span>
   <span class="org-parenthesis">(</span>car <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parenthesis">))</span>
 <span class="org-doc">"Contains the names of the columns we would like to have in the</span>
 <span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-parenthesis">)</span>
@@ -313,7 +313,7 @@ For that, we&rsquo;re going to use the built-in function <a href="http://www.lis
 </p>
 
 <p>
-Whatever the default predicate for <code>:test</code> is &#x2013; it doesn&rsquo;t match two strings, even if both are the same. The default test could be either EQ: <code>(eq "Vendor" "Vendor") ; -&gt; NIL</code>. But there&rsquo;s an extra predicate that tells us if two strings are the same, and we&rsquo;re going to use that one <code>:test #'string=</code> instead of the default and <code>(string= "Vendor" "Vendor") ; -&gt; t</code> &#x2013; whoop whoop!<br>
+Whatever the default predicate for <code>:test</code> is &#x2013; it doesn&rsquo;t match two strings, even if both are the same. The default test could be either EQ: <code>(eq "Vendor" "Vendor") ; → NIL</code>. But there&rsquo;s an extra predicate that tells us if two strings are the same, and we&rsquo;re going to use that one <code>:test #'string=</code> instead of the default and <code>(string= "Vendor" "Vendor") ; → t</code> &#x2013; whoop whoop!<br>
 </p>
 
 <div class="org-src-container">
@@ -390,13 +390,13 @@ Write the new CSV to the file system:<br>
 <h2 id="orge048877">Conclusion</h2>
 <div class="outline-text-2" id="text-orge048877">
 <p>
-It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and adding may be easier than removing :)<br>
+It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and adding may be easier than removing.<br>
 </p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Updated: <span class="date">2020-12-25 Fri 16:28</span> by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></p>
+<p class="footer">Updated: <span class="date">2021-01-09 Sat 15:39</span> by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
