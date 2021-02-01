@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-02-01 Mon 13:14 -->
+<!-- 2021-02-01 Mon 16:01 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Which Programming Language should I learn first?</title>
@@ -437,11 +437,11 @@ It&rsquo;s also a practical language to build serious business software with, be
 </p>
 
 <p>
-But there&rsquo;s that Java underbelly who sticks out everywhere, coming with it&rsquo;s own terminology. And that&rsquo;s the big drawback that makes it quite unsuitable as a first language: You&rsquo;ll have to jump into the Java abyss eventually and learn all that stuff to understand the Clojure docs and error messages, distracting you from your mission to learn programming.<br>
+But there&rsquo;s that Java underbelly who sticks out everywhere, coming with it&rsquo;s own terminology. And that&rsquo;s the big drawback that makes it quite unsuitable as a first language: You&rsquo;ll have to jump into the Java abyss eventually and learn that stuff to understand the Clojure docs and error messages, distracting you from your mission to learn programming and making it unneccessarily complicated.<br>
 </p>
 
 <p>
-If you want to try it anyway, I recommend the book &ldquo;Clojure for the Brave and True&rdquo;; it had given me a few enlightening moments how all the parts interlock: functions built of functions, taking functions and spitting out functions, like moving parts of a robot factory. But I think that&rsquo;s more a property of functional-first languages in general. The book convinced me also to take a look at Emacs, which is a mindblowing beast of itself.<br>
+If you want to try it anyway, I recommend the book &ldquo;Clojure for the Brave and True&rdquo;; it had given me a few enlightening moments how all the parts interlock: functions taking functions and spitting out functions, like interlocking parts of a imaginayr robot factory building little machines building little machines &#x2026; But I think that&rsquo;s more a property of functional-first languages in general. The book convinced me also to take a look at Emacs, which is a mindblowing beast of itself.<br>
 </p>
 
 <div class="box">
@@ -461,19 +461,19 @@ If you want to try it anyway, I recommend the book &ldquo;Clojure for the Brave 
 <h3 id="org86f94a6">Scheme and Racket</h3>
 <div class="outline-text-3" id="text-org86f94a6">
 <p>
-Pleasantly surprised by Clojure, I&rsquo;ve looked up other languages from the Lisp family. Scheme is commonly recommended to beginners, and those who are serious about computer science. It&rsquo;s a bit opinionated, but it is also minimalist and therefore good for learning.<br>
+Pleasantly surprised by Clojure, I&rsquo;ve looked up other languages from the Lisp family. Scheme is commonly recommended to beginners, and those who are serious about computer science. It&rsquo;s a bit opinionated in so far to be unopinionated, and Scheme is also minimalist (no distraction) and therefore excellent for learning.<br>
 </p>
 
 <p>
-Racket is a descendant of Scheme (it was called PLT Scheme before) that emphasizes &ldquo;language oriented programming&rdquo;. It means you can design your own small (domain specific) programming languages for your application and then write your application in that language. But you don&rsquo;t have to &#x2013; you can just use &ldquo;normal&rdquo; Racket like everyone else. So don&rsquo;t bother with that for now.<br>
+Racket is a descendant of Scheme (it was called PLT Scheme before). It is also a platform for research and to create and run different programming languages. Scheme can run on Racket, so even if you just want to learn the Scheme language, you can do it comfortably in Racket. That may sound a bit confusing, but it actually isn&rsquo;t. You&rsquo;ll see.<br>
 </p>
 
 <p>
-Racket is also a platform for research and to create and run different programming languages. Scheme can run on Racket, so even if you just want to learn the Scheme language, you can do it comfortably in Racket. That may sound a bit confusing, but it actually isn&rsquo;t. You&rsquo;ll see.<br>
+Further, Racket emphasizes &ldquo;language oriented programming&rdquo;. It means you can design your own small (domain specific) programming languages for your application and then write your application in that language. But you don&rsquo;t have to &#x2013; you can just use &ldquo;normal&rdquo; Racket like everyone else. So don&rsquo;t bother with that for now.<br>
 </p>
 
 <p>
-The most recommended book on programming is the timeless classic &ldquo;Structure and Interpretation of Programming Languages&rdquo;, abbreviatet &ldquo;SICP&rdquo;. It was written as an introduction for computer science students at MIT, using Scheme. But for me it was too much as a very first book on programming. But check it out anyway, it&rsquo;s really philosophical.<br>
+The most recommended book on (functional) programming is the timeless classic &ldquo;Structure and Interpretation of Programming Languages&rdquo;, abbreviatet &ldquo;SICP&rdquo;. It was written as an introduction for computer science students at MIT, using Scheme. But for me it was too much as a very first book on programming. But check it out anyway, it&rsquo;s really philosophical.<br>
 </p>
 
 <p>
@@ -515,7 +515,7 @@ The first reason for me to use a programming language wasn&rsquo;t coding, actua
 </p>
 
 <p>
-Well, here Lisp&rsquo;s prefix notation felt really weird for doing arithmetik: Instead of <code>10 + 3 + 4 + 6 + 7</code> you write <code>(+ 10 3 4 6 7)</code>. All Lisp languages have this uniform and simple syntax. It makes it easier to write programs who write programs who &#x2026; well, that&rsquo;s for later. The syntax is easy to remember so it doesn&rsquo;t get in your way, and you can concentrate on the things that really matter.<br>
+Well, here Lisp&rsquo;s functional notation felt really weird for doing arithmetik: Instead of <code>10 + 3 + 4 + 6 + 7</code> you write <code>(+ 10 3 4 6 7)</code>. There are no operatiors, it&rsquo;s basically all function application. All Lisp languages have this uniform and simple syntax. It makes a couple of things easier, for instance to write programs who write programs who &#x2026; well, that&rsquo;s for later. The syntax is easy to remember so it doesn&rsquo;t get in your way, and you can concentrate on the things that really matter.<br>
 </p>
 
 <p>
@@ -834,7 +834,7 @@ I was already fascinated by Emacs since my first encounter with Clojure. Emacs i
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published by <span class="author">Dan Dee</span> <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-02-01 Mon 13:13</span></p>
+<p class="footer">Published by <span class="author">Dan Dee</span> <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-02-01 Mon 16:00</span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
