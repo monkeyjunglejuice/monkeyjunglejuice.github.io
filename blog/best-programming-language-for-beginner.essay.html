@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-02-07 Sun 17:57 -->
+<!-- 2021-02-08 Mon 14:46 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Which Programming Language should I learn first?</title>
@@ -60,6 +60,7 @@
 <li><a href="#orgbe9a3ec">JavaScript</a></li>
 <li><a href="#org187f88c">Elm</a></li>
 <li><a href="#org58af51f">Haskell</a></li>
+<li><a href="#org2b53ff5">OCaml</a></li>
 <li><a href="#orgecdf459">Python</a></li>
 <li><a href="#org1b6362b">Julia</a></li>
 </ul>
@@ -351,7 +352,7 @@ Can you get started without fumbling for days?<br>
 <h2 id="orgd108d46">Choose your Poison</h2>
 <div class="outline-text-2" id="text-orgd108d46">
 <p>
-Here is a carefully picked selection of programming languages. They&rsquo;re all good to learn programming, but it depends on what you want. Some of them are better teaching languages, while others may be worse but the only chance in a specific area.<br>
+Here is a carefully picked selection of interesting programming languages. Some of them are better teaching languages, while others are worse.<br>
 </p>
 </div>
 
@@ -400,7 +401,7 @@ If that is the case, and you wanna become a hardware hacker, you may also look i
 <h3 id="org697d44e">Lua</h3>
 <div class="outline-text-3" id="text-org697d44e">
 <p>
-On the surface, Lua is quite similar to JavaScript &#x2013; just without the ugly parts (more about that later). Lua is minimalist, fast and expressive, extendable, carefully designed and consistent. Therefore it is super easy to learn for <del>Muggles</del> Non-programmers, and probably the &ldquo;easiest&rdquo; programming language listed here.<br>
+On the surface, Lua is quite similar to JavaScript &#x2013; just without the ugly parts (more about that later). Lua is elegant, performant, carefully designed and consistent. Therefore it is super easy to learn for <del>Muggles</del> Non-programmers, and probably the &ldquo;easiest&rdquo; programming language listed here.<br>
 </p>
 
 <p>
@@ -412,7 +413,7 @@ Lua can be used everywhere and it&rsquo;s quite simple to get started and build 
 </p>
 
 <p>
-As far as I know, there are not many textbooks available, but you can use <i>the</i> comprehensive book written by Lua&rsquo;s chief architect Roberto Ierusalimschy. Lua is primarily developed at the University of Rio de Janeiro (PUC-Rio), so learning the language might be even more interesting if you are speaking Portugese natively, since there&rsquo;s also primary literature available in your language. Once you&rsquo;ve commited to learn Lua, I recommend to buy the 4th edition to support the development of the language. Well, and there&rsquo;s a wiki and many many user tutorials.<br>
+As far as I know, there are not many textbooks available, but you can use <i>the</i> comprehensive book written by Lua&rsquo;s chief architect Roberto Ierusalimschy. And there&rsquo;s a wiki and many many user tutorials. Lua is primarily developed at the University of Rio de Janeiro (PUC-Rio). Once you&rsquo;ve commited to learn Lua, I recommend to buy the 4th edition to support the development.<br>
 </p>
 
 <div class="box">
@@ -433,7 +434,7 @@ As far as I know, there are not many textbooks available, but you can use <i>the
 <h3 id="org11a9ca0">Clojure</h3>
 <div class="outline-text-3" id="text-org11a9ca0">
 <p>
-As a total noob, I&rsquo;ve been looking for a language with a super simple syntax, because learning syntax scared me the most. Clojure is a member of the <i>Lisp</i> family; those have the simplest syntax of all programming languages. Further, it seems to be the most expressive general purpose language, and it&rsquo;s designed especially with concurrency in mind.<br>
+As a total noob, I&rsquo;ve been looking for a language with a simple syntax, because who wants to run into syntax errors all the time? Clojure is a member of the <i>Lisp</i> family; those have the cleanest syntax of all programming languages. Further, it seems to be the most expressive general purpose language, and it&rsquo;s designed especially with concurrency in mind.<br>
 </p>
 
 <p>
@@ -445,11 +446,11 @@ It&rsquo;s also a practical language to build serious business software with, be
 </p>
 
 <p>
-But there&rsquo;s that Java underbelly who sticks out everywhere, coming with it&rsquo;s own terminology. And that&rsquo;s the big drawback that makes it quite unsuitable as a first language: You&rsquo;ll have to jump into the Java abyss eventually and learn that stuff to understand the Clojure docs and error messages, distracting you from your mission to learn programming and making it unneccessarily complicated.<br>
+But there&rsquo;s that Java underbelly who sticks out everywhere, coming with it&rsquo;s own terminology. And that&rsquo;s the drawback that makes it quite unsuitable as a first language: You&rsquo;ll have to jump into the Java abyss eventually and learn that stuff to understand the Clojure docs and error messages, distracting you from your mission to learn programming and making it unneccessarily complicated.<br>
 </p>
 
 <p>
-If you want to try it anyway, I recommend the book &ldquo;Clojure for the Brave and True&rdquo;; it had given me a few enlightening moments how all the parts interlock: functions taking functions and spitting out functions, like interlocking parts of a imaginary robot factory building little machines building little machines &#x2026; But I think that&rsquo;s more a property of functional-first languages in general. The book convinced me also to take a look at Emacs, which is not just a text editor, but an interactive computing environment.<br>
+If you want to try it anyway, I recommend the book &ldquo;Clojure for the Brave and True&rdquo;; it had given me a few enlightening moments how all the parts interlock: functions taking functions and spitting out functions, like interlocking parts of a imaginary robot factory building little machines building little machines &#x2026; But I think that&rsquo;s more a property of functional-first languages in general. The book convinced me also to take a look at Emacs.<br>
 </p>
 
 <div class="box">
@@ -469,11 +470,11 @@ If you want to try it anyway, I recommend the book &ldquo;Clojure for the Brave 
 <h3 id="org86f94a6">Scheme and Racket</h3>
 <div class="outline-text-3" id="text-org86f94a6">
 <p>
-Pleasantly surprised by Clojure, I&rsquo;ve looked up other languages from the Lisp family. Scheme is commonly recommended to beginners, and those who are serious about computer science. It&rsquo;s a bit opinionated to be unopinionated, and Scheme is also minimalist (no distraction) and therefore excellent for learning.<br>
+Pleasantly surprised by Clojure, I&rsquo;ve looked up other languages from the Lisp family. Scheme is commonly recommended to beginners, and those who are serious about computer science. It&rsquo;s a bit opinionated to be unopinionated, and Scheme minimalist (no distraction) and often considered as the most elegant and consistent programming language in existence. Therefore it is excellent for learning.<br>
 </p>
 
 <p>
-Racket is a descendant of Scheme (it was called PLT Scheme before). It is also a platform for research and to create and run different programming languages. Scheme can run on Racket, so even if you just want to learn the Scheme language, you can do it comfortably in Racket. That may sound a bit confusing, but it actually isn&rsquo;t. You&rsquo;ll see.<br>
+Racket is a descendant of Scheme (it was called PLT Scheme before). It is &ldquo;Scheme with batteries included&rdquo;, a platform for research and to create other programming languages. Scheme can run on Racket, so even if you just want to learn the Scheme language, you can do it comfortably in Racket. That may sound a bit confusing, but it actually isn&rsquo;t. You&rsquo;ll see.<br>
 </p>
 
 <p>
@@ -485,7 +486,7 @@ The most recommended book on (functional) programming is the timeless classic &l
 </p>
 
 <p>
-I&rsquo;ve also started to read &ldquo;How to Design Programs&rdquo;, which is supposedly easier and often recommended to read before SICP, but found it super earnest and dry. A stripped down teaching language (think: training wheels) is used within that book, and I&rsquo;m no friend of this approach. The other books are quite different. Personally I recommend &ldquo;Simply Scheme&rdquo;, &ldquo;The Little Schemer&rdquo; and &ldquo;Realm of Racket&rdquo; (most entertaining).<br>
+I&rsquo;ve also started to read &ldquo;How to Design Programs&rdquo;, which is supposedly easier and often recommended to read before SICP, but found it earnest and dry. The other books are quite different. Personally I recommend &ldquo;Simply Scheme&rdquo;, &ldquo;Realm of Racket&rdquo; (the most entertaining) and &ldquo;The Little Schemer&rdquo;.<br>
 </p>
 
 <p>
@@ -567,37 +568,41 @@ But usually you want it on your laptop. I recommend Emacs with SLIME, and it&rsq
 <h3 id="org4d44d5f">Erlang and Elixir</h3>
 <div class="outline-text-3" id="text-org4d44d5f">
 <p>
-Erlang the platform is an integral building block of today&rsquo;s telecommunication networks. Your mobile provider&rsquo;s infrastructure runs likely on Erlang, and so does WhatsApp. The whole point behind Erlang is to build long-running, fault-tolerant systems. It&rsquo;s all about error handling. For that, it leverages concurrency through an interesting concept, the <a href="https://www.brianstorti.com/the-actor-model/">actor model</a>.<br>
+Erlang the platform is an integral building block of today&rsquo;s telecommunication networks. Your mobile provider&rsquo;s infrastructure runs likely on Erlang, and so does WhatsApp. Erlang is not just a programming language, but a complex framework to write forever-running network applications; you can even think of it as an operating system. The whole point behind Erlang is to build long-running, fault-tolerant systems. So it&rsquo;s all about error handling and staying online.<br>
 </p>
 
 <p>
-That makes it a natural fit for mission-critical infrastructure, decentralized computing, peer-to-peer networking, messaging apps and servers with hundreds of thousands of simultaneous active users, internet of things … ok ok, I see you got it.<br>
+To achive that, Erlang leverages concurrency through an interesting concept, the <a href="https://www.brianstorti.com/the-actor-model/">actor model</a>. That makes Elang platform a natural fit for mission-critical infrastructure, decentralized computing, peer-to-peer networking, messaging apps and servers with hundreds of thousands of simultaneous active users, internet of things … Ok ok, I see you got it.<br>
 </p>
 
 <p>
-Erlang is not &ldquo;just a programming language&rdquo; but a big framework to write forever-running network applications; you can even think of it as an operating system. Erlang and Elixir are just two languages to write applications for that thing. Erlang (ERicsson LANGuage) is the original language. It is pragmatic, compact and easy to pick up, but has some unfortunate quirks.<br>
+Erlang the language and Elixir are just two languages to write applications for the Erlang platform (there are others as well, eg. <a href="https://lfe.io/">LFE</a>). Erlang (ERicsson LANGuage) is the original language. It is pragmatic, compact and easy to pick up. Erlang the language has better/mature tooling, too.<br>
 </p>
 
 <p>
-Elixir on the other hand is an alternative syntax plus some additional concepts like macros (Lisp style metaprogramming) and other changes. What I don&rsquo;t like: Elixir syntax has quite a lot of &ldquo;shorthands&rdquo; to write the same thing. It seems the language designer couldn&rsquo;t decide what to keep and what to throw out. So it looks a bit incoherent and forced into a Ruby appearance (that&rsquo;s another programming language many web devs are familiar with) <a href="https://elixir-lang.org/crash-course.html">Here&rsquo;s a comparison.</a><br>
+Elixir on the other hand is an alternative syntax plus some additional concepts like macros (metaprogramming). What I dislike about Elixir: Many constructs have 3-4 &ldquo;shorthands&rdquo; to write the same thing. How annoying! It seems the language designers couldn&rsquo;t decide what to keep and what to throw out. Elixir looks a bit wordy and incoherent, forced into a Ruby appearance (that&rsquo;s another programming language) to make it appealing for Ruby web developers. <a href="https://elixir-lang.org/crash-course.html">Here&rsquo;s a comparison between the two languages.</a><br>
 </p>
 
 <p>
-The hard part is programming itself of course, the language not so much, but there&rsquo;s also the Erlang technology. Like with other hosted languages (Clojure on Java, Elm on JavaScript), the additional stuff coming with it might be a bit too distracting. So if you want to learn Erlang or Elixir, you should have a reason or two to mess with the Erlang system: ideally learning functional programming, the actor model and/or building scalable, distributed applications. <a href="https://adoptingerlang.org/docs/development/otp_high_level/">For a better idea what the Erlang platform is, check this out</a>.<br>
+Does it make sense to learn programming with Erlang or Elixir? Well, there is not really learning material available that makes use of those languages. You&rsquo;ll find only introductions to the languages themselves (the ones I&rsquo;ve listed below), so you&rsquo;d miss the point.<br>
 </p>
 
 <p>
-Should I learn Erlang or Elixir? I&rsquo;d say start with Erlang and learn the platform on the way, until you get hit by the quirks of the orignal sytnax &#x2013; because the Erlang platform is explained in terms of Erlang the language, not in terms of Elixir. Elixir adds additional stuff on top of that, so you may approach it afterwards, if you see the need.<br>
+And there is also the Erlang technology. Like with other hosted languages (Clojure on Java, Elm on JavaScript), the additional stuff coming with it may be a bit too distracting. So if you want to learn Erlang or Elixir, you should have a good reason or two to mess with the Erlang system. <a href="https://adoptingerlang.org/docs/development/otp_high_level/">For a better idea what the Erlang platform is, check this out</a>.<br>
+</p>
+
+<p>
+Erlang or Elixir or both? I&rsquo;d say start with Erlang and learn the platform on the way, because the Erlang platform is explained in terms of Erlang the language, not in terms of Elixir. Elixir adds additional stuff on top of that, so you may approach it afterwards, if you see need.<br>
 </p>
 
 <div class="box">
 <ul class="org-ul">
-<li><a href="https://learnyousomeerlang.com/">Getting started with Erlang</a> or <a href="https://elixir-lang.org/getting-started/introduction.html">getting started with Elixir</a><br></li>
-<li>Erlang programming book for beginners:<br>
+<li><a href="https://learnyousomeerlang.com/">Getting started with Erlang</a> or <a href="https://joyofelixir.com">getting started with Elixir</a><br></li>
+<li>Erlang programming books for beginners:<br>
 <ul class="org-ul">
 <li><a href="https://amzn.to/2MCpe9W">&ldquo;Introducing Erlang: Getting Started in Functional Programming&rdquo; (paper/Kindle)</a><br></li>
 </ul></li>
-<li>Elixir programming book for beginners (same same but different):<br>
+<li>Elixir programming books for beginners (same same but different):<br>
 <ul class="org-ul">
 <li><a href="https://amzn.to/2XqLXIU">&ldquo;Introducing Elixir: Getting Started in Functional Programming&rdquo; (paper/Kindle)</a><br></li>
 </ul></li>
@@ -631,7 +636,7 @@ JavaScript <del>is</del> was an imperative language at the very heart, but you c
 </p>
 
 <p>
-If you just wanna build web apps or browser games, you do have other choices &#x2013; check out ClojureScript (scroll up) or Elm down below &#x2013; but eventually you need to know JavaScript.<br>
+If you just wanna build web apps or browser games, you do have other choices &#x2013; check out ClojureScript (scroll up) or Elm down below &#x2013; eventually you need to know JavaScript, but maybe not as your first language.<br>
 </p>
 
 <div class="box">
@@ -659,7 +664,7 @@ If that sounds like it makes no sense, think about it this way: All programming 
 </p>
 
 <p>
-Why not writing JavaScript directly? Elm comes with a few interesting features: first and foremost a <i>static type system</i> (like Haskell), which helps you to feel (more) sure about your code is correct (think: less undiscovered bugs). And you don&rsquo;t have to deal with JavaScripts screwed type coercion. Secondly, Elm supports the functional programming paradigm: That makes it&rsquo;s easier to reason about what code actually does. And it comes with <i>immmutable values</i> (Ever writhed in disgust when you saw <code>x = x + 1</code>? Then this is for you).<br>
+Why not writing JavaScript directly? Elm comes with a few interesting features: first and foremost a <i>static type system</i> (like Haskell), which helps you to feel (more) sure about the correctness of your code (think: less undiscovered bugs). And you don&rsquo;t have to deal with JavaScripts screwed type coercion. Secondly, Elm supports the functional programming paradigm: That makes it&rsquo;s easier to reason about what code actually does. And it comes with <i>immmutable values</i> (Ever writhed in disgust when you saw <code>x = x + 1</code>? Then this is for you).<br>
 </p>
 
 <p>
@@ -691,23 +696,23 @@ Elm comes with an easy installation and coherent tooling. It is designed as a ca
 <h3 id="org58af51f">Haskell</h3>
 <div class="outline-text-3" id="text-org58af51f">
 <p>
-I came to Haskell from Elm; many of Elm&rsquo;s ideas come from there. So if I like Elm and it&rsquo;s a browser-only language, why not learn &ldquo;the real thing&rdquo;?<br>
+Many of Elm&rsquo;s ideas come from Haskell. So here we are. If I like Elm but it&rsquo;s a browser-only language, why not learn &ldquo;the real thing&rdquo;?<br>
 </p>
 
 <p>
-Haskell has a <a href="https://andrew.gibiansky.com/blog/haskell/haskell-syntax/">simple syntax</a>, but it&rsquo;s uncommon for programmers that are ingrained with the verbose syntax of C/Java/PHP/JavaScript. However, Haskell&rsquo;s syntax relies a lot on cryptic infix operators (also custom ones) and with it come things like the precendece of those operators (from 0-9). The same thing can be achived by many ways, back-and-forth.<br>
+Haskell has a <a href="https://andrew.gibiansky.com/blog/haskell/haskell-syntax/">simple syntax</a>, but it&rsquo;s uncommon for programmers that are ingrained with the verbose syntax of C/Java/PHP/JavaScript. However, Haskell&rsquo;s syntax relies a lot on cryptic infix operators (also custom ones) and with it come things like the precendece of those operators (from 0-9). The same things can be achived by many ways in Haskell, back-and-forth.<br>
 </p>
 
 <p>
-Contrary to popular belief, basic Haskell is easy to learn; especially for a person who has never programmed before. It may be less easy for experienced programmers because of all the preconceptions they have about programming. But it&rsquo;s not a compact language and Haskellers tend to be clever, so they like to use the advanced features the language and its extensions have to offer. It will get complicated very soon when you&rsquo;ll want to work with libraries and encounter code others have written.<br>
+Contrary to popular belief, basic Haskell is easy to learn; especially for a person who has never programmed before. It may be less easy for experienced programmers because of all the preconceptions they have about programming. But it&rsquo;s not a compact language and Haskellers tend to be clever, so they like to use the advanced features the language and its extensions have to offer. It will get complicated very soon when you&rsquo;ll want to work with libraries and encounter code from others.<br>
 </p>
 
 <p>
-Unfortunately, it&rsquo;s not so straightforward to get started with Haskell &#x2013; well, it depends. Downloading the compiler and starting <i>ghci</i> (the REPL) to evaluate some expressions is no big deal, and to compiling some code neither. But if you go a bit further and want some more convenience and install libraries, there are a couple of different approaches which tooling set to use, and they overlap in functionality, and &#x2026; I think that&rsquo;s really confusing.<br>
+Unfortunately, it&rsquo;s not so straightforward to get started with Haskell. Downloading the compiler and starting <i>ghci</i> (the REPL) to evaluate some expressions is no big deal of course, and to compiling some code neither. But if you go a bit further and want some more convenience and install libraries, there are a couple of different approaches which tooling set to use, and they overlap in functionality, and &#x2026; I think that&rsquo;s really confusing.<br>
 </p>
 
 <p>
-Not all hope is lost: If you are just interested in functional programming, you could also start with Elm, which is a better language to learn. And I think the <i>static type system</i> and what you can actually do with it, is easier to grasp with Elm. You can still move on to Haskell later, if you feel like. But if you wanna give it a shot, download <i>Stack</i> and then install everything else via Stack.<br>
+Not all hope is lost: If you are just interested in functional programming, you&rsquo;re better off to start with Ocaml (see below) or even Elm, both are better languages to learn. You can still move on to Haskell later, if you feel like. If you wanna give it a shot nevertheless, download <i>Stack</i> and then install everything else via Stack.<br>
 </p>
 
 <div class="box">
@@ -717,6 +722,38 @@ Not all hope is lost: If you are just interested in functional programming, you 
 <ul class="org-ul">
 <li><a href="https://amzn.to/2Uh00Pl">&ldquo;Haskell - the Craft of Functional Programming&rdquo; (paper/Kindle)</a><br></li>
 <li><a href="https://haskellbook.com/img/sample.pdf">&ldquo;Haskell Programming from first Priniples&rdquo; (sample)</a><br></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2b53ff5" class="outline-3">
+<h3 id="org2b53ff5">OCaml</h3>
+<div class="outline-text-3" id="text-org2b53ff5">
+<p>
+The &ldquo;(Objective) Categorical Abstract Machine Language&rdquo; is used in places where performance and correctness are of utter importance, like financial technology. Two companies heavily invested in OCaml are Jane Street and Facebook.<br>
+</p>
+
+<p>
+OCaml is similar to Elm and Haskell: statically typed and emphasizing functional programming. It has less ideological ballast and is more practical than Haskell, but (still) less popular. Put another way, you could also say Haskell is overly hyped. As I see it, the language seems to be due for a rise in popularity. OCaml got a lot of support within the last time. The tooling is already way better than than Haskell&rsquo;s, and there are many improvements on the way.<br>
+</p>
+
+<p>
+The user experience is really nice on Linux, and OCaml works well on Windows with <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL (Windows Subsystem for Linux)</a>, too. You may run into an issue during the installing process in WSL because of WSL&rsquo;s limitations; anyway, <a href="https://github.com/ocaml/opam-repository/issues/12050#issuecomment-393478072">there&rsquo;s a workaround</a> for that.<br>
+</p>
+
+<p>
+I think syntax matters &#x2013; for beginners especially in terms of not getting in your way. It looks clean and doesn&rsquo;t have those {curly braces} spreading all over the place, which is nice. OCaml is a bit more verbose than Haskell, but still very readable. OCaml further opens the door to F# (F Sharp), which is essentially an OCaml clone by Microsoft that runs on the .NET platform.<br>
+</p>
+
+<div class="box">
+<ul class="org-ul">
+<li><a href="https://ocaml.org/learn/tutorials/basics.html">Getting started with OCaml</a><br></li>
+<li>OCaml programming book for beginners:<br>
+<ul class="org-ul">
+<li><a href="https://amzn.to/2XM04XW">OCaml from the Very Beginning (paper/Kindle)</a> | <a href="https://sites.fastspring.com/coherentgraphics/product/ocamlfromtheverybeginning">DRM-free PDF</a><br></li>
 </ul></li>
 </ul>
 
@@ -740,7 +777,7 @@ Python has got helpful error messages and great marketing, so everyone is learni
 </p>
 
 <p>
-Python is opinionated: The creators encourage that certain things should (only) be done in &ldquo;the right way&rdquo; &#x2013; which they call &rsquo;pythonic&rsquo;. The opposite is &rsquo;unpythonic&rsquo;. &ldquo;To describe something as &lsquo;clever&rsquo; is not considered a compliment in the Python culture&rdquo;. Well, you may be more pragmatic and don&rsquo;t care, but I think a beginner should not lock his mind into &rsquo;the pythonic way&rsquo; but start with a language that opens his mind instead. If you want a scripting language which is compact, even easier to learn (and really fast), you may have some fun with <a href="#org697d44e">Lua</a>.<br>
+Python is opinionated: The creators encourage that certain things should (only) be done in &ldquo;the right way&rdquo; &#x2013; which they call &rsquo;pythonic&rsquo;. The opposite is &rsquo;unpythonic&rsquo;. &ldquo;To describe something as &lsquo;clever&rsquo; is not considered a compliment in the Python culture&rdquo;. Well, you may be more pragmatic and don&rsquo;t care, but I think a beginner should not lock his mind into &rsquo;the pythonic way&rsquo; but start with a language that opens the mind. If you want a scripting language which is compact, even easier to learn and really fast, you may have some fun with <a href="#org697d44e">Lua</a>.<br>
 </p>
 
 <div class="box">
@@ -842,7 +879,7 @@ Lisp goes very well with Emacs. <i>You don&rsquo;t have to use Emacs, there are 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-02-07 Sun 17:53</span></p>
+<p class="footer">Published: <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-02-08 Mon 14:46</span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
