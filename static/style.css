@@ -373,12 +373,19 @@ fieldset {
   padding: 0;
 }
 
-#content figure {
-  text-align: center;
-}
-
 #content figure img {
   margin-bottom: 0;
+}
+
+#content figure img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Remove empty line introduced by br when image is display: block */
+#content figure br {
+  display: none;
 }
 
 .title {
