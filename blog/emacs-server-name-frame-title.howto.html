@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-02-12 Fri 13:06 -->
+<!-- 2021-02-12 Fri 15:28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How to display the Emacs Server Name in the Frame Title?</title>
@@ -33,11 +33,11 @@
 <h1 class="title">How to display the Emacs Server Name in the Frame Title?</h1>
 <p class="subtitle">A short How-To</p>
 </header><p>
-As you may know, the most convenient way to use Emacs is to <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html">start a server instance</a> &#x2014; e.g. at login &#x2014; and use the <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html">Emacs client</a> to edit files.<br>
+As you may know, the best way to optimize Emacs&rsquo; startup time by magnitudes is to <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html">start a server instance</a> &#x2014; e.g. at login &#x2014; and then fire up a client <a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html">Emacs client</a> to edit a file.<br>
 </p>
 
 <p>
-There are some scenarios why one would run <i>more than one</i> Emacs server instance: Maybe to outsource tasks to another Emacs process for whatever reason <code>(server-eval-at "foo" '(* 3 3))</code>, or to have separate workspaces &#x2013; eg. one for work and another for personal stuff &#x2013; like I do (there may be more sophisticated ways to implement workspaces in Emacs tough).<br>
+There are some scenarios why one would run <i>more than one</i> Emacs server instance: Maybe to outsource tasks to another Emacs process for whatever reason <code>(server-eval-at "work" '(* 3 3))</code>, or to have separate workspaces &#x2013; eg. one for work and another for personal stuff &#x2013; like I do (there may be more sophisticated ways to implement workspaces in Emacs tough).<br>
 </p>
 
 <p>
@@ -82,7 +82,7 @@ So what to do, if you want to have the server name there? Is there a variable <c
 </div>
 
 <p>
-We&rsquo;ll need to find another way to put the server name into the string. Luckily, Emacs already provides a variable <code>server-name</code> that holds the name of the Emacs server. The value of <code>server-name</code> is a string, and the <code>concat</code> function puts several strings together into one (you&rsquo;ve noticed the string with a space <code>" "</code> between the quotes? That&rsquo;s the separator between the file path and the server name; we&rsquo;re concatenating 3 strings here). We may do something like that:<br>
+We&rsquo;ll need to find another way to put the server name into the string. Luckily, Emacs already provides a variable <code>server-name</code> that holds the name of the Emacs server. The value of <code>server-name</code> is a string, and the <code>concat</code> function puts several strings together into one (noticed the string with a space <code>" "</code> between the quotes in the code block below? That&rsquo;s the separator between the file path and the server name; we&rsquo;re concatenating 3 strings here):<br>
 </p>
 <div class="org-src-container">
 <pre class="src src-emacs-lisp">(<span class="org-keyword">setq</span> frame-title-format (concat <span class="org-string">"%b %f"</span> <span class="org-string">" "</span> server-name<span class="org-parinfer-rust-dim-parens">))</span>
@@ -90,7 +90,7 @@ We&rsquo;ll need to find another way to put the server name into the string. Luc
 </div>
 
 <p>
-But &#x2026; meh. It&rsquo;s valid code, still doesn&rsquo;t work. &ldquo;server&rdquo; appears in the frame title instead of &ldquo;personal&rdquo;, because &ldquo;server&rdquo; is the default value of <code>server-name</code>.<br>
+But &#x2026; meh. The code is valid valid, but still doesn&rsquo;t work. &ldquo;server&rdquo; appears in the frame title instead of &ldquo;personal&rdquo;, because &ldquo;server&rdquo; is the default value of <code>server-name</code>.<br>
 </p>
 
 <p>
@@ -183,7 +183,7 @@ You can use the principle for all kind of things, like assigning different theme
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-09-21 Mon 00:00</span> | Updated: <span class="date">2020-12-25 Fri 16:24</span></p>
+<p class="footer">Published: <span class="date">2020-09-21 Mon 00:00</span> | Updated: <span class="date">2021-02-12 Fri 15:28</span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
