@@ -373,6 +373,14 @@ fieldset {
   padding: 0;
 }
 
+#content figure {
+  text-align: center;
+}
+
+#content figure img {
+  margin-bottom: 0;
+}
+
 .title {
   text-align: center;
   margin-bottom: 5rem;
