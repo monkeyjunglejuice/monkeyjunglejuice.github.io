@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-02-12 Fri 16:01 -->
+<!-- 2021-02-13 Sat 19:36 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Which Programming Language should I learn first?</title>
@@ -534,7 +534,7 @@ The tooling is excellent and designed for interactive development. <b>There&rsqu
 </p>
 
 <p>
-But usually you want it on your laptop. I recommend Emacs with SLIME, and it&rsquo;s easy to install <a href="https://portacle.github.io/">via Portacle</a>, which is everything bundled together. If you don&rsquo;t know Emacs yet, do:<br>
+But usually you want it on your laptop. There are plugins for <a href="https://atom.io/packages/slima">Atom</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ailisp.commonlisp-vscode">VSCode</a> and <a href="https://github.com/vlime/vlime">Vim</a>, although I recommend Emacs, which is straightforward to install <a href="https://portacle.github.io/">via Portacle</a>, a ready-made bundle coming with everything you need. If you don&rsquo;t know Emacs yet, do:<br>
 </p>
 <ol class="org-ol">
 <li>Menu → &ldquo;Options&rdquo; → &ldquo;Use CUA keys&rdquo;<br></li>
@@ -647,15 +647,11 @@ If you just wanna build web apps or browser games, you do have other choices (ch
 <h3 id="org187f88c">Elm</h3>
 <div class="outline-text-3" id="text-org187f88c">
 <p>
-Elm is a language that compiles to JavaScript: You write your website&rsquo;s code in Elm, and then the Elm compiler writes the JavaScript for you, so that your web browser can run it.<br>
+Elm is a descendant of OCaml and Haskell that compiles to JavaScript: You write your website&rsquo;s code in Elm, and then the Elm compiler writes the JavaScript for you, so that your web browser can run it. If that sounds like it makes no sense, think about it this way: All programming languages compile down to another language on a lower level anyway, and those again and again, until your code&rsquo;s representation is only 11010101. Elm is just another layer on top.<br>
 </p>
 
 <p>
-If that sounds like it makes no sense, think about it this way: All programming languages compile down to another language on a lower level anyway, and those again and again, until your code&rsquo;s representation is only 11010101. Elm is just another layer on top.<br>
-</p>
-
-<p>
-Why not writing JavaScript directly? Elm comes with a few interesting features: first and foremost a <i>static type system</i> (like Haskell), which helps you to feel (more) sure about the correctness of your code (think: less undiscovered bugs). And you don&rsquo;t have to deal with JavaScripts screwed type coercion. Secondly, Elm supports the functional programming paradigm: That makes it&rsquo;s easier to reason about what code actually does. And it comes with <i>immmutable values</i> (Ever writhed in disgust when you saw <code>x = x + 1</code>? Then this is for you).<br>
+Why not writing JavaScript directly? Elm comes with a few interesting features: first and foremost a <i>static type system</i> (like Haskell), which helps you to feel (more) sure about the correctness of your code (think: less undiscovered bugs). And you don&rsquo;t have to deal with JavaScripts screwed type coercion. Secondly, Elm is a pure functional programming language: That makes it&rsquo;s easier to reason about what code actually does. And it comes with <i>immmutable values</i> (Ever writhed in disgust when you saw <code>x = x + 1</code>? Then this is for you).<br>
 </p>
 
 <p>
@@ -667,7 +663,7 @@ That&rsquo;s why I consider Elm a good fit for learning, despite the fact that i
 </p>
 
 <p>
-Elm comes with an easy installation and convenient tooling. The language is designed by one person as a whole piece, and it&rsquo;s quite opinionated: You&rsquo;ll need to do most things like intended by the creator, similar to Python. But that&rsquo;s one of the reasons why everything within the Elm ecosystem fits so well together.<br>
+Elm comes with an easy installation and convenient tooling. The language is designed as a whole piece, and it&rsquo;s quite opinionated: You&rsquo;ll need to do most things like intended by the creator, similar to Python. But that&rsquo;s one of the reasons why everything within the Elm ecosystem fits so well together.<br>
 </p>
 
 <p>
@@ -728,24 +724,24 @@ Not all hope is lost: If you are just interested in functional programming, you&
 <h3 id="org2b53ff5">OCaml</h3>
 <div class="outline-text-3" id="text-org2b53ff5">
 <p>
-The language is used everywhere in places where correctness and speed are of utter importance, like financial technology or building compilers. Example companies heavily invested in OCaml are Jane Street and Facebook.<br>
+OCaml shines where safety, speed and correct code are highly sought after; like financial technology, blockchain, compilers &#x2026; <a href="https://ocaml.org/learn/companies.html">Some big companies</a> are heavily invested in OCaml. French universities use OCaml to teach computer science, and I found quiete a lot beginner-friendly learning material.<br>
 </p>
 
 <p>
-OCaml is similar to Elm and Haskell: statically typed and emphasizing functional programming. It has less ideological ballast and is more practical than Haskell, but still not as popular. (Put another way, you could also say Haskell is overly hyped.) As I see it, the language seems to be due for a rise in popularity. OCaml got a lot of support within the last time. The tooling is already way better than than Haskell&rsquo;s, and there are many improvements on the way.<br>
+OCaml is in the same family as Elm and Haskell, but has less ideological ballast and is more practical, although still not as popular (put another way, you could also say Haskell is overhyped). OCaml seems to be due for a rise in popularity and it got a lot of support within the last time. The tooling is already way better than than Haskell&rsquo;s, and there are further improvements on the way.<br>
 </p>
 
 <p>
-The user experience is really nice on Linux, and OCaml works well on Windows with <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL (Windows Subsystem for Linux)</a>, too. You may run into an issue during the installing process in WSL because of WSL&rsquo;s limitations; anyway, <a href="https://github.com/ocaml/opam-repository/issues/12050#issuecomment-393478072">there&rsquo;s a workaround</a> for that.<br>
+OCaml syntax looks clean and readable because it is no curly braces salad. You&rsquo;ll have a seamless user experience on Linux and automatic setup for the most popular editors.<br>
 </p>
 
 <p>
-OCaml syntax looks clean and readable because it doesn&rsquo;t have those {curly braces} spreading all over the place. OCaml is not so terse as Haskell, but that&rsquo;s a good thing. OCaml further opens the door to F# (F Sharp), which is essentially an OCaml clone by Microsoft that runs on the .NET platform.<br>
+OCaml works well on Windows via <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL (Windows Subsystem for Linux)</a>. You may run into an issue during the installing process in WSL because of WSL&rsquo;s limitations; anyway, <a href="https://github.com/ocaml/opam-repository/issues/12050#issuecomment-393478072">there&rsquo;s a workaround</a> for that. Further, learning OCaml is a perfectly reasonable introduction to F# (F Sharp), which is essentially a stripped-down OCaml clone by Microsoft that runs on the .NET platform.<br>
 </p>
 
 <div class="box">
 <ul class="org-ul">
-<li><a href="https://ocaml.org/learn/tutorials/basics.html">Getting started with OCaml</a><br></li>
+<li><a href="https://ocaml.org/learn/tutorials/">Getting started with OCaml</a><br></li>
 <li>OCaml programming book for beginners:<br>
 <ul class="org-ul">
 <li><a href="https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/">Functional Programming in OCaml (free online)</a><br></li>
@@ -851,31 +847,22 @@ And &#x2013; as much as I hate to say it &#x2013; but <a href="#orgbe9a3ec">Java
 </p>
 </div>
 
-
 <div id="outline-container-org63b92f0" class="outline-3">
 <h3 id="org63b92f0">My personal choice</h3>
 <div class="outline-text-3" id="text-org63b92f0">
 <p>
-I&rsquo;ve had Racket, Lua, Haskell and Common Lisp on my shortlist. Ultimately I started with <a href="#orgc84a8f2">Common Lisp</a>. So what&rsquo;s my motivation for that?<br>
+I&rsquo;ve had a hard time to choosing between Racket, Lua, Haskell and Common Lisp. When I was looking for learning material, I found this to be <a href="https://amzn.to/308BHa0">my favorite programming book</a>. I like to build things exploratively, and the Lisp workflow fits well, being something completely different from the write-compile-wait-hope-run-repeat cycle in most languages. It makes sense to use Emacs when learning Lisp, because Emacs itself is written in Lisp. Although it is another dialect (<a href="https://www.gnu.org/software/emacs/manual/html_node/eintr/index.html">Emacs Lisp</a>), both languages are close enough to be of mutual benefit when switching back and forth (<a href="https://hyperpolyglot.org/lisp">compare the code here</a>). After all, <a href="learning-to-code-first-app-episode-1.tutorial.html">I started with Common Lisp, let&rsquo;s see how it goes</a>!<br>
 </p>
 
 <p>
-I&rsquo;ve looked into many books, and it turned out that I have a <a href="https://amzn.to/308BHa0">favorite textbook on programming</a> and I want to work with that one first. It is a great introduction and has many exercises. Secondly, I favour convenience and exploration. The interactive Common Lisp development workflow is far more advanced than anything I&rsquo;ve seen so far.<br>
-</p>
-
-<p>
-Lisp goes very well with Emacs. <i>You don&rsquo;t have to use Emacs, there are plugins for <a href="https://atom.io/packages/slima">Atom</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ailisp.commonlisp-vscode">VSCode</a>, <a href="https://github.com/vlime/vlime">Vim</a> and others.</i> Emacs is written in <i>Emacs Lisp</i>, another programming language within the Lisp family. Emacs Lisp and Common Lisp are similar enough to avoid confusion while switching back and forth beetween both. <a href="https://hyperpolyglot.org/lisp">Compare the syntax of the four most used Lisps</a>. Actually, I&rsquo;m writing more Emacs Lisp than Common Lisp at the moment. But that&rsquo;s a story for another time.<br>
-</p>
-
-<p>
-<b>Which one are you going to learn now? Let me know in the comments!</b><br>
+<b>Which one are you going to learn now? Let me know!</b><br>
 </p>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-02-12 Fri 16:00</span></p>
+<p class="footer">Published: <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-02-13 Sat 19:36</span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
