@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-02-12 Fri 16:21 -->
+<!-- 2021-02-14 Sun 13:16 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Learning to code: Writing my first App in Lisp</title>
+<title>Learning to code: Writing my first Script in Lisp</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Dan Dee">
-<meta name="description" content="Me coding my first little app in Commmon Lisp, piece by piece | 1st episode"
+<meta name="description" content="Me coding my first little script in Commmon Lisp, piece by piece | 1st episode"
 >
-<meta name="keywords" content="common lisp, tutorial, first app, learn lisp, csv, cl-csv">
+<meta name="keywords" content="common lisp, tutorial, first app, learn lisp, csv, cl-csv, lisp scripting">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
@@ -30,22 +30,18 @@
 </div>
 <div id="content">
 <header>
-<h1 class="title">Learning to code: Writing my first App in Lisp</h1>
+<h1 class="title">Learning to code: Writing my first Script in Lisp</h1>
 <p class="subtitle">Project &ldquo;CSV Cleaner&rdquo; | 1st Episode</p>
 </header>
-<div id="outline-container-org5ee62a0" class="outline-2">
-<h2 id="org5ee62a0">The Use Case</h2>
-<div class="outline-text-2" id="text-org5ee62a0">
+<div id="outline-container-orged20726" class="outline-2">
+<h2 id="orged20726">Use Case: Automate the boring Stuff with Lisp</h2>
+<div class="outline-text-2" id="text-orged20726">
 <p>
-I was tired to manipulate CSV tables per hand using a spreadsheet program, so I wondered how to automate the process and let it contribute to my mission to become a programmer. To be honest, this app itself doesn&rsquo;t do exciting things, but it&rsquo;s got the right amount of triviality to be suitable as a first coding project.<br>
+I was tired to manipulate CSV tables per hand using spreadsheets, so I wondered how to automate the process and let it contribute to my mission to learn programming. To be honest, this script doesn&rsquo;t do exciting things, but it&rsquo;s got just the right amount of triviality to be suitable as a first project.<br>
 </p>
 
 <p>
-I&rsquo;ve discovered early that the best way to understand something is to actually teach it (or put differently: if you cannot explain it, you don&rsquo;t understand it). So I&rsquo;ve decided to make a little blog series out of it to track my learning process (and to refine/refactor the app with each episode), until I&rsquo;m happy with it or too bored &#x2013; whatever happens first.<br>
-</p>
-
-<p>
-This is no best-practise howto, because the code will be full of all kind of clumsy noob things. Can you spot them? Don&rsquo;t hold back your tipps and suggestions, please let me know in the comments below. I&rsquo;ll appreciate that!<br>
+I believe that the best way to understand something is to teach it (or put differently: if you cannot explain it, you do not really understand it). So I&rsquo;m going to make a little blog series of it to document my progress and to extend and refactor the script with each episode, until I&rsquo;m happy with it or too bored. Whatever happens first.<br>
 </p>
 </div>
 </div>
@@ -58,11 +54,11 @@ This is no best-practise howto, because the code will be full of all kind of clu
 </p>
 
 <p>
-I&rsquo;ve choosen Common Lisp, because to me &#x2013; an unprejudiced first-time programmer &#x2013; Lisp looks like the simplest and most comprehensible programming language, after thorough investigation (<a href="best-programming-language-for-beginner.essay.html">read my reasoning here</a>). Lisp is mind-expanding and I suppose <i>it&rsquo;s a brilliant tool to think in</i>.<br>
+I&rsquo;ve chosen Lisp, because to me &#x2013; an unprejudiced first-time programmer &#x2013; Lisp looks like the most simple and comprehensible programming language, after thorough investigation (<a href="best-programming-language-for-beginner.essay.html">read my reasoning here</a>).<br>
 </p>
 
 <p>
-If you wanna follow along or tinker with the code, download it here. You&rsquo;ll need Common Lisp to run it. <a href="https://portacle.github.io/">I recommend Portacle</a>, if there isn&rsquo;t yet any Common Lisp environment installed on your machine.<br>
+if you wanna follow along and tinker with the code, download it here. You&rsquo;ll need Common Lisp to run it. <a href="https://portacle.github.io/">I recommend Portacle</a>, if there isn&rsquo;t yet any Common Lisp environment installed on your machine.<br>
 </p>
 
 <p>
@@ -71,17 +67,17 @@ So welcome to the 1st episode and enjoy the glorious piece of alien technology.<
 </div>
 </div>
 
-<div id="outline-container-orgd789039" class="outline-2">
-<h2 id="orgd789039">What the App should do</h2>
-<div class="outline-text-2" id="text-orgd789039">
+<div id="outline-container-org106a21b" class="outline-2">
+<h2 id="org106a21b">what the Script should do</h2>
+<div class="outline-text-2" id="text-org106a21b">
 <p>
-Before we start, we&rsquo;ll need to define the features for our little app (it&rsquo;s merely a script, but let&rsquo;s call it &ldquo;app&rdquo;):<br>
+Before we start, we&rsquo;ll need to define the features for our little script:<br>
 </p>
 
 <ol class="org-ol">
 <li>It takes a CSV file and then &#x2026;<br></li>
 <li>deletes some specified columns<br></li>
-<li>performs search and replace<br></li>
+<li>performs search and replace on various patterns<br></li>
 <li>does some more operations on the content<br></li>
 <li>sets the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
 <li>and spits out a sweet cleaned CSV!<br></li>
@@ -109,14 +105,14 @@ At first, our little app has to open and read the original CSV file, and then tr
 </p>
 
 <p>
-Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard you like Lisp? So we&rsquo;ll make every single row a list, and then put those lists into another list, and then you&rsquo;ll have a list of lists!</i> That&rsquo;s how our data structure should look like, written in Lisp code:<br>
+Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard you like Lisp? So we&rsquo;ll make every single row a list, and then put those lists into another list, and then you&rsquo;ll have a list of lists!</i> That&rsquo;s how we want our data structure to look like; here as a literal repesentation in Lisp code:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'((<span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span>)
-  (<span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span>)
-  (<span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span>)
-  (<span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span>))
+<pre class="src src-lisp">'((<span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  (<span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  (<span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  (<span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">))</span>
 </pre>
 </div>
 </div>
@@ -125,15 +121,15 @@ Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard yo
 <h3 id="orge655f6a">Using the CL-CSV Library</h3>
 <div class="outline-text-3" id="text-orge655f6a">
 <p>
-We know how our data should look like, but still, we have to perform the actual converison to get there. Let&rsquo;s check <a href="https://github.com/CodyReichert/awesome-cl">Awesome Common Lisp</a> for a library to work with CSV files. Turns out, <a href="https://github.com/CodyReichert/awesome-cl#csv">there&rsquo;s a library <i>&ldquo;cl-csv&rdquo;</i></a> for that, which is capable to do &#x2026; well, a lot of things. Opening files and other stuff included. Neat! So a good chunk of the work is already done by somebody else. That&rsquo;s bad for the learning effect of course, but good for making something happen quickly and getting immediate gratification! :D<br>
+We know how our data should look like, now we have to perform the actual converison to get there. Let&rsquo;s check <a href="https://github.com/CodyReichert/awesome-cl">Awesome Common Lisp</a> for a library to work with CSV files. Turns out, <a href="https://github.com/CodyReichert/awesome-cl#csv">there&rsquo;s a library <i>&ldquo;cl-csv&rdquo;</i></a> for that, which is capable to do &#x2026; well, a lot of things. Opening files and other stuff included. Neat! So a good chunk of the work is already done by somebody else. That&rsquo;s bad for the learning effect of course, but good for making something happen quickly and getting immediate gratification! :D<br>
 </p>
 
 <p>
-To use the functionality from the library, we must load it first. There&rsquo;s a <a href="https://www.quicklisp.org/beta/">package manager for Common Lisp called &ldquo;Quicklisp&rdquo;</a>. In the REPL, we can use the following command; it downloads the library, saves its code in your <code>~/quicklisp/</code> directory and loads it into our program:<br>
+To use the functionality from the library, we must load it first. There&rsquo;s <a href="https://www.quicklisp.org/beta/">&ldquo;Quicklisp&rdquo;, a package manager for Common Lisp</a>. In the REPL, we can use the following command; it downloads the library, saves its code in your <code>~/quicklisp/</code> directory and loads it into our program:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(ql:quickload <span class="org-string">"cl-csv"</span>)
+<pre class="src src-lisp">(ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
 </pre>
 </div>
 
@@ -150,8 +146,8 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> (cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span>)
-<span class="org-doc">"Contains the original table in list form."</span>)
+<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> (cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+<span class="org-doc">"Contains the original table in list form."</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
 </pre>
 </div>
 
@@ -161,7 +157,7 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </p>
 
 <p>
-You may have already guessed it, anything enclosed in parenthesis is a <i>list</i>: opening paren <code>(some things in between)</code> and closing paren. A list in Lisp is foremost a collection of things, one after another, like a list written on paper.<br>
+You may have guessed it, anything enclosed in parenthesis is a <i>list</i>: opening paren <code>(some things in between)</code> and closing paren. A list in Lisp is foremost a collection of things, one after another, like a list written on paper.<br>
 </p>
 
 <p>
@@ -173,15 +169,15 @@ Example: Functions. They are fundamental building blocks in all programms. You d
 </p>
 
 <p>
-In Lisp, function application looks like this: <code>(name-of-the-function 1st-argument 2nd-argument 3rd-argument)</code>. Noticed the parens? It&rsquo;s a list. The first thing in the list is the function name, and the rest are the things we apply the function to. Those we call <i>arguments</i>.<br>
+In Lisp, function application looks like this: <code>(name-of-the-function 1st-argument 2nd-argument 3rd-argument)</code>. Noticed the parens? It&rsquo;s a list. The first thing in the list is the function name, and the others are the things we apply the function to. Those we call <i>arguments</i>.<br>
 </p>
 
 <p>
-Here&rsquo;s an example: <code>(+ 1 2 3)</code> Yup, that was addition. The <code>+</code> operator is in fact just a function, applied to the arguments <code>1</code>, <code>2</code> and <code>3</code>. The function <i>evaluates</i> to <code>6</code>.<br>
+Here&rsquo;s an example: <code>(+ 1 2 3)</code> Yup, that&rsquo;s addition. The <code>+</code> operator is in fact just a function, applied to the arguments <code>1</code>, <code>2</code> and <code>3</code>. The function <i>evaluates</i> to <code>6</code>.<br>
 </p>
 
 <p>
-The arguments can be anything &#x2013; numbers like in the example above, while many functions accept also other things as arguments &#x2013; they may work on lists and even on other functions.<br>
+The arguments can be anything &#x2013; numbers like in the example above, while many functions accept also other things as arguments &#x2013; they work on various data structures and even on other functions.<br>
 </p>
 
 <p>
@@ -190,8 +186,9 @@ Ok, back to defining variables.<br>
 
 </div>
 
+
 <p>
-I&rsquo;ve read in the <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_defpar.htm">documentation for <code>defparameter</code>,</a> that it defines a dynamically scoped &ldquo;global&rdquo; or &ldquo;special&rdquo; variable. Hm. That sounds a bit suspicious, doesn&rsquo;t it? I suspect that&rsquo;s not how you usually should do this. I guess you better use a <code>let</code> form and lexical scope. But I&rsquo;ve decided it&rsquo;s fine for now.<br>
+I&rsquo;ve read in the <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_defpar.htm">documentation for <code>defparameter</code>,</a> that it defines a dynamically scoped &ldquo;global&rdquo; or &ldquo;special&rdquo; variable. Hm. That sounds a bit suspicious, doesn&rsquo;t it? I suspect that&rsquo;s not how you usually should do this. I guess you better use a <code>let</code> form and lexical scope, not global variables. But I&rsquo;ve decided it&rsquo;s fine for now.<br>
 </p>
 
 <p>
@@ -212,10 +209,10 @@ The data structure stored in the variable is a list, and within that list are ot
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'((<span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span>)
-  (<span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span>)
-  (<span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span>)
-  (<span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span>))
+<pre class="src src-lisp">'((<span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  (<span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  (<span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  (<span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parinfer-pretty-parensXdim-paren">))</span>
 </pre>
 </div>
 
@@ -253,11 +250,11 @@ For that, we would need to define all the columns we don&rsquo;t want. We could 
 </p>
 
 <p>
-You&rsquo;ve noticed that I was talking the whole time about <i>removing</i> columns? You know what? I had a bit of a hard time to figure out how exactly the filter functions should work to <i>remove</i> the columns/strings.<br>
+You&rsquo;ve noticed that I was talking the whole time about <i>removing</i> columns? You know what? I had a bit of a hard time to figure out how exactly the filter functions should work to <i>remove</i> the columns/strings. Because each time I delete a specific element from the list, each subsequent element moves one position forward, which makes it really complicated to grab specific elements by their positions.<br>
 </p>
 
 <p>
-Then I realized it was way simpler to write functions in a way to <i>build</i> lists from the columns I want to <i>keep</i> in the CSV, instead of writing functions to <i>remove</i> the columns I don&rsquo;t want to have in the result. Two takeaways:<br>
+Then I realized it was way simpler to write a function in a way to <i>build</i> lists from the columns I want to <i>keep</i> in the CSV, instead of writing a function to <i>remove</i> the columns I don&rsquo;t want to have in the result. Two takeaways:<br>
 </p>
 
 <ol class="org-ol">
@@ -272,42 +269,42 @@ That being said, let&rsquo;s move on before it gets to deep.<br>
 </div>
 
 <p>
-So, within the <code>template.csv</code> we now have specified all the columns we&rsquo;d like to have in our cleaned CSV.<br>
+So, within the <code>template.csv</code> we now have specified all the columns we&rsquo;d like to <i>keep</i> in our cleaned CSV.<br>
 </p>
 
 <p>
-For our next trick, we need the column names from our <code>template.csv</code>, which is the first row. So we&rsquo;ll make sure to pull only that:<br>
+For our next trick, we need those column names from our <code>template.csv</code>, which is also the 1st row in the file. So we&rsquo;ll make sure to pull only that:<br>
 </p>
 
 <p>
-The expression <code>(cl-csv:read-csv #P"template.csv")</code> returns the content of a CSV file as a list of lists, as you, my dear reader may remember. And with the built-in function <code>car</code>, we&rsquo;ll get the first element of that list, which is the header row:<br>
+The expression <code>(cl-csv:read-csv #P"template.csv")</code> transforms the content of a CSV file into list of lists, as you may remember (we used that before). Now, with the built-in function <code>car</code>, we&rsquo;ll get the first element of that list, which is the header row:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span> <span class="org-comment">; &#8592; There, earmuffs again!</span>
-  (car (cl-csv:read-csv #P<span class="org-string">"template.csv"</span>))
+<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
+  (car (cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">))</span>
 <span class="org-doc">"Contains the names of the columns we would like to have in the</span>
-<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span>)
+<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
 </pre>
 </div>
 
 <p>
-Let&rsquo;s get also the table header from our original CSV, which is still stored in the variable <code>*input-table*</code> together with the rest of the CSV, and store it separately in another variable called <code>*header-input-table*</code>.<br>
+Let&rsquo;s get the table header from our original CSV too (which is still stored in the variable <code>*input-table*</code> together with the rest of the CSV), and store it separately in another variable called <code>*header-input-table*</code>.<br>
 </p>
 
 <p>
-What we&rsquo;ll have in that variable, looks like that: <code>("Order No." "Name" "City" "Article" "Size" "Status")</code>. The first row has just been copied over. The original table header is still in the <code>*input-table*</code>, too.<br>
+What we have in that variable, looks like that: <code>("Order No." "Name" "City" "Article" "Size" "Status")</code>. The first row has just been copied over (the original table header is still in the <code>*input-table*</code>).<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> (car *input-table*)
+<pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> (car *input-table*<span class="org-parinfer-pretty-parensXdim-paren">)</span>
 <span class="org-doc">"Contains the original table header, which is the first row</span>
-<span class="org-doc">from the file 'orders_export.csv'."</span>)
+<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
 </pre>
 </div>
 
 <p>
-Now we need a function that tells us the position of column names (and therefore columns) within the original CSV. We write it so that we apply it to the name of a column &#x2013; like &ldquo;Size&rdquo; &#x2013; and then the function tells us in which position the column is.<br>
+Now we need a function that tells us the position of the column names (and therefore columns) within the original CSV. We write it so that we apply it to the name of a column &#x2013; like &ldquo;Size&rdquo; &#x2013; and then the function tells us in which position the column is.<br>
 </p>
 
 <p>
@@ -319,9 +316,9 @@ Whatever the default predicate for <code>:test</code> is &#x2013; it doesn&rsquo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> (col-name)
+<pre class="src src-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> (col-name<span class="org-parinfer-pretty-parensXdim-paren">)</span>
   <span class="org-doc">"Get the position number of a column by the column name"</span>
-  (position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=))
+  (position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parinfer-pretty-parensXdim-paren">))</span>
 </pre>
 </div>
 
@@ -331,7 +328,7 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 
 <div class="org-src-container">
 <pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
-    (mapcar #'get-col-position *cols-to-keep-by-name*))
+    (mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
 </pre>
 </div>
 
@@ -341,7 +338,7 @@ It&rsquo;s me again &#x2013; former <i>Future Me</i>! Merging into your present 
 </p>
 
 <p>
-Now we&rsquo;ll reach the point that I&rsquo;ve mentioned before that had caused me difficulties, and where a perspective switch had actually helped:<br>
+Now we&rsquo;ll reach the point I&rsquo;ve mentioned before that had caused me difficulties, and where a perspective switch actually helped:<br>
 </p>
 
 <p>
@@ -359,10 +356,10 @@ Filter the input row:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> (input-row)
+<pre class="src src-lisp">(<span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> (input-row<span class="org-parinfer-pretty-parensXdim-paren">)</span>
   <span class="org-doc">"Filter a row of the input-table to create a row for the output table"</span>
   (<span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
-        collect (nth x input-row)))
+        collect (nth x input-row<span class="org-parinfer-pretty-parensXdim-paren">)))</span>
 </pre>
 </div>
 
@@ -372,7 +369,7 @@ Create the output-table. We take the function defined above and map it onto each
 
 <div class="org-src-container">
 <pre class="src src-lisp">(<span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
-  (mapcar #'create-output-row *input-table*))
+  (mapcar #'create-output-row *input-table*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
 </pre>
 </div>
 
@@ -381,7 +378,7 @@ Write the new CSV to the file system:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span>)
+<pre class="src src-lisp">(cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
 </pre>
 </div>
 </div>
@@ -394,11 +391,15 @@ Write the new CSV to the file system:<br>
 <p>
 It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and adding may be easier than removing.<br>
 </p>
+
+<p>
+Ok, that&rsquo;s it for now. I guess the code is full of all kind of clumsy noob things. Can you spot them? Please let me know in the comments below.<br>
+</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-02-12 Fri 16:21</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-02-14 Sun 13:15</span></p>
 <div class="comments">
 <h2>Comments</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
