@@ -47,7 +47,7 @@ h6 {
 h1 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 100;
-  font-size: 4em;
+  font-size: 3.6em;
   line-height: 1;
   margin-top: 5rem;
   margin-bottom: 4.5rem;
@@ -55,7 +55,7 @@ h1 {
 
 h2 {
   font-family: 'Alegreya Sans', sans-serif;
-  font-weight: 900;
+  font-weight: 800;
   font-size: 1.8em;
   font-style: italic;
   line-height: 1.1;
@@ -67,28 +67,29 @@ h2 {
 }
 
 h3 {
-  font-family: 'Alegreya Sans', sans-serif;
-  font-weight: 600;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 500;
   font-size: 1.3em;
-  font-style: italic;
+  letter-spacing: 0.01em;
   line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 2rem;
 }
 
 h4 {
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
   font-size: 1em;
-  font-style: italic;
+  letter-spacing: 0.05em;
   line-height: 1.5;
   margin-top: 5rem;
   margin-bottom: 2rem;
+  padding-left: 1.5em;
 }
 
 h5,
 h6 {
-  font-family: 'Alegreya', sans-serif;
+  font-family: 'Alegreya Sans', sans-serif;
   font-weight: 600;
   font-size: 1em;
   line-height: 1.5;
@@ -190,7 +191,7 @@ code {
   font-family: 'Fantasque Sans Mono', monospace;
   font-weight: 400;
   font-size: 0.9em;
-  background-color: #0001;
+  background-color: #fffd;
   border-radius: 2px;
   padding: 0 0.15em 0 0.15em;
   white-space: nowrap;
