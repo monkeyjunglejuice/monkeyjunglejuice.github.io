@@ -334,7 +334,7 @@ fieldset {
 }
 
 #preamble nav {
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 400;
   font-size: 0.8em;
   letter-spacing: 0.1em;
@@ -355,7 +355,7 @@ fieldset {
 }
 
 #postamble p.footer {
-  font-family: 'Alegreya SC', serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
   font-size: 0.8em;
   letter-spacing: 0.1em;
@@ -396,7 +396,7 @@ fieldset {
 }
 
 .subtitle {
-  font-family: 'Alegreya SC', serif;
+  font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
   font-size: 0.8em;
   text-align: center;
