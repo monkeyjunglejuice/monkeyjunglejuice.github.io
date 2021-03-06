@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-02-16 Tue 14:19 -->
+<!-- 2021-03-06 Sat 18:06 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first Script in Lisp</title>
@@ -37,11 +37,11 @@
 <h2 id="orgd6cfdea">Automate the Boring Stuff with Lisp</h2>
 <div class="outline-text-2" id="text-orgd6cfdea">
 <p>
-I was tired to manipulate CSV tables per hand using spreadsheets, so I wondered how to automate the process and let it contribute to my mission to learn programming. To be honest, this script doesn&rsquo;t do exciting things, but it&rsquo;s got just the right amount of triviality to be suitable as a first project.<br>
+I was tired to manipulate CSV tables per hand using spreadsheets, so I wondered how to automate the process and let it contribute to my mission to learn programming. To be honest, this script doesn&rsquo;t do exciting things, but it&rsquo;s trivial enough to serve as a first project.<br>
 </p>
 
 <p>
-I believe that the best way to understand something is to teach it (or put differently: if you cannot explain it, you do not really understand it). So I&rsquo;m going to make a little blog series of it to document my progress and to extend and refactor the script with each episode, until I&rsquo;m happy with it or too bored. Whatever happens first.<br>
+I believe that the best way to understand something is to teach it (or put differently: if you cannot explain it, you do not really understand it). So I&rsquo;m going to make a little blog series of it to document my progress, and to extend/refactor the script with each episode, until I&rsquo;m happy with it or too bored &#x2014; whatever happens first.<br>
 </p>
 </div>
 </div>
@@ -389,17 +389,76 @@ Write the new CSV to the file system:<br>
 <h2 id="orge048877">Conclusion</h2>
 <div class="outline-text-2" id="text-orge048877">
 <p>
-It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and adding may be easier than removing.<br>
+It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and collecting things seems to be easier than removing things, like in the physical world.<br>
 </p>
+</div>
+
+<div id="outline-container-org863a0aa" class="outline-3">
+<h3 id="org863a0aa">Here is the full script. To run it, you will need:</h3>
+<div class="outline-text-3" id="text-org863a0aa">
+<ol class="org-ol">
+<li>Common Lisp installation with Quicklisp<br></li>
+<li>CSV file named <code>orders_export.csv</code> with some sample data<br></li>
+<li>CSV file <code>template.csv</code> where you specify the columns to keep<br></li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-lisp">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Load the library CL-CSV. We use it to read the CSV file and</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">transform its content into a list of lists</span>
+<span class="org-parenthesis">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Read the CSV file and store it in a variable as a list of lists</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">We only need the table headers from the first row from 'template.csv'</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">so pull only that and store it in a variable</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
+  <span class="org-parenthesis">(</span>car <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Get the table header from our original CSV (stored in the variable *INPUT-TABLE*)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">and store it in *HEADER-INPUT-TABLE*</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-parenthesis">(</span>car *input-table*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Define a function that tells us the position of a particular column name.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">We feed it the name of a column eg. "Size",</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">then it tells us at which position that particular column is</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-parenthesis">(</span>col-name<span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  <span class="org-doc">"Get the position number of a column by the column name."</span>
+  <span class="org-parenthesis">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parinfer-pretty-parensXdim-paren">))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">When we map this function to each column name in our list of column headers,</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">we're getting a list of the positions of the columns that we want to keep.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">We store that list in the variable *COLS-TO-KEEP-BY-POSITION*</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
+  <span class="org-parenthesis">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Filter the input row</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-parenthesis">(</span>input-row<span class="org-parinfer-pretty-parensXdim-paren">)</span>
+  <span class="org-doc">"Filter a row of the input-table to create a row for the output table."</span>
+  <span class="org-parenthesis">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
+        collect <span class="org-parenthesis">(</span>nth x input-row<span class="org-parinfer-pretty-parensXdim-paren">)))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Create the output-table; take the function above</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">and map it onto each element of the list *INPUT-TABLE*</span>
+<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
+  <span class="org-parenthesis">(</span>mapcar #'create-output-row *input-table*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Write the new CSV</span>
+<span class="org-parenthesis">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
+
+</pre>
+</div>
 
 <p>
-Ok, that&rsquo;s it for now. I guess the code is full of all kind of clumsy noob things. Can you spot them? Please let me know in the comments below.<br>
+Ok, that&rsquo;s it for now. I guess that&rsquo;s quite clumsy and could be done more elegantly. Please let me know in the comments below.<br>
 </p>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-02-15 Mon 16:57</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-03-06 Sat 18:06</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
