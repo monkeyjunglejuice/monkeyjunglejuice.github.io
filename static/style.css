@@ -9,9 +9,9 @@ html {
 }
 
 body {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.4;
   max-width: 38em;
   margin: auto;
   color: #000;
@@ -47,8 +47,8 @@ h6 {
 h1 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 100;
-  font-size: 3.6em;
-  line-height: 1;
+  font-size: 3.4em;
+  line-height: 0.9;
   margin-top: 5rem;
   margin-bottom: 4.5rem;
 }
@@ -68,20 +68,20 @@ h2 {
 
 h3 {
   font-family: 'Alegreya Sans SC', sans-serif;
-  font-weight: 500;
-  font-size: 1.3em;
+  font-weight: 600;
+  font-size: 1.2em;
   letter-spacing: 0.025em;
-  line-height: 1.2;
+  line-height: 1.1;
   margin-top: 5rem;
   margin-bottom: 2rem;
 }
 
 h4 {
   font-family: 'Alegreya Sans SC', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1em;
   letter-spacing: 0.025em;
-  line-height: 1.5;
+  line-height: 1.4;
   margin-top: 5rem;
   margin-bottom: 2rem;
   padding-left: 1.5em;
@@ -89,10 +89,10 @@ h4 {
 
 h5,
 h6 {
-  font-family: 'Alegreya', serif;
+  font-family: 'Alegreya Sans', sans-serif;
   font-weight: 400;
   font-size: 1em;
-  line-height: 1.5;
+  line-height: 1.4;
   margin-top: 5rem;
   margin-bottom: 2rem;
   padding-left: 1.5em;
@@ -133,7 +133,7 @@ strong {
 small,
 sub,
 sup {
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 
 li {
@@ -153,12 +153,22 @@ ul li {
 
 blockquote {
   font-style: italic;
-  padding: 0 2rem 0 2rem;
-  border: 0 none;
+  margin: 0;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
 }
 
-blockquote p {
-  text-align: center;
+cite {
+  color: #000c;
+  font-family: 'Alegreya SC', serif;
+  font-weight: 400;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  padding-left: 0.5em;
+}
+
+cite a {
+  text-decoration: none;
 }
 
 img {
@@ -336,7 +346,7 @@ fieldset {
 #preamble nav {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 400;
-  font-size: 0.8em;
+  font-size: 0.75em;
   letter-spacing: 0.1em;
   text-align: right;
 }
@@ -357,7 +367,7 @@ fieldset {
 #postamble p.footer {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
-  font-size: 0.8em;
+  font-size: 0.75em;
   letter-spacing: 0.1em;
   text-align: center;
 }
@@ -369,6 +379,7 @@ fieldset {
 
 #content p {
   padding-left: 1.5em;
+  padding-right: 1.5em;
 }
 
 #content header p {
@@ -398,7 +409,7 @@ fieldset {
 .subtitle {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
-  font-size: 0.8em;
+  font-size: 0.75em;
   text-align: center;
   letter-spacing: 0.1em;
   margin-top: 0;
@@ -414,6 +425,10 @@ fieldset {
 .index ul li {
   list-style-type: '★ ';
   margin-bottom: 1.5rem;
+}
+
+.center {
+  text-align: center;
 }
 
 .box {
@@ -439,7 +454,7 @@ fieldset {
   font-family: 'Alegreya Sans', sans-serif;
   font-weight: normal;
   font-size: 1em;
-  line-height: 1.5;
+  line-height: 1.4;
   font-style: normal;
   letter-spacing: 0;
   text-align: left;
@@ -470,6 +485,6 @@ pre.src::before {
   border-radius: 1em;
   font-family: 'Alegreya SC', serif;
   font-weight: 500;
-  font-size: 0.8em;
+  font-size: 0.75em;
   letter-spacing: 0.1em;
 }
