@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-03-06 Sat 18:06 -->
+<!-- 2021-03-06 Sat 18:14 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first Script in Lisp</title>
@@ -403,8 +403,7 @@ It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before
 </ol>
 
 <div class="org-src-container">
-<pre class="src src-lisp">
-<span class="org-comment-delimiter">;; </span><span class="org-comment">Load the library CL-CSV. We use it to read the CSV file and</span>
+<pre class="src src-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Load the library CL-CSV. We use it to read the CSV file and</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">transform its content into a list of lists</span>
 <span class="org-parenthesis">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
 
@@ -416,8 +415,8 @@ It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before
 <span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
   <span class="org-parenthesis">(</span>car <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)))</span>
 
-<span class="org-comment-delimiter">;; </span><span class="org-comment">Get the table header from our original CSV (stored in the variable *INPUT-TABLE*)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">and store it in *HEADER-INPUT-TABLE*</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Get the table header from our original CSV (stored in the variable *input-table*)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">and store it in *header-input-table*</span>
 <span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-parenthesis">(</span>car *input-table*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Define a function that tells us the position of a particular column name.</span>
@@ -429,7 +428,7 @@ It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">When we map this function to each column name in our list of column headers,</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">we're getting a list of the positions of the columns that we want to keep.</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">We store that list in the variable *COLS-TO-KEEP-BY-POSITION*</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">We store that list in the variable *cols-to-keep-by-position*</span>
 <span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
   <span class="org-parenthesis">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
 
@@ -440,13 +439,12 @@ It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before
         collect <span class="org-parenthesis">(</span>nth x input-row<span class="org-parinfer-pretty-parensXdim-paren">)))</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Create the output-table; take the function above</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">and map it onto each element of the list *INPUT-TABLE*</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">and map it onto each element of the list *input-table*</span>
 <span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
   <span class="org-parenthesis">(</span>mapcar #'create-output-row *input-table*<span class="org-parinfer-pretty-parensXdim-paren">))</span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Write the new CSV</span>
 <span class="org-parenthesis">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parinfer-pretty-parensXdim-paren">)</span>
-
 </pre>
 </div>
 
@@ -458,7 +456,7 @@ Ok, that&rsquo;s it for now. I guess that&rsquo;s quite clumsy and could be done
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-03-06 Sat 18:06</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-03-06 Sat 18:13</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
