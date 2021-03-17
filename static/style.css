@@ -4,12 +4,12 @@
 
 html {
   font-size: 62.5%; /* = 10px */
-  font-family: 'Alegreya', serif;
+  font-family: 'Alegreya Sans', sans-serif;
   scroll-behavior: smooth;
 }
 
 body {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 400;
   line-height: 1.4;
   max-width: 38em;
