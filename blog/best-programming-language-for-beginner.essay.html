@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-03-19 Fri 13:48 -->
+<!-- 2021-04-18 Sun 10:55 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Which Programming Language should I learn first?</title>
@@ -41,7 +41,7 @@
 <li><a href="#org0cd2593">What do you want to do?</a></li>
 <li><a href="#orgae6d7f1">What makes a Programming Language beginner-friendly?</a>
 <ul>
-<li><a href="#org96ebe92">Available Learning Materials</a></li>
+<li><a href="#org886ac4c">Available Learning Material</a></li>
 <li><a href="#org2d02828">What kind of Animal are you?</a></li>
 <li><a href="#orgcbae123">Readability and Syntax</a></li>
 <li><a href="#orgd46675f">Expressive Power and Abstraction</a></li>
@@ -81,8 +81,15 @@
 <h2 id="org9a27545">What to expect from this Essay</h2>
 <div class="outline-text-2" id="text-org9a27545">
 <p>
-I&rsquo;m going to clear up common misconceptions, explain what&rsquo;s important for a first programming language, introduce the most interesting languages and point to the best (free) learning resources and books.<br>
+I&rsquo;m going to clear up common misconceptions, explain what&rsquo;s important for a first programming language, introduce the most interesting languages with their pros/cons, and point to the best (free) learning resources and books.<br>
 </p>
+
+<blockquote cite="https://www.cs.utexas.edu/users/EWD/transcriptions/OtherDocs/Haskell.html">
+<p>
+&ldquo;It is not only the violin that shapes the violinist, we are all shaped by the tools we train ourselves to use, and in this respect programming languages have a devious influence: they shape our thinking habits. This circumstance makes the choice of first programming language so important.&rdquo;<br>
+<cite>—<a href="https://www.cs.utexas.edu/users/EWD/transcriptions/OtherDocs/Haskell.html">Edsger W.Dijkstra</a></cite><br>
+</p>
+</blockquote>
 </div>
 </div>
 
@@ -90,12 +97,20 @@ I&rsquo;m going to clear up common misconceptions, explain what&rsquo;s importan
 <h2 id="org2b3e512">The hard Part</h2>
 <div class="outline-text-2" id="text-org2b3e512">
 <p>
-&ldquo;Learning a programming language&rdquo; is what applies foremost to programmers who already know how to program. For them, picking up a new language is possible within a couple of weeks (and for you too, once you&rsquo;ve gained some experience), and it does&rsquo;t matter really that much which one &#x2013; because the patterns how to accomplish most things are roughly overlapping.<br>
+&ldquo;Learning a programming language&rdquo; applies foremost to programmers who already know how to program. For them, picking up a new language is possible within a couple of weeks (and for you too, once you&rsquo;ve gained some experience), and it does&rsquo;t matter really that much, which one &#x2013; because the patterns how to accomplish most things are roughly overlapping.<br>
 </p>
 
 <p>
-But if you start out, you don&rsquo;t need to just learn a programming language. <b>First, you want to learn how to program</b>. It means learning how to analyze a problem you want to tackle, finding a solution and express it in code, which is often not intuitive. Plus, you still have to learn a programming language with syntax and semantics, too. So that is two things at once.<br>
+But if you start out, you don&rsquo;t need to just learn a programming language:<br>
 </p>
+
+<ol class="org-ol">
+<li>First, you want to <b>learn how to program</b>. It means learning how to analyze the problems you want to tackle, finding solutions and express them in algorithms and data structures, which is often not intuitive.<br></li>
+
+<li>And there&rsquo;s <b>the technology part</b>, e. g. things like protocols, cryptography, the platform or operating system, and and the language ecosystem.<br></li>
+
+<li>Then, you still have to learn <b>the programming language itself</b> with it&rsquo;s features, syntax and semantics and … warts. I would say this is the easiest thing of the three.<br></li>
+</ol>
 </div>
 </div>
 
@@ -103,20 +118,21 @@ But if you start out, you don&rsquo;t need to just learn a programming language.
 <h2 id="org0cd2593">What do you want to do?</h2>
 <div class="outline-text-2" id="text-org0cd2593">
 <p>
-Is it your plan to become a software developer? Software is built in different areas &#x2013; the most obvious within the web, is obviously the development of itself. But there are other areas than web frontend and web backend; like fintech, aircraft systems, robotics, telecom, water supply or internet of things. If you know exactly what your intentions are, you could start with a language of your specific field and go form there. Or maybe better not?<br>
+Is it your plan to become a software developer? Software is built in different areas &#x2013; the most obvious within the web, is obviously the development of itself. But there are other areas than web frontend and web backend; like fintech, aircraft systems, robotics, telecom, water supply or internet of things. If you know exactly what your intentions are, you could start with a language of your specific field and go form there … or should you?<br>
 </p>
 
-<blockquote class="center">
+<blockquote cite="https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/intro/pl.html" class="center">
 <p>
 &ldquo;It&rsquo;s crucial that you understand<br>
 the principles behind programming<br>
 that transcend the specifics<br>
 of any specific language.&rdquo;<br>
+<cite>—<a href="https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/intro/pl.html">Michael R. Clarkson</a></cite><br>
 </p>
 </blockquote>
 
 <p>
-The industry workhorse is probably not the right one, because it could be either highly specific and/or come with a lot of distracting things that don&rsquo;t matter for you right now. There&rsquo;s a reason one does not take the very first driving lessons on a bucket wheel excavator, but on a &#x2026; yes, car. Or motorbike. If you pick the wrong one, you might not follow through.<br>
+The industry workhorse is probably not the right one, because it could be either highly specific and/or comes with a lot of distracting things that don&rsquo;t matter for you right now. There&rsquo;s a reason one does not take the very first driving lessons on a bucket wheel excavator, but on a &#x2026; yes, car. Or motorbike. If you pick the wrong one, you might not follow through.<br>
 </p>
 
 <p>
@@ -150,9 +166,9 @@ and wield some magic!&rdquo;<br>
 <h2 id="orgae6d7f1">What makes a Programming Language beginner-friendly?</h2>
 <div class="outline-text-2" id="text-orgae6d7f1">
 </div>
-<div id="outline-container-org96ebe92" class="outline-3">
-<h3 id="org96ebe92">Available Learning Materials</h3>
-<div class="outline-text-3" id="text-org96ebe92">
+<div id="outline-container-org886ac4c" class="outline-3">
+<h3 id="org886ac4c">Available Learning Material</h3>
+<div class="outline-text-3" id="text-org886ac4c">
 <p>
 For which programming language is the right learning material available? This point is huge!<br>
 </p>
@@ -295,7 +311,8 @@ Can you get started without huge ceremonies and fumbling for days?<br>
 <div class="outline-text-3" id="text-org998904b">
 <blockquote cite="http://www.paulgraham.com/iflisp.html">
 <p>
-&ldquo;Popularity is always self-perpetuating, but it&rsquo;s especially so in programming languages. More libraries get written for popular languages, which makes them still more popular. Programs often have to work with existing programs, and this is easier if they&rsquo;re written in the same language, so languages spread from program to program like a virus. And managers prefer popular languages, because they give them more leverage over developers, who can more easily be replaced.&rdquo; <cite>—<a href="http://www.paulgraham.com/iflisp.html">Paul Graham</a></cite><br>
+&ldquo;Popularity is always self-perpetuating, but it&rsquo;s especially so in programming languages. More libraries get written for popular languages, which makes them still more popular. Programs often have to work with existing programs, and this is easier if they&rsquo;re written in the same language, so languages spread from program to program like a virus. And managers prefer popular languages, because they give them more leverage over developers, who can more easily be replaced.&rdquo;<br>
+<cite>—<a href="http://www.paulgraham.com/iflisp.html">Paul Graham</a></cite><br>
 </p>
 </blockquote>
 
@@ -910,7 +927,7 @@ Which one are you going to learn now? Let me know!<br>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-03-19 Fri 13:48</span></p>
+<p class="footer">Published: <span class="date">2020-06-25 Thu 00:00</span> | Updated: <span class="date">2021-04-18 Sun 10:55</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
