@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-04-12 Mon 16:59 -->
+<!-- 2021-04-22 Thu 09:58 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Learning to code: Writing my first Script in Lisp</title>
@@ -109,10 +109,10 @@ Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard yo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'<span class="org-parenthesis">((</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parenthesis">)</span>
-  <span class="org-parenthesis">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">)</span>
-  <span class="org-parenthesis">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parenthesis">)</span>
-  <span class="org-parenthesis">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">))</span>
+<pre class="src src-lisp">'<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 </div>
@@ -129,7 +129,7 @@ To use the functionality from the library, we must load it first. There&rsquo;s 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parenthesis">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -146,8 +146,8 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parenthesis">)</span>
-<span class="org-doc">"Contains the original table in list form."</span><span class="org-parenthesis">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+<span class="org-doc">"Contains the original table in list form."</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -209,10 +209,10 @@ The data structure stored in the variable is a list, and within that list are ot
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">'<span class="org-parenthesis">((</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parenthesis">)</span>
-  <span class="org-parenthesis">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">)</span>
-  <span class="org-parenthesis">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parenthesis">)</span>
-  <span class="org-parenthesis">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis">))</span>
+<pre class="src src-lisp">'<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -281,10 +281,10 @@ The expression <code>(cl-csv:read-csv #P"template.csv")</code> transforms the co
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
-  <span class="org-parenthesis">(</span>car <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parenthesis">))</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>car <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">(</span></span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
 <span class="org-doc">"Contains the names of the columns we would like to have in the</span>
-<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-parenthesis">)</span>
+<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -297,9 +297,9 @@ What we have in that variable, looks like that: <code>("Order No." "Name" "City"
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-parenthesis">(</span>car *input-table*<span class="org-parenthesis">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>car *input-table*<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
 <span class="org-doc">"Contains the original table header, which is the first row</span>
-<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-parenthesis">)</span>
+<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -316,9 +316,9 @@ Whatever the default predicate for <code>:test</code> is &#x2013; it doesn&rsquo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-parenthesis">(</span>col-name<span class="org-parenthesis">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>col-name<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
   <span class="org-doc">"Get the position number of a column by the column name"</span>
-  <span class="org-parenthesis">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parenthesis">))</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -327,8 +327,8 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
-    <span class="org-parenthesis">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parenthesis">))</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
+    <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -356,10 +356,10 @@ Filter the input row:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-parenthesis">(</span>input-row<span class="org-parenthesis">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>input-row<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
   <span class="org-doc">"Filter a row of the input-table to create a row for the output table"</span>
-  <span class="org-parenthesis">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
-        collect <span class="org-parenthesis">(</span>nth x input-row<span class="org-parenthesis">)))</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
+        collect <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">(</span></span>nth x input-row<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -368,8 +368,8 @@ Create the output-table. We take the function defined above and map it onto each
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
-  <span class="org-parenthesis">(</span>mapcar #'create-output-row *input-table*<span class="org-parenthesis">))</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>mapcar #'create-output-row *input-table*<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
@@ -378,7 +378,7 @@ Write the new CSV to the file system:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-parenthesis">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parenthesis">)</span>
+<pre class="src src-lisp"><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 </div>
@@ -405,46 +405,46 @@ It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before
 <div class="org-src-container">
 <pre class="src src-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Load the library CL-CSV. We use it to read the CSV file and</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">transform its content into a list of lists</span>
-<span class="org-parenthesis">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parenthesis">)</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Read the CSV file and store it in a variable as a list of lists</span>
-<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parenthesis">))</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">We only need the table headers from the first row from 'template.csv'</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">so pull only that and store it in a variable</span>
-<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
-  <span class="org-parenthesis">(</span>car <span class="org-parenthesis">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parenthesis">)))</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>car <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">(</span></span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Get the table header from our original CSV (stored in the variable *input-table*)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">and store it in *header-input-table*</span>
-<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-parenthesis">(</span>car *input-table*<span class="org-parenthesis">))</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>car *input-table*<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Define a function that tells us the position of a particular column name.</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">We feed it the name of a column eg. "Size",</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">then it tells us at which position that particular column is</span>
-<span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-parenthesis">(</span>col-name<span class="org-parenthesis">)</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>col-name<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
   <span class="org-doc">"Get the position number of a column by the column name."</span>
-  <span class="org-parenthesis">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parenthesis">))</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">When we map this function to each column name in our list of column headers,</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">we're getting a list of the positions of the columns that we want to keep.</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">We store that list in the variable *cols-to-keep-by-position*</span>
-<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
-  <span class="org-parenthesis">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parenthesis">))</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Filter the input row</span>
-<span class="org-parenthesis">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-parenthesis">(</span>input-row<span class="org-parenthesis">)</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>input-row<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span>
   <span class="org-doc">"Filter a row of the input-table to create a row for the output table."</span>
-  <span class="org-parenthesis">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
-        collect <span class="org-parenthesis">(</span>nth x input-row<span class="org-parenthesis">)))</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
+        collect <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">(</span></span>nth x input-row<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-3">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Create the output-table; take the function above</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">and map it onto each element of the list *input-table*</span>
-<span class="org-parenthesis">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
-  <span class="org-parenthesis">(</span>mapcar #'create-output-row *input-table*<span class="org-parenthesis">))</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
+  <span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">(</span></span>mapcar #'create-output-row *input-table*<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-2">)</span></span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Write the new CSV</span>
-<span class="org-parenthesis">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parenthesis">)</span>
+<span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">(</span></span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-parenthesis"><span class="org-rainbow-delimiters-depth-1">)</span></span>
 </pre>
 </div>
 
