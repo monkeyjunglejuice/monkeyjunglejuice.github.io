@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2021-11-18 Thu 07:13 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Learning to code: First Project in OCaml – rewrite from Lisp</title>
+<meta name="author" content="Dan Dee" />
+<meta name="description" content="A first learning project in OCaml – walktrough tutorial" />
+<meta name="keywords" content="ocaml, tutorial, project idea, learn ocaml, csv, pattern matching, ocaml scripting" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="/static/normalize.css" type="text/css">
+<link rel="stylesheet" href="/static/org.css" type="text/css">
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/alegreya-sans/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/alegreya/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Regular-decl.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Italic-decl.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Bold-decl.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-BoldItalic-decl.css" type="text/css">
+<link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
+<link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
+<script defer src="/static/head.js"></script>
+<link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learning-to-code-first-ocaml-project-episode-2.tutorial.html">
+</head>
+<body>
+<div id="preamble" class="status">
+<nav id="nav-primary"><a id="site-name" href="/">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+</div>
+<div id="content" class="content">
+<header>
+<h1 class="title">Learning to code: First Project in OCaml – rewrite from Lisp</h1>
+<p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2nd Episode</p>
+</header>
+<div id="outline-container-orgbf5efb0" class="outline-2">
+<h2 id="orgbf5efb0">Automate the Boring Stuff with OCaml</h2>
+<div class="outline-text-2" id="text-orgbf5efb0">
+<p>
+This tutorial is the 2nd episode of a little blog series where I extend, refactor and rewrite a small program with each episode. If you haven&rsquo;t read the <a href="learning-to-code-first-app-episode-1.tutorial.html">1st episode using Common Lisp</a>, you might like to check it out.<br>
+</p>
+
+<p>
+I&rsquo;m on a journey to learn programming, and realized pretty early that I learn stuff best when I prepare myself to explain it to others.<br>
+</p>
+
+<p>
+Usually, beginner projects involve programming little games like Ping Pong or Snake or whatever. Those projects serve no other purpose than learning, because nobody is going to play that Ping Pong afterwards more than once.<br>
+</p>
+
+<p>
+For me it&rsquo;s way easier to stay committed when coding projects have a real world use case. This is why I&rsquo;m looking for problems in my own environment that I would like a computer to solve.<br>
+</p>
+
+<p>
+What we&rsquo;re now doing here is manipulating CSV files. I find it tedious to do this by hand using a spreadsheet, so I wanted to automate the task. This little program doesn&rsquo;t do exciting things, but it serves well as a first trivial project.<br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8796da7" class="outline-2">
+<h2 id="org8796da7">From Common Lisp to OCaml</h2>
+<div class="outline-text-2" id="text-org8796da7">
+<p>
+I was using Common Lisp in the <a href="learning-to-code-first-app-episode-1.tutorial.html">1st episode</a>. In this 2nd episode I&rsquo;m going to use OCaml, because I&rsquo;m still not sure which programming language I like more. OCaml is great for programming beginners, because:<br>
+</p>
+
+<ul class="org-ul">
+<li>There is <a href="https://cs3110.github.io/textbook/cover.html">excellent learning material</a><br></li>
+<li>Actively developed by a highly engaged community<br></li>
+<li>The language has a coherent underlying concept<br></li>
+<li>The syntax is clutter-free and easy to read<br></li>
+<li>It can be compiled to small binaries<br></li>
+<li>Packed with trend-setting features<br></li>
+<li>Multi-purpose and multi-paradigm<br></li>
+<li>OCaml is fast<br></li>
+</ul>
+
+<p>
+I&rsquo;m not going to compare my experince with <b>Lisp vs. OCaml</b> in this episode, but rather do so in one of the coming episodes.<br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1100624" class="outline-2">
+<h2 id="org1100624">What the Program should do</h2>
+<div class="outline-text-2" id="text-org1100624">
+<p>
+Ok first, let&rsquo;s define the features. A checked box means a feature is going to be implemented in this episode:<br>
+</p>
+
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Open and read a CSV file<br></li>
+<li class="on"><code>[X]</code> Remove some columns<br></li>
+<li class="off"><code>[&#xa0;]</code> Perform search and replace on cell content<br></li>
+<li class="on"><code>[X]</code> Set the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
+<li class="on"><code>[X]</code> Spit out a sweet cleaned CSV file<br></li>
+<li class="on"><code>[X]</code> Compile a standalone binary<br></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org09d3204" class="outline-2">
+<h2 id="org09d3204">OCaml Installation and Project Setup</h2>
+<div class="outline-text-2" id="text-org09d3204">
+<p>
+If you would like to follow the tutorial, you&rsquo;ll need OCaml installed and set up on your machine. I won&rsquo;t go trough the installation process here, because the process varies depending on the system you use (I use Linux with Emacs). But there&rsquo;s a comprehensive guide: <a href="https://ocaml.org/learn/tutorials/">Getting started with OCaml</a><br>
+</p>
+</div>
+
+<div id="outline-container-orgebb84e5" class="outline-3">
+<h3 id="orgebb84e5">Checklist</h3>
+<div class="outline-text-3" id="text-orgebb84e5">
+<p>
+No matter on which platform you are – when your setup is done, you should have at least OCaml&rsquo;s package manager <b>opam</b>.<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Install packages from the commmand line</label><pre class="src src-shell">$ opam install dune utop user-setup ocaml-lsp-server ocp-indent ocp-index ocp-browser -y
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b>dune</b> build system<br></li>
+<li><b>utop</b> interactive top level (if you use Emacs then <b>ocaml</b> is enough)<br></li>
+<li>Vim/Emacs: <b>user-setup</b> (auto-config with <code>opam user-setup install</code>)<br></li>
+<li>VSCode: <b><a href="https://open-vsx.org/extension/ocamllabs/ocaml-platform">OCaml Platform</a></b> extension + <b>ocaml-lsp-server</b><br></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5c50be3" class="outline-3">
+<h3 id="org5c50be3">Project setup</h3>
+<div class="outline-text-3" id="text-org5c50be3">
+<p>
+We keep it short:<br>
+</p>
+<ol class="org-ol">
+<li>Create a project folder <code>csvcleaner/</code> somewhere in your home directory<br></li>
+<li>Create an empty file <code>csvcleaner/csvcleaner.ml</code>. This is where the source code lives.<br></li>
+<li>Open the file <code>csvcleaner/csvcleaner.ml</code> in your editor of choice<br></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaf766e5" class="outline-2">
+<h2 id="orgaf766e5">It&rsquo;s Library Shooopping Time!</h2>
+<div class="outline-text-2" id="text-orgaf766e5">
+<p>
+It would be a larger program if we would write everything from scratch. Let&rsquo;s find a library to work with CSV files: <a href="https://opam.ocaml.org/packages/">https://opam.ocaml.org/packages/</a>. Look for &ldquo;csv&rdquo; … Yep! Let&rsquo;s install &ldquo;Csv&rdquo; via <code>opam install csv</code><br>
+</p>
+
+<p>
+Now back in the editor I want that library somehow recognized by OCaml, to be able to use it in my own program code. So do I have to load that library (or to use the right words: &ldquo;load a <i>module</i> from the <i>package</i>&rdquo;). Is there an import statement or something that I have to put in my source file? What happens when I put this into my source file?<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">open </span><span class="org-tuareg-font-lock-module">Csv</span>
+</pre>
+</div>
+
+<p>
+Turns out the line <code>open Csv</code> above produces an error &ldquo;Unbound module Csv&rdquo; immediately when I save the file, although everything is properly installed and configured. So what&rsquo;s happening here? The error comes from Merlin resp. Ocamllsp who uses merlin under the hood. Among other things, Merlin checks the source file for errors each time you save it. Merlin should be already installed via opam as a dependency of &rsquo;user-setup&rsquo; or &rsquo;ocaml-lsp-server&rsquo;.<br>
+</p>
+
+<p>
+It took me 2 hours to learn Merlin seems to need a file named <code>.merlin</code> within the project folder in which the Csv module has to be listed. I&rsquo;ve read somewhere else the <code>csvcleaner/.merlin</code> file is not neccessary when using <i>Dune</i>, which is the en vogue <i>build system</i> for OCaml.<br>
+</p>
+
+<p>
+Back to <code>open Csv</code>. Hm no, that&rsquo;s something slightly different. Once a module is within the search path – which seems to be the case when a <del>module or library</del> package was installed via Opam – then we can refer to a function from that module by &ldquo;Modulename.functionname&rdquo; (analogy: Familyname.firstname), e.g. <code>Csv.lines</code>, which is a function that spits out how many lines a CSV has. We need to <code>open Csv</code> only if we want to omit the function&rsquo;s &ldquo;family name&rdquo; and refer to that function by it&rsquo;s &ldquo;first name&rdquo; only. I use the full names and don&rsquo;t care about that for now.<br>
+</p>
+
+<p>
+We definitely want to use a build system. It makes compiling super easy, avoiding endless command line arguments, messing with paths and other labourous things. So install Dune via Opam from the command line, if not done yet: <code>opam install dune</code>. Dune requires a configuration file describing the project details, e.g. which libraries to use, and so on. So let&rsquo;s create a file named <code>csvcleaner/dune</code> with the following content:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>File content – csvcleaner/dune</label><pre class="src src-dune">(<span class="org-keyword">executable</span>
+ (<span class="org-function-name">name</span> csvcleaner)
+ (<span class="org-function-name">libraries</span> csv))
+</pre>
+</div>
+
+<p>
+Pretty self-explaining I guess. There are more stanzas to hold further project information, but these are enough for our little program.<br>
+</p>
+
+<p>
+When the file exists, we can issue the command <code>dune build</code> from the command line to build the (not yet existing) project. The process creates some build artifacts in <code>csvcleaner/_build</code> and for the first time, Merlin recognizes the &ldquo;Csv&rdquo; module and shows contained functions via autocompletion in Emacs.<br>
+</p>
+
+<p>
+In Emacs (Lisp), you can &ldquo;execute code&rdquo; (nah we don&rsquo;t do that! We evaluate expressions!) from within a source file simply by placing the cursor behind an expression and hitting C-x C-e (that means holding down the &lt;CTRL&gt; key and pressing &lt;x&gt; and then &lt;e&gt;). In VSCode you can evaluate a selection by holding down &lt;SHIFT&gt; and pressing &lt;ENTER&gt;.<br>
+</p>
+
+<p>
+Those keybindings start the OCaml toplevel, either <i>utop</i> or <i>ocaml</i>.<br>
+</p>
+
+<p>
+In Emacs, the error &ldquo;Unbound module Csv&rdquo; appears again, but this time in the toplevel. Turns out, the toplevel doesn&rsquo;t know yet about the module we told Merlin about. The <del>module</del> package has to be loaded in the toplevel separately, using another command <code>#require "csv"</code>. Or better: create a file in the project directory <code>csvcleaner/.ocamlinit</code> with the following 2 lines:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>File content – csvcleaner/.ocamlinit</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">#</span>use <span class="org-string">"topfind"</span><span class="org-tuareg-font-double-colon">;;</span>
+<span class="org-tuareg-font-lock-operator">#</span>require <span class="org-string">"csv"</span><span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+
+<p>
+That way, the toplevel <i>ocaml</i> or <i>utop</i> will load the <del>module</del> &ldquo;csv&rdquo; package at startup. If you use utop, everything should be fine from now on.<br>
+</p>
+
+<p>
+If you use Emacs, auto-completion is probably not yet available within the <i>ocaml</i> toplevel. But `M-x merlin-use &lt;RET&gt; csv &lt;RET&gt;&rsquo; will do the trick. I probably can fix this with a few lines Emacs Lisp code later.<br>
+</p>
+
+<p>
+If you use VSCode, I guess everything just works out of the box when the <a href="https://open-vsx.org/extension/ocamllabs/ocaml-platform">OCaml Platform</a> extension is installed and the <i>language server</i> via <code>opam install ocaml-lsp-server</code>. You problably haven&rsquo;t had to learn all those details.<br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6e5ea11" class="outline-2">
+<h2 id="org6e5ea11">How to open a File in OCaml</h2>
+<div class="outline-text-2" id="text-org6e5ea11">
+<p>
+Let&rsquo;s begin with Input/Output. We will try to open and read the CSV file, store its contents in the memory and use a variable to refer to the data, in order to manipulate it later. How do I open a file in OCaml? The <a href="https://ocaml.org/learn/tutorials/file_manipulation.html">tutorial section</a> on the website helps, here is what I found out:<br>
+</p>
+
+<p>
+Open files are called <i>channels</i> in OCaml. There&rsquo;s a function <code>Stdlib.open_in</code> to open a file. This function takes the path of the file as a <code>string</code> and returns a type <code>in_channel</code>, which seems to be … an abstraction for the open file (?) And there&rsquo;s another function <code>Stdlib.close_in</code> to close the channel/file again. Let&rsquo;s try!<br>
+</p>
+
+<p>
+You can type this in your file <code>csvcleaner/csvcleaner.ml</code> and then evaluate those expressions directly (&ldquo;send to REPL&rdquo; or something), if your editor allows to do that:<br>
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Do some stuff here --&gt; </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file'
+</pre>
+</div>
+
+<p>
+If your editor can&rsquo;t do that, open <b>utop</b> in your terminal emulator and type the lines like this. Notice the <code>;;</code> two semicolons after each expression. You need <code>;;</code> only in the iteractive toplevel, but not in your code:<br>
+</p>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span><span class="org-tuareg-font-double-colon">;;</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Do some stuff here --&gt; </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file'<span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+
+<p>
+You probably wonder about the <code>'</code> ASCII apostrophe at the end of some variable- or function names. That basically means &ldquo;same same but different&rdquo; – I use <code>'</code> to mark examples or alternatives that are not part of the program code.<br>
+</p>
+</div>
+
+<div id="outline-container-org6305c6a" class="outline-3">
+<h3 id="org6305c6a">Types matter</h3>
+<div class="outline-text-3" id="text-org6305c6a">
+<p>
+The value bound to the variable <code>csv_file'</code> has the <i>type</i> <code>in_channel</code>. So now we need another function that can do something with a piece of data with the type <code>in_channel</code>. Types matter a lot in OCaml, you will see that later.<br>
+</p>
+
+<p>
+The <code>in_channel</code> is something that enables us to read a file and points to the beginnning of the file. Still it seems we are pretty far from having the content of the CSV file available as a <i>data structure</i> that we can manipulate at will. Maybe it&rsquo;s time to let the <code>Csv</code> module take over? Nah, not so fast. Let&rsquo;s poke a little bit on that channel thing. I&rsquo;m curious how it behaves and what I can get out of it.<br>
+</p>
+
+<p>
+Cool, I found out there are a couple functions that begin with &ldquo;input_&rdquo; and they all can operate on the type <code>in_channel</code>! Most of them are &ldquo;built-in&rdquo;; that means they are members of the module &ldquo;Stdlib&rdquo; which is always loaded by default. I&rsquo;ve stumbled upon the available functions via auto-completion – it&rsquo;s one of the most life changing inventions of humankind and comes right after the dishwasher, the greatest of all accomplishments of all time.<br>
+</p>
+
+<p>
+Let&rsquo;s write a couple of functions to get stuff out of that channel. So there&rsquo;s <code>input_line</code>: That one reads one line from the file and makes a string out of it. The next time we apply that function, it outputs the next line and so on, until the whole channel is &ldquo;consumed&rdquo;. So that&rsquo;s probably not a <i>pure</i> function (those always return the same output with the same input)?<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> print_endline <span class="org-tuareg-font-lock-operator">(</span>input_line csv_file'<span class="org-tuareg-font-lock-operator">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file'
+</pre>
+</div>
+
+<p>
+And here&rsquo;s another function <code>input_char</code> in the Stdlib that returns the content of the stream character-wise. But we cannot print it to the screen via <code>print_endline</code>, because that particular print function can only print data of the type <code>string</code>. But <code>input_char</code> returns data from the type <code>char</code>, so we either need to convert the chars into strings, or we have to use another function that prints chars directly. Same here: it spits out one char after another, until the channel is &ldquo;consumed&rdquo;:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> print_char <span class="org-tuareg-font-lock-operator">(</span>input_char csv_file'<span class="org-tuareg-font-lock-operator">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file'
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org525c6ed" class="outline-2">
+<h2 id="org525c6ed">The CSV library</h2>
+<div class="outline-text-2" id="text-org525c6ed">
+<p>
+The auto-completion suggests another function <code>Csv.input_all</code> which is part of the <code>Csv</code> module. Instead of building up a data structure from single lines, perhaps we can get a bit more convenience using more of the <code>Csv</code> module functionality from here on? Let&rsquo;s try it.<br>
+</p>
+
+<p>
+But I cannot apply <code>Csv.input_all</code> to <code>csv_file'</code> which is of type <code>in_channel</code>, because it expects its arguments to be of the type <code>Csv.in_channel</code>, not <code>in_channel</code>. I&rsquo;m confused.<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> print_endline <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Csv.</span>input_all csv_file'<span class="org-tuareg-font-lock-operator">)</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&#8592; Nah, not working! Wrong type! </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file'
+</pre>
+</div>
+
+<p>
+Why is <code>csv_file'</code> of type <code>in_channel</code>? Because <code>open_in</code> is. Does it mean we&rsquo;ll better not use the function <code>open_in</code> to open the file but something else?<br>
+</p>
+
+<p>
+Nope, I think I have found something: the function <code>Csv.of_channel</code>. It can transform the <code>csv_file'</code> into something we can manipulate conveniently … well, hold on.<br>
+</p>
+
+<p>
+We will now transform the data from <code>csv_file</code> in 3 steps into a data structure we can manipulate.<br>
+</p>
+<ol class="org-ol">
+<li>We apply the function <code>Csv.of_channel</code> found in the Csv library on the <code>csv_file</code> to set the reading parameters and eventually read the data from the <code>csv_file</code>.<br></li>
+<li>Now we apply the function <code>Csv.input_all</code> on the returned value from the function <code>Csv.of_channel</code> to construct a nested list from the content of the CSV file, where each row becomes a list of strings.<br></li>
+<li>We bind a variable to that nested list, so we can refer to it later.<br></li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table</span> <span class="org-tuareg-font-lock-operator">=</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">3. Variable bound to the list of lists </span><span class="org-comment-delimiter">*)</span>
+  <span class="org-tuareg-font-lock-module">Csv.</span>input_all      <span class="org-comment-delimiter">(* </span><span class="org-comment">2. That function makes a list of lists from the CSV content </span><span class="org-comment-delimiter">*)</span>
+    <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel  <span class="org-comment-delimiter">(* </span><span class="org-comment">1. This function reads what's found in the [csv_file] </span><span class="org-comment-delimiter">*)</span>
+       csv_file<span class="org-tuareg-font-lock-operator">)</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">The "normal" [in_channel] passed as an argument </span><span class="org-comment-delimiter">*)</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file  <span class="org-comment-delimiter">(* </span><span class="org-comment">We have all we need, let's close that file </span><span class="org-comment-delimiter">*)</span>
+</pre>
+</div>
+
+<p>
+So far the nested list we created in the 3 steps above looks like below. In that list, the column headers &ldquo;a&rdquo;, &ldquo;b&rdquo;, &ldquo;c&rdquo; and &ldquo;d&rdquo; convey no special meaning; even tough they sit in the first row, they are nothing more than just a list of strings like all the other rows.<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>Returned value – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-module">Csv.</span>t <span class="org-tuareg-font-lock-operator">=</span>
+            <span class="org-tuareg-font-lock-operator">[[</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">];</span>
+             <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">];</span>
+             <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"5"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"7"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">];</span>
+             <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"9"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"11"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">]]</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8c24386" class="outline-2">
+<h2 id="org8c24386">Choosing a suitable Data Structure</h2>
+<div class="outline-text-2" id="text-org8c24386">
+<p>
+<a href="learning-to-code-first-app-episode-1.tutorial.html">In the previous episode</a> I was just using a simple <i>list of lists</i> like above as my primary data structure; and then I removed the columns (cells) from each row by their position. This is prone to errors and awkward to work with. This time we go one step further.<br>
+</p>
+
+<p>
+In order to conveniently and securely manipulate the data later, we want to associate <i>meaning</i> (column headers) with the <i>content</i> (table cells). To connect each column header with the cells who belong to the same column, we can transform the table above into another data structure that will allow such association: enter the <i>association list</i> a.k.a. <i>map</i> or <i>dictionary</i>.<br>
+</p>
+
+<p>
+In OCaml, an association list is usually implemented as a list containing <i>tuples</i>. The first element in the tuple <code>"a"</code> is the &ldquo;key&rdquo;, and the second element <code>"1"</code> is the &ldquo;value&rdquo;. The parens around tuples can be omitted. So that means if you encounter two or more things in OCaml code separated by a comma, it&rsquo;s actually a tuple – parens or not:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">example_alist'</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)]</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">example_alist''</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">]</span>
+</pre>
+</div>
+
+<p>
+The Csv module provides a convenient function <code>Csv.associate</code> that transforms the <code>table</code> into an alist, but it expects the data for its arguments to be of a certain type. And here&rsquo;s the type signature of the function <code>Csv.associate</code>. It says what type of arguments the function expects and of what the return value will be:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Example – not part of the program code</label><pre class="src src-ocaml">string list <span class="org-tuareg-font-lock-operator">-&gt;</span> string list list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> string<span class="org-tuareg-font-lock-operator">)</span> list list
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>The 1st argument: it wants a string list -&gt;<br></li>
+<li>The 2nd argument: then a string list, wrapped in another list -&gt;<br></li>
+<li>Returns what: two-string tuples, wrapped in lists, wrapped in another list<br></li>
+</ul>
+
+<p>
+Let&rsquo;s find a way to provide the arguments exactly like that. If we don&rsquo;t we&rsquo;ll get a type error. The first argument will deliver the column headers to the function, and the second argument will deliver the other rows (lists) containing the single cells (strings).<br>
+</p>
+
+<p>
+We split that <code>table</code> into the &ldquo;head&rdquo; <i>(that&rsquo;s a common concept and means the first element of a list)</i> and refer to it with the variable <code>header</code>.<br>
+</p>
+
+<p>
+Then we take the &ldquo;tail&rdquo; of the list <i>(also a common term in programming which means the rest of a list, which is itself a list of the remaining elements of the original list)</i> and refer to it with the variable <code>content</code>:<br>
+</p>
+
+<p>
+The expression below deserves some explanation. What we see there, is <i>pattern matching</i>, a technique available in some programming languages from the &ldquo;functional&rdquo; corner, eg. Haskell, Erlang, Elixir or Common Lisp. Other mainstream languages might get it bolted on in the future.<br>
+</p>
+
+<p>
+What it does: Pattern matching is a form of conditional branching which allows you to match on data structure patterns and bind variables <i>at the same time</i>. It helps to produce clean, concise code. For example, we can avoid those clumsy nested if-then-else-if constructs. I&rsquo;m a huge fan of pattern matching and it&rsquo;s everywhere in OCaml.<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Multiple assignment via pattern matching</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">header</span><span class="org-tuareg-font-lock-operator">,</span><span class="org-variable-name"> content</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">match</span> table <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-keyword">assert</span> <span class="org-constant">false</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd<span class="org-tuareg-font-lock-operator">,</span> tl
+</pre>
+</div>
+
+<p>
+In the expression above, we take the <code>table</code> which is essentially a <i>list</i> data structure with other lists in it. A list can be divided into sub-structures, the &ldquo;head&rdquo; and &ldquo;tail&rdquo;; in Lisp called &ldquo;car&rdquo; and &ldquo;cdr&rdquo;, or sometimes &ldquo;first&rdquo; and &ldquo;rest&rdquo;.<br>
+</p>
+
+<p>
+On the left side of the branch (left of the arrow) we write down the pattern and assign variables to the sub-structures we want to use later (in that case <code>hd</code> for &ldquo;head&rdquo; and <code>tl</code> for &ldquo;tail&rdquo;) -&gt; On the right side of the branch, we write down what to do with those variables. In our case here, the right side says &ldquo;construct a tuple from <code>hd</code> and <code>tl</code>&rdquo; which is concisely expressed as <code>hd, tl</code>, or <code>(hd, tl)</code>.<br>
+</p>
+
+<p>
+Note that it doesn&rsquo;t matter how we name those variables – they don&rsquo;t have to be named <code>hd</code> and <code>tl</code> – they could as well be <code>brain</code> and <code>pinky</code>. The crucial detail is the cons operator <code>::</code> who does only one thing: construct a list from an empty list <code>[]</code> and one or more elements: <code>"a" :: "b" :: "c" :: "d" :: []</code> You recognize the pattern here?<br>
+</p>
+
+<p>
+If the <code>table</code> is not an empty list, then the expression will return the tuple <code>hd, tl</code> containing the head and the tail of the <code>table</code>. What it does then, is <a href="https://ocamlbook.org/algebraic-types/#pattern-matching">multiple assignment by another act of pattern matching</a>: The the returned tuple <code>hd, tl</code> is matched against the pattern <code>header</code>, <code>content</code> so that the value from <code>hd</code> is assigned to <code>header</code> and from <code>tl</code> to <code>content</code>.<br>
+</p>
+
+<p>
+When we evaluate the expression above, we finally get the following values, and they have the desired types expected by the function <code>Csv.associate</code>:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 15: </span>Returned values – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">header</span> <span class="org-tuareg-font-lock-operator">:</span> string list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">]</span>
+
+<span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">content</span> <span class="org-tuareg-font-lock-operator">:</span> string list list <span class="org-tuareg-font-lock-operator">=</span>
+              <span class="org-tuareg-font-lock-operator">[[</span><span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">];</span>
+               <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"5"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"7"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">];</span>
+               <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"9"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"11"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">]]</span>
+</pre>
+</div>
+
+<p>
+Eventually we can apply the function <code>Csv.assocciate</code> to combine each column header element with the content cells who belong to it:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 16: </span>Function application</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_assoc</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">Csv.</span>associate header content
+</pre>
+</div>
+
+<p>
+That&rsquo;s how our table looks like after the transformation – the column headers &ldquo;a&rdquo;, &ldquo;b&rdquo;, &ldquo;c&rdquo;, and &ldquo;d&rdquo; have been associated with the corresponding table cells:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 17: </span>Returned value – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_assoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> string<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">=</span>
+                  <span class="org-tuareg-font-lock-operator">[[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)];</span>
+                   <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"5"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"7"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">)];</span>
+                   <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"9"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"11"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">)]]</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0ed4655" class="outline-2">
+<h2 id="org0ed4655">How to remove Columns from the CSV</h2>
+<div class="outline-text-2" id="text-org0ed4655">
+<p>
+We will use another CSV that is going to serve as a template to specify which columns to keep. We can use almost the same construct like before where we read the file <code>input.csv</code>. But since we need only the first row of the <code>template.csv</code>, we&rsquo;ll make sure to get only that.<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 18: </span>Creating the template</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"template.csv"</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header
+    <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span>
+       template_file<span class="org-tuareg-font-lock-operator">)</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in template_file
+</pre>
+</div>
+
+<p>
+So far we have read, transformed and stored the template in memory, bound it to a variable and closed the file.<br>
+</p>
+
+<p>
+Small detail on the side: in OCaml we can write <i>function application</i> like so – pipe a value trough some functions like layers of filters – using the <i>pipe operator</i>:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 19: </span>Alternative – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template'</span> <span class="org-tuareg-font-lock-operator">=</span> template_file
+                <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span>
+                <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header
+</pre>
+</div>
+
+<p>
+And here&rsquo;s the return value:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 20: </span>Returned value – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">template</span> <span class="org-tuareg-font-lock-operator">:</span> string list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">]</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org921ccd3" class="outline-3">
+<h3 id="org921ccd3">The good ones into the list, the bad ones into the garbage collector</h3>
+<div class="outline-text-3" id="text-org921ccd3">
+<p>
+&ldquo;Removing columns&rdquo; is actually misleading: Technically, the function does not remove or delete anything, because … its impossible! Lists in OCaml are immutable – they cannot be changed. So what we will do instead: construct a new list from the columns we want to keep, according to the column headers specified by the template. And simply forget about the others.<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 21: </span>Recursive function using pattern matching on a list of tuples</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_columns</span><span class="org-variable-name"> tpl lst</span> <span class="org-tuareg-font-lock-operator">=</span>
+<span class="org-keyword">match</span> lst <span class="org-keyword">with</span>
+<span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+<span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> remove_columns tpl tl
+<span class="org-tuareg-font-lock-operator">|</span> _ <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> remove_columns tpl tl
+</pre>
+</div>
+
+<p>
+Let&rsquo;s see if the function works on a single row, which is represented by an association list, implemented as a list of tuples <code>(string * string) list</code> (spoiler: it works!)<br>
+</p>
+
+<p>
+Here&rsquo;s the example of one single row from the <code>table_assoc</code>:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 22: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">single_row'</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)]</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">cleaned_row'</span> <span class="org-tuareg-font-lock-operator">=</span> remove_columns template single_row'
+</pre>
+</div>
+
+<p>
+Lets apply this function to all rows of the table, wich is a list of lists of tuples <code>(string * string) list list</code>. The function <code>remove_columns</code> takes two arguments, but since <a href="http://xahlee.info/UnixResource_dir/writ/currying.html">functions in OCaml are curried</a>, they take in fact only one argument, but return a function who takes the second argument, and so on. That&rsquo;s also called <i>partial function application</i>. So we can apply <code>remove_columns</code> to the argument <code>template</code> and map the resulting partial function onto each element of the <code>table_assoc</code><br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 23: </span>Mapping a partial function onto a list of association lists</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_cleaned</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">List.</span>map <span class="org-tuareg-font-lock-operator">(</span>remove_columns template<span class="org-tuareg-font-lock-operator">)</span> table_assoc
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgde9dc39" class="outline-2">
+<h2 id="orgde9dc39">Write the cleaned CSV to Disk</h2>
+<div class="outline-text-2" id="text-orgde9dc39">
+<p>
+How do we get from our data structure, the association list …<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 24: </span>Returned value – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_cleaned</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> string<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">=</span>
+                    <span class="org-tuareg-font-lock-operator">[[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)];</span>
+                     <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">)];</span>
+                     <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">)]]</span>
+</pre>
+</div>
+
+<p>
+… to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
+</p>
+
+<pre class="example" id="org8f37bc8">
+"b"|"d"
+"2"|"4"
+"6"|"8"
+"10"|"12"
+</pre>
+
+<p>
+Let&rsquo;s check if there is a function the Csv library that can take the association list <code>table_cleaned</code> and transform it into the CSV file. Here are the <a href="https://math.umons.ac.be/anum/software/csv/Csv/index.html">online docs for the Csv module</a>, by the way. But nope … nothing. Maybe a bit too far off.<br>
+</p>
+
+<p>
+Ok, then let&rsquo;s see if there is at least a function that will accept a <i>list of lists</i> where each list represents a row? Like we had before where we used <code>Csv.input_all</code> to construct a list of lists from the <code>input_channel</code>?<br>
+</p>
+
+<p>
+But there is no such one – oh wait! Now I realize that the type <code>Csv.t</code> is just another name for <code>string list list</code>, and there is in fact a function <code>Csv.save</code> that accepts an argument of the type <code>Csv.t</code>.<br>
+</p>
+
+<p>
+That means, we have to transform the <i>association list</i> <code>table_cleaned</code> into that kind of simpler list. So we go from this …<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 25: </span>Returned value – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_cleaned</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> string<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">=</span>
+                    <span class="org-tuareg-font-lock-operator">[[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)];</span>
+                     <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">)];</span>
+                     <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">)]]</span>
+</pre>
+</div>
+
+<p>
+… to that:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 26: </span>Returned value – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> string list list <span class="org-tuareg-font-lock-operator">=</span>
+<span class="org-tuareg-font-lock-operator">[[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">];</span>
+ <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">];</span>
+ <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">];</span>
+ <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">]]</span>
+</pre>
+</div>
+
+<p>
+We&rsquo;re going to pluck apart the association list <code>table_cleaned</code> and recombine its parts differently. Here&rsquo;s the plan:<br>
+</p>
+
+<ol class="org-ol">
+<li>We need all column headers to construct the first row of the CSV: so let&rsquo;s extract the <i>keys</i> from the association list and put them in a list.<br></li>
+<li>Extract the <i>values</i> for each row and construct one list per row from them.<br></li>
+<li>Put all those lists (rows) into another list.<br></li>
+</ol>
+
+<p>
+I find it quite helpful to <b>start with single functions</b> who work on the innermost structures of the overall data structure. So let&rsquo;s write two little helpers:<br>
+</p>
+
+<p>
+The 1st helper function <code>get_keys</code> will extract all the keys from one row and collect those keys in a list. It will accept one argument of the type <code>(string * string) list</code>.<br>
+</p>
+
+<p>
+The 2nd helper function <code>get_values</code> will extract the values from a row and collect them in a list. It will accept also one argument of the type <code>(string * string) list</code>.<br>
+</p>
+
+<p>
+You may notice there&rsquo;s no formal parameter for the argument we pass to those functions. Why not? We could, but we&rsquo;ll use a short form here. It&rsquo;s only for Functions who accept only one argument <i>and</i> employ pattern matching at the same time.<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> _<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> k <span class="org-tuareg-font-lock-operator">::</span> get_keys tl
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_values</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>_<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> v <span class="org-tuareg-font-lock-operator">::</span> get_values tl
+</pre>
+</div>
+
+<p>
+Both functions are &ldquo;list eaters&rdquo;, so they munch the elements of a list one after the other <code>[("b", "2"); ("d", "4")]</code>. Therefore the functions will be <i>recursive</i> – they call themself again and again until they have eaten all the rest elements, and there&rsquo;s nothing left but the empty list. Then they will stop.<br>
+</p>
+
+<p>
+That&rsquo;s why we define the empty list <code>[]</code> via pattern matching in the first branch as the <i>base case</i>. <code>[] -&gt; []</code> means simply &ldquo;If the argument matches the pattern <i>empty list</i> -&gt; return an <i>empty list</i> (and don&rsquo;t do anything further)&rdquo;.<br>
+</p>
+
+<p>
+In the 2nd branch of the 1st function <code>get_keys</code> happens quite a lot: On the left side of the arrow we write down the pattern <code>(k, _) :: tl</code>. It reads as follows: &ldquo;From the list of tuples assign the variable <code>k</code> to the 1st element of the first tuple, ignore further elements of the first tuple if there are any. Assign the variable <code>tl</code> to refer to the rest of the list&rdquo;.<br>
+</p>
+
+<p>
+And the right side says: &ldquo;Put the value bound to <code>k</code> in front of a list and repeat the whole process until nothing is left but an empty list&rdquo;. Mh, that&rsquo;s probably not 100 % exact, but you get the idea.<br>
+</p>
+
+<p>
+The 2nd function <code>get_values</code> is basically the same, except it cares about the second element of the tuple and assigns the variable <code>v</code> to its value.<br>
+</p>
+
+<p>
+One more detail: We have to mark functions with the <i>rec</i> keyword to allow them to call themselfes recursively.<br>
+</p>
+
+<p>
+Now we&rsquo;re putting our helper functions to work as parts of a new function. Let&rsquo;s call that one <code>disassoc</code>. Same here: it takes only one argument and does nothing else than pattern matching on that argument, so we can write it in short form too:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">disassoc</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> get_keys hd <span class="org-tuareg-font-lock-operator">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values <span class="org-tuareg-font-lock-operator">(</span>hd <span class="org-tuareg-font-lock-operator">::</span> tl<span class="org-tuareg-font-lock-operator">)</span>
+</pre>
+</div>
+
+<p>
+Here&rsquo;s its type signature. What does it tell you?<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">disassoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+</pre>
+</div>
+
+<p>
+Alternatively, we could write that function without pattern matching as well:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 27: </span>Alternative – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">disassoc'</span><span class="org-variable-name"> lst</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">if</span> lst <span class="org-tuareg-font-lock-operator">==</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-keyword">then</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-keyword">else</span> get_keys <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">List.</span>hd lst<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values lst
+</pre>
+</div>
+
+<p>
+Now we can transform the association list into the type that the function <code>Csv.save</code> expects, and we bind the result to the variable <code>table_final</code>:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_final</span> <span class="org-tuareg-font-lock-operator">=</span> disassoc table_cleaned
+</pre>
+</div>
+
+<p>
+Finally, we can apply the function <code>Csv.save</code> from the Csv module. The function accepts a few other arguments for convenience (the ones that start with <code>~</code> are <i>labeled arguments</i>):<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">Csv.</span>save  <span class="org-tuareg-font-lock-label">~separator</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span> <span class="org-string">"output.csv"</span> table_final
+</pre>
+</div>
+
+<p>
+When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
+</p>
+
+<pre class="example" id="orgcc56214">
+"b"|"d"
+"2"|"4"
+"6"|"8"
+"10"|"12"
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org3b6d2c0" class="outline-2">
+<h2 id="org3b6d2c0">Full Code Listing</h2>
+<div class="outline-text-2" id="text-org3b6d2c0">
+<p>
+Download the whole project folder as a zip archive<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 28: </span>Full code</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.1 </span><span class="org-comment-delimiter">*)</span>
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Read the file and transform the data into something usable </span><span class="org-comment-delimiter">*)</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">Csv.</span>input_all <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel csv_file<span class="org-tuareg-font-lock-operator">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">header</span><span class="org-tuareg-font-lock-operator">,</span><span class="org-variable-name"> content</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">match</span> table <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-keyword">assert</span> <span class="org-constant">false</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd<span class="org-tuareg-font-lock-operator">,</span> tl
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_assoc</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">Csv.</span>associate header content
+
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Remove columns </span><span class="org-comment-delimiter">*)</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"template.csv"</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span> template_file<span class="org-tuareg-font-lock-operator">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in template_file
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_columns</span><span class="org-variable-name"> tpl lst</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">match</span> lst <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> remove_columns tpl tl
+  <span class="org-tuareg-font-lock-operator">|</span> _ <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> remove_columns tpl tl
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_cleaned</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">List.</span>map <span class="org-tuareg-font-lock-operator">(</span>remove_columns template<span class="org-tuareg-font-lock-operator">)</span> table_assoc
+
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Prepare the data for output </span><span class="org-comment-delimiter">*)</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> _<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> k <span class="org-tuareg-font-lock-operator">::</span> get_keys tl
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_values</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>_<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> v <span class="org-tuareg-font-lock-operator">::</span> get_values tl
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">disassoc</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> get_keys hd <span class="org-tuareg-font-lock-operator">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values <span class="org-tuareg-font-lock-operator">(</span>hd <span class="org-tuareg-font-lock-operator">::</span> tl<span class="org-tuareg-font-lock-operator">)</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_final</span> <span class="org-tuareg-font-lock-operator">=</span> disassoc table_cleaned
+
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Write the cleaned CSV file </span><span class="org-comment-delimiter">*)</span>
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span> <span class="org-string">"output.csv"</span> table_final
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org91674fb" class="outline-2">
+<h2 id="org91674fb">Compile the Standalone Binary Executable</h2>
+<div class="outline-text-2" id="text-org91674fb">
+<ul class="org-ul">
+<li><b>Compile only:</b> Change into your project directory <code>cd csvcleaner/</code> and issue the command <code>dune build</code>. Your compiled binary will be <code>csvcleaner/_build/default/csvcleaner.exe</code>. Don&rsquo;t get confused about the .exe suffix - it&rsquo;s not a windows binary if you compile on Linux.<br></li>
+
+<li><b>Compile and run</b> the executable: <code>dune exec ./csvcleaner.exe</code><br></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf752f92" class="outline-2">
+<h2 id="orgf752f92">Conclusion</h2>
+<div class="outline-text-2" id="text-orgf752f92">
+<p>
+I separated the program into three main parts. The code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
+</p>
+
+<p>
+A better structure for this program is one pipe where you just can easily plug in new functions in between; like layers of filters. Then it will be easier to add features by plugging them into the pipe one after another.<br>
+</p>
+
+<p>
+I couldn&rsquo;t wait to rewrite it, so I&rsquo;m adding version 0.2 below. The code of version 0.2 is slightly longer. I&rsquo;m not sure actually if it is clearer then version 0.1. But it&rsquo;s probably more elegant and easier to maintain.<br>
+</p>
+</div>
+
+<div id="outline-container-org2940609" class="outline-3">
+<h3 id="org2940609">Takeaways</h3>
+<div class="outline-text-3" id="text-org2940609">
+<ul class="org-ul">
+<li>Pattern matching is cool.<br></li>
+<li>Partial function application (via curried functions by default) is ultra cool. But to think in terms of chaining partial functions while reasoning about the code structure doesn&rsquo;t come naturally yet.<br></li>
+<li>Finding sensible names all the time for functions and variables sucks. More so, if type signature and function definition already say all there is to say. That means for me:<br>
+<ul class="org-ul">
+<li>keep functions small, anonymous at best<br></li>
+<li>avoid formal parameters where possible<br></li>
+<li>always consider whether a global definition is really necessary<br></li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.2 </span><span class="org-comment-delimiter">*)</span>
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Reads the file and transforms the data into something usable </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">prep</span><span class="org-variable-name"> file</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tab_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in file <span class="org-tuareg-font-lock-governing">in</span>
+  tab_file
+  <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>of_channel
+  <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>input_all
+  <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-keyword">fun</span> <span class="org-variable-name">tab</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">head</span><span class="org-tuareg-font-lock-operator">,</span><span class="org-variable-name"> body</span> <span class="org-tuareg-font-lock-operator">=</span>
+                  <span class="org-keyword">match</span> tab <span class="org-keyword">with</span>
+                  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-keyword">assert</span> <span class="org-constant">false</span>
+                  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd<span class="org-tuareg-font-lock-operator">,</span> tl <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in tab_file <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-module">Csv.</span>associate head body
+
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Removes columns </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span><span class="org-variable-name"> tab</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tpl_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"template.csv"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tpl</span> <span class="org-tuareg-font-lock-operator">=</span> tpl_file
+            <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span>
+            <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in tpl_file <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_cols</span><span class="org-variable-name"> tpl tab</span> <span class="org-tuareg-font-lock-operator">=</span>
+    <span class="org-keyword">match</span> tab <span class="org-keyword">with</span>
+    <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+    <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> remove_cols tpl tl
+    <span class="org-tuareg-font-lock-operator">|</span> _ <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> remove_cols tpl tl <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-module">List.</span>map <span class="org-tuareg-font-lock-operator">(</span>remove_cols tpl<span class="org-tuareg-font-lock-operator">)</span> tab
+
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Prepares the data for output </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">disassoc</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> <span class="org-tuareg-font-lock-operator">=</span>
+    <span class="org-keyword">function</span>
+    <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+    <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> _<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> k <span class="org-tuareg-font-lock-operator">::</span> get_keys tl <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_values</span> <span class="org-tuareg-font-lock-operator">=</span>
+    <span class="org-keyword">function</span>
+    <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+    <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>_<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> v <span class="org-tuareg-font-lock-operator">::</span> get_values tl <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> get_keys hd <span class="org-tuareg-font-lock-operator">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values <span class="org-tuareg-font-lock-operator">(</span>hd <span class="org-tuareg-font-lock-operator">::</span> tl<span class="org-tuareg-font-lock-operator">)</span>
+
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Writes the cleaned CSV file </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">write</span><span class="org-variable-name"> tab</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span> tab
+
+
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Putting all together in one pipe </span><span class="org-comment-delimiter">*)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"input.csv"</span>
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> prep
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> clean
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> disassoc
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> write <span class="org-string">"output.csv"</span>
+</pre>
+</div>
+
+<p>
+If you are looking for an amazing tool to work on CSV files, check out <i>csvtool</i>. It is a command line utility written in OCaml by the creator of the Csv library I&rsquo;m using here, and it is available via Opam <code>opam install csvtool</code> or as a package in Ubuntu: <code>apt install csvtool</code> and probably other Linux distros.<br>
+</p>
+
+<p>
+In the next episode I&rsquo;m either going to rewrite this again in Common Lisp using pattern matching, or add a feature to version 0.2. Please let me know if you enjoyed the walktrough. Thank you for reading!<br>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-17 Wed 21:55</span></p>
+<div class="comments">
+<h2>What do you think?</h2>
+<div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+</body>
+</html>
