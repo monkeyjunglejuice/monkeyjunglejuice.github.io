@@ -15,7 +15,7 @@ body {
   max-width: 38em;
   margin: auto;
   color: #000;
-  background-color: #efefe7;
+  background-color: #fff8dc;
   /* background-color: #fbeeca; */
   /* background-color: #ffffe8; */
   padding: 13px;
@@ -56,11 +56,11 @@ h1 {
 }
 
 h2 {
-  font-family: 'Alegreya Sans', sans-serif;
-  font-weight: 800;
+  font-family: 'Alegreya', serif;
+  font-weight: 500;
   font-size: 1.8em;
-  font-style: italic;
-  line-height: 1.1;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 4.5rem;
   padding-left: 10%;
@@ -72,8 +72,8 @@ h3 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
   font-size: 1.2em;
-  letter-spacing: 0.025em;
-  line-height: 1.1;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 2rem;
 }
@@ -82,7 +82,7 @@ h4 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
   font-size: 1em;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.1em;
   line-height: 1.4;
   margin-top: 5rem;
   margin-bottom: 2rem;
@@ -201,7 +201,7 @@ code {
   font-family: 'Fantasque Sans Mono', monospace;
   font-weight: 400;
   font-size: 0.9em;
-  background-color: #fff9;
+  background-color: #ffff;
   border-radius: 2px;
   padding: 0 0.15em 0 0.15em;
   white-space: nowrap;
@@ -214,7 +214,8 @@ pre > code {
 }
 
 hr {
-  border-color: #0004;
+    border: 1px dotted;
+    margin-top: 5rem;
 }
 
 table {
@@ -334,9 +335,9 @@ fieldset {
 /* IDs AND CLASSES ***********************************************************/
 
 #site-name {
-  font-family: 'Alegreya SC', serif;
-  font-weight: 600;
-  float: left;
+    font-family: 'Alegreya SC', serif;
+    font-weight: 600;
+    float: left;
 }
 
 #preamble {
@@ -492,4 +493,17 @@ pre.src::before {
   font-weight: 500;
   font-size: 0.75em;
   letter-spacing: 0.1em;
+}
+
+.org-src-name {
+  color: #000c;
+  display: initial;
+  font-size: 0.75em;
+  font-weight: initial;
+  letter-spacing: 0.1em;
+}
+
+::selection {
+    color: #167e67;
+    background: #cff5d7;
 }
