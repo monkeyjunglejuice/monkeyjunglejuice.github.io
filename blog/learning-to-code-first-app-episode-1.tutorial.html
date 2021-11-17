@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-11-16 Tue 10:27 -->
+<!-- 2021-11-18 Thu 07:53 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: Writing my first Script in Lisp</title>
@@ -31,12 +31,11 @@
 <header>
 <h1 class="title">Learning to code: Writing my first Script in Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 1st Episode</p>
-</header><div class="update" id="org9f00451">
+</header><nav id="orge04318c">
 <p>
-<a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">2nd episode 2 is out: Rewrite in OCaml</a><br>
+<a href="learning-to-code-first-app-episode-1.tutorial.html">1st Episode</a> | <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">2nd Episode</a><br>
 </p>
-
-</div>
+</nav>
 
 <div id="outline-container-org2bd1fe8" class="outline-2">
 <h2 id="org2bd1fe8">Automate the Boring Stuff with Lisp</h2>
@@ -160,7 +159,7 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </pre>
 </div>
 
-<div class="note" id="orgbb9eb67">
+<div class="note" id="org9f3198c">
 <p>
 <b>Let&rsquo;s throw in a little explainer about Lisp source code, shall we?</b><br>
 </p>
@@ -252,7 +251,7 @@ Example: If don&rsquo;t want the column &ldquo;Size&rdquo; appearing in the resu
 For that, we would need to define all the columns we don&rsquo;t want. We could do that here, directly in the source file in the form of a list of all column headers to get rid of. But then if we want to change something, we would always have to touch the source file &#x2026; meh. Better we specify those columns outside of the app&rsquo;s logic in another CSV which will serve as a template. Let&rsquo;s be creative and call it &rsquo;template.csv&rsquo;.<br>
 </p>
 
-<div class="note" id="orge218b8b">
+<div class="note" id="org08a29c7">
 <p>
 <b>So here we&rsquo;ll make a little break to introduce a literary figure: <i>Future Me</i> writing here!</b><br>
 </p>
@@ -340,7 +339,7 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </pre>
 </div>
 
-<div class="note" id="org426d75d">
+<div class="note" id="orgd695b65">
 <p>
 It&rsquo;s me again &#x2013; former <i>Future Me</i>! Merging into your present time line and becoming just me again!<br>
 </p>
@@ -464,7 +463,7 @@ Ok, that was a first try. <a href="learning-to-code-first-ocaml-project-episode-
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-11-16 Tue 10:27</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-11-18 Thu 07:52</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
