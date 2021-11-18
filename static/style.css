@@ -417,6 +417,22 @@ fieldset {
   margin-bottom: 0;
 }
 
+.subnav {
+  text-align: center;
+}
+
+.subnav li {
+  display: inline-block;
+  list-style-type: none;
+  padding: 0 0.5rem 0 0.5rem;
+}
+
+.subnav ul,
+.subnav ol {
+  padding: 0;
+  margin: 0;
+}
+
 .index {
   font-weight: 400;
   margin-bottom: 5rem;
