@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-11-18 Thu 09:33 -->
+<!-- 2021-11-18 Thu 13:19 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: First Project in OCaml – rewrite from Lisp</title>
@@ -30,8 +30,8 @@
 <div id="content" class="content">
 <header>
 <h1 class="title">Learning to code: First Project in OCaml – rewrite from Lisp</h1>
-<p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2nd Episode</p>
-</header><nav class="subnav" id="org93fd64f">
+<p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2</p>
+</header><nav class="subnav" id="orgf0e23c8">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">1st Episode</a><br></li>
 <li>2nd Episode<br></li>
@@ -61,13 +61,12 @@ For me it&rsquo;s way easier to stay committed when coding projects have a real 
 What we&rsquo;re now doing here is manipulating CSV files. I find it tedious to do this by hand using a spreadsheet, so I wanted to automate the task. This little program doesn&rsquo;t do exciting things, but it serves well as a first trivial project.<br>
 </p>
 </div>
-</div>
 
-<div id="outline-container-org8796da7" class="outline-2">
-<h2 id="org8796da7">From Common Lisp to OCaml</h2>
-<div class="outline-text-2" id="text-org8796da7">
+<div id="outline-container-org8796da7" class="outline-3">
+<h3 id="org8796da7">From Common Lisp to OCaml</h3>
+<div class="outline-text-3" id="text-org8796da7">
 <p>
-I was using Common Lisp in the <a href="learning-to-code-first-app-episode-1.tutorial.html">last episode</a>. Today I&rsquo;m going to use OCaml, because I&rsquo;m still not sure which programming language I like more. OCaml is great for programming beginners, because:<br>
+I was using Common Lisp in the <a href="learning-to-code-first-app-episode-1.tutorial.html">last episode</a>. Today I&rsquo;m going to use OCaml, because I&rsquo;m still not sure which programming language I like more. I think OCaml is great for programming beginners, because:<br>
 </p>
 
 <ul class="org-ul">
@@ -87,35 +86,17 @@ I&rsquo;m not going to compare my experince with <b>Lisp vs. OCaml</b> this time
 </div>
 </div>
 
-<div id="outline-container-org1100624" class="outline-2">
-<h2 id="org1100624">What the Program should do</h2>
-<div class="outline-text-2" id="text-org1100624">
-<p>
-Ok first, let&rsquo;s define the features. A checked box means a feature is going to be implemented in this episode:<br>
-</p>
-
-<ul class="org-ul">
-<li class="on"><code>[X]</code> Open and read a CSV file<br></li>
-<li class="on"><code>[X]</code> Remove some columns<br></li>
-<li class="off"><code>[&#xa0;]</code> Perform search and replace on cell content<br></li>
-<li class="on"><code>[X]</code> Set the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
-<li class="on"><code>[X]</code> Spit out a sweet cleaned CSV file<br></li>
-<li class="on"><code>[X]</code> Compile a standalone binary<br></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-org09d3204" class="outline-2">
-<h2 id="org09d3204">OCaml Installation and Project Setup</h2>
-<div class="outline-text-2" id="text-org09d3204">
+<div id="outline-container-org09d3204" class="outline-3">
+<h3 id="org09d3204">OCaml Installation and Project Setup</h3>
+<div class="outline-text-3" id="text-org09d3204">
 <p>
 If you would like to follow the tutorial, you&rsquo;ll need OCaml installed and set up on your machine. I won&rsquo;t go trough the installation process here, because the process varies depending on the system you use (I use Linux with Emacs). But there&rsquo;s a comprehensive guide: <a href="https://ocaml.org/learn/tutorials/">Getting started with OCaml</a><br>
 </p>
 </div>
 
-<div id="outline-container-orgebb84e5" class="outline-3">
-<h3 id="orgebb84e5">Checklist</h3>
-<div class="outline-text-3" id="text-orgebb84e5">
+<div id="outline-container-orgebb84e5" class="outline-4">
+<h4 id="orgebb84e5">Checklist</h4>
+<div class="outline-text-4" id="text-orgebb84e5">
 <p>
 No matter on which platform you are – when your setup is done, you should have at least OCaml&rsquo;s package manager <b>opam</b>.<br>
 </p>
@@ -134,9 +115,9 @@ No matter on which platform you are – when your setup is done, you should have
 </div>
 </div>
 
-<div id="outline-container-org5c50be3" class="outline-3">
-<h3 id="org5c50be3">Project setup</h3>
-<div class="outline-text-3" id="text-org5c50be3">
+<div id="outline-container-org5c50be3" class="outline-4">
+<h4 id="org5c50be3">Project setup</h4>
+<div class="outline-text-4" id="text-org5c50be3">
 <p>
 We keep it short:<br>
 </p>
@@ -148,12 +129,31 @@ We keep it short:<br>
 </div>
 </div>
 </div>
+</div>
 
-<div id="outline-container-orgaf766e5" class="outline-2">
-<h2 id="orgaf766e5">It&rsquo;s Library Shooopping Time!</h2>
-<div class="outline-text-2" id="text-orgaf766e5">
+<div id="outline-container-org1100624" class="outline-2">
+<h2 id="org1100624">What the Program should do</h2>
+<div class="outline-text-2" id="text-org1100624">
 <p>
-It would be a larger program if we would write everything from scratch. Let&rsquo;s find a library to work with CSV files: <a href="https://opam.ocaml.org/packages/">https://opam.ocaml.org/packages/</a>. Look for &ldquo;csv&rdquo; … Yep! Let&rsquo;s install &ldquo;Csv&rdquo; via <code>opam install csv</code><br>
+Let&rsquo;s define the features first. A checked box means a feature is going to be implemented in this episode:<br>
+</p>
+
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Open and read a CSV file<br></li>
+<li class="on"><code>[X]</code> Remove some columns<br></li>
+<li class="off"><code>[&#xa0;]</code> Perform search and replace on cell content<br></li>
+<li class="on"><code>[X]</code> Set the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
+<li class="on"><code>[X]</code> Spit out a sweet cleaned CSV file<br></li>
+<li class="on"><code>[X]</code> Compile a standalone binary<br></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgdcc2ead" class="outline-2">
+<h2 id="orgdcc2ead">It&rsquo;s Library Time!</h2>
+<div class="outline-text-2" id="text-orgdcc2ead">
+<p>
+It would get a larger program if we would write everything from scratch. Let&rsquo;s look around for a library to work with CSV files: <a href="https://opam.ocaml.org/packages/">https://opam.ocaml.org/packages/</a>. Look for &ldquo;csv&rdquo; … Yep! Let&rsquo;s install &ldquo;Csv&rdquo; via <code>opam install csv</code><br>
 </p>
 
 <p>
@@ -588,7 +588,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org5b7f9c1">
+<pre class="example" id="org0bc864c">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -748,7 +748,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="orgb4b81da">
+<pre class="example" id="orgae470f2">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -938,7 +938,7 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-18 Thu 09:33</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-18 Thu 13:19</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
