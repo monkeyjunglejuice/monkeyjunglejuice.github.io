@@ -16,8 +16,6 @@ body {
   margin: auto;
   color: #000;
   background-color: #fff8dc;
-  /* background-color: #fbeeca; */
-  /* background-color: #ffffe8; */
   padding: 13px;
 }
 
@@ -70,7 +68,7 @@ h2 {
 
 h3 {
   font-family: 'Alegreya Sans SC', sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 1.2em;
   letter-spacing: 0.1em;
   line-height: 1.2;
@@ -520,6 +518,17 @@ pre.src::before {
 }
 
 ::selection {
-    color: #167e67;
-    background: #cff5d7;
+  color: #167e67;
+  background: #cff5d7;
+}
+
+li.on,
+li.off {
+  list-style-type: none;
+}
+
+li.on code,
+li.off code {
+  background: initial;
+  font-weight: bolder;
 }
