@@ -49,11 +49,10 @@ I was tired to manipulate CSV tables per hand using spreadsheets, so I wondered 
 I believe that the best way to understand something is to teach it (or put differently: if you cannot explain it, you do not really understand it). So I&rsquo;m going to make a little blog series of it to document my progress, and to extend/refactor the script with each episode, until I&rsquo;m happy with it or too bored &#x2014; whatever happens first.<br>
 </p>
 </div>
-</div>
 
-<div id="outline-container-org84eba8d" class="outline-2">
-<h2 id="org84eba8d">Why Common Lisp and not Language XYZ?</h2>
-<div class="outline-text-2" id="text-org84eba8d">
+<div id="outline-container-org84eba8d" class="outline-3">
+<h3 id="org84eba8d">Why Common Lisp and not Language XYZ?</h3>
+<div class="outline-text-3" id="text-org84eba8d">
 <p>
 <code>(with-lisp #'automate *the-boring-stuff*)</code><br>
 </p>
@@ -69,6 +68,7 @@ if you wanna follow along and tinker with the code, download it here. You&rsquo;
 <p>
 So welcome to the 1st episode and enjoy the glorious piece of alien technology.<br>
 </p>
+</div>
 </div>
 </div>
 
@@ -397,7 +397,7 @@ Write the new CSV to the file system:<br>
 <h2 id="orgca4da5c">Conclusion</h2>
 <div class="outline-text-2" id="text-orgca4da5c">
 <p>
-It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and collecting things seems to be easier than removing things, like in the physical world.<br>
+It works! Features 1. and 2. and 6. accomplished. As I&rsquo;ve mentioned before, the hard part was to figure out how to actually remove the columns I don&rsquo;t want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions <code>(1 3 4)</code> from a list <code>("a" "b" "c" "d" "e")</code>. Sometimes you only have to change the perspective, and collecting things seems to be easier than removing things.<br>
 </p>
 </div>
 
@@ -464,7 +464,7 @@ Ok, that was a first try. <a href="learning-to-code-first-ocaml-project-episode-
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-11-18 Thu 07:52</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-11-18 Thu 10:10</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
