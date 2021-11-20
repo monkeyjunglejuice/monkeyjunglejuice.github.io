@@ -57,7 +57,6 @@ h2 {
   font-family: 'Alegreya', serif;
   font-weight: 500;
   font-size: 1.8em;
-  letter-spacing: 0.05em;
   line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 4.5rem;
@@ -70,7 +69,6 @@ h3 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
   font-size: 1.2em;
-  letter-spacing: 0.05em;
   line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 2rem;
@@ -133,10 +131,6 @@ small,
 sub,
 sup {
   font-size: 0.75em;
-}
-
-li {
-  margin-top: 2rem;
 }
 
 ul,
@@ -211,9 +205,9 @@ pre > code {
 }
 
 hr {
-    border: 0;
-    border-bottom 1px dotted;
-    margin-top: 5rem;
+  border: 0;
+  border-bottom: 1px dotted;
+  margin-top: 5rem;
 }
 
 table {
