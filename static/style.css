@@ -81,7 +81,6 @@ h4 {
   line-height: 1.4;
   margin-top: 5rem;
   margin-bottom: 2rem;
-  padding-left: 1.5em;
 }
 
 h5,
@@ -192,9 +191,9 @@ code {
   font-family: 'Fantasque Sans Mono', monospace;
   font-weight: 400;
   font-size: 0.9em;
-  background-color: #ffff;
+  background-color: #0001;
   border-radius: 2px;
-  padding: 0 0.15em 0 0.15em;
+  padding: 0 0.3em 0 0.3em;
   white-space: nowrap;
 }
 
@@ -248,10 +247,10 @@ input[type="button"] {
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
-  background-color: #ff780075;
+  background-color: #fff2bf;
   color: #000;
   border-radius: 10em;
-  border: 2px solid #000;
+  border: 1px dotted #000;
   cursor: pointer;
   box-sizing: border-box;
   font-family: 'Alegreya', serif;
@@ -278,7 +277,7 @@ input[type="reset"]:focus:enabled,
 input[type="reset"]:hover:enabled,
 input[type="button"]:focus:enabled,
 input[type="button"]:hover:enabled {
-  background-color: #97ff0075;
+  background-color: #cff5d7;
   border-color: #000;
   color: #000;
   outline: 0;
@@ -298,7 +297,7 @@ input {
   color: #4a4a4a;
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
   margin-bottom: 10px;
-  background-color: #f1f1f1;
+  background-color: transparent;
   border: 1px solid #f1f1f1;
   border-radius: 4px;
   box-shadow: none;
