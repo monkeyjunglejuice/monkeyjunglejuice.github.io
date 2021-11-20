@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-11-20 Sat 12:24 -->
+<!-- 2021-11-20 Sat 15:46 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: First Project in OCaml – rewrite from Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">Learning to code: First Project in OCaml – rewrite from Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2</p>
-</header><nav class="subnav" id="orgf945b02">
+</header><nav class="subnav" id="orgda5f871">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">1st Episode</a><br></li>
 <li>2nd Episode<br></li>
@@ -361,7 +361,7 @@ We will now transform the data from <code>csv_file</code> in 3 steps into a data
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table</span> <span class="org-tuareg-font-lock-operator">=</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">3. Variable bound to the list of lists </span><span class="org-comment-delimiter">*)</span>
   <span class="org-tuareg-font-lock-module">Csv.</span>input_all      <span class="org-comment-delimiter">(* </span><span class="org-comment">2. That function makes a list of lists from the CSV content </span><span class="org-comment-delimiter">*)</span>
     <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel  <span class="org-comment-delimiter">(* </span><span class="org-comment">1. This function reads what's found in the [csv_file] </span><span class="org-comment-delimiter">*)</span>
-       csv_file<span class="org-tuareg-font-lock-operator">)</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">The "normal" [in_channel] passed as an argument </span><span class="org-comment-delimiter">*)</span>
+       csv_file<span class="org-tuareg-font-lock-operator">)</span>     <span class="org-comment-delimiter">(* </span><span class="org-comment">The "normal" [in_channel] passed as an argument </span><span class="org-comment-delimiter">*)</span>
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in csv_file  <span class="org-comment-delimiter">(* </span><span class="org-comment">We have all we need, let's close that file </span><span class="org-comment-delimiter">*)</span>
 </pre>
@@ -604,7 +604,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org1af3036">
+<pre class="example" id="orgc2a091d">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -764,7 +764,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org65413e2">
+<pre class="example" id="org12bebcc">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -773,15 +773,34 @@ When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv
 </div>
 </div>
 
-<div id="outline-container-org3b6d2c0" class="outline-2">
-<h2 id="org3b6d2c0">Full Code Listing</h2>
-<div class="outline-text-2" id="text-org3b6d2c0">
+<div id="outline-container-orgf752f92" class="outline-2">
+<h2 id="orgf752f92">Conclusion</h2>
+<div class="outline-text-2" id="text-orgf752f92">
+</div>
+<div id="outline-container-org2940609" class="outline-3">
+<h3 id="org2940609">Takeaways</h3>
+<div class="outline-text-3" id="text-org2940609">
+<ul class="org-ul">
+<li>Pattern matching is cool.<br></li>
+<li>Partial function application (via curried functions by default) is ultra cool. But to think in terms of chaining partial functions while reasoning about the code structure doesn&rsquo;t come naturally yet.<br></li>
+<li>Finding sensible names all the time for functions and variables sucks. More so, if type signature and function definition already say all there is to say. That means for me:<br>
+<ul class="org-ul">
+<li>keep functions small, anonymous at best<br></li>
+<li>avoid formal parameters where possible<br></li>
+<li>always consider whether a global definition is really necessary<br></li>
+</ul></li>
+</ul>
+
 <p>
-Download the whole project folder as a zip archive<br>
+I separated the program into three parts. The code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
+</p>
+
+<p>
+A better structure for this program is one pipe where you just can easily plug in new functions in between; like layers of filters. Then it will be easier to add features by plugging them into the pipe one after another.<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 30: </span>Full code</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.1 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 30: </span>Full code listing, version 0.1</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.1 </span><span class="org-comment-delimiter">*)</span>
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Read the file and transform the data into something usable </span><span class="org-comment-delimiter">*)</span>
 
@@ -837,52 +856,13 @@ Download the whole project folder as a zip archive<br>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span> <span class="org-string">"output.csv"</span> table_final
 </pre>
 </div>
-</div>
-</div>
-
-<div id="outline-container-org91674fb" class="outline-2">
-<h2 id="org91674fb">Compile the Standalone Binary Executable</h2>
-<div class="outline-text-2" id="text-org91674fb">
-<ul class="org-ul">
-<li><b>Compile only:</b> Change into your project directory <code>cd csvcleaner/</code> and issue the command <code>dune build</code>. Your compiled binary will be <code>csvcleaner/_build/default/csvcleaner.exe</code>. Don&rsquo;t get confused about the .exe suffix - it&rsquo;s not a windows binary if you compile on Linux.<br></li>
-
-<li><b>Compile and run</b> the executable: <code>dune exec ./csvcleaner.exe</code><br></li>
-</ul>
-</div>
-</div>
-
-<div id="outline-container-orgf752f92" class="outline-2">
-<h2 id="orgf752f92">Conclusion</h2>
-<div class="outline-text-2" id="text-orgf752f92">
-<p>
-I separated the program into three main parts. The code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
-</p>
-
-<p>
-A better structure for this program is one pipe where you just can easily plug in new functions in between; like layers of filters. Then it will be easier to add features by plugging them into the pipe one after another.<br>
-</p>
 
 <p>
 I couldn&rsquo;t wait to rewrite it, so I&rsquo;m adding version 0.2 below. The code of version 0.2 is slightly longer. I&rsquo;m not sure actually if it is clearer then version 0.1. But it&rsquo;s probably more elegant and easier to maintain.<br>
 </p>
-</div>
-
-<div id="outline-container-org2940609" class="outline-3">
-<h3 id="org2940609">Takeaways</h3>
-<div class="outline-text-3" id="text-org2940609">
-<ul class="org-ul">
-<li>Pattern matching is cool.<br></li>
-<li>Partial function application (via curried functions by default) is ultra cool. But to think in terms of chaining partial functions while reasoning about the code structure doesn&rsquo;t come naturally yet.<br></li>
-<li>Finding sensible names all the time for functions and variables sucks. More so, if type signature and function definition already say all there is to say. That means for me:<br>
-<ul class="org-ul">
-<li>keep functions small, anonymous at best<br></li>
-<li>avoid formal parameters where possible<br></li>
-<li>always consider whether a global definition is really necessary<br></li>
-</ul></li>
-</ul>
 
 <div class="org-src-container">
-<pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.2 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 31: </span>Full code listing, version 0.2</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.2 </span><span class="org-comment-delimiter">*)</span>
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Reads the file and transforms the data into something usable </span><span class="org-comment-delimiter">*)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">prep</span><span class="org-variable-name"> file</span> <span class="org-tuareg-font-lock-operator">=</span>
@@ -941,6 +921,18 @@ I couldn&rsquo;t wait to rewrite it, so I&rsquo;m adding version 0.2 below. The 
          <span class="org-tuareg-font-lock-operator">|&gt;</span> write <span class="org-string">"output.csv"</span>
 </pre>
 </div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org91674fb" class="outline-2">
+<h2 id="org91674fb">Compile the Standalone Binary Executable</h2>
+<div class="outline-text-2" id="text-org91674fb">
+<ul class="org-ul">
+<li><b>Compile only:</b> Change into your project directory <code>cd csvcleaner/</code> and issue the command <code>dune build</code>. Your compiled binary will be <code>csvcleaner/_build/default/csvcleaner.exe</code>. Don&rsquo;t get confused about the .exe suffix - it&rsquo;s not a windows binary if you compile on Linux.<br></li>
+
+<li><b>Compile and run</b> the executable: <code>dune exec ./csvcleaner.exe</code><br></li>
+</ul>
 
 <p>
 If you are looking for an amazing tool to work on CSV files, check out <i>csvtool</i>. It is a command line utility written in OCaml by the creator of the Csv library I&rsquo;m using here, and it is available via Opam <code>opam install csvtool</code> or as a package in Ubuntu: <code>apt install csvtool</code> and probably other Linux distros.<br>
@@ -952,9 +944,8 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 </div>
-</div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-20 Sat 12:24</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-20 Sat 15:46</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
