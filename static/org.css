@@ -63,7 +63,7 @@ pre.src-lilypond:before { content: 'Lilypond'; }
 pre.src-lua:before { content: 'Lua'; }
 pre.src-matlab:before { content: 'MATLAB'; }
 pre.src-mscgen:before { content: 'Mscgen'; }
-pre.src-ocaml:before { content: 'Objective Caml'; }
+pre.src-ocaml:before { content: 'OCaml'; }
 pre.src-octave:before { content: 'Octave'; }
 pre.src-org:before { content: 'Org mode'; }
 pre.src-oz:before { content: 'OZ'; }
