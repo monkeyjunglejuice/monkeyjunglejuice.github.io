@@ -103,27 +103,31 @@ No matter on which platform you are – when your setup is done, you should have
 
 <ul class="org-ul">
 <li><p>
-<b>VSCode:</b> Install the <a href="https://open-vsx.org/extension/ocamllabs/ocaml-platform">OCaml Platform</a> extension and this:<br>
+<b>VSCode:</b> Install the packages from the commmand line and the <a href="https://open-vsx.org/extension/ocamllabs/ocaml-platform">OCaml Platform</a> extension<br>
 </p>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>Install packages from the commmand line</label><pre class="src src-shell">$ opam install dune utop ocaml-lsp-server ocp-indent ocp-index ocp-browser -y
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Command line</label><pre class="src src-shell">opam install dune utop ocaml-lsp-server ocamlformat-rpc -y
 </pre>
 </div></li>
 
-<li><b>Emacs:</b> Install the packages and then auto-config everything with <code>opam user-setup install</code><br></li>
-</ul>
+<li><p>
+<b>Emacs:</b> Install the packages and run <i>user-setup</i><br>
+</p>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Install packages from the commmand line</label><pre class="src src-shell">$ opam install dune user-setup ocp-indent ocp-index ocp-browser -y
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Command line</label><pre class="src src-shell">opam install dune user-setup merlin tuareg -y &amp;&amp;
+opam user-setup install
 </pre>
-</div>
+</div></li>
 
-<ul class="org-ul">
-<li><b>Vim:</b> Install the packages and then auto-config everything with <code>opam user-setup install</code><br></li>
-</ul>
+<li><p>
+<b>Vim:</b> Install the packages and run <i>user-setup</i><br>
+</p>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Install packages from the commmand line</label><pre class="src src-shell">$ opam install dune user-setup utop ocp-indent ocp-index ocp-browser -y
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Commmand line</label><pre class="src src-shell">opam install dune user-setup utop ocaml-lsp-server -y &amp;&amp;
+opam user-setup install
 </pre>
-</div>
+</div></li>
+</ul>
 </div>
 </div>
 
