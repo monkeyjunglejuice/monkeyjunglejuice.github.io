@@ -57,7 +57,7 @@ h2 {
   font-family: 'Alegreya', serif;
   font-weight: 500;
   font-size: 1.8em;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.05em;
   line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 4.5rem;
@@ -70,7 +70,7 @@ h3 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 500;
   font-size: 1.2em;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 2rem;
@@ -80,7 +80,6 @@ h4 {
   font-family: 'Alegreya Sans SC', sans-serif;
   font-weight: 600;
   font-size: 1em;
-  letter-spacing: 0.1em;
   line-height: 1.4;
   margin-top: 5rem;
   margin-bottom: 2rem;
