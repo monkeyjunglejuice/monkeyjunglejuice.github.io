@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-11-25 Thu 14:20 -->
+<!-- 2021-11-27 Sat 07:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: First Project in OCaml – rewrite from Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">Learning to code: First Project in OCaml – rewrite from Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2</p>
-</header><nav class="subnav" id="org2a61312">
+</header><nav class="subnav" id="orgd683461">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">1st Episode</a><br></li>
 <li>2nd Episode<br></li>
@@ -585,9 +585,9 @@ Lets apply this function to all rows of the <code>table_assoc</code>, wich is a 
 </div>
 </div>
 
-<div id="outline-container-orgde9dc39" class="outline-2">
-<h2 id="orgde9dc39">Write the cleaned CSV to Disk</h2>
-<div class="outline-text-2" id="text-orgde9dc39">
+<div id="outline-container-orga0d2db6" class="outline-2">
+<h2 id="orga0d2db6">Save the cleaned CSV to Disk</h2>
+<div class="outline-text-2" id="text-orga0d2db6">
 <p>
 How do we get from our data structure, the association list …<br>
 </p>
@@ -604,7 +604,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="orgf868a74">
+<pre class="example" id="org9567dc0">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -764,7 +764,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org78fb067">
+<pre class="example" id="org80fcba4">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -777,7 +777,7 @@ When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv
 <h2 id="orgf752f92">Conclusion</h2>
 <div class="outline-text-2" id="text-orgf752f92">
 <ul class="org-ul">
-<li>Pattern matching is ultra cool.<br></li>
+<li>Pattern matching is cool because you have a visualization of the data structure you work on not just in your head but also before your eyes (the pattern).<br></li>
 <li>Partial function application (via curried functions by default) is cool too. But to think in terms of chaining partial functions while reasoning about the code structure doesn&rsquo;t come naturally yet.<br></li>
 <li>Finding sensible names for functions and variables all the time sucks. More so, if type signatures and function definitions already say all there is to say. That means for me:<br>
 <ul class="org-ul">
@@ -788,11 +788,11 @@ When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv
 </ul>
 
 <p>
-I&rsquo;ve separated the program into three parts. The code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
+The separation of the program in 3 parts comes naturally: input, work, output. The code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
 </p>
 
 <p>
-Is there a better structure for this program? Maybe a <i>pipe</i> where you can easily plug in other functions in between; like layers of filters. That would make it super easy to add new features. I couldn&rsquo;t wait to rewrite it that way, so I&rsquo;m adding version 0.2 below. The code of version 0.2 hasn&rsquo;t got any shorter. I&rsquo;m not sure actually if it&rsquo;s clearer then version 0.1, but it&rsquo;s probably more elegant and easier to maintain.<br>
+Is there a better structure for this program? Maybe kinda like a pipe where you can plug in other functions in between – like layers of filters. That would make it easy to add new features in the future. I couldn&rsquo;t wait to refactor it that way, so I&rsquo;m adding version 0.2 below.<br>
 </p>
 
 <div class="org-src-container">
@@ -853,6 +853,10 @@ Is there a better structure for this program? Maybe a <i>pipe</i> where you can 
 </pre>
 </div>
 
+<p>
+And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any shorter. The single functions got a bit more complex but overall it got clearer than version 0.1.<br>
+</p>
+
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 31: </span>Full code listing, version 0.2</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.2 </span><span class="org-comment-delimiter">*)</span>
 
@@ -901,7 +905,7 @@ Is there a better structure for this program? Maybe a <i>pipe</i> where you can 
 
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Writes the cleaned CSV file </span><span class="org-comment-delimiter">*)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">write</span><span class="org-variable-name"> tab</span> <span class="org-tuareg-font-lock-operator">=</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">save</span><span class="org-variable-name"> tab</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span> tab
 
 
@@ -910,7 +914,7 @@ Is there a better structure for this program? Maybe a <i>pipe</i> where you can 
          <span class="org-tuareg-font-lock-operator">|&gt;</span> prep
          <span class="org-tuareg-font-lock-operator">|&gt;</span> clean
          <span class="org-tuareg-font-lock-operator">|&gt;</span> disassoc
-         <span class="org-tuareg-font-lock-operator">|&gt;</span> write <span class="org-string">"output.csv"</span>
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> save <span class="org-string">"output.csv"</span>
 </pre>
 </div>
 </div>
@@ -941,7 +945,7 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-25 Thu 14:20</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-27 Sat 07:26</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
