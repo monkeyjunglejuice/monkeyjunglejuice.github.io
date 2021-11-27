@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-11-27 Sat 09:04 -->
+<!-- 2021-11-27 Sat 09:14 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: First Project in OCaml – rewrite from Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">Learning to code: First Project in OCaml – rewrite from Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2</p>
-</header><nav class="subnav" id="org1dd54cf">
+</header><nav class="subnav" id="orgb8c143b">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">1st Episode</a><br></li>
 <li>2nd Episode<br></li>
@@ -604,7 +604,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org36dc80c">
+<pre class="example" id="org2ef7f18">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -764,7 +764,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="orge7fb784">
+<pre class="example" id="org1f4544e">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -781,8 +781,17 @@ When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv
 </p>
 
 <p>
-<b>Type signatures</b> act like a brief unified description of what a function digests and what comes out at the end. That&rsquo;s quite elegant and helpful in most cases. It becomes unhelpful when a library author believes the types say all there is to say and omits further explanations and examples.<br>
+<b>Type signatures</b> act like a brief unified description of what a function digests and what comes out at the end. That&rsquo;s quite elegant and helpful in most cases. It becomes unhelpful when a library author omits further explanations and examples.<br>
 </p>
+
+<p>
+<b>Finding sensible names</b> for functions and variables all the time sucks. More so, if type signatures and function definitions already say all there is to say. That means for me:<br>
+</p>
+<ul class="org-ul">
+<li>always consider whether a global definition is really necessary<br></li>
+<li>keep small functions anonymous where possible<br></li>
+<li>avoid formal parameters when they don&rsquo;t contribute to clarity<br></li>
+</ul>
 
 <p>
 <b>Partial function application</b> (via curried functions) seems to be cool too. But to think in terms of chaining partial functions while reasoning about how to express a particular thing in code doesn&rsquo;t come naturally yet. Partial application can make code also more difficult to understand: Look at the following definition of the wrapper function <code>save</code>. Is it clear that it actually takes another argument, namely the output file name?<br>
@@ -814,27 +823,17 @@ That argument comes from the inner function <code>Csv.save</code> which takes th
 <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
-
-<p>
-<b>Finding sensible names</b> for functions and variables all the time sucks. More so, if type signatures and function definitions already say all there is to say. That means for me:<br>
-</p>
-<ul class="org-ul">
-<li>always consider whether a global definition is really necessary<br></li>
-<li>keep small functions anonymous where possible<br></li>
-<li>avoid formal parameters when they don&rsquo;t contribute to clarity<br></li>
-</ul>
-</div>
 </div>
 
-<div id="outline-container-orgd352061" class="outline-2">
-<h2 id="orgd352061">Full Code Listing</h2>
-<div class="outline-text-2" id="text-orgd352061">
+<div id="outline-container-orgd352061" class="outline-3">
+<h3 id="orgd352061">Full Code Listing</h3>
+<div class="outline-text-3" id="text-orgd352061">
 <p>
-The separation of the program in 3 parts comes naturally: input, work, output. The code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
+The separation of the program comes quite naturally: input - preparation - work - preparation - output. My code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
 </p>
 
 <p>
-Is there a better structure for this program? Maybe kinda like a pipe where you can plug in other functions in between – like layers of filters. That would make it easy to add new features in the future. I couldn&rsquo;t wait to refactor it that way, so I&rsquo;m adding version 0.2 below.<br>
+Is there a better structure for this program? Maybe kinda like a pipe where you can plug in other functions in between – like layers of filters. That would make it easy to add new features in the future. I couldn&rsquo;t wait to refactor it that way, so I&rsquo;m adding version 0.2 below. But first, here&rsquo;s the whole spaghetti pot we cooked up so far:<br>
 </p>
 
 <div class="org-src-container">
@@ -961,6 +960,7 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
 </div>
 </div>
 </div>
+</div>
 
 <div id="outline-container-org91674fb" class="outline-2">
 <h2 id="org91674fb">Compile the Standalone Binary Executable</h2>
@@ -987,7 +987,7 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-27 Sat 09:04</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-27 Sat 09:13</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
