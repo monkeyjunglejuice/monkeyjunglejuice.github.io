@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-11-27 Sat 08:18 -->
+<!-- 2021-11-27 Sat 09:04 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: First Project in OCaml – rewrite from Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">Learning to code: First Project in OCaml – rewrite from Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2</p>
-</header><nav class="subnav" id="orgca95817">
+</header><nav class="subnav" id="org1dd54cf">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">1st Episode</a><br></li>
 <li>2nd Episode<br></li>
@@ -604,7 +604,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org44d8a8c">
+<pre class="example" id="org36dc80c">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -724,7 +724,7 @@ Now we&rsquo;re putting our helper functions to work as parts of a new function.
 </div>
 
 <p>
-Here&rsquo;s its type signature. What does it tell you?<br>
+Here&rsquo;s its type signature. What does it tell?<br>
 </p>
 <div class="org-src-container">
 <pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">disassoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
@@ -764,7 +764,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="orge3aba9e">
+<pre class="example" id="orge7fb784">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -781,11 +781,11 @@ When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv
 </p>
 
 <p>
-<b>Type signatures</b> act like a brief and unified and formal description of what a function expects and what comes out at the end. That&rsquo;s quite elegant and helpful in most cases. It becomes unhelpful if a library author believes the types say all there is to say and omits further explanations and examples.<br>
+<b>Type signatures</b> act like a brief unified description of what a function digests and what comes out at the end. That&rsquo;s quite elegant and helpful in most cases. It becomes unhelpful when a library author believes the types say all there is to say and omits further explanations and examples.<br>
 </p>
 
 <p>
-<b>Partial function application</b> (via curried functions by default) seems to be cool too. But to think in terms of chaining partial functions while reasoning about how to express a particular thing in code doesn&rsquo;t come naturally yet. Partial application can make code also more difficult to understand: Look at the following definition of the function <code>save</code>. Is it clear that it actually takes another argument, namely the output file name?<br>
+<b>Partial function application</b> (via curried functions) seems to be cool too. But to think in terms of chaining partial functions while reasoning about how to express a particular thing in code doesn&rsquo;t come naturally yet. Partial application can make code also more difficult to understand: Look at the following definition of the wrapper function <code>save</code>. Is it clear that it actually takes another argument, namely the output file name?<br>
 </p>
 
 <div class="org-src-container">
@@ -799,7 +799,19 @@ One has to look at the type signature first to realize that the function can tak
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">save</span> <span class="org-tuareg-font-lock-operator">:</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>t <span class="org-tuareg-font-lock-operator">-&gt;</span> unit <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<label class="org-src-name"><span class="listing-number">Listing 31: </span>Type signature – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>t <span class="org-tuareg-font-lock-operator">-&gt;</span> unit <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+</pre>
+</div>
+
+<p>
+That argument comes from the inner function <code>Csv.save</code> which takes the file name as a string:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 32: </span>Type signature – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-label">?separator</span><span class="org-tuareg-font-lock-operator">:</span>char <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-label">?backslash_escape</span><span class="org-tuareg-font-lock-operator">:</span>bool <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-label">?excel_tricks</span><span class="org-tuareg-font-lock-operator">:</span>bool <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-label">?quote_all</span><span class="org-tuareg-font-lock-operator">:</span>bool <span class="org-tuareg-font-lock-operator">-&gt;</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>t <span class="org-tuareg-font-lock-operator">-&gt;</span> unit
+<span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
 
@@ -807,9 +819,9 @@ One has to look at the type signature first to realize that the function can tak
 <b>Finding sensible names</b> for functions and variables all the time sucks. More so, if type signatures and function definitions already say all there is to say. That means for me:<br>
 </p>
 <ul class="org-ul">
-<li>keep functions small, anonymous at best<br></li>
-<li>avoid formal parameters where possible<br></li>
 <li>always consider whether a global definition is really necessary<br></li>
+<li>keep small functions anonymous where possible<br></li>
+<li>avoid formal parameters when they don&rsquo;t contribute to clarity<br></li>
 </ul>
 </div>
 </div>
@@ -826,7 +838,7 @@ Is there a better structure for this program? Maybe kinda like a pipe where you 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 31: </span>Version 0.1</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.1 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 33: </span>Version 0.1</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.1 </span><span class="org-comment-delimiter">*)</span>
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Input &#8211; transform the data into something usable </span><span class="org-comment-delimiter">*)</span>
 
@@ -888,7 +900,7 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 32: </span>Version 0.2</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.2 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 34: </span>Version 0.2</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.2 </span><span class="org-comment-delimiter">*)</span>
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Reads the file and transform the data into something usable </span><span class="org-comment-delimiter">*)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">prep</span><span class="org-variable-name"> file</span> <span class="org-tuareg-font-lock-operator">=</span>
@@ -954,7 +966,7 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
 <h2 id="org91674fb">Compile the Standalone Binary Executable</h2>
 <div class="outline-text-2" id="text-org91674fb">
 <ul class="org-ul">
-<li><b>Compile only:</b> Change into your project directory <code>cd csvcleaner/</code> and issue the command <code>dune build</code>. Your compiled binary will be <code>csvcleaner/_build/default/csvcleaner.exe</code>. Don&rsquo;t get confused about the .exe suffix — it&rsquo;s not a windows binary if you compile on Linux.<br></li>
+<li><b>Compile only:</b> Change into your project directory <code>cd csvcleaner/</code> and issue the command <code>dune build</code>. Your compiled binary will be <code>csvcleaner/_build/default/csvcleaner.exe</code>. Don&rsquo;t get confused about the <i>.exe</i> suffix — it&rsquo;s just a naming convention in dune, not a windows binary if you compile on Linux.<br></li>
 
 <li><b>Compile and run</b> the executable: <code>dune exec ./csvcleaner.exe</code><br></li>
 </ul>
@@ -975,7 +987,7 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-27 Sat 08:17</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-27 Sat 09:04</span></p>
 <div class="comments">
 <h2>What do you think?</h2>
 <div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
