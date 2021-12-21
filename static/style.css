@@ -56,7 +56,7 @@ h1 {
 h2 {
   font-family: 'Alegreya', serif;
   font-weight: 500;
-  font-size: 1.8em;
+  font-size: 1.6em;
   line-height: 1.2;
   margin-top: 5rem;
   margin-bottom: 4.5rem;
@@ -119,6 +119,7 @@ a:active {
 p {
   margin-top: 0;
   margin-bottom: 2rem;
+  text-align: justify;
 }
 
 b,
