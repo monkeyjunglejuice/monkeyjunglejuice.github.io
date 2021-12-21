@@ -119,7 +119,6 @@ a:active {
 p {
   margin-top: 0;
   margin-bottom: 2rem;
-  text-align: justify;
 }
 
 b,
@@ -373,6 +372,8 @@ fieldset {
 #content p {
   padding-left: 1.5em;
   padding-right: 1.5em;
+  text-align: justify;
+  text-justify: inter-character;
 }
 
 #content header p {
