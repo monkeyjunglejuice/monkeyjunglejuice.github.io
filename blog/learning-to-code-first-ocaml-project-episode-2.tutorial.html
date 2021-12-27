@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-12-28 Tue 07:08 -->
+<!-- 2021-12-28 Tue 07:18 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: First Project in OCaml – rewrite from Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">Learning to code: First Project in OCaml – rewrite from Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 2</p>
-</header><nav class="subnav" id="orgab3deff">
+</header><nav class="subnav" id="org15f32fc">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">1st Episode</a><br></li>
 <li>2nd Episode<br></li>
@@ -604,7 +604,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org172feb2">
+<pre class="example" id="orgf8fca92">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -764,7 +764,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org9e9f9f7">
+<pre class="example" id="org88f97ce">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -901,7 +901,7 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 34: </span>Version 0.2</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.2 </span><span class="org-comment-delimiter">*)</span>
 
-<span class="org-comment-delimiter">(* </span><span class="org-comment">Reads the file and transform the data into something usable </span><span class="org-comment-delimiter">*)</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">Reads the file and transforms the data into something usable </span><span class="org-comment-delimiter">*)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">prep</span><span class="org-variable-name"> file</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tab_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in file <span class="org-tuareg-font-lock-governing">in</span>
   tab_file
@@ -987,7 +987,7 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-11-27 Sat 09:16</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2021-12-28 Tue 07:17</span></p>
 </div>
 </body>
 </html>
