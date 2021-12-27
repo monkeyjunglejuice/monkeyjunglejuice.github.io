@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-12-17 Fri 21:18 -->
+<!-- 2021-12-28 Tue 07:08 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Learning to code: Writing my first Script in Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">Learning to code: Writing my first Script in Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project &ldquo;CSV Cleaner&rdquo; | 1</p>
-</header><nav class="subnav" id="orge0ac2f0">
+</header><nav class="subnav" id="org1cc83d6">
 <ul class="org-ul">
 <li>1st Episode<br></li>
 <li><a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">2nd Episode</a><br></li>
@@ -160,7 +160,7 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </pre>
 </div>
 
-<div class="note" id="orgf764c3a">
+<div class="note" id="orgf50231f">
 <p>
 <b>Let&rsquo;s throw in a little explainer about Lisp source code, shall we?</b><br>
 </p>
@@ -252,7 +252,7 @@ Example: If don&rsquo;t want the column &ldquo;Size&rdquo; appearing in the resu
 For that, we would need to define all the columns we don&rsquo;t want. We could do that here, directly in the source file in the form of a list of all column headers to get rid of. But then if we want to change something, we would always have to touch the source file &#x2026; meh. Better we specify those columns outside of the app&rsquo;s logic in another CSV which will serve as a template. Let&rsquo;s be creative and call it &rsquo;template.csv&rsquo;.<br>
 </p>
 
-<div class="note" id="org4033869">
+<div class="note" id="org8b454e4">
 <p>
 <b>So here we&rsquo;ll make a little break to introduce a literary figure: <i>Future Me</i> writing here!</b><br>
 </p>
@@ -340,7 +340,7 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </pre>
 </div>
 
-<div class="note" id="org4592e40">
+<div class="note" id="orgb28b794">
 <p>
 It&rsquo;s me again &#x2013; former <i>Future Me</i>! Merging into your present time line and becoming just me again!<br>
 </p>
@@ -465,10 +465,6 @@ Ok, that was a first try. <a href="learning-to-code-first-ocaml-project-episode-
 </div>
 <div id="postamble" class="status">
 <p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2021-11-18 Thu 13:31</span></p>
-<div class="comments">
-<h2>What do you think?</h2>
-<div id="disqus_thread"></div><script>(function() { var d = document, s = d.createElement('script'); s.src = 'https://monkeyjunglejuice.disqus.com/embed.js'; s.setAttribute('data-timestamp', +new Date()); (d.head || d.body).appendChild(s); })();</script><noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
 </div>
 </body>
 </html>
