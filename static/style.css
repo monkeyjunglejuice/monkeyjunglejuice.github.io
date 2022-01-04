@@ -464,12 +464,12 @@ blockquote.center {
 }
 
 #table-of-contents h2 {
-  font-family: 'Alegreya Sans', sans-serif;
-  font-weight: normal;
-  font-size: 1em;
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 600;
+  font-size: 0.75em;
   line-height: 1.4;
   font-style: normal;
-  letter-spacing: 0;
+  letter-spacing: 0.1em;
   text-align: left;
   margin-bottom: 2rem;
   padding-left: 0;
