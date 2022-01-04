@@ -1,10 +1,12 @@
-* My personal [[https://monkeyjunglejuice.github.io][blog about learning programming]]
-... and a couple other things I'm interested in.
+* My [[https://monkeyjunglejuice.github.io][Blog about Learning Programming]]
+... and some other things I'm interested in.
 
-Index
-- [[https://monkeyjunglejuice.github.io/blog/learning-to-code-first-ocaml-project-episode-2.tutorial.html][Learning to code EP2: First Project in OCaml – rewrite from Lisp]]
-- [[https://monkeyjunglejuice.github.io/blog/learning-to-code-first-app-episode-1.tutorial.html][Learning to code EP1: Writing my first Script in Lisp]]
-- [[https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html][How to display the Emacs server name in the frame title?]]
-- [[https://monkeyjunglejuice.github.io/blog/best-programming-language-for-beginner.essay.html][Which programming language should I learn first?]]
+** Project »CSV Cleaner«
+- [[https://monkeyjunglejuice.github.io/blog/learning-to-code-first-ocaml-project-episode-2.tutorial.html][Part 2: First Project in OCaml – Rewrite from Lisp]]
+- [[https://monkeyjunglejuice.github.io/blog/learning-to-code-first-app-episode-1.tutorial.html][Part 1: Writing my first Script in Lisp]]
+
+** Essays & Mini-Tutorials
+- [[https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html][How to display the Emacs Server Name in the Frame Title?]]
+- [[https://monkeyjunglejuice.github.io/blog/best-programming-language-for-beginner.essay.html][Which Programming Language should I learn first?]]
 
 /Published with [[https:/www.gnu.org/software/emacs//][Emacs]], [[https://orgmode.org/][Org-mode]], a bit CSS and nice fonts :)/
