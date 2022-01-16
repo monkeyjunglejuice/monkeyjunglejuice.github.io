@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-04 Tue 09:43 -->
+<!-- 2022-01-14 Fri 09:21 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>First Project in OCaml – Rewrite from Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">First Project in OCaml – Rewrite from Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Learning to Code: Project »CSV Cleaner«</p>
-</header><nav class="subnav" id="orgbdffd1e">
+</header><nav class="subnav" id="org40aaf9d">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">Part 1</a><br></li>
 <li>Part 2<br></li>
@@ -81,7 +81,7 @@ I was using Common Lisp in the <a href="learning-to-code-first-app-episode-1.tut
 </ul>
 
 <p>
-I&rsquo;m not going to compare my experince with <b>Lisp vs. OCaml</b> this time, but rather do so in one of the coming episodes.<br>
+I&rsquo;m not going to compare my experience with <b>Lisp vs. OCaml</b> this time, but rather do so in one of the coming episodes.<br>
 </p>
 </div>
 </div>
@@ -106,7 +106,7 @@ No matter on which platform you are – when your setup is done, you should have
 <b>VSCode:</b> Install the packages from the commmand line and the <a href="https://open-vsx.org/extension/ocamllabs/ocaml-platform">OCaml Platform</a> extension<br>
 </p>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>Command line</label><pre class="src src-shell">opam install dune utop ocaml-lsp-server ocamlformat-rpc -y
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Command line</label><pre class="src src-shell">opam install utop ocaml-lsp-server ocamlformat-rpc -y
 </pre>
 </div></li>
 
@@ -114,7 +114,7 @@ No matter on which platform you are – when your setup is done, you should have
 <b>Emacs:</b> Install the packages and run <i>user-setup</i><br>
 </p>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Command line</label><pre class="src src-shell">opam install dune user-setup merlin tuareg -y &amp;&amp;
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Command line</label><pre class="src src-shell">opam install user-setup merlin tuareg -y &amp;&amp;
 opam user-setup install
 </pre>
 </div></li>
@@ -123,7 +123,7 @@ opam user-setup install
 <b>Vim:</b> Install the packages and run <i>user-setup</i><br>
 </p>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Commmand line</label><pre class="src src-shell">opam install dune user-setup utop ocaml-lsp-server -y &amp;&amp;
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Commmand line</label><pre class="src src-shell">opam install user-setup utop ocaml-lsp-server -y &amp;&amp;
 opam user-setup install
 </pre>
 </div></li>
@@ -604,7 +604,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org8b1c2e7">
+<pre class="example" id="orgb25772e">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -764,7 +764,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org3325034">
+<pre class="example" id="orgcabf71e">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -987,7 +987,7 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2022-01-04 Tue 09:42</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2022-01-14 Fri 09:19</span></p>
 </div>
 </body>
 </html>

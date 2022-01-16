@@ -3,6 +3,7 @@
 /* Based on Sakura.css v1.3.0 https://github.com/oxalorg/sakura */
 
 html {
+  background-color: #fff8dc;
   font-size: 62.5%; /* = 10px */
   font-family: 'Alegreya Sans', sans-serif;
   scroll-behavior: smooth;
@@ -15,7 +16,6 @@ body {
   max-width: 38em;
   margin: auto;
   color: #000;
-  background-color: #fff8dc;
   padding: 13px;
 }
 
