@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-14 Fri 09:21 -->
+<!-- 2022-01-31 Mon 07:44 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>First Project in OCaml – Rewrite from Lisp</title>
@@ -31,7 +31,7 @@
 <header>
 <h1 class="title">First Project in OCaml – Rewrite from Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Learning to Code: Project »CSV Cleaner«</p>
-</header><nav class="subnav" id="org40aaf9d">
+</header><nav class="subnav" id="orga2047da">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">Part 1</a><br></li>
 <li>Part 2<br></li>
@@ -151,7 +151,7 @@ We keep it short:<br>
 <h2 id="org3ca02c4">What the Program should do</h2>
 <div class="outline-text-2" id="text-org3ca02c4">
 <p>
-Let&rsquo;s define the features first. A checked box means a feature is going to be implemented in this episode:<br>
+Let&rsquo;s define the features first. A checked box means a feature has been implemented in this episode:<br>
 </p>
 
 <ul class="org-ul">
@@ -165,9 +165,9 @@ Let&rsquo;s define the features first. A checked box means a feature is going to
 </div>
 </div>
 
-<div id="outline-container-orgbd634af" class="outline-2">
-<h2 id="orgbd634af">It&rsquo;s Library Time!</h2>
-<div class="outline-text-2" id="text-orgbd634af">
+<div id="outline-container-orge2f0725" class="outline-2">
+<h2 id="orge2f0725">It&rsquo;s Library Shopping Time!</h2>
+<div class="outline-text-2" id="text-orge2f0725">
 <p>
 It would get a larger program if we would write everything from scratch. Let&rsquo;s look around for a library to work with CSV files: <a href="https://opam.ocaml.org/packages/">https://opam.ocaml.org/packages/</a>. Look for &ldquo;csv&rdquo; … Yep! Let&rsquo;s install &ldquo;Csv&rdquo; via <code>opam install csv</code><br>
 </p>
@@ -182,11 +182,11 @@ Now back in the editor I want that library somehow recognized by OCaml, to be ab
 </div>
 
 <p>
-Turns out the line <code>open Csv</code> above produces an error &ldquo;Unbound module Csv&rdquo; immediately when I save the file, although everything is properly installed and configured. So what&rsquo;s happening here? The error comes from Merlin resp. Ocamllsp who uses merlin under the hood. Among other things, Merlin checks the source file for errors each time you save it. Merlin should be already installed via opam as a dependency of &rsquo;user-setup&rsquo; or &rsquo;ocaml-lsp-server&rsquo;.<br>
+Turns out the line <code>open Csv</code> above produces an error &ldquo;Unbound module Csv&rdquo; immediately when I save the file, although everything is properly installed and configured. So what&rsquo;s happening here? The error comes from Merlin resp. Ocamllsp who uses Merlin under the hood. Among other things, Merlin checks the source file for errors each time you save it. Merlin should be already installed via opam as a dependency of &rsquo;user-setup&rsquo; or &rsquo;ocaml-lsp-server&rsquo;.<br>
 </p>
 
 <p>
-It took me 2 hours to learn Merlin seems to need a file named <code>.merlin</code> within the project folder in which the Csv module has to be listed. I&rsquo;ve read somewhere else the <code>csvcleaner/.merlin</code> file is not neccessary when using <i>Dune</i>, which is the en vogue <i>build system</i> for OCaml.<br>
+It took me 2 hours to learn Merlin seems to need a file named <code>.merlin</code> within the project folder in which the Csv module has to be listed. I&rsquo;ve read somewhere else the <code>csvcleaner/.merlin</code> file is not neccessary when using Dune, which is the en vogue <i>build system</i> for OCaml.<br>
 </p>
 
 <p>
@@ -209,7 +209,7 @@ Pretty self-explaining I guess. There are more stanzas to hold further project i
 </p>
 
 <p>
-When the file exists, we can issue the command <code>dune build</code> from the command line to build the (not yet existing) project. The process creates some build artifacts in <code>csvcleaner/_build</code> and for the first time, Merlin recognizes the &ldquo;Csv&rdquo; module and shows contained functions via autocompletion in Emacs.<br>
+When the file exists, we can issue the command <code>dune build</code> from the command line to build the (not yet existing) project. The process creates some build artifacts in <code>csvcleaner/_build</code>. And for the first time, Merlin recognizes the &ldquo;Csv&rdquo; module and shows contained functions via autocompletion in Emacs.<br>
 </p>
 
 <p>
@@ -266,7 +266,7 @@ You can type this in your file <code>csvcleaner/csvcleaner.ml</code> and then ev
 </div>
 
 <p>
-If your editor can&rsquo;t do that, open <b>utop</b> in your terminal emulator and type the lines like this. Notice the <code>;;</code> two semicolons after each expression. You need <code>;;</code> only in the iteractive toplevel, but not in your code:<br>
+If your editor can&rsquo;t do that, open <b>utop</b> in your terminal emulator and type the lines like this. Notice the <code>;;</code> two semicolons after each expression. You need <code>;;</code> only in the interactive toplevel, but not in your code:<br>
 </p>
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 8: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"input.csv"</span><span class="org-tuareg-font-double-colon">;;</span>
@@ -292,7 +292,7 @@ The <code>in_channel</code> is something that enables us to read a file and poin
 </p>
 
 <p>
-Cool, I found out there are a couple functions that begin with &ldquo;input_&rdquo; and they all can operate on the type <code>in_channel</code>! Most of them are &ldquo;built-in&rdquo;; that means they are members of the module &ldquo;Stdlib&rdquo; which is always loaded by default. I&rsquo;ve stumbled upon the available functions via auto-completion – it&rsquo;s one of the most life changing inventions of humankind and comes right after the dishwasher, the greatest of all accomplishments of all time.<br>
+Cool, I found out there are a couple functions that begin with &ldquo;input_&rdquo; and they all can operate on the type <code>in_channel</code>! Most of them are &ldquo;built-in&rdquo;; that means they are members of the module &ldquo;Stdlib&rdquo; which is always loaded by default. I&rsquo;ve stumbled upon the available functions via auto-completion – it&rsquo;s one of the most life changing inventions of humankind and comes right after the dishwasher, which is of course the greatest of all accomplishments of all time.<br>
 </p>
 
 <p>
@@ -350,7 +350,7 @@ Nope, I think I have found something: the function <code>Csv.of_channel</code>. 
 We will now transform the data from <code>csv_file</code> in 3 steps into a data structure we can manipulate.<br>
 </p>
 <ol class="org-ol">
-<li>We apply the function <code>Csv.of_channel</code> found in the Csv library on the <code>csv_file</code> to set the reading parameters and eventually read the data from the <code>csv_file</code>.<br></li>
+<li>We apply the function <code>Csv.of_channel</code> from the Csv library on the <code>csv_file</code> to set the reading parameters and eventually read the data from the <code>csv_file</code>.<br></li>
 <li>Now we apply the function <code>Csv.input_all</code> on the returned value from the function <code>Csv.of_channel</code> to construct a nested list from the content of the CSV file, where each row becomes a list of strings.<br></li>
 <li>We bind a variable to that nested list, so we can refer to it later.<br></li>
 </ol>
@@ -404,7 +404,7 @@ In OCaml, an association list is usually implemented as a list containing <i>tup
 </div>
 
 <p>
-The Csv module provides a convenient function <code>Csv.associate</code> that transforms the <code>table</code> into an alist, but it expects the data for its arguments to be of a certain type. And here&rsquo;s the type signature of the function <code>Csv.associate</code>. It says what type of arguments the function expects and of what the return value will be:<br>
+The Csv module provides a convenient function <code>Csv.associate</code> that transforms the <code>table</code> into an alist, but it expects the data for its arguments to be of a certain type. And here&rsquo;s the type signature of the function <code>Csv.associate</code>. It says what type of arguments the function wants and of what the return value will be:<br>
 </p>
 
 <div class="org-src-container">
@@ -413,13 +413,13 @@ The Csv module provides a convenient function <code>Csv.associate</code> that tr
 </div>
 
 <ul class="org-ul">
-<li>The 1st argument: it wants a string list -&gt;<br></li>
-<li>The 2nd argument: then a string list, wrapped in another list -&gt;<br></li>
+<li>The 1st argument must be a string list -&gt;<br></li>
+<li>The 2nd argument must be a string list, wrapped in another list -&gt;<br></li>
 <li>Returns what: two-string tuples, wrapped in lists, wrapped in another list<br></li>
 </ul>
 
 <p>
-Let&rsquo;s find a way to provide the arguments exactly like that. If we don&rsquo;t we&rsquo;ll get a type error. The first argument will deliver the column headers to the function, and the second argument will deliver the other rows (lists) containing the single cells (strings).<br>
+Let&rsquo;s find a way to provide the arguments exactly like that. If we don&rsquo;t, we&rsquo;ll get a type error. The first argument will deliver the column headers to the function, and the second argument will deliver the other rows (lists) containing the single cells (strings).<br>
 </p>
 
 <p>
@@ -604,7 +604,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="orgb25772e">
+<pre class="example" id="orgdbe9cd1">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -764,7 +764,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="orgcabf71e">
+<pre class="example" id="orgb3b393e">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -987,7 +987,7 @@ In the next episode I&rsquo;m either going to rewrite this again in Common Lisp 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2022-01-14 Fri 09:19</span></p>
+<p class="footer">Published: <span class="date">2020-11-15 Sun 00:00</span> | Updated: <span class="date">2022-01-28 Fri 16:43</span></p>
 </div>
 </body>
 </html>
