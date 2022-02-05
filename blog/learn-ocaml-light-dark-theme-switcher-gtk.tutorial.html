@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2022-02-05 Sat 20:22 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Toggle light/dark Mode in XFCE and Gnome</title>
+<meta name="author" content="Dan Dee" />
+<meta name="description" content="Switch light/dark theme easily via shortcut – for XFCE4 and Gnome" />
+<meta name="keywords" content="ocaml, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="/static/normalize.css" type="text/css">
+<link rel="stylesheet" href="/static/org.css" type="text/css">
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/alegreya-sans/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/alegreya/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Regular-decl.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Italic-decl.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Bold-decl.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-BoldItalic-decl.css" type="text/css">
+<link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
+<link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
+<script defer src="/static/head.js"></script>
+<link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/.tutorial.html">
+</head>
+<body>
+<div id="preamble" class="status">
+<nav id="nav-primary"><a id="site-name" href="/">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+</div>
+<div id="content" class="content">
+<header>
+<h1 class="title">Toggle light/dark Mode in XFCE and Gnome</h1>
+<p class="subtitle" role="doc-subtitle">Let&rsquo;s write a GTK Theme Switcher in OCaml</p>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0876022">The Features List</a></li>
+<li><a href="#orgfc60789">Gathering Information</a></li>
+<li><a href="#org5f7fe6e">Where to begin?</a></li>
+<li><a href="#orgdc6bc69">Getting the Name of the currently active Theme</a>
+<ul>
+<li><a href="#org246267c">Removing superfluos Quotes from a String</a>
+<ul>
+<li><a href="#orgf54ffaf">Regular Expressions to the rescue</a></li>
+</ul>
+</li>
+<li><a href="#org8b5eb66">Putting the get<sub>theme</sub> Function together</a></li>
+</ul>
+</li>
+<li><a href="#org6166e62">Setting a specific Theme</a></li>
+<li><a href="#orgdaba847">Toogle light/dark theme</a></li>
+<li><a href="#orga1d6c18">Paaarteyyy! We have a working Prototype!</a></li>
+</ul>
+</div>
+</nav>
+<p>
+I&rsquo;m using XFCE4 since a couple of years and despite newer desktop environments for Linux, I like XFCE the most beause it&rsquo;s the least invasive and lets me do the things I want. Changing the XFWM window manager for XMonad or even EXWM? No problem.<br>
+</p>
+
+<p>
+The only thing that was bugging me is the lack of an easy way to quickly switch from a light theme to a dark mode and back. Normally, someone would come up with some bash script to do things like that, but a) I think bash is a clumsy language, and I&rsquo;m about to learn OCaml anyway, so let&rsquo;s write that in OCaml.<br>
+</p>
+
+<div id="outline-container-org0876022" class="outline-2">
+<h2 id="org0876022">The Features List</h2>
+<div class="outline-text-2" id="text-org0876022">
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Determine the currently active GTK theme<br></li>
+<li class="off"><code>[&#xa0;]</code> Toggle the UI (GTK) theme<br></li>
+<li class="off"><code>[&#xa0;]</code> Change the icon theme accordingly<br></li>
+<li class="off"><code>[&#xa0;]</code> Read some preferences from a config file:<br>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> … which backend to use (either xfconf-query or gsettings)<br></li>
+<li class="off"><code>[&#xa0;]</code> … or check/select the available backend automatically<br></li>
+<li class="off"><code>[&#xa0;]</code> … preferred dark/light UI themes<br></li>
+<li class="off"><code>[&#xa0;]</code> … preferred dark/light icon themes<br></li>
+</ul></li>
+<li class="off"><code>[&#xa0;]</code> Write the initial config file if it doesn&rsquo;t exist yet<br></li>
+<li class="off"><code>[&#xa0;]</code> Compile a standalone executable<br></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfc60789" class="outline-2">
+<h2 id="orgfc60789">Gathering Information</h2>
+<div class="outline-text-2" id="text-orgfc60789">
+<p>
+Usually, in XFCE4 there&rsquo;s the graphical app <code>xfce4-appearance-settings</code> to select your GTK theme. XFCE4 somehow has to remember the theme name one has selected, my first guess is that we&rsquo;ll have to find out how XFCE4 does this, in order to read out that information and change it.<br>
+</p>
+
+<p>
+Luckily, Linux is quite simple as most user preferences are stored in &ldquo;config files&rdquo;, which are just plain text files located somewhere in <code>~/.config</code>. So what to do now? Maybe something like this:<br>
+</p>
+
+<ol class="org-ol">
+<li>Find the config file where the information about the selected theme is stored?<br></li>
+<li>Change the information about the dark/light mode there?<br></li>
+<li>Tell XFCE to reload the config file in order apply the change?<br></li>
+</ol>
+
+<p>
+Not so bad for a first guess, but the glorious <a href="https://wiki.archlinux.org/title/Dark_mode_switching#GTK">ArchLinux wiki has a better idea</a> about setting light or dark mode for GTK apps:<br>
+</p>
+
+<blockquote>
+<p>
+To change the light/dark mode, you have to change the used theme. Most themes do have a dark variant and those have by convention the suffix -dark. For example the default GTK theme Adwaita has the variant Adwaita-dark.<br>
+</p>
+</blockquote>
+
+<p>
+Further, the wiki tells us:<br>
+</p>
+
+<blockquote>
+<p>
+To switch themes instantly for running programs, either a daemon providing the xsettings spec or gsettings is required. For desktops running with Xorg, an xsettings daemon is needed. For desktops running with Wayland, gsettings is queried.<br>
+</p>
+</blockquote>
+
+<p>
+Mmmmkay, so the functionality already exists in XFCE4. It looks like this via <code>xsettings</code>. You could issue those commands just straight from the command line (try it!):<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Shell commands to get the name of the currently active themes</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
+xfconf-query -c xsettings -p /Net/IconThemeName
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Shell commands to set the dark UI theme and a dark icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita-dark"</span>
+xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Dark"</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Shell commands to set the light UI theme and a light icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita"</span>
+xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Light"</span>
+</pre>
+</div>
+
+<p>
+And here are the shell commands for Gnome&rsquo;s utility <code>gsettings</code> which you can use with Wayland:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Shell commands to get the name of the current themes</label><pre class="src src-shell">gsettings get org.gnome.desktop.interface gtk-theme
+gsettings get org.gnome.desktop.interface icon-theme
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Shell commands to set the dark UI theme and a dark icon theme</label><pre class="src src-shell">gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita-dark"</span>
+gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Dark"</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>Shell commands to set the light UI theme and a light icon theme</label><pre class="src src-shell">gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita"</span>
+gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Light"</span>
+</pre>
+</div>
+
+<p>
+So the easiest solution would be to define two application shortcuts via <code>xfce4-keyboard-settings</code>: one to execute the commands to set the dark theme, and another shortcut to execute the commands to set the light theme.<br>
+</p>
+
+<p>
+But no! We&rsquo;re doing real programming here! So this is going to be a wrapper script around both <i>backends</i> <code>xfconf-query</code> and <code>gsettings</code> to toggle between light and dark mode with one single shortcut.<br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5f7fe6e" class="outline-2">
+<h2 id="org5f7fe6e">Where to begin?</h2>
+<div class="outline-text-2" id="text-org5f7fe6e">
+<p>
+We want to see results as early as possible, right? So let&rsquo;s implement the core functionality first: to perform the actual toggle between the light theme and the dark theme.<br>
+</p>
+
+<p>
+Our plan is to use only <i>one</i> key combination to toggle between light and dark theme. This requires our programm to make a decision, namely which theme to set when we press the key. Therefore, our program needs to find out which theme is currently &ldquo;on&rdquo;. That&rsquo;s a start, eh?<br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdc6bc69" class="outline-2">
+<h2 id="orgdc6bc69">Getting the Name of the currently active Theme</h2>
+<div class="outline-text-2" id="text-orgdc6bc69">
+<p>
+Remember, we can find out what theme is currently active with the shell command we talked about before:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>Shell command</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
+</pre>
+</div>
+<pre class="example" id="org8ff9be1">
+Adwaita
+</pre>
+
+<p>
+We just have to execute the shell command from inside our program, and then capture the output of the shell command, so our program can use that information internally. For that, we can use the function <a href="https://ocaml.org/api/Unix.html#VALopen_process_in">Unix.open<sub>process</sub><sub>in</sub></a> from OCaml&rsquo;s <i>Unix</i> modul<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span>
+</pre>
+</div>
+
+<p>
+This function returns an <i>in-channel</i>, but doesn&rsquo;t yet spit out the theme name; rather we have to get the theme name out of that in-channel. For that, we can use the function <a href="https://ocaml.org/api/Stdlib.html#VALinput_line">input<sub>line</sub></a> that reads from the in-channel line by line.<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml">input_line <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+</pre>
+</div>
+
+<p>
+Look at the parenthesis. We&rsquo;ll have to group <code>Unix.open_process_in "xfconf-query …"</code> with parens, like we do in maths. The parens ensure that the value of the expression <code>(Unix.open_process_in "xfconf-query …")</code> will be computed first, and <i>then</i> passed to the function <code>input_line</code>. So eventually, the function above will produce the output we want:<br>
+</p>
+
+<pre class="example" id="orgfc07e18">
+- : string = "Adwaita"
+</pre>
+
+<p>
+From here we can assemble a <code>get_theme</code> function that accepts two arguments:<br>
+</p>
+<ul class="org-ul">
+<li>which backend to use to get the theme (either <i>xfconf-query</i> or <i>gsettings</i>)<br>
+(let&rsquo;s name this parameter <code>backend</code>)<br></li>
+<li>and if it should get the current UI theme (GTK), or the current icon theme<br>
+(let&rsquo;s name that parameter <code>widget</code>)<br></li>
+</ul>
+
+<p>
+&ldquo;Use the <i>xfconf-query</i> backend to get the name of the Ui theme (GTK theme) and return it&rdquo;.<br>
+</p>
+
+<p>
+Now we say it together in OCaml:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>function<sub>name</sub> argument1 argument2</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xorg</span> Ui
+</pre>
+</div>
+
+<p>
+When we take into account that we&rsquo;ll have 2 backends with 2 widgets (Ui theme and icon theme) each, we get in total 4 combinations how we can call the function:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-constructor">Ui</span>               <span class="org-comment-delimiter">(* </span><span class="org-comment">1st combination </span><span class="org-comment-delimiter">*)</span>
+get_theme <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-constructor">Icon</span>             <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd combination </span><span class="org-comment-delimiter">*)</span>
+get_theme <span class="org-tuareg-font-lock-constructor">Wayland</span> <span class="org-tuareg-font-lock-constructor">Ui</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">3rd combination </span><span class="org-comment-delimiter">*)</span>
+get_theme <span class="org-tuareg-font-lock-constructor">Wayland</span> <span class="org-tuareg-font-lock-constructor">Icon</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">4th combination </span><span class="org-comment-delimiter">*)</span>
+</pre>
+</div>
+
+<p>
+So let&rsquo;s write down what happens with each case. But stop, one more thing before we&rsquo;ll get to the function body: Where do those words &ldquo;Xorg&rdquo;, &ldquo;Ui&rdquo;, &ldquo;Wayland&rdquo;, and &ldquo;Icon&rdquo; come from? What <i>are</i> they?<br>
+</p>
+
+<p>
+Well, these are options. We&rsquo;ll define the types <code>backend</code> and <code>widget</code>, and what they can be:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span>
+<span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">|</span> Icon
+</pre>
+</div>
+
+<p>
+The types don&rsquo;t do much here, they just tell our function for which &ldquo;type of backend&rdquo; and which &ldquo;type of widget&rdquo; we&rsquo;re asking. We could use also strings as arguments, but types are the ideomatic way.<br>
+</p>
+
+<p>
+All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely conditional branching via <i>pattern matching</i>:<br>
+</p>
+
+<pre class="example" id="org76bd109">
+match VALUE(S) with
+| PATTERN_1 -&gt; ACTION_1
+| PATTERN_2 -&gt; ACTION_2
+| PATTERN_N -&gt; ACTION_N
+</pre>
+
+<p>
+When the function receives the arguments for the parameters <code>backend</code> and <code>widget</code>, the arguments will be matched against the pattern on the left side of the arrow. Here we match the received arguments literally:<br>
+</p>
+
+<p>
+&ldquo;If <code>backend</code> is <code>Xorg</code> and <code>widget</code> is <code>Ui</code>, then return the first line from the in<sub>channel</sub> created by the expression <code>(Unix.open_process_in ...</code> as a <i>string</i>, and stop here. If not, continue with the next branch.&rdquo;<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span><span class="org-variable-name"> backend widget</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">match</span> backend<span class="org-tuareg-font-lock-operator">,</span> widget <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-tuareg-font-lock-operator">)</span>
+</pre>
+</div>
+
+<p>
+If we fail to handle all possible cases (e.g. we forget one branch/combination), the compiler will warn us that the pattern matching is not exhaustive and which cases are unhandled. That&rsquo;s pretty cool.<br>
+</p>
+
+<p>
+Now we can test our function in the toplevel (&ldquo;REPL&rdquo;) and see what happens when we call it with various arguments:<br>
+</p>
+
+<p>
+<i>Side note: expressions in the toplevel end always with <code>;;</code> – that&rsquo;s how you can spot if an expression is meant to be evaluated in the toplevel.</i><br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+<pre class="example" id="orgae7a259">
+- : string = "Adwaita" (* &lt;-- Looks good … *)
+</pre>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+<pre class="example" id="org25aa27a">
+- : string = "Papirus-Light" (* &lt;-- Ok! *)
+</pre>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Wayland</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+<pre class="example" id="org6336ea5">
+- : string = "'Adwaita'" (* &lt;-- Yikes! What? *)
+</pre>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Wayland</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+<pre class="example" id="org69983fb">
+- : string = "'Paper'" (* &lt;-- Nono, make those quotes go awaaaaay! *)
+</pre>
+
+<p>
+Yeah you may have  guessed it – the <code>gsettings</code> shell command returns theme names wrapped in additional <code>'…'</code> single quotes, while <code>xfconf-query</code> does not. Nah, we don&rsquo;t want that. Let&rsquo;s get rid of them – but how?<br>
+</p>
+</div>
+
+<div id="outline-container-org246267c" class="outline-3">
+<h3 id="org246267c">Removing superfluos Quotes from a String</h3>
+<div class="outline-text-3" id="text-org246267c">
+<p>
+We could just use a function that removes the first and last character no matter what. But what would happen if e.g. an update of <code>gsettings</code> utility comes out that doesn&rsquo;t put single quotes around its output? Such a function would still remove the first and last character – even if those are not single quotes – and produce garbage that could make our program crash. So let&rsquo;s be more specific:<br>
+</p>
+
+<p>
+We&rsquo;ll need a helper function that takes a string, looks if there are single quotes at the beginning and/or end, and returns another string with the same content but without the single quotes.<br>
+</p>
+
+<p>
+Let&rsquo;s visit <a href="https://ocaml.org/api/">https://ocaml.org/api/</a> and check if the function we need is already available in the OCaml library. At a glance we&rsquo;ll see there are two modules related to strings: <a href="https://ocaml.org/api/String.html">String</a> and <a href="https://ocaml.org/api/Str.html">Str</a>. There are in fact several functions we could use to achive the desired result.<br>
+</p>
+</div>
+
+<div id="outline-container-orgf54ffaf" class="outline-4">
+<h4 id="orgf54ffaf">Regular Expressions to the rescue</h4>
+<div class="outline-text-4" id="text-orgf54ffaf">
+<p>
+The <a href="https://ocaml.org/api/Str.html">Str</a> module is what we are looking for, and I particularly like that one:<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">global_replace</span> <span class="org-tuareg-font-lock-operator">:</span> regexp <span class="org-tuareg-font-lock-operator">-&gt;</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> string
+</pre>
+</div>
+
+<p>
+According to the documentation, the function wants the follwing arguments:<br>
+</p>
+<ul class="org-ul">
+<li>a regular expression to describe what characters should be replaced<br></li>
+<li>a template string that says what to put there instead<br></li>
+<li>and the original string we&rsquo;d like to liberate from the single quotes<br></li>
+</ul>
+
+<p>
+Ok, first we&rsquo;ll need the regex. Here it is: <code>^'\|'$</code> it describes what to pay attention to: a string beginning <code>^</code> with a <code>'</code> or a <code>'</code> at the end <code>$</code>.<br>
+</p>
+
+<p>
+It took me a while to realize the regular expression we&rsquo;ll going to pass to the function is not just another string, but the function <code>Str.regexp</code> that takes a string containing the regular expression in order to &ldquo;compile&rdquo; it. Yeah that was quite confusing.<br>
+</p>
+
+<p>
+We have the function regex in parenthesis <code>()</code>, the template is an empty string <code>""</code> (because we want to replace the sigle quotes with <i>nothing</i>) and <code>s</code> stands for our original string:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\|'$"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-string">""</span> s
+</pre>
+</div>
+
+<p>
+Now we can test the function in in the toplevel like this:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\|'$"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-string">""</span> <span class="org-string">"'Freemee!'"</span><span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+
+<p>
+And? Works? Yes, but we&rsquo;ll get a &ldquo;Warning 14 [illegal-backslash]: illegal backslash escape in string.&rdquo;, right?<br>
+</p>
+
+<p>
+The documentation says, that the regex has to be written with double backslashes <code>^'\\|'$</code>, because within strings, the backslash has already a meaning as an escape character, e.g. for <code>\n</code> (new line) and others. Well well! So here&rsquo;s the final function to &ldquo;remove&rdquo; the single quotes:<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-string">""</span> s
+</pre>
+</div>
+
+<p>
+To make it easier to refer to that function later, let&rsquo;s wrap it in a function and call it <code>trim</code>, so we don&rsquo;t have to type or copypasta the whole thing repeatedly if we&rsquo;re going to use that in not just one place.<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">trim</span><span class="org-variable-name"> s</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-string">""</span> s
+</pre>
+</div>
+
+<p>
+Now we can do just:<br>
+</p>
+<div class="org-src-container">
+<pre class="src src-ocaml">trim <span class="org-string">"'Adwaita'"</span><span class="org-tuareg-font-double-colon">;;</span>
+</pre>
+</div>
+<pre class="example" id="org490b152">
+- : string = "Adwaita"
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8b5eb66" class="outline-3">
+<h3 id="org8b5eb66">Putting the get<sub>theme</sub> Function together</h3>
+<div class="outline-text-3" id="text-org8b5eb66">
+<p>
+We can make the <code>trim</code> function available within our <code>get_theme</code> function vis <code>let … in</code> syntax, and then apply it to the output of the <code>gsettings</code> shell commands (3rd and 4th branch):<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span><span class="org-variable-name"> backend widget</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">trim</span><span class="org-variable-name"> s</span> <span class="org-tuareg-font-lock-operator">=</span>                  <span class="org-comment-delimiter">(* </span><span class="org-comment">We LET the helper function IN here </span><span class="org-comment-delimiter">*)</span>
+    <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-string">""</span> s <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> backend<span class="org-tuareg-font-lock-operator">,</span> widget <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    trim <span class="org-tuareg-font-lock-operator">(</span>input_line            <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and use it here </span><span class="org-comment-delimiter">*)</span>
+            <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+               <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-tuareg-font-lock-operator">))</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    trim <span class="org-tuareg-font-lock-operator">(</span>input_line            <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and here too </span><span class="org-comment-delimiter">*)</span>
+            <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+               <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-tuareg-font-lock-operator">))</span>
+</pre>
+</div>
+
+<p>
+Yes, we&rsquo;ll have to group the <code>input_line</code> expression in another set of parens, so that the <code>trim</code> function will be applied to the <i>result</i> of <code>input_line</code>.<br>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6166e62" class="outline-2">
+<h2 id="org6166e62">Setting a specific Theme</h2>
+<div class="outline-text-2" id="text-org6166e62">
+<p>
+Once again we&rsquo;re going to wrap our shell commands. The <code>set_theme</code> function is almost the same, so I&rsquo;ll make it short. We&rsquo;re going to use the options again to tell the function which backend to use and if the Ui theme or the Icon theme is should be set. Additionally, we&rsquo;ll pass the theme name to the function that will become part of the shell commands (via string concatenation through the <code>^</code> operator).<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">set_theme</span><span class="org-variable-name"> backend widget name</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">match</span> backend<span class="org-tuareg-font-lock-operator">,</span> widget <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface gtk-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface icon-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdaba847" class="outline-2">
+<h2 id="orgdaba847">Toogle light/dark theme</h2>
+<div class="outline-text-2" id="text-orgdaba847">
+<p>
+Until now, we have built two functions <code>get_theme</code> and <code>set_theme</code>. Let&rsquo;s assemble the first draft of our program logic that brings the action!<br>
+</p>
+
+<p>
+Our program logic needs to know several preferences to wield its magic. First, we proceed with hardcoded preferences and introduce them with <code>let … in</code> bindings, so the values will available within our function (and only there).<br>
+</p>
+
+<ul class="org-ul">
+<li>which backend to get/set the themes &#x2013;&gt; <code>backend</code><br></li>
+<li>the name of the currently active UI theme &#x2013;&gt; <code>current_ui</code><br></li>
+<li>the name of the dark UI theme &#x2013;&gt; <code>ui_dark</code><br></li>
+<li>the name of the light UI theme &#x2013;&gt; <code>ui_light</code><br></li>
+<li>the name of the dark icon theme &#x2013;&gt; <code>icon_dark</code><br></li>
+<li>and the name of the light icon theme &#x2013;&gt; <code>icon_light</code><br></li>
+</ul>
+
+<p>
+Later, when the function works, we&rsquo;ll substitute the hardcoded preferences for values from a config file. &ldquo;Magic&rdquo; is a bit of an exaggeration – we can use quite simple conditionals here.<br>
+</p>
+
+<p>
+The decision which theme to set, depends on the currently active UI theme <code>current_ui</code>. So we&rsquo;re going to <code>match current_ui with</code> the pattern(s).<br>
+</p>
+
+<ol class="org-ol">
+<li>For the first branch, we are going to translate the following into OCaml:<br></li>
+</ol>
+<p>
+&ldquo;When <code>current_ui</code> equals the value of <code>ui_dark</code>, use the <code>backend</code> to set the UI theme <code>ui_light</code>; then use the <code>backend</code> to set the icon theme <code>icon_light</code>&rdquo;<br>
+</p>
+
+<ol class="org-ol">
+<li>The second branch does the same, but vice-versa<br></li>
+
+<li>But what should happen if there has been set a different theme, which isn&rsquo;t part of the preconfigured light/dark theme pair? E.g. set by the system preferences? We address this by introducing a third branch – the catch-all: Whenever the variable <code>current_ui</code> carries an unexpected value, fall back to the preconfigured <code>ui_light</code> and <code>icon_light</code>.<br></li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">toggle</span><span class="org-variable-name"> </span><span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span>                 <span class="org-comment-delimiter">(* </span><span class="org-comment">define the function </span><span class="org-comment-delimiter">*)</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">backend</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">current_ui</span> <span class="org-tuareg-font-lock-operator">=</span> get_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-governing">in</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">function call with value above </span><span class="org-comment-delimiter">*)</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_dark</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Adwaita-dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_light</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Adwaita"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_dark</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Papirus-Dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_light</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Papirus-Light"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> current_ui <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_dark <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+  <span class="org-tuareg-font-lock-operator">|</span> c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_light <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_dark <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_dark
+  <span class="org-tuareg-font-lock-operator">|</span> _ <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> toggle <span class="org-tuareg-font-lock-operator">()</span>               <span class="org-comment-delimiter">(* </span><span class="org-comment">apply the function </span><span class="org-comment-delimiter">*)</span>
+</pre>
+</div>
+
+<p>
+You may have some questions:<br>
+</p>
+<ul class="org-ul">
+<li><i>What does <code>c</code> mean in the 1st and 2nd branch?</i><br>
+When matching a pattern, we can simultaneously bind one or more variables to certain parts of the matched object to use those parts in other places within the same branch. Here, we bind the whole value of <code>current_ui</code> to <code>c</code>.<br></li>
+<li><i>What does the <code>when</code> keyword do?</i><br>
+<code>when</code> introduces a <i>guard</i> expression. If the guard expression evaluates to <code>true</code>, then the right side of the branch will be evaluated; otherwise move on to the next branch.<br></li>
+<li><i>Why has the right side of the branch the form <code>let _ = &lt;expression1&gt; in &lt;expression2&gt;</code>?</i><br>
+We use the sequential <code>let … in</code> forms to do more than one thing one after another. The single underscore (wildcard) means that we don&rsquo;t care to give it a name. It&rsquo;s evaluated only for its side effects (triggering the shell commands).<br></li>
+</ul>
+
+<p>
+Tata, we&rsquo;re having a first prototype, but it&rsquo;s actually a working program:<br>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga1d6c18" class="outline-2">
+<h2 id="orga1d6c18">Paaarteyyy! We have a working Prototype!</h2>
+<div class="outline-text-2" id="text-orga1d6c18">
+<p>
+Ok ok, relax. Until now we can run it in the toplevel, yes. But we are not there yet. For now, take a little break and do some Push-ups. We&rsquo;re going to finish this together – same place, but another time.<br>
+</p>
+
+<blockquote class="center">
+<p>
+~ To be continued ~<br>
+</p>
+</blockquote>
+
+<div class="box" id="org1e03058">
+<p>
+<b>Where do we stand now?</b><br>
+</p>
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Determine the currently active GTK theme<br></li>
+<li class="on"><code>[X]</code> Toggle the UI (GTK) theme<br></li>
+<li class="on"><code>[X]</code> Change the icon theme accordingly<br></li>
+</ul>
+
+<p>
+<b>Next time, we tackle the rest:</b><br>
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Read some preferences from a config file:<br>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> … which backend to use (either xfconf-query or gsettings)<br></li>
+<li class="off"><code>[&#xa0;]</code> … or check/select the available backend automatically<br></li>
+<li class="off"><code>[&#xa0;]</code> … preferred dark/light UI themes<br></li>
+<li class="off"><code>[&#xa0;]</code> … preferred dark/light icon themes<br></li>
+</ul></li>
+<li class="off"><code>[&#xa0;]</code> Write the initial config file if it doesn&rsquo;t exist yet<br></li>
+<li class="off"><code>[&#xa0;]</code> Compile a standalone executable<br></li>
+</ul>
+
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Full code listing – working prototype</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span>
+<span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Icon</span>
+
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span><span class="org-variable-name"> backend widget</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">trim</span><span class="org-variable-name"> s</span> <span class="org-tuareg-font-lock-operator">=</span>                  <span class="org-comment-delimiter">(* </span><span class="org-comment">We LET the helper function IN here </span><span class="org-comment-delimiter">*)</span>
+    <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-string">""</span> s <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> backend<span class="org-tuareg-font-lock-operator">,</span> widget <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    trim <span class="org-tuareg-font-lock-operator">(</span>input_line            <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and use it here </span><span class="org-comment-delimiter">*)</span>
+            <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+               <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-tuareg-font-lock-operator">))</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    trim <span class="org-tuareg-font-lock-operator">(</span>input_line            <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and here too </span><span class="org-comment-delimiter">*)</span>
+            <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+               <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-tuareg-font-lock-operator">))</span>
+
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">set_theme</span><span class="org-variable-name"> backend widget name</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-keyword">match</span> backend<span class="org-tuareg-font-lock-operator">,</span> widget <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xorg</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface gtk-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Wayland</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface icon-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-tuareg-font-lock-operator">)</span>
+
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">toggle</span><span class="org-variable-name"> </span><span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">backend</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Xorg</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">current_ui</span> <span class="org-tuareg-font-lock-operator">=</span> get_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-governing">in</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">function call with value above </span><span class="org-comment-delimiter">*)</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_dark</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Adwaita-dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_light</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Adwaita"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_dark</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Papirus-Dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_light</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"Papirus-Light"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> current_ui <span class="org-keyword">with</span>
+  <span class="org-tuareg-font-lock-operator">|</span> c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_dark <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+  <span class="org-tuareg-font-lock-operator">|</span> c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_light <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_dark <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_dark
+  <span class="org-tuareg-font-lock-operator">|</span> _ <span class="org-tuareg-font-lock-operator">-&gt;</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> <span class="org-tuareg-font-lock-operator">=</span> toggle <span class="org-tuareg-font-lock-operator">()</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-05 Sat 20:14</span></p>
+</div>
+</body>
+</html>
