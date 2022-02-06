@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-06 Sun 14:43 -->
+<!-- 2022-02-06 Sun 16:39 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Toggle light/dark Mode in XFCE and Gnome</title>
@@ -46,7 +46,7 @@
 <li><a href="#orgf54ffaf">Regular Expressions to the rescue</a></li>
 </ul>
 </li>
-<li><a href="#orgea2bc9e">Put the Function together</a></li>
+<li><a href="#orgde80d00">Putting the Function together</a></li>
 </ul>
 </li>
 <li><a href="#orgf638d2f">The Set Function</a></li>
@@ -114,7 +114,8 @@ Mmmmkay, so the functionality already exists in XFCE4. And it&rsquo;s not about 
 <h2 id="org962abb3">Shell commands to set dark/light mode</h2>
 <div class="outline-text-2" id="text-org962abb3">
 <p>
-Under XFCE, you have to use the utility <code>xfconf-query</code> to get/set themes:<br>
+Under XFCE, you have to use the utility <code>xfconf-query</code> to get/set themes<br>
+&#x2013;&gt; We call this from now on <b>xsettings</b> backend<br>
 </p>
 
 <div class="org-src-container">
@@ -134,7 +135,8 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Pap
 </div>
 
 <p>
-And in GNOME there is the <code>gsettings</code> utility (which you also have to use if you are running Wayland rather than Xorg):<br>
+And in GNOME there is the <code>gsettings</code> utility (which you also have to use if you are running Wayland rather than Xorg)<br>
+&#x2013;&gt; We refer to this as the <b>gsettings</b> backend.<br>
 </p>
 
 <div class="org-src-container">
@@ -154,15 +156,13 @@ gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"P
 </div>
 
 <p>
-<b>If you landed here because you just wanted to know how to quickly set dark/light themes via shell commmand or key shortcut:</b><br>
+<b>If you landed here because you just wanted to know how to set dark/light themes via commmand line or shortcut:</b><br>
+The easiest solution for you is to define two <i>application shortcuts</i> via <code>xfce4-keyboard-settings</code>: the first shortcut to execute the commands to set your dark theme, and the second shortcut to execute the commands to set your light theme, and you are done (just copy &amp; paste the set commands above, either the <code>xsettings</code> variant or the <code>gsettings</code> variant).<br>
 </p>
 
 <p>
-&#x2013;&gt; The easiest solution for you is to define two <i>application shortcuts</i> via <code>xfce4-keyboard-settings</code>: the first shortcut to execute the commands to set your dark theme, and the second shortcut to execute the commands to set your light theme, and you are done (just copy &amp; paste the set commands above, either the <code>xsettings</code> variant or the <code>gsettings</code> variant).<br>
-</p>
-
-<p>
-But no! We&rsquo;re doing real programming here! For the sake of learning, we&rsquo;ll accept the little overhead. So this is going to be a wrapper around both <i>backends</i> <code>xfconf-query</code> and <code>gsettings</code> to toggle between light and dark mode with one single shortcut, plus some other conveniences.<br>
+<b>To all others: We&rsquo;re doing real programming here!</b><br>
+For the sake of learning, we&rsquo;ll accept the little overhead. So this is going to be a wrapper around the <code>xsettings</code> and <code>gsettings</code> backends to toggle between light and dark mode with one single shortcut, plus some other conveniences.<br>
 </p>
 </div>
 </div>
@@ -180,7 +180,7 @@ Let&rsquo;s make a quick list what we intend to implement:<br>
 <li class="off"><code>[&#xa0;]</code> Change the icon theme accordingly<br></li>
 <li class="off"><code>[&#xa0;]</code> Read the preferences from a config file:<br>
 <ul class="org-ul">
-<li class="off"><code>[&#xa0;]</code> … which backend to use (either xfconf-query or gsettings)<br></li>
+<li class="off"><code>[&#xa0;]</code> … which backend to use (either xsettings or gsettings)<br></li>
 <li class="off"><code>[&#xa0;]</code> … or check/select the available backend automatically<br></li>
 <li class="off"><code>[&#xa0;]</code> … preferred dark/light UI themes<br></li>
 <li class="off"><code>[&#xa0;]</code> … preferred dark/light icon themes<br></li>
@@ -195,11 +195,11 @@ Let&rsquo;s make a quick list what we intend to implement:<br>
 <h2 id="org5f7fe6e">Where to begin?</h2>
 <div class="outline-text-2" id="text-org5f7fe6e">
 <p>
-<i>You want to see the baby</i>, right? So let&rsquo;s implement the core functionality first: toggle between the light theme and the dark theme.<br>
+<i>You want to see the baby?</i> Alright, let&rsquo;s implement the core functionality first: toggle between the light theme and the dark theme.<br>
 </p>
 
 <p>
-We&rsquo; want <i>one</i> key combination to switch between light and dark theme, this requires our programm to make a decision, namely which theme to set when we press the key. Therefore, our program needs to find out which theme is currently &ldquo;on&rdquo;. That&rsquo;s a start, eh?<br>
+When using just <i>one</i> key combination to switch between light and dark theme, our programm has to make a decision: which theme to set when we press the key. Therefore, our program needs to find out which theme is currently &ldquo;on&rdquo;. That&rsquo;s a start, eh?<br>
 </p>
 </div>
 </div>
@@ -219,7 +219,7 @@ Remember, we can find out what theme is currently active with the shell command 
 <label class="org-src-name"><span class="listing-number">Listing 7: </span>Shell command</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
 </pre>
 </div>
-<pre class="example" id="org5edc73f">
+<pre class="example" id="orgea143c6">
 Adwaita
 </pre>
 
@@ -233,7 +233,7 @@ We have to execute the shell command from inside our program, and then capture t
 </div>
 
 <p>
-This function opens an <i>in-channel</i>, but doesn&rsquo;t yet spit out the theme name; rather we have to get the theme name out of that in-channel. For that, we can use another function <a href="https://ocaml.org/api/Stdlib.html#VALinput_line">input<sub>line</sub></a> that reads from the in-channel line by line (Each time <code>input_line</code> is applied, it returns the next line, until there is none left, but here we call it only once).<br>
+This function opens an <i>in<sub>channel</sub></i>, but doesn&rsquo;t yet spit out the theme name; rather we have to get the theme name from that in<sub>channel</sub>. We can use another function <a href="https://ocaml.org/api/Stdlib.html#VALinput_line">input<sub>line</sub></a> that reads from the in<sub>channel</sub> line by line (Each time <code>input_line</code> is applied, it returns the next line, until there is none left – but here we call it only once).<br>
 </p>
 
 <div class="org-src-container">
@@ -242,10 +242,10 @@ This function opens an <i>in-channel</i>, but doesn&rsquo;t yet spit out the the
 </div>
 
 <p>
-Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is going to be passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we want:<br>
+Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="org364d89b">
+<pre class="example" id="orga96c25d">
 - : string = "Adwaita"
 </pre>
 
@@ -259,11 +259,11 @@ From here we can assemble a single <code>get_theme</code> function that returns 
 </div>
 
 <p>
-When we take into account that we&rsquo;ll have 2 backends with 2 widgets (Ui theme and icon theme) each, that makes 4 combinations how we can call the function:<br>
+When we take into account that we&rsquo;ll have 2 backends (xsettings and gsettings) with 2 widgets each (Ui theme and icon theme), that makes 4 combinations how we can call the function:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 9: </span>Function calls – not implemented yet</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">1st combination </span><span class="org-comment-delimiter">*)</span>
+<pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">1st combination </span><span class="org-comment-delimiter">*)</span>
 get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd combination </span><span class="org-comment-delimiter">*)</span>
 get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">3rd combination </span><span class="org-comment-delimiter">*)</span>
 get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">4th combination </span><span class="org-comment-delimiter">*)</span>
@@ -271,11 +271,7 @@ get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span 
 </div>
 
 <p>
-So let&rsquo;s write down what should happen for each case.<br>
-</p>
-
-<p>
-Just one more thing before we are going to implement the function: Where do those words &ldquo;Xsettings&rdquo;, &ldquo;Ui&rdquo;, &ldquo;Gsettings&rdquo;, and &ldquo;Icon&rdquo; come from? What <i>are</i> they?<br>
+So let&rsquo;s write down what should happen for each case. Just one more thing before we are going to implement the function: Where do those arguments &ldquo;Xsettings&rdquo;, &ldquo;Ui&rdquo;, &ldquo;Gsettings&rdquo;, and &ldquo;Icon&rdquo; come from? What <i>are</i> they?<br>
 </p>
 
 <p>
@@ -289,14 +285,14 @@ Well, these are options. We&rsquo;ll define the types <code>backend</code> and <
 </div>
 
 <p>
-The types don&rsquo;t do much for now, they just tell our function for which <i>&ldquo;type of backend&rdquo;</i> and which <i>&ldquo;type of widget&rdquo;</i> we&rsquo;re asking. We could use also strings as arguments, but types are the ideomatic way.<br>
+The types just tell our function for which <i>&ldquo;type of backend&rdquo;</i> and which <i>&ldquo;type of widget&rdquo;</i> we&rsquo;re asking. We could use strings instead, but types are the ideomatic way.<br>
 </p>
 
 <p>
 All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely conditional branching via <i>pattern matching</i>:<br>
 </p>
 
-<pre class="example" id="org134d389">
+<pre class="example" id="org247b70c">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -304,11 +300,11 @@ match VALUE(S) with
 </pre>
 
 <p>
-When the function receives the arguments for the parameters <code>backend</code> and <code>widget</code>, the arguments will be matched against the pattern on the left side of the arrow. Here we match the received arguments literally:<br>
+When the function receives the arguments for its parameters <code>backend</code> and <code>widget</code>, the arguments&rsquo; values will be matched against the <i>pattern before the arrow</i>. Here we match the received values literally:<br>
 </p>
 
 <p>
-&ldquo;If <code>backend</code> matches <code>Xsettings</code> and <code>widget</code> matches <code>Ui</code>, then return the first line from the in<sub>channel</sub> created by the expression <code>(Unix.open_process_in ...</code> as a <i>string</i>, and stop here. If not, continue with the next branch.&rdquo;<br>
+&ldquo;If <code>backend</code> matches <code>Xsettings</code> and <code>widget</code> matches <code>Ui</code> -&gt; return the first line from the in<sub>channel</sub> created by the expression <code>(Unix.open_process_in ...</code> as a <i>string</i>, and stop here. If there&rsquo;s no match, continue with the next branch.&rdquo;<br>
 </p>
 
 <div class="org-src-container">
@@ -334,11 +330,11 @@ When the function receives the arguments for the parameters <code>backend</code>
 </div>
 
 <p>
-If we fail to handle all possible cases (e.g. we forget one branch/combination), the compiler will warn us that the pattern matching is not exhaustive and which cases are unhandled. That&rsquo;s pretty cool.<br>
+If we fail to handle all possible cases (e.g. we forget one branch/combination), the compiler warns us that the pattern matching is not exhaustive and which cases are unhandled and suggests potential solutions – that&rsquo;s pretty cool.<br>
 </p>
 
 <p>
-Now we can test (call) our function in the toplevel (&ldquo;REPL&rdquo;) and see what happens when we call it with various arguments:<br>
+Now we can test our function in the toplevel (&ldquo;REPL&rdquo;) and see what happens when we call it with various arguments:<br>
 </p>
 
 <p>
@@ -346,32 +342,39 @@ Now we can test (call) our function in the toplevel (&ldquo;REPL&rdquo;) and see
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 10: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-colon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="org613ba5d">
+
+<pre class="example" id="org16633ab">
 - : string = "Adwaita" (* &lt;-- Looks good … *)
 </pre>
+
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 11: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-colon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="org1ad2966">
+
+<pre class="example" id="org14a771b">
 - : string = "Papirus-Light" (* &lt;-- Ok! *)
 </pre>
+
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 12: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-colon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="org3813c20">
+
+<pre class="example" id="org6b69b57">
 - : string = "'Adwaita'" (* &lt;-- Yikes! What? *)
 </pre>
+
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 13: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-colon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="org8dff9f2">
-- : string = "'Papirus-Light"" (* &lt;-- Nonono, make those 'quotes' go awaaaaay! *)
+
+<pre class="example" id="orgd237b55">
+- : string = "'Papirus-Light"" (* &lt;-- Nonono, make those quotes go awaaaaay! *)
 </pre>
 
 <p>
@@ -383,15 +386,11 @@ Yeah you may have  guessed it – the <code>gsettings</code> shell command retur
 <h3 id="org09a79c3">Remove superfluos Quotes from a String</h3>
 <div class="outline-text-3" id="text-org09a79c3">
 <p>
-We could just use a function to remove the first and last character no matter what. But what would happen if e.g. an update of <code>gsettings</code> utility comes out that doesn&rsquo;t put single quotes around its output? Such a function would still remove the first and last character – even if those are not single quotes – and produce garbage that could make our program crash. So let&rsquo;s be more specific:<br>
+We could just use a function to remove the first and last character no matter what. But I think it&rsquo;s good practise to be more specific: We&rsquo;ll need a helper function that takes a string, looks if there are single quotes at the beginning and end, and returns another string with the same content but without the single quotes.<br>
 </p>
 
 <p>
-We&rsquo;ll need a helper function that takes a string, looks if there are single quotes at the beginning and/or end, and returns another string with the same content but without the single quotes.<br>
-</p>
-
-<p>
-Let&rsquo;s visit <a href="https://ocaml.org/api/">https://ocaml.org/api/</a> and check if the function we need is already available in the OCaml library. At a glance we&rsquo;ll see there are two modules related to strings: <a href="https://ocaml.org/api/String.html">String</a> and <a href="https://ocaml.org/api/Str.html">Str</a>. There are in fact several functions we could use to achive the desired result.<br>
+Let&rsquo;s visit <a href="https://ocaml.org/api/">https://ocaml.org/api/</a> and check if the function we need is readily available in the OCaml library. At a glance we&rsquo;ll see there are two modules related to strings: <a href="https://ocaml.org/api/String.html">String</a> and <a href="https://ocaml.org/api/Str.html">Str</a>. There are in fact several functions we could use to achive the desired result.<br>
 </p>
 </div>
 
@@ -403,7 +402,7 @@ The <a href="https://ocaml.org/api/Str.html">Str</a> module is what we are looki
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 14: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">global_replace</span> <span class="org-tuareg-font-lock-operator">:</span> regexp <span class="org-tuareg-font-lock-operator">-&gt;</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> string
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">global_replace</span> <span class="org-tuareg-font-lock-operator">:</span> regexp <span class="org-tuareg-font-lock-operator">-&gt;</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> string <span class="org-tuareg-font-lock-operator">-&gt;</span> string
 </pre>
 </div>
 
@@ -417,16 +416,18 @@ According to the <a href="https://ocaml.org/api/Str.html#VALglobal_replace">docu
 </ul>
 
 <p>
-Ok, first we&rsquo;ll need the regex. Here it is: <code>^'\|'$</code> it describes what to pay attention to: a string beginning <code>^</code> with a <code>'</code> or a <code>'</code> at the end <code>$</code>.<br>
+Ok, first we&rsquo;ll need the regex. Here it is: <code>^'\|'$</code> it describes what to pay attention to: a string beginning <code>^</code> with one <code>'</code> or one <code>'</code> at the end <code>$</code>.<br>
 </p>
 
 <p>
 It took me a while to realize the regular expression we&rsquo;ll going to pass to the function is not just another string, but the function <a href="https://ocaml.org/api/Str.html#VALregexp">Str.regexp</a> that takes a string containing the regular expression in order to &ldquo;compile&rdquo; it. Yeah that was quite confusing.<br>
 </p>
 
-<p>
-We have the regular expression in parenthesis <code>()</code>, the template is an empty string <code>""</code> (because we want to replace the sigle quotes with <i>nothing</i>) and <code>s</code> stands for our original string:<br>
-</p>
+<ul class="org-ul">
+<li>we have the regular expression in parenthesis <code>()</code><br></li>
+<li>the template is an empty string <code>""</code> (because we want to replace the sigle quotes with <i>nothing</i>)<br></li>
+<li>and <code>s</code> is the parameter who stands for our original string<br></li>
+</ul>
 
 <div class="org-src-container">
 <pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\|'$"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-string">""</span> s
@@ -434,7 +435,7 @@ We have the regular expression in parenthesis <code>()</code>, the template is a
 </div>
 
 <p>
-Now we can test the function in in the toplevel like this:<br>
+Now we can test the function in in the toplevel like so:<br>
 </p>
 
 <div class="org-src-container">
@@ -443,7 +444,7 @@ Now we can test the function in in the toplevel like this:<br>
 </div>
 
 <p>
-And? Works? Yes, but we&rsquo;ll get a &ldquo;Warning 14 [illegal-backslash]: illegal backslash escape in string.&rdquo;, right?<br>
+And? Works? Yes, but we&rsquo;re getting a <code>Warning 14 [illegal-backslash]: illegal backslash escape in string.</code><br>
 </p>
 
 <p>
@@ -472,16 +473,16 @@ Now we can do just:<br>
 <pre class="src src-ocaml">trim <span class="org-string">"'Adwaita'"</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="org57f4c4e">
+<pre class="example" id="orgc6e1b33">
 - : string = "Adwaita"
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgea2bc9e" class="outline-3">
-<h3 id="orgea2bc9e">Put the Function together</h3>
-<div class="outline-text-3" id="text-orgea2bc9e">
+<div id="outline-container-orgde80d00" class="outline-3">
+<h3 id="orgde80d00">Putting the Function together</h3>
+<div class="outline-text-3" id="text-orgde80d00">
 <p>
 We can make the <code>trim</code> function available within our <code>get_theme</code> function vis <code>let … in</code> syntax, and then apply it to the output of the <code>gsettings</code> shell commands (3rd and 4th branch):<br>
 </p>
@@ -578,14 +579,14 @@ Our toggle function needs to know several preferences to wield its magic. First,
 </ul>
 
 <p>
-&ldquo;Magic&rdquo; is a bit of an exaggeration – we can use quite simple conditionals here. The decision which theme to set, depends on the <i>currently active</i> UI theme <code>current_ui</code>. So we&rsquo;re going to <code>match current_ui with</code> with pattern(s).<br>
+&ldquo;Magic&rdquo; is a bit of an exaggeration – we can use quite simple conditionals here. The decision which theme to set, depends on the <i>currently active</i> UI theme <code>current_ui</code>. So we&rsquo;re going to <code>match current_ui with</code> pattern(s).<br>
 </p>
 
 <ol class="org-ol">
 <li>For the first branch, we can do:<br></li>
 </ol>
 <p>
-&ldquo;When <code>current_ui</code> equals the value of <code>ui_dark</code>, use the <code>backend</code> to set the UI theme <code>ui_light</code>; then use the <code>backend</code> to set the icon theme <code>icon_light</code>&rdquo;.<br>
+&ldquo;When <code>current_ui</code> equals the value of <code>ui_dark</code> -&gt; use the <code>backend</code> to set the UI theme <code>ui_light</code>; then use the <code>backend</code> to set the icon theme <code>icon_light</code>&rdquo;.<br>
 </p>
 
 <ol class="org-ol">
@@ -624,9 +625,9 @@ You may have some questions:<br>
 <li><i>What does <code>c</code> mean in the 1st and 2nd branch?</i><br>
 When matching a pattern, we can simultaneously bind one or more variables to certain parts of the matched object to use those parts in other places within the same branch. Here, we bind the whole value of <code>current_ui</code> to <code>c</code>.<br></li>
 <li><i>What does the <code>when</code> keyword do?</i><br>
-<code>when</code> introduces a <i>guard</i> expression. If the guard expression evaluates to <code>true</code>, then the right side of the branch will be evaluated; otherwise omit the right side and move on to the next branch.<br></li>
-<li><i>Why has the right side of the branch the form <code>let _ = &lt;expression1&gt; in &lt;expression2&gt;</code>?</i><br>
-We use the sequential <code>let … in</code> forms to do more than one thing one after another. And the single underscore (wildcard) means that we don&rsquo;t care to give it a name. It&rsquo;s evaluated only for its side effects (to trigger the shell commands).<br></li>
+<code>when</code> introduces a <i>guard</i> expression. If the guard expression evaluates to <code>true</code>, then the expression after the arrow will be evaluated; otherwise don&rsquo;t evaluate the expression and move on to the next branch.<br></li>
+<li><i>Why has the expression after the arrow the form <code>let _ = &lt;expression1&gt; in &lt;expression2&gt;</code>?</i><br>
+We can use the nested <code>let … in</code> forms to do more than one thing one after another. And the single underscore (wildcard) means that we don&rsquo;t care to give it a name. It&rsquo;s evaluated only for its <i>side effects</i> (to trigger the shell commands).<br></li>
 </ul>
 </div>
 </div>
@@ -635,7 +636,7 @@ We use the sequential <code>let … in</code> forms to do more than one thing on
 <h2 id="orga1d6c18">Paaarteyyy! We have a working Prototype!</h2>
 <div class="outline-text-2" id="text-orga1d6c18">
 <p>
-Ok ok, relax. We are not there yet. It can run it in the toplevel, yes. For now, take a little break and do some Push-ups. We&rsquo;re going to finish this together – same place, but another time.<br>
+Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. But take a little break and do some Push-ups. We&rsquo;re going to finish this together – same place, but another time.<br>
 </p>
 
 <p>
@@ -663,7 +664,7 @@ Ok ok, relax. We are not there yet. It can run it in the toplevel, yes. For now,
 </ul>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 15: </span>Full code listing – working prototype</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Gsettings</span>
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Full code listing – working prototype</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Gsettings</span>
 <span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Icon</span>
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span><span class="org-variable-name"> backend widget</span> <span class="org-tuareg-font-lock-operator">=</span>
@@ -733,7 +734,7 @@ Ok ok, relax. We are not there yet. It can run it in the toplevel, yes. For now,
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 14:41</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 16:28</span></p>
 </div>
 </body>
 </html>
