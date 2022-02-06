@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-06 Sun 20:46 -->
+<!-- 2022-02-06 Sun 21:05 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Let's write a GTK Theme Switcher in OCaml</title>
+<title>Let's code a GTK Theme Switcher in OCaml</title>
 <meta name="author" content="Dan Dee" />
 <meta name="description" content="Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut" />
 <meta name="keywords" content="ocaml, dark mode, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml" />
@@ -29,7 +29,7 @@
 </div>
 <div id="content" class="content">
 <header>
-<h1 class="title">Let&rsquo;s write a GTK Theme Switcher in OCaml</h1>
+<h1 class="title">Let&rsquo;s code a GTK Theme Switcher in OCaml</h1>
 <p class="subtitle" role="doc-subtitle">Coding Project for Beginners</p>
 </header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -227,7 +227,7 @@ Remember, we can find out what theme is currently active with the shell command 
 <label class="org-src-name"><span class="listing-number">Listing 7: </span>Shell command</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
 </pre>
 </div>
-<pre class="example" id="org8f8afb7">
+<pre class="example" id="org143f916">
 Adwaita
 </pre>
 
@@ -253,7 +253,7 @@ This function opens an <i>in<sub>channel</sub></i>, but doesn&rsquo;t yet spit o
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="org6f477e9">
+<pre class="example" id="orgcf9f156">
 - : string = "Adwaita"
 </pre>
 
@@ -300,7 +300,7 @@ The types just tell our function for which <i>&ldquo;type of backend&rdquo;</i> 
 All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely conditional branching via <i>pattern matching</i>:<br>
 </p>
 
-<pre class="example" id="orgf5e4113">
+<pre class="example" id="orgfa06917">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -358,7 +358,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="orge35aacb">
+<pre class="example" id="org2b8b0a6">
 - : string = "Adwaita" (* &lt;-- Looks good … *)
 </pre>
 
@@ -367,7 +367,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org34ec1c6">
+<pre class="example" id="orgab72f35">
 - : string = "Papirus-Light" (* &lt;-- Ok! *)
 </pre>
 
@@ -376,7 +376,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org50d55d6">
+<pre class="example" id="orgcfc555e">
 - : string = "'Adwaita'" (* &lt;-- Yikes! What? *)
 </pre>
 
@@ -385,7 +385,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org00a0adc">
+<pre class="example" id="orgc4a4b44">
 - : string = "'Papirus-Light"" (* &lt;-- Nonono, make those quotes go awaaaaay! *)
 </pre>
 
@@ -486,7 +486,7 @@ Now we can do just:<br>
 <pre class="src src-ocaml">trim <span class="org-string">"'Adwaita'"</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="org8a93dbc">
+<pre class="example" id="org3675a7f">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -747,7 +747,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. But ta
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 20:42</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 21:04</span></p>
 </div>
 </body>
 </html>
