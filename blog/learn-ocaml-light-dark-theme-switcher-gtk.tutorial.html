@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-06 Sun 21:05 -->
+<!-- 2022-02-06 Sun 21:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher in OCaml</title>
@@ -131,11 +131,13 @@ Under XFCE, you have to use the <code>xfconf-query</code> utility to get/set the
 xfconf-query -c xsettings -p /Net/IconThemeName
 </pre>
 </div>
+
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 2: </span>Set the dark UI theme and a dark icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita-dark"</span> &amp;&amp;
 xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Dark"</span>
 </pre>
 </div>
+
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 3: </span>Set the light UI theme and a light icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita"</span> &amp;&amp;
 xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Light"</span>
@@ -152,11 +154,13 @@ And in GNOME there is the <code>gsettings</code> utility (which you also have to
 gsettings get org.gnome.desktop.interface icon-theme
 </pre>
 </div>
+
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 5: </span>Set the dark UI theme and a dark icon theme</label><pre class="src src-shell">gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita-dark"</span> &amp;&amp;
 gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Dark"</span>
 </pre>
 </div>
+
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 6: </span>Set the light UI theme and a light icon theme</label><pre class="src src-shell">gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita"</span> &amp;&amp;
 gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Light"</span>
@@ -227,12 +231,13 @@ Remember, we can find out what theme is currently active with the shell command 
 <label class="org-src-name"><span class="listing-number">Listing 7: </span>Shell command</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
 </pre>
 </div>
-<pre class="example" id="org143f916">
+
+<pre class="example" id="org0426b55">
 Adwaita
 </pre>
 
 <p>
-We have to execute the shell command from inside our program, and then capture the output of the shell command, so that our program can use this information internally to make a decision. In OCaml, we are doing things with <i>functions</i>. We can use the function <a href="https://ocaml.org/api/Unix.html#VALopen_process_in">Unix.open<sub>process</sub><sub>in</sub></a> from OCaml&rsquo;s <i>Unix</i> module:<br>
+We have to execute the shell command from inside our program, and then capture the output of the shell command, so that our program can use this information internally to make a decision. In OCaml, we are doing things with <i>functions</i>. We can use the function <code>Unix.open_process_in</code> from OCaml&rsquo;s <i>Unix</i> module:<br>
 </p>
 
 <div class="org-src-container">
@@ -241,7 +246,7 @@ We have to execute the shell command from inside our program, and then capture t
 </div>
 
 <p>
-This function opens an <i>in<sub>channel</sub></i>, but doesn&rsquo;t yet spit out the theme name; rather we have to get the theme name from that in<sub>channel</sub>. We can use another function <a href="https://ocaml.org/api/Stdlib.html#VALinput_line">input<sub>line</sub></a> that reads from the in<sub>channel</sub> line by line (Each time <code>input_line</code> is applied, it returns the next line, until there is none left – but here we call it only once).<br>
+This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out the theme name; rather we have to get the theme name from that in<sub>channel</sub>. We can use another function <code>input_line</code> that reads from the <code>in_channel</code> line by line (Each time <code>input_line</code> is applied, it returns the next line, until there is none left – but here we call it only once).<br>
 </p>
 
 <div class="org-src-container">
@@ -253,7 +258,7 @@ This function opens an <i>in<sub>channel</sub></i>, but doesn&rsquo;t yet spit o
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="orgcf9f156">
+<pre class="example" id="orgca512c0">
 - : string = "Adwaita"
 </pre>
 
@@ -300,7 +305,7 @@ The types just tell our function for which <i>&ldquo;type of backend&rdquo;</i> 
 All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely conditional branching via <i>pattern matching</i>:<br>
 </p>
 
-<pre class="example" id="orgfa06917">
+<pre class="example" id="orgcb97707">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -312,7 +317,7 @@ When the function receives the arguments for its parameters <code>backend</code>
 </p>
 
 <p>
-&ldquo;If <code>backend</code> matches <code>Xsettings</code> and <code>widget</code> matches <code>Ui</code> -&gt; return the first line from the in<sub>channel</sub> created by the expression <code>(Unix.open_process_in ...</code> as a <i>string</i>, and stop here. If there&rsquo;s no match, continue with the next branch.&rdquo;<br>
+&ldquo;If <code>backend</code> matches <code>Xsettings</code> and <code>widget</code> matches <code>Ui</code> -&gt; return the first line from the <code>in_channel</code> created by the expression <code>(Unix.open_process_in ...</code> as a <i>string</i>, and stop here. If there&rsquo;s no match, continue with the next branch.&rdquo;<br>
 </p>
 
 <div class="org-src-container">
@@ -358,7 +363,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org2b8b0a6">
+<pre class="example" id="org64b5d8f">
 - : string = "Adwaita" (* &lt;-- Looks good … *)
 </pre>
 
@@ -367,7 +372,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="orgab72f35">
+<pre class="example" id="orga8bacd4">
 - : string = "Papirus-Light" (* &lt;-- Ok! *)
 </pre>
 
@@ -376,7 +381,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="orgcfc555e">
+<pre class="example" id="orgaaf3d7b">
 - : string = "'Adwaita'" (* &lt;-- Yikes! What? *)
 </pre>
 
@@ -385,7 +390,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="orgc4a4b44">
+<pre class="example" id="org2cc8ab4">
 - : string = "'Papirus-Light"" (* &lt;-- Nonono, make those quotes go awaaaaay! *)
 </pre>
 
@@ -429,7 +434,7 @@ According to the <a href="https://ocaml.org/api/Str.html#VALglobal_replace">docu
 </ul>
 
 <p>
-Ok, first we&rsquo;ll need the regex. Here it is: <code>^'\|'$</code> it describes what to pay attention to: a string beginning <code>^</code> with one <code>'</code> or one <code>'</code> at the end <code>$</code>.<br>
+Ok, first we&rsquo;ll need the regex. There it is: <code>^'\|'$</code> it describes what to pay attention to: a string beginning <code>^</code> with one <code>'</code> or one <code>'</code> at the end <code>$</code>.<br>
 </p>
 
 <p>
@@ -486,7 +491,8 @@ Now we can do just:<br>
 <pre class="src src-ocaml">trim <span class="org-string">"'Adwaita'"</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="org3675a7f">
+
+<pre class="example" id="org7d0fe03">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -747,7 +753,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. But ta
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 21:04</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 21:22</span></p>
 </div>
 </body>
 </html>
