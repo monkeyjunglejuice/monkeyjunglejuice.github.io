@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-06 Sun 16:39 -->
+<!-- 2022-02-06 Sun 17:44 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Toggle light/dark Mode in XFCE and Gnome</title>
+<title>Let's write a GTK Theme Switcher in OCaml</title>
 <meta name="author" content="Dan Dee" />
-<meta name="description" content="Toggle light/dark theme easily via shortcut – let's write a GTK Theme Switcher for XFCE4 and Gnome" />
-<meta name="keywords" content="ocaml, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml" />
+<meta name="description" content="Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut" />
+<meta name="keywords" content="ocaml, dark mode, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml" />
 <meta name="generator" content="Org Mode" />
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
@@ -29,12 +29,13 @@
 </div>
 <div id="content" class="content">
 <header>
-<h1 class="title">Toggle light/dark Mode in XFCE and Gnome</h1>
-<p class="subtitle" role="doc-subtitle">Let&rsquo;s write a GTK Theme Switcher in OCaml</p>
+<h1 class="title">Let&rsquo;s write a GTK Theme Switcher in OCaml</h1>
+<p class="subtitle" role="doc-subtitle">Coding Project for Beginners</p>
 </header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
+<li><a href="#org4c7ff76">Toggle light/dark Mode in XFCE (and Gnome)</a></li>
 <li><a href="#orgfc60789">Gathering Information</a></li>
 <li><a href="#org962abb3">Shell commands to set dark/light mode</a></li>
 <li><a href="#org061d5ae">Features</a></li>
@@ -55,6 +56,10 @@
 </ul>
 </div>
 </nav>
+
+<div id="outline-container-org4c7ff76" class="outline-2">
+<h2 id="org4c7ff76">Toggle light/dark Mode in XFCE (and Gnome)</h2>
+<div class="outline-text-2" id="text-org4c7ff76">
 <p>
 I&rsquo;m using XFCE4 since a couple of years and despite newer desktop environments for Linux, I always went back to XFCE beause it&rsquo;s the least invasive and lets me do the things I want. Changing the XFWM window manager for XMonad or even EXWM? No problem.<br>
 </p>
@@ -64,14 +69,16 @@ But I&rsquo;ve been missing an easy way to quickly switch from a light theme to 
 </p>
 
 <p>
-Normally, someone would come up with a shell script to do things like that, but I&rsquo;m about to learn OCaml, so let&rsquo;s write that in OCaml.<br>
+Normally, someone would come up with a shell script to do things like that, but I&rsquo;m about to learn OCaml anyway, so let&rsquo;s write that in OCaml.<br>
 </p>
+</div>
+</div>
 
 <div id="outline-container-orgfc60789" class="outline-2">
 <h2 id="orgfc60789">Gathering Information</h2>
 <div class="outline-text-2" id="text-orgfc60789">
 <p>
-You can select your GTK theme in XFCE with <code>xfce4-appearance-settings</code>. XFCE has to remember what theme has been set, so my first guess is that we&rsquo;ll have to find out how and where XFCE does this.<br>
+One can select a GTK theme in XFCE with <code>xfce4-appearance-settings</code>. XFCE remembers what theme I&rsquo;ve set, so my first guess is that we&rsquo;ll have to find out how and where XFCE does this.<br>
 </p>
 
 <p>
@@ -105,7 +112,7 @@ To switch themes instantly for running programs, either a daemon providing the x
 </blockquote>
 
 <p>
-Mmmmkay, so the functionality already exists in XFCE4. And it&rsquo;s not about a config file to change, but speaking to daemons – and here they are the spells. You can issue those commands just straight from the command line (try them):<br>
+Mmmmkay, so the functionality already exists in XFCE4. And it&rsquo;s not about a config file to change, but speaking to daemons – so here are the spells. You can issue those commands just straight from the command line (try it!):<br>
 </p>
 </div>
 </div>
@@ -156,13 +163,13 @@ gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"P
 </div>
 
 <p>
-<b>If you landed here because you just wanted to know how to set dark/light themes via commmand line or shortcut:</b><br>
-The easiest solution for you is to define two <i>application shortcuts</i> via <code>xfce4-keyboard-settings</code>: the first shortcut to execute the commands to set your dark theme, and the second shortcut to execute the commands to set your light theme, and you are done (just copy &amp; paste the set commands above, either the <code>xsettings</code> variant or the <code>gsettings</code> variant).<br>
+<b>If you just landed here because you want to know how to set dark/light themes via commmand line or shortcut:</b><br>
+The easiest solution for you is to define two <i>application shortcuts</i> via <code>xfce4-keyboard-settings</code>: the first shortcut to execute the commands to set your dark theme, and the second for your light theme – and you are done. Just copy &amp; paste the set commands above, either the <code>xsettings</code> variant or the <code>gsettings</code> variant.<br>
 </p>
 
 <p>
 <b>To all others: We&rsquo;re doing real programming here!</b><br>
-For the sake of learning, we&rsquo;ll accept the little overhead. So this is going to be a wrapper around the <code>xsettings</code> and <code>gsettings</code> backends to toggle between light and dark mode with one single shortcut, plus some other conveniences.<br>
+For the sake of learning, we&rsquo;ll just accept the little overhead. So this is going to be a wrapper around the <code>xsettings</code> and <code>gsettings</code> backends to toggle between light and dark mode with one single shortcut, plus some other conveniences.<br>
 </p>
 </div>
 </div>
@@ -171,7 +178,7 @@ For the sake of learning, we&rsquo;ll accept the little overhead. So this is goi
 <h2 id="org061d5ae">Features</h2>
 <div class="outline-text-2" id="text-org061d5ae">
 <p>
-Let&rsquo;s make a quick list what we intend to implement:<br>
+What do we need our program to do? Let&rsquo;s make a quick list what we intend to implement:<br>
 </p>
 
 <ul class="org-ul">
@@ -195,11 +202,11 @@ Let&rsquo;s make a quick list what we intend to implement:<br>
 <h2 id="org5f7fe6e">Where to begin?</h2>
 <div class="outline-text-2" id="text-org5f7fe6e">
 <p>
-<i>You want to see the baby?</i> Alright, let&rsquo;s implement the core functionality first: toggle between the light theme and the dark theme.<br>
+<i>I want to see the baby.</i> Alright, let&rsquo;s implement the core functionality first: toggle between the light theme and the dark theme.<br>
 </p>
 
 <p>
-When using just <i>one</i> key combination to switch between light and dark theme, our programm has to make a decision: which theme to set when we press the key. Therefore, our program needs to find out which theme is currently &ldquo;on&rdquo;. That&rsquo;s a start, eh?<br>
+When there&rsquo;s only <i>one</i> key combination to switch between light and dark theme, our programm has to make a decision: which theme to set when we press the key. Therefore, our program needs to find out which theme is currently &ldquo;on&rdquo;. That&rsquo;s a start, eh?<br>
 </p>
 </div>
 </div>
@@ -219,7 +226,7 @@ Remember, we can find out what theme is currently active with the shell command 
 <label class="org-src-name"><span class="listing-number">Listing 7: </span>Shell command</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
 </pre>
 </div>
-<pre class="example" id="orgea143c6">
+<pre class="example" id="org4473fb6">
 Adwaita
 </pre>
 
@@ -245,7 +252,7 @@ This function opens an <i>in<sub>channel</sub></i>, but doesn&rsquo;t yet spit o
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="orga96c25d">
+<pre class="example" id="orgb3ef233">
 - : string = "Adwaita"
 </pre>
 
@@ -292,7 +299,7 @@ The types just tell our function for which <i>&ldquo;type of backend&rdquo;</i> 
 All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely conditional branching via <i>pattern matching</i>:<br>
 </p>
 
-<pre class="example" id="org247b70c">
+<pre class="example" id="org35dfd51">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -346,7 +353,7 @@ Now we can test our function in the toplevel (&ldquo;REPL&rdquo;) and see what h
 </pre>
 </div>
 
-<pre class="example" id="org16633ab">
+<pre class="example" id="orgc0d9e97">
 - : string = "Adwaita" (* &lt;-- Looks good … *)
 </pre>
 
@@ -355,7 +362,7 @@ Now we can test our function in the toplevel (&ldquo;REPL&rdquo;) and see what h
 </pre>
 </div>
 
-<pre class="example" id="org14a771b">
+<pre class="example" id="orgea42094">
 - : string = "Papirus-Light" (* &lt;-- Ok! *)
 </pre>
 
@@ -364,7 +371,7 @@ Now we can test our function in the toplevel (&ldquo;REPL&rdquo;) and see what h
 </pre>
 </div>
 
-<pre class="example" id="org6b69b57">
+<pre class="example" id="orgb504232">
 - : string = "'Adwaita'" (* &lt;-- Yikes! What? *)
 </pre>
 
@@ -373,7 +380,7 @@ Now we can test our function in the toplevel (&ldquo;REPL&rdquo;) and see what h
 </pre>
 </div>
 
-<pre class="example" id="orgd237b55">
+<pre class="example" id="org63cf267">
 - : string = "'Papirus-Light"" (* &lt;-- Nonono, make those quotes go awaaaaay! *)
 </pre>
 
@@ -473,7 +480,7 @@ Now we can do just:<br>
 <pre class="src src-ocaml">trim <span class="org-string">"'Adwaita'"</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<pre class="example" id="orgc6e1b33">
+<pre class="example" id="orgcc41595">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -734,7 +741,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. But ta
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 16:28</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-06 Sun 17:43</span></p>
 </div>
 </body>
 </html>
