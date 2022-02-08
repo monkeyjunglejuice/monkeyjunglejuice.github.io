@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-08 Tue 16:07 -->
+<!-- 2022-02-08 Tue 16:24 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
@@ -252,7 +252,7 @@ Remember, we can find out what theme is currently active with the shell command 
 </pre>
 </div>
 
-<pre class="example" id="org3655084">
+<pre class="example" id="org5fbab98">
 Adwaita
 </pre>
 
@@ -278,7 +278,7 @@ This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out t
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="org13aeefc">
+<pre class="example" id="org73479af">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -299,7 +299,7 @@ One more thing before we are going to implement the function: Let&rsquo;s write 
 We can write it in a formal way that OCaml understands. Let&rsquo;s define types with <i>type constructors</i> (lowercase), and <i>data constructors</i> (they start with an uppercase char):<br>
 </p>
 
-<pre class="example" id="org8ff1fce">
+<pre class="example" id="org85bfa02">
 type type_constructor = Data_construtor1 | Data_constructor2
 </pre>
 
@@ -339,10 +339,10 @@ get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span 
 </div>
 
 <p>
-Let&rsquo;s write down what should happen each case! All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching:<br>
+Let&rsquo;s write down what should happen in each case: All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching.<br>
 </p>
 
-<pre class="example" id="org15fd64e">
+<pre class="example" id="orgf12d946">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -542,7 +542,7 @@ Now we can do just:<br>
 </pre>
 </div>
 
-<pre class="example" id="orgf8bff37">
+<pre class="example" id="org36cf45a">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -811,7 +811,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-08 Tue 16:06</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-08 Tue 16:21</span></p>
 </div>
 </body>
 </html>
