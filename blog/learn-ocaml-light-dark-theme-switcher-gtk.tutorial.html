@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-08 Tue 08:49 -->
+<!-- 2022-02-08 Tue 09:22 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Let's code a GTK Theme Switcher in OCaml</title>
+<title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
 <meta name="author" content="Dan Dee" />
 <meta name="description" content="Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut" />
 <meta name="keywords" content="ocaml, dark mode, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml" />
@@ -29,7 +29,7 @@
 </div>
 <div id="content" class="content">
 <header>
-<h1 class="title">Let&rsquo;s code a GTK Theme Switcher in OCaml</h1>
+<h1 class="title">Let&rsquo;s code a GTK Theme Switcher for XFCE in OCaml</h1>
 <p class="subtitle" role="doc-subtitle">Coding Project for Beginners</p>
 </header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -41,6 +41,7 @@
 <li><a href="#org03e25f1">Shell Commands to set dark/light Mode</a></li>
 </ul>
 </li>
+<li><a href="#orgb7e060d">Prerequisites</a></li>
 <li><a href="#org061d5ae">Features</a></li>
 <li><a href="#org5f7fe6e">Where to begin?</a></li>
 <li><a href="#org0c6c532">The »Get« Function</a>
@@ -82,7 +83,7 @@ Normally, someone would come up with a shell script to do things like that, but 
 <h2 id="orgfc60789">Gathering Information</h2>
 <div class="outline-text-2" id="text-orgfc60789">
 <p>
-One can select a GTK theme in XFCE with <code>xfce4-appearance-settings</code>. XFCE remembers what theme I&rsquo;ve set, so my first guess is that we&rsquo;ll have to find out how and where XFCE does this.<br>
+One can select a GTK theme in XFCE with <code>xfce4-appearance-settings</code>. XFCE remembers what theme I&rsquo;ve set, so my first guess is that we&rsquo;ll have to find out how and where XFCE does this – in order to change it.<br>
 </p>
 
 <p>
@@ -90,9 +91,9 @@ Linux is quite simple as most user preferences are stored in &ldquo;config files
 </p>
 
 <ol class="org-ol">
-<li>Find the config file where the information about the selected theme is stored?<br></li>
-<li>Change the information about the dark/light mode there?<br></li>
-<li>Tell XFCE to reload the config file in order apply the change immediately?<br></li>
+<li>Find the config file where the information about the selected theme is stored<br></li>
+<li>Change the information about the dark/light mode there<br></li>
+<li>Tell XFCE to reload the config file in order apply the change immediately<br></li>
 </ol>
 
 <p>
@@ -176,9 +177,20 @@ The easiest solution for you is to define two <i>application shortcuts</i> via <
 
 <p>
 <b>To all others: We&rsquo;re doing real programming here!</b><br>
-For the sake of learning, we&rsquo;ll just accept the little overhead. So this is going to be a wrapper around the <code>xsettings</code> and <code>gsettings</code> backends to toggle between light and dark mode with one single shortcut, plus some other conveniences.<br>
+For the sake of learning, we&rsquo;ll just accept the little overhead. So this is going to be a wrapper utilizing the <code>xsettings</code> and <code>gsettings</code> backends to toggle between light and dark mode with one single shortcut, plus some other features.<br>
 </p>
 </div>
+</div>
+</div>
+
+<div id="outline-container-orgb7e060d" class="outline-2">
+<h2 id="orgb7e060d">Prerequisites</h2>
+<div class="outline-text-2" id="text-orgb7e060d">
+<ul class="org-ul">
+<li><b>opam</b> (the OCaml package manager) must be installed and setup<br>
+on your computer running either Linux/Unix, MacOS or Windows with WSL<br></li>
+<li>A proper editor (e.g. Emacs, Vim or VS Code) setup with OCaml support<br></li>
+</ul>
 </div>
 </div>
 
@@ -186,7 +198,7 @@ For the sake of learning, we&rsquo;ll just accept the little overhead. So this i
 <h2 id="org061d5ae">Features</h2>
 <div class="outline-text-2" id="text-org061d5ae">
 <p>
-What do we need our program to do? Let&rsquo;s make a quick list what we intend to implement:<br>
+What do we need our program to do? Let&rsquo;s make a quick list:<br>
 </p>
 
 <ul class="org-ul">
@@ -214,7 +226,7 @@ What do we need our program to do? Let&rsquo;s make a quick list what we intend 
 </p>
 
 <p>
-When there&rsquo;s only <i>one</i> key combination to switch between light and dark theme, our programm has to make a decision: which theme to set when we press the key. Therefore, our program needs to find out which theme is currently &ldquo;on&rdquo;. That&rsquo;s a start, eh?<br>
+When there&rsquo;s only <i>one</i> key combination to switch between light and dark theme, our programm has to make a decision: which theme to set when we press the key. Therefore, at some point our program needs to find out which theme is currently &ldquo;on&rdquo;. That&rsquo;s a start, eh?<br>
 </p>
 </div>
 </div>
@@ -235,7 +247,7 @@ Remember, we can find out what theme is currently active with the shell command 
 </pre>
 </div>
 
-<pre class="example" id="org3ab32db">
+<pre class="example" id="orgc50da11">
 Adwaita
 </pre>
 
@@ -261,7 +273,7 @@ This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out t
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="orgc755bc3">
+<pre class="example" id="org24cfc8b">
 - : string = "Adwaita"
 </pre>
 
@@ -313,7 +325,7 @@ For now, they just serve as options to tell our function for which <i>&ldquo;typ
 All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely conditional branching via <i>pattern matching</i>:<br>
 </p>
 
-<pre class="example" id="org6723175">
+<pre class="example" id="orgcc855ad">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -371,7 +383,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org5e14625">
+<pre class="example" id="orgc25a4c7">
 - : string = "Adwaita" (* &lt;-- Looks good … *)
 </pre>
 
@@ -380,7 +392,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org99f3898">
+<pre class="example" id="orgd0d7eb2">
 - : string = "Papirus-Light" (* &lt;-- Ok! *)
 </pre>
 
@@ -389,7 +401,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="orga25324a">
+<pre class="example" id="org329c0b1">
 - : string = "'Adwaita'" (* &lt;-- Yikes! What? *)
 </pre>
 
@@ -398,7 +410,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org2010ac6">
+<pre class="example" id="orgee6870d">
 - : string = "'Papirus-Light"" (* &lt;-- Nonono, make those quotes go awaaaaay! *)
 </pre>
 
@@ -500,7 +512,7 @@ Now we can do just:<br>
 </pre>
 </div>
 
-<pre class="example" id="org9553a5b">
+<pre class="example" id="org0c88c14">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -681,7 +693,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a
 <ul class="org-ul">
 <li class="off"><code>[&#xa0;]</code> Read the preferences from a config file:<br>
 <ul class="org-ul">
-<li class="off"><code>[&#xa0;]</code> … which backend to use (either xfconf-query or gsettings)<br></li>
+<li class="off"><code>[&#xa0;]</code> … which backend to use (either xsettings or gsettings)<br></li>
 <li class="off"><code>[&#xa0;]</code> … or check/select the available backend automatically<br></li>
 <li class="off"><code>[&#xa0;]</code> … preferred dark/light UI themes<br></li>
 <li class="off"><code>[&#xa0;]</code> … preferred dark/light icon themes<br></li>
@@ -761,7 +773,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-08 Tue 08:48</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-08 Tue 09:22</span></p>
 </div>
 </body>
 </html>
