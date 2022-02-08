@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-08 Tue 08:41 -->
+<!-- 2022-02-08 Tue 08:49 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher in OCaml</title>
@@ -36,8 +36,11 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#org4c7ff76">Toggle light/dark Mode in XFCE (and Gnome)</a></li>
-<li><a href="#orgfc60789">Gathering Information</a></li>
+<li><a href="#orgfc60789">Gathering Information</a>
+<ul>
 <li><a href="#org03e25f1">Shell Commands to set dark/light Mode</a></li>
+</ul>
+</li>
 <li><a href="#org061d5ae">Features</a></li>
 <li><a href="#org5f7fe6e">Where to begin?</a></li>
 <li><a href="#org0c6c532">The »Get« Function</a>
@@ -116,11 +119,10 @@ To switch themes instantly for running programs, either a daemon providing the x
 Mmmmkay, so the functionality already exists in XFCE4. And it&rsquo;s not about a config file to change, but speaking to daemons. You can issue those commands just straight from the command line (try it!):<br>
 </p>
 </div>
-</div>
 
-<div id="outline-container-org03e25f1" class="outline-2">
-<h2 id="org03e25f1">Shell Commands to set dark/light Mode</h2>
-<div class="outline-text-2" id="text-org03e25f1">
+<div id="outline-container-org03e25f1" class="outline-3">
+<h3 id="org03e25f1">Shell Commands to set dark/light Mode</h3>
+<div class="outline-text-3" id="text-org03e25f1">
 <p>
 Under XFCE, you have to use the <code>xfconf-query</code> utility to get/set themes<br>
 &#x2013;&gt; We call this from now on <b>xsettings</b> backend<br>
@@ -178,6 +180,7 @@ For the sake of learning, we&rsquo;ll just accept the little overhead. So this i
 </p>
 </div>
 </div>
+</div>
 
 <div id="outline-container-org061d5ae" class="outline-2">
 <h2 id="org061d5ae">Features</h2>
@@ -232,7 +235,7 @@ Remember, we can find out what theme is currently active with the shell command 
 </pre>
 </div>
 
-<pre class="example" id="org465480c">
+<pre class="example" id="org3ab32db">
 Adwaita
 </pre>
 
@@ -258,7 +261,7 @@ This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out t
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="orgc25b4fd">
+<pre class="example" id="orgc755bc3">
 - : string = "Adwaita"
 </pre>
 
@@ -310,7 +313,7 @@ For now, they just serve as options to tell our function for which <i>&ldquo;typ
 All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely conditional branching via <i>pattern matching</i>:<br>
 </p>
 
-<pre class="example" id="org14650a9">
+<pre class="example" id="org6723175">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -368,7 +371,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org1d2d023">
+<pre class="example" id="org5e14625">
 - : string = "Adwaita" (* &lt;-- Looks good … *)
 </pre>
 
@@ -377,7 +380,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org05fc62c">
+<pre class="example" id="org99f3898">
 - : string = "Papirus-Light" (* &lt;-- Ok! *)
 </pre>
 
@@ -386,7 +389,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="org0766dad">
+<pre class="example" id="orga25324a">
 - : string = "'Adwaita'" (* &lt;-- Yikes! What? *)
 </pre>
 
@@ -395,7 +398,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 
-<pre class="example" id="orga363157">
+<pre class="example" id="org2010ac6">
 - : string = "'Papirus-Light"" (* &lt;-- Nonono, make those quotes go awaaaaay! *)
 </pre>
 
@@ -497,7 +500,7 @@ Now we can do just:<br>
 </pre>
 </div>
 
-<pre class="example" id="org2b95556">
+<pre class="example" id="org9553a5b">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -758,7 +761,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-08 Tue 08:40</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-08 Tue 08:48</span></p>
 </div>
 </body>
 </html>
