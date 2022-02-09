@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-08 Tue 19:41 -->
+<!-- 2022-02-09 Wed 10:51 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
@@ -192,9 +192,10 @@ If you want to follow the tutorial, you&rsquo;ll need at least:<br>
 </p>
 
 <ul class="org-ul">
-<li><b>opam</b> (the OCaml package manager) must be installed and setup<br>
-on your computer running either Linux/Unix, MacOS or Windows with WSL<br></li>
-<li>A proper editor (e.g. Emacs, Vim or VS Code) setup with OCaml support<br></li>
+<li><b>opam</b> (the OCaml package manager) must be installed and configured<br></li>
+<li>A computer running either Linux/Unix with XFCE or GNOME Desktop<br></li>
+<li>A proper editor (e.g. Emacs, Vim or VS Code) with OCaml support<br></li>
+<li>Very basic programming knowledge (what&rsquo;s a function, variable, etc.)<br></li>
 </ul>
 </div>
 </div>
@@ -252,7 +253,7 @@ Remember, we can find out what theme is currently active with the shell command 
 </pre>
 </div>
 
-<pre class="example" id="orgc6b7352">
+<pre class="example" id="orgd4bbda5">
 Adwaita
 </pre>
 
@@ -278,7 +279,7 @@ This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out t
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="orgdcc4295">
+<pre class="example" id="org8f1194b">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -291,15 +292,15 @@ One more thing before we are going to implement the function: Let&rsquo;s write 
 </p>
 
 <ul class="org-ul">
-<li>We know we are going to use a <i>backend</i> and we are going to use either <i>xsettings</i> or <i>gsettings</i><br></li>
-<li>We also know we that we&rsquo;ll deal with a certain <i>widget</i> at a time, either a <i>UI</i> theme or <i>icon</i> theme<br></li>
+<li>We know we are going to use a <i>backend</i> and we are going to use either the <i>xsettings</i> or <i>gsettings</i> variant<br></li>
+<li>We also know we that we&rsquo;ll deal with a variant of <i>widget</i> at a time, either a <i>UI</i> theme or <i>icon</i> theme<br></li>
 </ul>
 
 <p>
-We can write it in a formal way that OCaml understands. Let&rsquo;s define types with <i>type constructors</i> (lowercase), and <i>data constructors</i> (they start with an uppercase char):<br>
+We can write it in a formal way that OCaml understands. We can define types with the keyword <code>type</code>, a <i>type constructor</i> (lowercase) which is the name of the type, and <i>data constructors</i> (they start with an uppercase char):<br>
 </p>
 
-<pre class="example" id="org5b20839">
+<pre class="example" id="org061306d">
 type type_constructor = Data_construtor1 | Data_constructor2
 </pre>
 
@@ -314,7 +315,7 @@ Here you go:<br>
 </div>
 
 <p>
-For now, they will serve as option switches to tell our function for which <i>&ldquo;type of backend&rdquo;</i> and which <i>&ldquo;type of widget&rdquo;</i> we&rsquo;re asking.<br>
+For now, the variants will serve as arguments to tell our function for which <i>&ldquo;type of backend&rdquo;</i> and which <i>&ldquo;type of widget&rdquo;</i> we&rsquo;re asking.<br>
 </p>
 
 <p>
@@ -342,7 +343,7 @@ get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span 
 Let&rsquo;s write down what should happen in each case: All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching.<br>
 </p>
 
-<pre class="example" id="orgca1b03f">
+<pre class="example" id="org05974ce">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -542,7 +543,7 @@ Now we can do just:<br>
 </pre>
 </div>
 
-<pre class="example" id="org7e642a1">
+<pre class="example" id="org01357f1">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -647,12 +648,12 @@ Our toggle function needs to know several preferences to wield its magic. First,
 </p>
 
 <ul class="org-ul">
-<li>Which backend to get/set the themes &#x2013;&gt; variable <code>backend</code><br></li>
-<li>Name of the currently active UI theme &#x2013;&gt; variable <code>current_ui</code><br></li>
-<li>Name of the dark UI theme &#x2013;&gt; variable <code>ui_dark</code><br></li>
-<li>Name of the light UI theme &#x2013;&gt; variable <code>ui_light</code><br></li>
-<li>Name of the dark icon theme &#x2013;&gt; variable <code>icon_dark</code><br></li>
-<li>Name of the light icon theme &#x2013;&gt; variable <code>icon_light</code><br></li>
+<li>Which backend to get/set the themes &#x2013;&gt; identifier <code>backend</code><br></li>
+<li>Name of the currently active UI theme &#x2013;&gt; identifier <code>current_ui</code><br></li>
+<li>Name of the dark UI theme &#x2013;&gt; identifier <code>ui_dark</code><br></li>
+<li>Name of the light UI theme &#x2013;&gt; identifier <code>ui_light</code><br></li>
+<li>Name of the dark icon theme &#x2013;&gt; identifier <code>icon_dark</code><br></li>
+<li>Name of the light icon theme &#x2013;&gt; identifier <code>icon_light</code><br></li>
 </ul>
 
 <p>
@@ -669,7 +670,7 @@ Our toggle function needs to know several preferences to wield its magic. First,
 <ol class="org-ol">
 <li>The second branch does the same, but vice-versa<br></li>
 
-<li>But what should happen if there has been set a different theme, which is none of the preconfigured dark/light theme pair? E.g. set by the XFCE appearance control panel? We can address this by introducing a third branch – the catch-all: Whenever the variable <code>current_ui</code> carries an unexpected value, fall back to the preconfigured <code>ui_light</code> and <code>icon_light</code>.<br></li>
+<li>But what should happen if there has been set a different theme, which is none of the preconfigured dark/light theme pair? E.g. set by the XFCE appearance control panel? We can address this by introducing a third branch – the catch-all: Whenever the identifier <code>current_ui</code> carries an unexpected value, fall back to the preconfigured <code>ui_light</code> and <code>icon_light</code>.<br></li>
 </ol>
 
 <div class="org-src-container">
@@ -700,7 +701,7 @@ There may arise some questions:<br>
 </p>
 <ul class="org-ul">
 <li><i>What does <code>c</code> mean in the 1st and 2nd branch?</i><br>
-When matching a pattern, we can simultaneously bind one or more variables to certain parts of the matched object to use those parts in other places within the same branch. Here, we bind the whole value of <code>current_ui</code> to <code>c</code>.<br></li>
+When matching a pattern, we can simultaneously bind one or more identifiers to certain parts of the matched object to use those parts in other places within the same branch. Here, we bind the whole value of <code>current_ui</code> to <code>c</code>.<br></li>
 <li><i>What does the <code>when</code> keyword do?</i><br>
 <code>when</code> introduces a <i>guard</i> expression. If the guard expression evaluates to <code>true</code>, then evaluate the expression after the arrow; if false, just continue with the next branch.<br></li>
 <li><i>Why has the expression after the arrow the form <code>let _ = &lt;expression1&gt; in &lt;expression2&gt;</code>?</i><br>
@@ -811,7 +812,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-08 Tue 19:41</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-09 Wed 10:51</span></p>
 </div>
 </body>
 </html>
