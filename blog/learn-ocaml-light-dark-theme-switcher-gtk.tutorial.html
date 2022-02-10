@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-09 Wed 10:51 -->
+<!-- 2022-02-10 Thu 11:10 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
@@ -253,7 +253,7 @@ Remember, we can find out what theme is currently active with the shell command 
 </pre>
 </div>
 
-<pre class="example" id="orgd4bbda5">
+<pre class="example" id="org504cb45">
 Adwaita
 </pre>
 
@@ -267,7 +267,7 @@ We have to execute the shell command from inside our program, and then capture t
 </div>
 
 <p>
-This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out the theme name; rather we have to get the theme name from that in<sub>channel</sub>. We can use another function <code>input_line</code> that reads from the <code>in_channel</code> line by line (Each time <code>input_line</code> is applied, it returns the next line, until there is none left – but here we call it only once).<br>
+This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out the theme name; rather we have to get the theme name from that <code>in_channel</code>. We can use another function <code>input_line</code> that reads from the <code>in_channel</code> line by line (Each time <code>input_line</code> is applied, it returns the next line, until there is none left – but here we call it only once).<br>
 </p>
 
 <div class="org-src-container">
@@ -279,7 +279,7 @@ This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out t
 Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function <code>(Unix.open_process_in "xfconf-query …")</code> is going to be computed first, and the resulting value is passed to the function <code>input_line</code>. So eventually, the two nested functions above will produce the output we&rsquo;re looking for:<br>
 </p>
 
-<pre class="example" id="org8f1194b">
+<pre class="example" id="orgd821fd6">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -292,15 +292,15 @@ One more thing before we are going to implement the function: Let&rsquo;s write 
 </p>
 
 <ul class="org-ul">
-<li>We know we are going to use a <i>backend</i> and we are going to use either the <i>xsettings</i> or <i>gsettings</i> variant<br></li>
-<li>We also know we that we&rsquo;ll deal with a variant of <i>widget</i> at a time, either a <i>UI</i> theme or <i>icon</i> theme<br></li>
+<li>We know we are going to use a <i>backend</i>, of which there are 2 variants: either <i>xsettings</i> or <i>gsettings</i><br></li>
+<li>We&rsquo;re also going to deal with a variant of <i>widget</i> at a time: either <i>UI</i> themes or <i>icon</i> themes<br></li>
 </ul>
 
 <p>
-We can write it in a formal way that OCaml understands. We can define types with the keyword <code>type</code>, a <i>type constructor</i> (lowercase) which is the name of the type, and <i>data constructors</i> (they start with an uppercase char):<br>
+We can write this in a formal way OCaml understands, and define types with the keyword <code>type</code>, the name of the type (a.k.a. <i>type constructor</i>; lowercase), and variants (a.k.a. <i>data constructors</i>; capitalised):<br>
 </p>
 
-<pre class="example" id="org061306d">
+<pre class="example" id="org119b307">
 type type_constructor = Data_construtor1 | Data_constructor2
 </pre>
 
@@ -328,7 +328,7 @@ So how could we express &ldquo;Use the <i>xsettings</i> backend to get the name 
 </div>
 
 <p>
-Until now, this does nothing of course. We&rsquo;ll have to give this expression a meaning first – means we&rsquo;re now going to <i>implement</i> the function. We&rsquo;re having 2 backends (xsettings and gsettings) with 2 widgets each (Ui theme and icon theme), that makes 4 combinations how we can call the function:<br>
+Until now, this does nothing of course. We&rsquo;ll have to give this expression a meaning first – we need to <i>implement</i> the function. Since there are 2 backends (<i>xsettings</i> and <i>gsettings</i>) with 2 widgets each (<i>UI theme</i> and <i>icon theme</i>), that makes 4 combinations how we can call the function:<br>
 </p>
 
 <div class="org-src-container">
@@ -343,7 +343,7 @@ get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span 
 Let&rsquo;s write down what should happen in each case: All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching.<br>
 </p>
 
-<pre class="example" id="org05974ce">
+<pre class="example" id="org9dff613">
 match VALUE(S) with
 | PATTERN_1 -&gt; ACTION_1
 | PATTERN_2 -&gt; ACTION_2
@@ -369,19 +369,19 @@ Now we can express that in the first branch:<br>
 <div class="org-src-container">
 <pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span><span class="org-variable-name"> backend widget</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-keyword">match</span> backend<span class="org-tuareg-font-lock-operator">,</span> widget <span class="org-keyword">with</span>
-  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>                                    <span class="org-comment-delimiter">(* </span><span class="org-comment">1st branch .. </span><span class="org-comment-delimiter">*)</span>
-    input_line                                          <span class="org-comment-delimiter">(* </span><span class="org-comment">............. </span><span class="org-comment-delimiter">*)</span>
-      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in                             <span class="org-comment-delimiter">(* </span><span class="org-comment">............. </span><span class="org-comment-delimiter">*)</span>
-         <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">... ends here </span><span class="org-comment-delimiter">*)</span>
-  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>                                    <span class="org-comment-delimiter">(* </span><span class="org-comment">1st branch </span><span class="org-comment-delimiter">*)</span>
+    input_line
+      <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Xsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>                                  <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd branch </span><span class="org-comment-delimiter">*)</span>
     input_line
       <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
          <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-tuareg-font-lock-operator">)</span>
-  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Gsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Gsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>                                    <span class="org-comment-delimiter">(* </span><span class="org-comment">3rd branch </span><span class="org-comment-delimiter">*)</span>
     input_line
       <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
          <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-tuareg-font-lock-operator">)</span>
-  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Gsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-constructor">Gsettings</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-tuareg-font-lock-operator">-&gt;</span>                                  <span class="org-comment-delimiter">(* </span><span class="org-comment">4th branch </span><span class="org-comment-delimiter">*)</span>
     input_line
       <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
          <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-tuareg-font-lock-operator">)</span>
@@ -543,7 +543,7 @@ Now we can do just:<br>
 </pre>
 </div>
 
-<pre class="example" id="org01357f1">
+<pre class="example" id="org14bd1e5">
 - : string = "Adwaita"
 </pre>
 </div>
@@ -812,7 +812,7 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-09 Wed 10:51</span></p>
+<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-02-10 Thu 11:09</span></p>
 </div>
 </body>
 </html>
