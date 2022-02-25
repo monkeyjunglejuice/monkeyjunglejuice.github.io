@@ -221,6 +221,11 @@ textarea { overflow-x: auto; }
   color: #343327;
   font-weight: bold
 }
+.org-tuareg-font-double-colon {
+  /* tuareg-font-double-colon-face */
+  color: #d46f29;
+  font-weight: bold;
+}
 .org-tuareg-font-lock-attribute {
   /* tuareg-font-lock-attribute-face */
   color: #9e240a;
