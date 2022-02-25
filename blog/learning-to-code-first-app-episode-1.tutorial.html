@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-04 Tue 09:43 -->
+<!-- 2022-02-23 Wed 17:38 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Writing my first Script in Lisp</title>
+<title>Manipulating CSV Files in Lisp</title>
 <meta name="author" content="Dan Dee" />
 <meta name="description" content="Me coding my first little script in Commmon Lisp, piece by piece | 1st episode" />
 <meta name="keywords" content="common lisp, tutorial, first app, learn lisp, csv, cl-csv, lisp scripting" />
@@ -29,12 +29,37 @@
 </div>
 <div id="content" class="content">
 <header>
-<h1 class="title">Writing my first Script in Lisp</h1>
-<p class="subtitle" role="doc-subtitle">Learning to Code: Project »CSV Cleaner«</p>
-</header><nav class="subnav" id="orge4ddd7c">
+<h1 class="title">Manipulating CSV Files in Lisp</h1>
+<p class="subtitle" role="doc-subtitle">First Coding Project »CSV Cleaner« | Episode 1</p>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8823c86">Automate the Boring Stuff with Lisp</a>
+<ul>
+<li><a href="#org0ea462d">Why Common Lisp and not Language XYZ?</a></li>
+</ul>
+</li>
+<li><a href="#orgfcb6df9">What the Script should do</a></li>
+<li><a href="#orgcd170da">Woohoo, let&rsquo;s begin!</a>
+<ul>
+<li><a href="#org6740b5f">Using the CL-CSV Library</a></li>
+<li><a href="#org20f4011">Deleting Columns from the CSV</a></li>
+</ul>
+</li>
+<li><a href="#org471a740">Conclusion</a>
+<ul>
+<li><a href="#org6f88cdc">Here is the full Script</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<nav class="subnav" id="org78794ef">
 <ul class="org-ul">
-<li>Part 1<br></li>
-<li><a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">Part 2</a><br></li>
+<li>Episode 1<br></li>
+<li><a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">Episode 2</a><br></li>
+<li><a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">Episode 3</a><br></li>
 </ul>
 </nav>
 
@@ -76,7 +101,7 @@ So welcome to the 1st episode and enjoy the glorious piece of alien technology.<
 <h2 id="orgfcb6df9">What the Script should do</h2>
 <div class="outline-text-2" id="text-orgfcb6df9">
 <p>
-Before we start, we&rsquo;ll need to define the features of our little script:<br>
+Before we start, we&rsquo;ll need to define the features for the little script:<br>
 </p>
 
 <ul class="org-ul">
@@ -85,7 +110,7 @@ Before we start, we&rsquo;ll need to define the features of our little script:<b
 <li class="off"><code>[&#xa0;]</code> Perform search and replace on cell content<br></li>
 <li class="off"><code>[&#xa0;]</code> Set the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
 <li class="on"><code>[X]</code> Spit out a sweet cleaned CSV file<br></li>
-<li class="off"><code>[&#xa0;]</code> Compile a standalone binary<br></li>
+<li class="off"><code>[&#xa0;]</code> Compile to a standalone binary<br></li>
 </ul>
 
 <p>
@@ -160,7 +185,7 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </pre>
 </div>
 
-<div class="note" id="orgbb788d8">
+<div class="note" id="org1ce948c">
 <p>
 <b>Let&rsquo;s throw in a little explainer about Lisp source code, shall we?</b><br>
 </p>
@@ -252,7 +277,7 @@ Example: If don&rsquo;t want the column &ldquo;Size&rdquo; appearing in the resu
 For that, we would need to define all the columns we don&rsquo;t want. We could do that here, directly in the source file in the form of a list of all column headers to get rid of. But then if we want to change something, we would always have to touch the source file &#x2026; meh. Better we specify those columns outside of the app&rsquo;s logic in another CSV which will serve as a template. Let&rsquo;s be creative and call it &rsquo;template.csv&rsquo;.<br>
 </p>
 
-<div class="note" id="orgadadb36">
+<div class="note" id="org27855c8">
 <p>
 <b>So here we&rsquo;ll make a little break to introduce a literary figure: <i>Future Me</i> writing here!</b><br>
 </p>
@@ -340,7 +365,7 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </pre>
 </div>
 
-<div class="note" id="org1cd7e48">
+<div class="note" id="orgad7bf70">
 <p>
 It&rsquo;s me again &#x2013; former <i>Future Me</i>! Merging into your present time line and becoming just me again!<br>
 </p>
@@ -382,7 +407,7 @@ Create the output-table. We take the function defined above and map it onto each
 </div>
 
 <p>
-Write the new CSV to the file system:<br>
+Write the new CSV to disk:<br>
 </p>
 
 <div class="org-src-container">
@@ -401,9 +426,13 @@ It works! Features 1. and 2. and 5. accomplished. As I&rsquo;ve mentioned before
 </p>
 </div>
 
-<div id="outline-container-orgd5f2bf0" class="outline-3">
-<h3 id="orgd5f2bf0">Here is the full script. To run it, you will need:</h3>
-<div class="outline-text-3" id="text-orgd5f2bf0">
+<div id="outline-container-org6f88cdc" class="outline-3">
+<h3 id="org6f88cdc">Here is the full Script</h3>
+<div class="outline-text-3" id="text-org6f88cdc">
+<p>
+To run it, you will need:<br>
+</p>
+
 <ol class="org-ol">
 <li>Common Lisp installation with Quicklisp<br></li>
 <li>CSV file named <code>orders_export.csv</code> with some sample data<br></li>
@@ -464,7 +493,7 @@ Ok, that was a first try. <a href="learning-to-code-first-ocaml-project-episode-
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2022-01-04 Tue 09:43</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2022-02-23 Wed 17:24</span></p>
 </div>
 </body>
 </html>

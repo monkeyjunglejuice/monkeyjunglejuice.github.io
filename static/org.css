@@ -26,7 +26,7 @@ pre {
 pre.src {
     position: relative;
     overflow: visible;
-    color: #33322c;
+    color: #343327;
     /* padding-top: 1.2em; */
 }
 pre.src:before {
@@ -136,8 +136,8 @@ table { border-collapse:collapse; }
 caption.t-above { caption-side: top; }
 caption.t-bottom { caption-side: bottom; }
 td, th { vertical-align:top;  }
-th.org-right  { text-align: center;  }
-th.org-left   { text-align: center;   }
+th.org-right  { text-align: right;  }
+th.org-left   { text-align: left;   }
 th.org-center { text-align: center; }
 td.org-right  { text-align: right;  }
 td.org-left   { text-align: left;   }
@@ -170,17 +170,15 @@ textarea { overflow-x: auto; }
 
 .org-builtin {
   /* font-lock-builtin-face */
-  color: #8e210a;
+  color: #9e240a;
 }
 .org-comment {
   /* font-lock-comment-face */
-  color: #8b8874;
-  font-style: italic;
+  color: #8d8973;
 }
 .org-comment-delimiter {
   /* font-lock-comment-delimiter-face */
-  color: #8b8874;
-  font-style: italic;
+  color: #8d8973;
 }
 .org-constant {
   /* font-lock-constant-face */
@@ -188,25 +186,25 @@ textarea { overflow-x: auto; }
 }
 .org-css-property {
   /* css-property */
-  color: #8e210a;
+  color: #9e240a;
 }
 .org-css-selector {
   /* css-selector */
-  color: #33322c;
+  color: #343327;
   font-weight: bold;
 }
 .org-csv-separator {
   /* csv-separator-face */
-  color: #8e210a;
+  color: #9e240a;
 }
 .org-doc {
   /* font-lock-doc-face */
-  color: #008064;
+  color: #8d8973;
   font-style: italic;
 }
 .org-function-name {
   /* font-lock-function-name-face */
-  color: #33322c;
+  color: #343327;
   font-weight: bold;
   font-style: italic;
 }
@@ -216,12 +214,16 @@ textarea { overflow-x: auto; }
 }
 .org-string {
   /* font-lock-string-face */
-  color: #008064;
+  color: #0b7e71;
 }
 .org-type {
   /* font-lock-type-face */
-  color: #33322c;
+  color: #343327;
   font-weight: bold
+}
+.org-tuareg-font-lock-attribute {
+  /* tuareg-font-lock-attribute-face */
+  color: #9e240a;
 }
 .org-tuareg-font-lock-governing {
   /* tuareg-font-lock-governing-face */
@@ -230,11 +232,11 @@ textarea { overflow-x: auto; }
 }
 .org-tuareg-font-lock-label {
   /* tuareg-font-lock-label-face */
-  color: #8e210a;
+  color: #9e240a;
 }
 .org-tuareg-font-lock-module {
   /* tuareg-font-lock-module-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-tuareg-font-lock-operator {
   /* tuareg-font-lock-operator-face */
@@ -242,7 +244,7 @@ textarea { overflow-x: auto; }
 }
 .org-variable-name {
   /* font-lock-variable-name-face */
-  color: #33322c;
+  color: #343327;
   font-style: italic;
 }
 .org-regexp-grouping-backslash {
@@ -255,37 +257,37 @@ textarea { overflow-x: auto; }
 }
 .org-rainbow-delimiters-depth-1 {
   /* rainbow-delimiters-depth-1-face */
-  color: #33322c;
+  color: #343327;
 }
 .org-rainbow-delimiters-depth-2 {
   /* rainbow-delimiters-depth-2-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-rainbow-delimiters-depth-3 {
   /* rainbow-delimiters-depth-3-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-rainbow-delimiters-depth-4 {
   /* rainbow-delimiters-depth-4-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-rainbow-delimiters-depth-5 {
   /* rainbow-delimiters-depth-5-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-rainbow-delimiters-depth-6 {
   /* rainbow-delimiters-depth-6-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-rainbow-delimiters-depth-7 {
   /* rainbow-delimiters-depth-7-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-rainbow-delimiters-depth-8 {
   /* rainbow-delimiters-depth-8-face */
-  color: #8b8875;
+  color: #8d8973;
 }
 .org-rainbow-delimiters-depth-9 {
   /* rainbow-delimiters-depth-9-face */
-  color: #8b8875;
+  color: #8d8973;
 }
