@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-26 Sat 07:52 -->
+<!-- 2022-02-26 Sat 08:21 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Eat my huge Files – Tail Recursion in OCaml</title>
@@ -72,10 +72,11 @@
 <li><a href="#org86c7c01">What&rsquo;s next?</a></li>
 </ul>
 </li>
+<li><a href="#org3fc96fa">Full Code Listing, Version 0.3</a></li>
 </ul>
 </div>
 </nav>
-<nav class="subnav" id="org8449969">
+<nav class="subnav" id="orgc5eff1e">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">Episode 1</a><br></li>
 <li><a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">Episode 2</a><br></li>
@@ -682,9 +683,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </div>
 </div>
 
-<div id="outline-container-org0fc0d53" class="outline-4">
-<h4 id="org0fc0d53">What is it doing?</h4>
-<div class="outline-text-4" id="text-org0fc0d53">
+<div id="outline-container-org1a19f4b" class="outline-4">
+<h4 id="org1a19f4b">What is it doing?</h4>
+<div class="outline-text-4" id="text-org1a19f4b">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 15: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> <span class="org-tuareg-font-lock-operator">:</span> 'a list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
@@ -883,9 +884,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </div>
 </div>
 
-<div id="outline-container-org6cf1a14" class="outline-4">
-<h4 id="org6cf1a14">What is it doing?</h4>
-<div class="outline-text-4" id="text-org6cf1a14">
+<div id="outline-container-org6740292" class="outline-4">
+<h4 id="org6740292">What is it doing?</h4>
+<div class="outline-text-4" id="text-org6740292">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 24: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
@@ -1308,9 +1309,87 @@ Hope you enjoyed the walktrough. Suggestions are always welcome!<br>
 </div>
 </div>
 </div>
+
+<div id="outline-container-org3fc96fa" class="outline-2">
+<h2 id="org3fc96fa">Full Code Listing, Version 0.3</h2>
+<div class="outline-text-2" id="text-org3fc96fa">
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 31: </span>Fully tail-recursive</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.3 </span><span class="org-comment-delimiter">*)</span>
+
+
+<span class="org-doc">(** Tail-recursive alternative to [List.map] *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">mapt</span><span class="org-variable-name"> f l</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-module">List.</span>rev <span class="org-tuareg-font-lock-operator">(</span><span class="org-tuareg-font-lock-module">List.</span>rev_map f l<span class="org-tuareg-font-lock-operator">)</span>
+
+
+<span class="org-doc">(** Transforms the file into a key-value data structure *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">prep</span><span class="org-variable-name"> file</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tab_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in file <span class="org-tuareg-font-lock-governing">in</span>
+  tab_file
+  <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>of_channel
+  <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>input_all
+  <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-keyword">fun</span> <span class="org-variable-name">tab</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">head</span><span class="org-tuareg-font-lock-operator">,</span><span class="org-variable-name"> body</span> <span class="org-tuareg-font-lock-operator">=</span>
+                  <span class="org-keyword">match</span> tab <span class="org-keyword">with</span>
+                  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-keyword">assert</span> <span class="org-constant">false</span>
+                  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd<span class="org-tuareg-font-lock-operator">,</span> tl <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in tab_file <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-module">Csv.</span>associate head body
+
+
+<span class="org-doc">(** Drops the columns that are not specified by the template *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span><span class="org-variable-name"> tab</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tpl_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"template.csv"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tpl</span> <span class="org-tuareg-font-lock-operator">=</span> tpl_file
+            <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span>
+            <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> close_in tpl_file <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">remove_cols</span><span class="org-variable-name"> tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>
+      <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
+      <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-module">List.</span>rev accu
+      <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl <span class="org-tuareg-font-lock-operator">-&gt;</span> aux <span class="org-tuareg-font-lock-operator">((</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> accu<span class="org-tuareg-font-lock-operator">)</span> tpl tl
+      <span class="org-tuareg-font-lock-operator">|</span> _ <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> aux accu tpl tl <span class="org-tuareg-font-lock-governing">in</span>
+    aux <span class="org-tuareg-font-lock-operator">[]</span> tpl row <span class="org-tuareg-font-lock-governing">in</span>
+  mapt <span class="org-tuareg-font-lock-operator">(</span>remove_cols tpl<span class="org-tuareg-font-lock-operator">)</span> tab
+
+
+<span class="org-doc">(** Transforms the key-value data structure into lists representing lines *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">dissoc</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_keys</span><span class="org-variable-name"> row</span> <span class="org-tuareg-font-lock-operator">=</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu</span> <span class="org-tuareg-font-lock-operator">=</span>
+      <span class="org-keyword">function</span>
+      <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu
+      <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> _<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> aux <span class="org-tuareg-font-lock-operator">(</span>k <span class="org-tuareg-font-lock-operator">::</span> accu<span class="org-tuareg-font-lock-operator">)</span> tl <span class="org-tuareg-font-lock-governing">in</span>
+    <span class="org-tuareg-font-lock-module">List.</span>rev <span class="org-tuareg-font-lock-operator">(</span>aux <span class="org-tuareg-font-lock-operator">[]</span> row<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_values</span><span class="org-variable-name"> row</span> <span class="org-tuareg-font-lock-operator">=</span>
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu</span> <span class="org-tuareg-font-lock-operator">=</span>
+      <span class="org-keyword">function</span>
+      <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu
+      <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>_<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> aux <span class="org-tuareg-font-lock-operator">(</span>v <span class="org-tuareg-font-lock-operator">::</span> accu<span class="org-tuareg-font-lock-operator">)</span> tl <span class="org-tuareg-font-lock-governing">in</span>
+    <span class="org-tuareg-font-lock-module">List.</span>rev <span class="org-tuareg-font-lock-operator">(</span>aux <span class="org-tuareg-font-lock-operator">[]</span> row<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">function</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> get_keys hd <span class="org-tuareg-font-lock-operator">::</span> mapt get_values <span class="org-tuareg-font-lock-operator">(</span>hd <span class="org-tuareg-font-lock-operator">::</span> tl<span class="org-tuareg-font-lock-operator">)</span>
+
+
+<span class="org-doc">(** Writes the cleaned CSV file to disk *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">save</span><span class="org-variable-name"> tab</span> <span class="org-tuareg-font-lock-operator">=</span>
+  <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span><span class="org-tuareg-font-lock-operator">:</span><span class="org-constant">true</span> tab
+
+
+<span class="org-doc">(** Puts all together in one pipe *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-operator">()</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-string">"input.csv"</span>
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> prep
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> clean
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> dissoc
+         <span class="org-tuareg-font-lock-operator">|&gt;</span> save <span class="org-string">"output.csv"</span>
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-02-11 Fri 00:00</span> | Updated: <span class="date">2022-02-26 Sat 07:52</span></p>
+<p class="footer">Published: <span class="date">2022-02-11 Fri 00:00</span> | Updated: <span class="date">2022-02-26 Sat 08:21</span></p>
 </div>
 </body>
 </html>
