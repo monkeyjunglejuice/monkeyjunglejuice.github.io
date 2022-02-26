@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-26 Sat 09:51 -->
+<!-- 2022-02-26 Sat 16:09 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Eat my huge Files – Tail Recursion in OCaml</title>
@@ -76,7 +76,7 @@
 </ul>
 </div>
 </nav>
-<nav class="subnav" id="org3596046">
+<nav class="subnav" id="orgc76119c">
 <ul class="org-ul">
 <li><a href="learning-to-code-first-app-episode-1.tutorial.html">Episode 1</a><br></li>
 <li><a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">Episode 2</a><br></li>
@@ -284,25 +284,24 @@ sum <span class="org-tuareg-font-lock-operator">[</span>1<span class="org-tuareg
 </ol>
 
 <p>
-Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack.<br>
+Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Trace diagram of recursive function call(s)</label><pre class="src src-ocaml">sum <span class="org-tuareg-font-lock-operator">&lt;--</span> <span class="org-tuareg-font-lock-operator">[</span>1<span class="org-tuareg-font-lock-operator">;</span> 2<span class="org-tuareg-font-lock-operator">;</span> 3<span class="org-tuareg-font-lock-operator">;</span> 4<span class="org-tuareg-font-lock-operator">;</span> 5<span class="org-tuareg-font-lock-operator">]</span>
-sum <span class="org-tuareg-font-lock-operator">&lt;--</span> <span class="org-tuareg-font-lock-operator">[</span>2<span class="org-tuareg-font-lock-operator">;</span> 3<span class="org-tuareg-font-lock-operator">;</span> 4<span class="org-tuareg-font-lock-operator">;</span> 5<span class="org-tuareg-font-lock-operator">]</span>
-sum <span class="org-tuareg-font-lock-operator">&lt;--</span> <span class="org-tuareg-font-lock-operator">[</span>3<span class="org-tuareg-font-lock-operator">;</span> 4<span class="org-tuareg-font-lock-operator">;</span> 5<span class="org-tuareg-font-lock-operator">]</span>
-sum <span class="org-tuareg-font-lock-operator">&lt;--</span> <span class="org-tuareg-font-lock-operator">[</span>4<span class="org-tuareg-font-lock-operator">;</span> 5<span class="org-tuareg-font-lock-operator">]</span>
-sum <span class="org-tuareg-font-lock-operator">&lt;--</span> <span class="org-tuareg-font-lock-operator">[</span>5<span class="org-tuareg-font-lock-operator">]</span>
-sum <span class="org-tuareg-font-lock-operator">&lt;--</span> <span class="org-tuareg-font-lock-operator">[]</span>
-sum <span class="org-tuareg-font-lock-operator">--&gt;</span> 0
-sum <span class="org-tuareg-font-lock-operator">--&gt;</span> 5
-sum <span class="org-tuareg-font-lock-operator">--&gt;</span> 9
-sum <span class="org-tuareg-font-lock-operator">--&gt;</span> 12
-sum <span class="org-tuareg-font-lock-operator">--&gt;</span> 14
-sum <span class="org-tuareg-font-lock-operator">--&gt;</span> 15
-<span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> int <span class="org-tuareg-font-lock-operator">=</span> 15
+<pre class="example" id="org0fb1736">
+sum &lt;-- [1; 2; 3; 4; 5]
+sum &lt;-- [2; 3; 4; 5]
+sum &lt;-- [3; 4; 5]
+sum &lt;-- [4; 5]
+sum &lt;-- [5]
+sum &lt;-- []
+sum --&gt; 0
+sum --&gt; 5
+sum --&gt; 9
+sum --&gt; 12
+sum --&gt; 14
+sum --&gt; 15
+- : int = 15
 </pre>
-</div>
 </div>
 </div>
 
@@ -358,20 +357,22 @@ sum <span class="org-tuareg-font-lock-operator">[</span>1<span class="org-tuareg
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Check for tail call</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">sum</span><span class="org-variable-name"> l</span> <span class="org-tuareg-font-lock-operator">=</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Check for tail call</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">sum</span><span class="org-variable-name"> l</span> <span class="org-tuareg-font-lock-operator">=</span>
     <span class="org-keyword">match</span> l <span class="org-keyword">with</span>
     <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> 0
     <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd <span class="org-tuareg-font-lock-operator">+</span> <span class="org-tuareg-font-lock-operator">(</span>sum <span class="org-tuareg-font-lock-attribute">[@tailcall]</span><span class="org-tuareg-font-lock-operator">)</span> tl<span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
-<div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Check failed – warning</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-constructor">Line</span> 4<span class="org-tuareg-font-lock-operator">,</span> characters 23<span class="org-tuareg-font-lock-operator">-</span>42<span class="org-tuareg-font-lock-operator">:</span>
-4 <span class="org-tuareg-font-lock-operator">|</span>     <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd <span class="org-tuareg-font-lock-operator">+</span> <span class="org-tuareg-font-lock-operator">(</span>sum <span class="org-tuareg-font-lock-attribute">[@tailcall]</span><span class="org-tuareg-font-lock-operator">)</span> tl<span class="org-tuareg-font-double-colon">;;</span>
-                           <span class="org-tuareg-font-lock-operator">^^^^^^^^^^^^^^^^^^^^</span>
-<span class="org-tuareg-font-lock-constructor">Warning</span> 51 <span class="org-tuareg-font-lock-operator">[</span>wrong<span class="org-tuareg-font-lock-operator">-</span>tailcall<span class="org-tuareg-font-lock-operator">-</span>expectation<span class="org-tuareg-font-lock-operator">]:</span> expected tailcall
-<span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">sum</span> <span class="org-tuareg-font-lock-operator">:</span> int list <span class="org-tuareg-font-lock-operator">-&gt;</span> int <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<p>
+Check failed – warning:<br>
+</p>
+<pre class="example" id="org347cf84">
+Line 4, characters 23-42:
+4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
+                           ^^^^^^^^^^^^^^^^^^^^
+Warning 51 [wrong-tailcall-expectation]: expected tailcall
+val sum : int list -&gt; int = &lt;fun&gt;
 </pre>
-</div>
 </div>
 </div>
 
@@ -393,14 +394,17 @@ sumt 0 <span class="org-tuareg-font-lock-operator">[</span>1<span class="org-tua
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Check for tail call</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">sumt</span><span class="org-variable-name"> accu l</span> <span class="org-tuareg-font-lock-operator">=</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Check for tail call</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">sumt</span><span class="org-variable-name"> accu l</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-keyword">match</span> l <span class="org-keyword">with</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu
   <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>sumt <span class="org-tuareg-font-lock-attribute">[@tailcall]</span><span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">(</span>accu <span class="org-tuareg-font-lock-operator">+</span> hd<span class="org-tuareg-font-lock-operator">)</span> tl<span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
+<p>
+Check passed – no warning:<br>
+</p>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>Check passed – no warning</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">sumt</span> <span class="org-tuareg-font-lock-operator">:</span> int <span class="org-tuareg-font-lock-operator">-&gt;</span> int list <span class="org-tuareg-font-lock-operator">-&gt;</span> int <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">sumt</span> <span class="org-tuareg-font-lock-operator">:</span> int <span class="org-tuareg-font-lock-operator">-&gt;</span> int list <span class="org-tuareg-font-lock-operator">-&gt;</span> int <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
 
@@ -430,18 +434,18 @@ If you want to change a &ldquo;naive&rdquo; (non-tail-)recursive function into a
 </ol>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 7: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">sum</span><span class="org-variable-name"> l</span> <span class="org-tuareg-font-lock-operator">=</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">sum</span><span class="org-variable-name"> l</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-keyword">match</span> l <span class="org-keyword">with</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> 0
-  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd <span class="org-tuareg-font-lock-operator">+</span> <span class="org-tuareg-font-lock-operator">(</span>sum tl<span class="org-tuareg-font-lock-operator">)</span><span class="org-tuareg-font-double-colon">;;</span>     <span class="org-comment-delimiter">(* </span><span class="org-comment">recursive case: no tail call </span><span class="org-comment-delimiter">*)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> hd <span class="org-tuareg-font-lock-operator">+</span> <span class="org-tuareg-font-lock-operator">(</span>sum tl<span class="org-tuareg-font-lock-operator">)</span><span class="org-tuareg-font-double-colon">;;</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">recursive case: no tail call </span><span class="org-comment-delimiter">*)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 8: </span>AFTER – tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu l</span> <span class="org-tuareg-font-lock-operator">=</span>                       <span class="org-comment-delimiter">(* </span><span class="org-comment">define the helper function </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>AFTER – tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu l</span> <span class="org-tuareg-font-lock-operator">=</span>                   <span class="org-comment-delimiter">(* </span><span class="org-comment">define the helper function </span><span class="org-comment-delimiter">*)</span>
   <span class="org-keyword">match</span> l <span class="org-keyword">with</span>
-  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu                             <span class="org-comment-delimiter">(* </span><span class="org-comment">base case returns the accumulator </span><span class="org-comment-delimiter">*)</span>
-  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> aux <span class="org-tuareg-font-lock-operator">(</span>accu <span class="org-tuareg-font-lock-operator">+</span> hd<span class="org-tuareg-font-lock-operator">)</span> tl<span class="org-tuareg-font-double-colon">;;</span>       <span class="org-comment-delimiter">(* </span><span class="org-comment">recursive case: tail call </span><span class="org-comment-delimiter">*)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu                         <span class="org-comment-delimiter">(* </span><span class="org-comment">base case returns the accumulator </span><span class="org-comment-delimiter">*)</span>
+  <span class="org-tuareg-font-lock-operator">|</span> hd <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> aux <span class="org-tuareg-font-lock-operator">(</span>accu <span class="org-tuareg-font-lock-operator">+</span> hd<span class="org-tuareg-font-lock-operator">)</span> tl<span class="org-tuareg-font-double-colon">;;</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">recursive case: tail call </span><span class="org-comment-delimiter">*)</span>
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">sum</span><span class="org-variable-name"> l</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">define the wrapper function </span><span class="org-comment-delimiter">*)</span>
   aux 0 l<span class="org-tuareg-font-double-colon">;;</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">call helper function with the base case value </span><span class="org-comment-delimiter">*)</span>
@@ -493,12 +497,12 @@ Ah yes, not to forget: When writing about static functional languages, it&rsquo;
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 9: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">clean</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">clean</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 10: </span>BEFORE – causing a stack overflow</label><pre class="src src-ocaml"><span class="org-doc">(** Drops the columns that are not specified in the template *)</span>
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>BEFORE – causing a stack overflow</label><pre class="src src-ocaml"><span class="org-doc">(** Drops the columns that are not specified in the template *)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span><span class="org-variable-name"> tab</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tpl_file</span> <span class="org-tuareg-font-lock-operator">=</span> open_in <span class="org-string">"template.csv"</span> <span class="org-tuareg-font-lock-governing">in</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tpl</span> <span class="org-tuareg-font-lock-operator">=</span> tpl_file
@@ -535,7 +539,7 @@ Well, there&rsquo;s also the function <code>List.map</code> (2) from OCaml&rsquo
 <h4 id="orgd4910ef">Tail-recursive or not?</h4>
 <div class="outline-text-4" id="text-orgd4910ef">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 11: </span>OCaml&rsquo;s official implementation</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">map</span><span class="org-variable-name"> f</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-keyword">function</span>
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>OCaml&rsquo;s official implementation</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">map</span><span class="org-variable-name"> f</span> <span class="org-tuareg-font-lock-operator">=</span> <span class="org-keyword">function</span>
     <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
   <span class="org-tuareg-font-lock-operator">|</span> a<span class="org-tuareg-font-lock-operator">::</span>l <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">r</span> <span class="org-tuareg-font-lock-operator">=</span> f a <span class="org-tuareg-font-lock-governing">in</span> r <span class="org-tuareg-font-lock-operator">::</span> map f l
 </pre>
@@ -601,12 +605,12 @@ It may not seem obvious, but <code>dissoc</code> is actually the definition of a
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 13: </span>BEFORE – causing a stack overflow</label><pre class="src src-ocaml"><span class="org-doc">(** Transforms the (key, value) data structure into lists representing lines *)</span>
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>BEFORE – causing a stack overflow</label><pre class="src src-ocaml"><span class="org-doc">(** Transforms the (key, value) data structure into lists representing lines *)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">dissoc</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> <span class="org-tuareg-font-lock-operator">=</span>
     <span class="org-keyword">function</span>
@@ -635,7 +639,7 @@ Over all, same here as before with the <code>clean</code> function: <code>List.m
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 14: </span>AFTER – using the tail-recursive &rsquo;mapt&rsquo; alternative</label><pre class="src src-ocaml"><span class="org-doc">(** Transforms the (key, value) data structure into lists representing lines *)</span>
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>AFTER – using the tail-recursive &rsquo;mapt&rsquo; alternative</label><pre class="src src-ocaml"><span class="org-doc">(** Transforms the (key, value) data structure into lists representing lines *)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">dissoc</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> <span class="org-tuareg-font-lock-operator">=</span>
     <span class="org-keyword">function</span>
@@ -683,11 +687,11 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </div>
 </div>
 
-<div id="outline-container-org7e7b187" class="outline-4">
-<h4 id="org7e7b187">What is it doing?</h4>
-<div class="outline-text-4" id="text-org7e7b187">
+<div id="outline-container-org2958c6e" class="outline-4">
+<h4 id="org2958c6e">What is it doing?</h4>
+<div class="outline-text-4" id="text-org2958c6e">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 15: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> <span class="org-tuareg-font-lock-operator">:</span> 'a list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> <span class="org-tuareg-font-lock-operator">:</span> 'a list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
 
@@ -700,7 +704,7 @@ The function takes 2 arguments:<br>
 </ul>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 16: </span>Template data structure [&ldquo;columnheader&rdquo;; &ldquo;columnheader&rdquo;]</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">;]</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">list of column headers specifying the columns to keep </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Template data structure [&ldquo;columnheader&rdquo;; &ldquo;columnheader&rdquo;]</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">;]</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">list of column headers specifying the columns to keep </span><span class="org-comment-delimiter">*)</span>
 </pre>
 </div>
 
@@ -709,7 +713,7 @@ The function takes 2 arguments:<br>
 </ul>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 17: </span>Row data structure [(&ldquo;columnheader&rdquo;, &ldquo;cellcontent&rdquo;); … ]</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)]</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">a single CSV row </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Row data structure [(&ldquo;columnheader&rdquo;, &ldquo;cellcontent&rdquo;); … ]</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)]</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">a single CSV row </span><span class="org-comment-delimiter">*)</span>
 </pre>
 </div>
 </div>
@@ -730,7 +734,7 @@ The function takes 2 arguments:<br>
 <h4 id="org06bc5fb">Making it tail-recursive</h4>
 <div class="outline-text-4" id="text-org06bc5fb">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 18: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_cols</span><span class="org-variable-name"> tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>
+<label class="org-src-name"><span class="listing-number">Listing 15: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_cols</span><span class="org-variable-name"> tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>
   <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> remove_cols tpl tl <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
@@ -743,7 +747,7 @@ The function takes 2 arguments:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 19: </span>AFTER – helper function (1) and separate wrapper function (2)</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 16: </span>AFTER – helper function (1) and separate wrapper function (2)</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
   <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu   <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- replace the base case with the accumulator </span><span class="org-comment-delimiter">*)</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl <span class="org-tuareg-font-lock-operator">-&gt;</span> aux <span class="org-tuareg-font-lock-operator">((</span>k<span class="org-tuareg-font-lock-operator">,</span> v<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> accu<span class="org-tuareg-font-lock-operator">)</span> tpl tl
@@ -759,7 +763,7 @@ Let&rsquo;s merge it into one single function:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 20: </span>AFTER – helper function (1) inside the wrapper function (2)</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">remove_cols</span><span class="org-variable-name"> tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">2 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 17: </span>AFTER – helper function (1) inside the wrapper function (2)</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">remove_cols</span><span class="org-variable-name"> tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">2 </span><span class="org-comment-delimiter">*)</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu tpl row</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
     <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
     <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu
@@ -779,7 +783,7 @@ How can we call this function and how should the arguments be like? The type sig
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 21: </span>Yeah, hello again type signature. BFF!</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> <span class="org-tuareg-font-lock-operator">:</span> 'a list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<label class="org-src-name"><span class="listing-number">Listing 18: </span>Yeah, hello again type signature. BFF!</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> <span class="org-tuareg-font-lock-operator">:</span> 'a list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
 
@@ -794,13 +798,13 @@ So for a quick test, we can just provide the arguments as follows:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 22: </span>Function call with two arguments (lists)</label><pre class="src src-ocaml">remove_cols <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">;]</span> <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)]</span>
+<label class="org-src-name"><span class="listing-number">Listing 19: </span>Function call with two arguments (lists)</label><pre class="src src-ocaml">remove_cols <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">;]</span> <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"a"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"1"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)]</span>
          <span class="org-comment-delimiter">(* </span><span class="org-comment">&#8593; template  &#8593; row </span><span class="org-comment-delimiter">*)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 23: </span>Result – all the other key-value pairs got dropped</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> string<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">)]</span>
+<label class="org-src-name"><span class="listing-number">Listing 20: </span>Result – all the other key-value pairs got dropped</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>string <span class="org-tuareg-font-lock-operator">*</span> string<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"c"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"3"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">)]</span>
 </pre>
 </div>
 </div>
@@ -884,11 +888,11 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </div>
 </div>
 
-<div id="outline-container-org2958c6e" class="outline-4">
-<h4 id="org2958c6e">What is it doing?</h4>
-<div class="outline-text-4" id="text-org2958c6e">
+<div id="outline-container-orgc7207d1" class="outline-4">
+<h4 id="orgc7207d1">What is it doing?</h4>
+<div class="outline-text-4" id="text-orgc7207d1">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 24: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
+<label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
 </div>
 
@@ -897,7 +901,7 @@ The <code>dissoc</code> function takes one argument, which is a <i>list of assoc
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 25: </span>BEFORE – the whole CSV data is a list of association lists</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)];</span> 
+<label class="org-src-name"><span class="listing-number">Listing 22: </span>BEFORE – the whole CSV data is a list of association lists</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)];</span> 
  <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">)];</span>
  <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">)]]</span>
 </pre>
@@ -913,7 +917,7 @@ The <code>dissoc</code> function splits the keys from the values and gathers bot
 </ol>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 26: </span>AFTER – the whole CSV data is a list of lists</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">];</span>     <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 23: </span>AFTER – the whole CSV data is a list of lists</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">[[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">];</span>     <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
  <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">];</span>     <span class="org-comment-delimiter">(* </span><span class="org-comment">2 </span><span class="org-comment-delimiter">*)</span>
  <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">];</span>     <span class="org-comment-delimiter">(* </span><span class="org-comment">2 </span><span class="org-comment-delimiter">*)</span>
  <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">]]</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">2 </span><span class="org-comment-delimiter">*)</span>
@@ -930,7 +934,7 @@ This list is then passed to the next function <code>save</code> to write the dat
 <h4 id="orgb53d42e">How do the inner Functions work?</h4>
 <div class="outline-text-4" id="text-orgb53d42e">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 27: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 24: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> <span class="org-tuareg-font-lock-operator">=</span>   <span class="org-comment-delimiter">(* </span><span class="org-comment">1 </span><span class="org-comment-delimiter">*)</span>
   <span class="org-keyword">function</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">[]</span>
   <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">(</span>k<span class="org-tuareg-font-lock-operator">,</span> _<span class="org-tuareg-font-lock-operator">)</span> <span class="org-tuareg-font-lock-operator">::</span> tl <span class="org-tuareg-font-lock-operator">-&gt;</span> k <span class="org-tuareg-font-lock-operator">::</span> get_keys tl   <span class="org-comment-delimiter">(* </span><span class="org-comment">&#8592; ? </span><span class="org-comment-delimiter">*)</span>
@@ -959,7 +963,7 @@ Stoooop! Ok. Nah don&rsquo;t look further down. Wanna try to rewrite the functio
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 28: </span>AFTER – tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_keys</span><span class="org-variable-name"> row</span> <span class="org-tuareg-font-lock-operator">=</span>             <span class="org-comment-delimiter">(* </span><span class="org-comment">Wrapper function </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 25: </span>AFTER – tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_keys</span><span class="org-variable-name"> row</span> <span class="org-tuareg-font-lock-operator">=</span>             <span class="org-comment-delimiter">(* </span><span class="org-comment">Wrapper function </span><span class="org-comment-delimiter">*)</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">aux</span><span class="org-variable-name"> accu</span> <span class="org-tuareg-font-lock-operator">=</span>           <span class="org-comment-delimiter">(* </span><span class="org-comment">Helper function &#8230; </span><span class="org-comment-delimiter">*)</span>
     <span class="org-keyword">function</span>
     <span class="org-tuareg-font-lock-operator">|</span> <span class="org-tuareg-font-lock-operator">[]</span> <span class="org-tuareg-font-lock-operator">-&gt;</span> accu               <span class="org-comment-delimiter">(* </span><span class="org-comment">&#8230; with accumulator </span><span class="org-comment-delimiter">*)</span>
@@ -1010,14 +1014,14 @@ Just for the record, that&rsquo;s how the whole <code>dissoc</code> function loo
 <h4 id="org5cf2efd">Quick Test in the Toplevel (REPL)</h4>
 <div class="outline-text-4" id="text-org5cf2efd">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 29: </span>Applying the function to some data in the shape of <code>('a * 'a) list list</code></label><pre class="src src-ocaml">dissoc <span class="org-tuareg-font-lock-operator">[[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)];</span>
+<label class="org-src-name"><span class="listing-number">Listing 26: </span>Applying the function to some data in the shape of <code>('a * 'a) list list</code></label><pre class="src src-ocaml">dissoc <span class="org-tuareg-font-lock-operator">[[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">)];</span>
         <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">)];</span> 
         <span class="org-tuareg-font-lock-operator">[(</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">);</span> <span class="org-tuareg-font-lock-operator">(</span><span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">,</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">)]]</span><span class="org-tuareg-font-double-colon">;;</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 30: </span>Result – the same data, but transformed into a <code>string list list</code></label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> string list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">];</span> 
+<label class="org-src-name"><span class="listing-number">Listing 27: </span>Result – the same data, but transformed into a <code>string list list</code></label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-operator">-</span> <span class="org-tuareg-font-lock-operator">:</span> string list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">[[</span><span class="org-string">"b"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"d"</span><span class="org-tuareg-font-lock-operator">];</span> 
                         <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"2"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"4"</span><span class="org-tuareg-font-lock-operator">];</span> 
                         <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"6"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"8"</span><span class="org-tuareg-font-lock-operator">];</span> 
                         <span class="org-tuareg-font-lock-operator">[</span><span class="org-string">"10"</span><span class="org-tuareg-font-lock-operator">;</span> <span class="org-string">"12"</span><span class="org-tuareg-font-lock-operator">]]</span>
@@ -1314,7 +1318,7 @@ Hope you enjoyed the walktrough. Suggestions are always welcome!<br>
 <h2 id="org3fc96fa">Full Code Listing, Version 0.3</h2>
 <div class="outline-text-2" id="text-org3fc96fa">
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 31: </span>Fully tail-recursive</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.3 </span><span class="org-comment-delimiter">*)</span>
+<label class="org-src-name"><span class="listing-number">Listing 28: </span>Fully tail-recursive</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.3 </span><span class="org-comment-delimiter">*)</span>
 
 
 <span class="org-doc">(** Tail-recursive alternative to [List.map] *)</span>
@@ -1389,7 +1393,7 @@ Hope you enjoyed the walktrough. Suggestions are always welcome!<br>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-02-25 Fri 00:00</span> | Updated: <span class="date">2022-02-26 Sat 09:37</span></p>
+<p class="footer">Published: <span class="date">2022-02-25 Fri 00:00</span> | Updated: <span class="date">2022-02-26 Sat 16:09</span></p>
 </div>
 </body>
 </html>
