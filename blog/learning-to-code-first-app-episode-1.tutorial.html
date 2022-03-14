@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-25 Fri 20:39 -->
+<!-- 2022-03-14 Mon 15:04 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manipulating CSV Files in Common Lisp</title>
@@ -30,7 +30,7 @@
 <div id="content" class="content">
 <header>
 <h1 class="title">Manipulating CSV Files in Common Lisp</h1>
-<p class="subtitle" role="doc-subtitle">First Coding Project »CSV Cleaner« | Episode 1</p>
+<p class="subtitle" role="doc-subtitle">First Coding Project »CSV Cleaner« <a href="learning-to-code-first-app-episode-1.tutorial.html">Episode 1</a> |<a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html"> Episode 2</a> | <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">Episode 3</a></p>
 </header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
@@ -54,13 +54,6 @@
 </li>
 </ul>
 </div>
-</nav>
-<nav class="subnav" id="org4deb402">
-<ul class="org-ul">
-<li>Episode 1<br></li>
-<li><a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">Episode 2</a><br></li>
-<li><a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">Episode 3</a><br></li>
-</ul>
 </nav>
 
 <div id="outline-container-org8823c86" class="outline-2">
@@ -185,7 +178,7 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </pre>
 </div>
 
-<div class="note" id="org819a999">
+<div class="note" id="org6065f55">
 <p>
 <b>Let&rsquo;s throw in a little explainer about Lisp source code, shall we?</b><br>
 </p>
@@ -277,7 +270,7 @@ Example: If don&rsquo;t want the column &ldquo;Size&rdquo; appearing in the resu
 For that, we would need to define all the columns we don&rsquo;t want. We could do that here, directly in the source file in the form of a list of all column headers to get rid of. But then if we want to change something, we would always have to touch the source file &#x2026; meh. Better we specify those columns outside of the app&rsquo;s logic in another CSV which will serve as a template. Let&rsquo;s be creative and call it &rsquo;template.csv&rsquo;.<br>
 </p>
 
-<div class="note" id="orgff634eb">
+<div class="note" id="orgc9ac375">
 <p>
 <b>So here we&rsquo;ll make a little break to introduce a literary figure: <i>Future Me</i> writing here!</b><br>
 </p>
@@ -365,7 +358,7 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </pre>
 </div>
 
-<div class="note" id="orgebf68ae">
+<div class="note" id="org20152b6">
 <p>
 It&rsquo;s me again &#x2013; former <i>Future Me</i>! Merging into your present time line and becoming just me again!<br>
 </p>
@@ -493,7 +486,7 @@ Ok, that was a first try. <a href="learning-to-code-first-ocaml-project-episode-
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2022-02-25 Fri 20:36</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2022-03-14 Mon 15:04</span></p>
 </div>
 </body>
 </html>
