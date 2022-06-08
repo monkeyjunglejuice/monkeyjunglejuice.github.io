@@ -138,14 +138,10 @@ ol {
   margin-bottom: 2rem;
 }
 
-ul li {
-  list-style-type: '– ';
-}
-
-li ul,
-li ol {
-  margin-bottom: 0;
-}
+/* li ul, */
+/* li ol { */
+/*   margin-bottom: 0; */
+/* } */
 
 blockquote {
   font-style: italic;
@@ -436,7 +432,7 @@ fieldset {
   padding-left: 1.5em;
 }
 
-.index ul li {
+.index ul {
   list-style-type: '★ ';
   margin-bottom: 1.5rem;
 }

@@ -1,14 +1,16 @@
-* My [[https://monkeyjunglejuice.github.io][Blog about Learning Programming]]
+* [[https://monkeyjunglejuice.github.io][Learning Programming from the Ground up]]
 
+This is my personal blog to track my progress and share things coming up along the way.
 
-** Coding Projects
-- [[https://monkeyjunglejuice.github.io/blog/learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html][Let's code a GTK Theme Switcher for XFCE in OCaml]]
-- [[https://monkeyjunglejuice.github.io/blog/learning-to-code-first-ocaml-project-episode-2.tutorial.html][CSV Cleaner Ep2 – Rewrite in OCaml]]
-- [[https://monkeyjunglejuice.github.io/blog/learning-to-code-first-app-episode-1.tutorial.html][CSV Cleaner Ep1 – First Project in Lisp]]
+** Code Walktroughs
+- [[file:blog/learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][Let's code a GTK Theme Switcher for XFCE in OCaml]]
+- [[file:blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][Eat my huge Files: Tail Recursion in OCaml – Project CSV Cleaner Part 3]] 
+- [[file:blog/learning-to-code-first-ocaml-project-episode-2.tutorial.org][Rewrite in OCaml – Project CSV Cleaner Part 2]]
+- [[file:blog/learning-to-code-first-app-episode-1.tutorial.org][Manipulating CSV files in Common Lisp – Project CSV Cleaner Part 1]]
 
 ** Essays & How-tos
 - [[https://monkeyjunglejuice.github.io/blog/best-programming-language-for-beginner.essay.html][Which Programming Language should I learn first?]]
 - [[https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html][How to display the Emacs Server Name in the Frame Title?]]
 
-
+-----
 /Published with [[https:/www.gnu.org/software/emacs//][Emacs]], [[https://orgmode.org/][Org-mode]], a bit CSS and nice fonts :)/
