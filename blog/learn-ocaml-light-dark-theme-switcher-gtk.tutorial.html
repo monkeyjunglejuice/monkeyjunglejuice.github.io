@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-09 Thu 12:21 -->
+<!-- 2022-06-09 Thu 12:53 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
@@ -301,7 +301,7 @@ One more thing before we are going to implement the function: Let&rsquo;s write 
 We can write this in a formal way OCaml understands, and define types with the keyword <code>type</code>, the name of the type (a.k.a. <i>type constructor</i>; lowercase), and variants (a.k.a. <i>data constructors</i>; capitalised):<br>
 </p>
 
-<pre class="example" id="orgd84a24d">
+<pre class="example" id="orgd543b1b">
 type type_constructor = Data_construtor_1 | Data_constructor_2 | Data_constructor_n
 </pre>
 
@@ -344,7 +344,7 @@ get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span 
 Let&rsquo;s write down what should happen in each case: All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching. Here&rsquo;s the pattern matching syntax with 3 branches:<br>
 </p>
 
-<pre class="example" id="org3c3c8fd">
+<pre class="example" id="orgddabc89">
 match VALUE(S) with
 | PATTERN_1 -&gt; EXPRESSION_1
 | PATTERN_2 -&gt; EXPRESSION_2

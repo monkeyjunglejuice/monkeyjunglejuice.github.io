@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-09 Thu 12:21 -->
+<!-- 2022-06-09 Thu 12:53 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Eat my huge Files: Tail Recursion in OCaml</title>
@@ -276,7 +276,7 @@ sum <span class="org-tuareg-font-lock-operator">[</span>1<span class="org-tuareg
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="org0511a99">
+<pre class="example" id="org573926f">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -355,7 +355,7 @@ sum <span class="org-tuareg-font-lock-operator">[</span>1<span class="org-tuareg
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="org4bfab3c">
+<pre class="example" id="orga31eb65">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -676,9 +676,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </div>
 </div>
 
-<div id="outline-container-org1aad722" class="outline-4">
-<h4 id="org1aad722">What is it doing?</h4>
-<div class="outline-text-4" id="text-org1aad722">
+<div id="outline-container-orgd32b1d5" class="outline-4">
+<h4 id="orgd32b1d5">What is it doing?</h4>
+<div class="outline-text-4" id="text-orgd32b1d5">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> <span class="org-tuareg-font-lock-operator">:</span> 'a list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">-&gt;</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'b<span class="org-tuareg-font-lock-operator">)</span> list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
@@ -877,9 +877,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </div>
 </div>
 
-<div id="outline-container-orgce85fdd" class="outline-4">
-<h4 id="orgce85fdd">What is it doing?</h4>
-<div class="outline-text-4" id="text-orgce85fdd">
+<div id="outline-container-orgc907b5a" class="outline-4">
+<h4 id="orgc907b5a">What is it doing?</h4>
+<div class="outline-text-4" id="text-orgc907b5a">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> <span class="org-tuareg-font-lock-operator">:</span> <span class="org-tuareg-font-lock-operator">(</span>'a <span class="org-tuareg-font-lock-operator">*</span> 'a<span class="org-tuareg-font-lock-operator">)</span> list list <span class="org-tuareg-font-lock-operator">-&gt;</span> 'a list list <span class="org-tuareg-font-lock-operator">=</span> <span class="org-tuareg-font-lock-operator">&lt;</span><span class="org-keyword">fun</span><span class="org-tuareg-font-lock-operator">&gt;</span>
 </pre>
