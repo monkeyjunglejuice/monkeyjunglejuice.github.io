@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-08 Wed 17:40 -->
+<!-- 2022-06-09 Thu 12:21 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Rewrite in OCaml: Tooling, Association Lists and Pattern Matching</title>
@@ -9,12 +9,10 @@
 <meta name="description" content="A first coding project in OCaml – walktrough tutorial" />
 <meta name="keywords" content="ocaml, tutorial, project idea, learn ocaml, walktrough, csv, pattern matching, ocaml scripting" />
 <meta name="generator" content="Org Mode" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net; img-src https://*;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; img-src 'self' https://*; media-src 'self' https://*;">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/alegreya-sans/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/alegreya/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Regular-decl.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Italic-decl.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Bold-decl.css" type="text/css">
@@ -641,7 +639,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="orga89974b">
+<pre class="example" id="orgb72edf9">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -801,7 +799,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org9b26a81">
+<pre class="example" id="orgc4fb634">
 "b"|"d"
 "2"|"4"
 "6"|"8"

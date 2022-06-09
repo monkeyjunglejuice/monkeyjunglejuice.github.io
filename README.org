@@ -13,4 +13,4 @@ This is my personal blog to track my progress and share things coming up along t
 - [[https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html][How to display the Emacs Server Name in the Frame Title?]]
 
 -----
-/Published with [[https:/www.gnu.org/software/emacs//][Emacs]], [[https://orgmode.org/][Org-mode]], a bit CSS and nice fonts :)/
+/Published with [[https:/www.gnu.org/software/emacs//][Emacs]] and [[https://orgmode.org/][Org-mode]]/
