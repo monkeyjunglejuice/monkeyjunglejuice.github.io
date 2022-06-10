@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-09 Thu 12:53 -->
+<!-- 2022-06-10 Fri 14:47 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manipulating CSV Files in Common Lisp</title>
@@ -29,7 +29,7 @@
 <div id="content" class="content">
 <header>
 <h1 class="title">Manipulating CSV Files in Common Lisp</h1>
-<p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« <a href="learning-to-code-first-app-episode-1.tutorial.html">Part 1</a> |<a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html"> Part 2</a> | <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">Part 3</a></p>
+<p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – Episodes: <a href="learning-to-code-first-app-episode-1.tutorial.html">1</a> | <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">2</a> | <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">3</a></p>
 </header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
@@ -135,10 +135,10 @@ Let&rsquo;s go with a very simple data structure &#x2013; <i>Yo dawg, I heard yo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-slime-highlight-edits">'</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"Order No."</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Name"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"City"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Article"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Size"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Status"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"1001"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Chris"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Manchester"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Red thong"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"XXL"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Paid"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"1002"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Monica"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Adelaide"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Yoni eggs"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Huge"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Payment pending"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"1003"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Hendrik"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Stockholm"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Hemorrhoid healing stones"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"9"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Paid"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -155,7 +155,7 @@ To use the functionality from the library, we must load it first. There&rsquo;s 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">ql:quickload </span><span class="org-string"><span class="org-slime-highlight-edits">"cl-csv"</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -172,12 +172,12 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*input-table*</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">cl-csv:read-csv #P</span><span class="org-string"><span class="org-slime-highlight-edits">"orders_export.csv"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-doc"><span class="org-slime-highlight-edits">"Contains the original table in list form."</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<span class="org-doc">"Contains the original table in list form."</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<div class="note" id="org695a021">
+<div class="note" id="orgde2de57">
 <p>
 <b>Let&rsquo;s throw in a little explainer about Lisp source code, shall we?</b><br>
 </p>
@@ -234,10 +234,10 @@ The data structure stored in the variable is a list, and within that list are ot
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-slime-highlight-edits">'</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"Order No."</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Name"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"City"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Article"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Size"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Status"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"1001"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Chris"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Manchester"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Red thong"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"XXL"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Paid"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"1002"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Monica"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Adelaide"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Yoni eggs"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Huge"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Payment pending"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-string"><span class="org-slime-highlight-edits">"1003"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Hendrik"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Stockholm"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Hemorrhoid healing stones"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"9"</span></span><span class="org-slime-highlight-edits"> </span><span class="org-string"><span class="org-slime-highlight-edits">"Paid"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp">'<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"Order No."</span> <span class="org-string">"Name"</span> <span class="org-string">"City"</span> <span class="org-string">"Article"</span> <span class="org-string">"Size"</span> <span class="org-string">"Status"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1001"</span> <span class="org-string">"Chris"</span> <span class="org-string">"Manchester"</span> <span class="org-string">"Red thong"</span> <span class="org-string">"XXL"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1002"</span> <span class="org-string">"Monica"</span> <span class="org-string">"Adelaide"</span> <span class="org-string">"Yoni eggs"</span> <span class="org-string">"Huge"</span> <span class="org-string">"Payment pending"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"1003"</span> <span class="org-string">"Hendrik"</span> <span class="org-string">"Stockholm"</span> <span class="org-string">"Hemorrhoid healing stones"</span> <span class="org-string">"9"</span> <span class="org-string">"Paid"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -269,7 +269,7 @@ Example: If don&rsquo;t want the column &ldquo;Size&rdquo; appearing in the resu
 For that, we would need to define all the columns we don&rsquo;t want. We could do that here, directly in the source file in the form of a list of all column headers to get rid of. But then if we want to change something, we would always have to touch the source file &#x2026; meh. Better we specify those columns outside of the app&rsquo;s logic in another CSV which will serve as a template. Let&rsquo;s be creative and call it &rsquo;template.csv&rsquo;.<br>
 </p>
 
-<div class="note" id="org7b121f6">
+<div class="note" id="org9bb1a88">
 <p>
 <b>So here we&rsquo;ll make a little break to introduce a literary figure: <i>Future Me</i> writing here!</b><br>
 </p>
@@ -306,10 +306,10 @@ The expression <code>(cl-csv:read-csv #P"template.csv")</code> transforms the co
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*cols-to-keep-by-name*</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">car </span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">cl-csv:read-csv #P</span><span class="org-string"><span class="org-slime-highlight-edits">"template.csv"</span></span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-doc"><span class="org-slime-highlight-edits">"Contains the names of the columns we would like to have in the</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-doc"><span class="org-slime-highlight-edits">cleaned CSV, specified within the first row of the file 'template.csv'"</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>car <span class="org-rainbow-delimiters-depth-3">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<span class="org-doc">"Contains the names of the columns we would like to have in the</span>
+<span class="org-doc">cleaned CSV, specified within the first row of the file 'template.csv'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -322,9 +322,9 @@ What we have in that variable, looks like that: <code>("Order No." "Name" "City"
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*header-input-table*</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">car *input-table*</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-doc"><span class="org-slime-highlight-edits">"Contains the original table header, which is the first row</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-doc"><span class="org-slime-highlight-edits">from the file 'orders_export.csv'."</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>car *input-table*<span class="org-rainbow-delimiters-depth-2">)</span>
+<span class="org-doc">"Contains the original table header, which is the first row</span>
+<span class="org-doc">from the file 'orders_export.csv'."</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -341,9 +341,9 @@ Whatever the default predicate for <code>:test</code> is &#x2013; it doesn&rsquo
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defun</span></span><span class="org-slime-highlight-edits"> </span><span class="org-function-name"><span class="org-slime-highlight-edits">get-col-position</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">col-name</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-doc"><span class="org-slime-highlight-edits">"Get the position number of a column by the column name"</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">position col-name *header-input-table* </span><span class="org-builtin"><span class="org-slime-highlight-edits">:test</span></span><span class="org-slime-highlight-edits"> #'string=</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-rainbow-delimiters-depth-2">(</span>col-name<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Get the position number of a column by the column name"</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -352,12 +352,12 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*cols-to-keep-by-position*</span></span><span class="org-slime-highlight-edits">
-    </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">mapcar #'get-col-position *cols-to-keep-by-name*</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
-<div class="note" id="org0f42367">
+<div class="note" id="org38d11ad">
 <p>
 It&rsquo;s me again &#x2013; former <i>Future Me</i>! Merging into your present time line and becoming just me again!<br>
 </p>
@@ -381,10 +381,10 @@ Filter the input row:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defun</span></span><span class="org-slime-highlight-edits"> </span><span class="org-function-name"><span class="org-slime-highlight-edits">create-output-row</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">input-row</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-doc"><span class="org-slime-highlight-edits">"Filter a row of the input-table to create a row for the output table"</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">loop</span></span><span class="org-slime-highlight-edits"> for x in *cols-to-keep-by-position* 
-        collect </span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">nth x input-row</span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-rainbow-delimiters-depth-2">(</span>input-row<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Filter a row of the input-table to create a row for the output table"</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position* 
+        collect <span class="org-rainbow-delimiters-depth-3">(</span>nth x input-row<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -393,8 +393,8 @@ Create the output-table. We take the function defined above and map it onto each
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*output-table*</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">mapcar #'create-output-row *input-table*</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'create-output-row *input-table*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -403,7 +403,7 @@ Write the new CSV to disk:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">cl-csv:write-csv *output-table* </span><span class="org-builtin"><span class="org-slime-highlight-edits">:stream</span></span><span class="org-slime-highlight-edits"> #P</span><span class="org-string"><span class="org-slime-highlight-edits">"orders_cleaned.csv"</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -432,48 +432,48 @@ To run it, you will need:<br>
 </ol>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">Load the library CL-CSV. We use it to read the CSV file and</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">transform its content into a list of lists</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">ql:quickload </span><span class="org-string"><span class="org-slime-highlight-edits">"cl-csv"</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<pre class="src src-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Load the library CL-CSV. We use it to read the CSV file and</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">transform its content into a list of lists</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"cl-csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">Read the CSV file and store it in a variable as a list of lists</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*input-table*</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">cl-csv:read-csv #P</span><span class="org-string"><span class="org-slime-highlight-edits">"orders_export.csv"</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Read the CSV file and store it in a variable as a list of lists</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>cl-csv:read-csv #P<span class="org-string">"orders_export.csv"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">We only need the table headers from the first row from 'template.csv'</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">so pull only that and store it in a variable</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*cols-to-keep-by-name*</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">car </span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">cl-csv:read-csv #P</span><span class="org-string"><span class="org-slime-highlight-edits">"template.csv"</span></span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">We only need the table headers from the first row from 'template.csv'</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">so pull only that and store it in a variable</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-name*</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>car <span class="org-rainbow-delimiters-depth-3">(</span>cl-csv:read-csv #P<span class="org-string">"template.csv"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">Get the table header from our original CSV (stored in the variable *input-table*)</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">and store it in *header-input-table*</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*header-input-table*</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">car *input-table*</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Get the table header from our original CSV (stored in the variable *input-table*)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">and store it in *header-input-table*</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*header-input-table*</span> <span class="org-rainbow-delimiters-depth-2">(</span>car *input-table*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">Define a function that tells us the position of a particular column name.</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">We feed it the name of a column eg. "Size", then it tells us</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">at which position that particular column is</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defun</span></span><span class="org-slime-highlight-edits"> </span><span class="org-function-name"><span class="org-slime-highlight-edits">get-col-position</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">col-name</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-doc"><span class="org-slime-highlight-edits">"Get the position number of a column by the column name."</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">position col-name *header-input-table* </span><span class="org-builtin"><span class="org-slime-highlight-edits">:test</span></span><span class="org-slime-highlight-edits"> #'string=</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Define a function that tells us the position of a particular column name.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">We feed it the name of a column eg. "Size", then it tells us</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">at which position that particular column is</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">get-col-position</span> <span class="org-rainbow-delimiters-depth-2">(</span>col-name<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Get the position number of a column by the column name."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>position col-name *header-input-table* <span class="org-builtin">:test</span> #'string=<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">When we map this function to each column name in our list of column headers,</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">we're getting a list of the positions of the columns that we want to keep.</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">We store that list in the variable *cols-to-keep-by-position*</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*cols-to-keep-by-position*</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">mapcar #'get-col-position *cols-to-keep-by-name*</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">When we map this function to each column name in our list of column headers,</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">we're getting a list of the positions of the columns that we want to keep.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">We store that list in the variable *cols-to-keep-by-position*</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*cols-to-keep-by-position*</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'get-col-position *cols-to-keep-by-name*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">Filter the input row</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defun</span></span><span class="org-slime-highlight-edits"> </span><span class="org-function-name"><span class="org-slime-highlight-edits">create-output-row</span></span><span class="org-slime-highlight-edits"> </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">input-row</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-doc"><span class="org-slime-highlight-edits">"Filter a row of the input-table to create a row for the output table."</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">loop</span></span><span class="org-slime-highlight-edits"> for x in *cols-to-keep-by-position*
-        collect </span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">nth x input-row</span><span class="org-rainbow-delimiters-depth-3"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Filter the input row</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">create-output-row</span> <span class="org-rainbow-delimiters-depth-2">(</span>input-row<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-doc">"Filter a row of the input-table to create a row for the output table."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> for x in *cols-to-keep-by-position*
+        collect <span class="org-rainbow-delimiters-depth-3">(</span>nth x input-row<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">Create the output-table; take the function above</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">and map it onto each element of the list *input-table*</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-keyword"><span class="org-slime-highlight-edits">defparameter</span></span><span class="org-slime-highlight-edits"> </span><span class="org-variable-name"><span class="org-slime-highlight-edits">*output-table*</span></span><span class="org-slime-highlight-edits">
-  </span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">mapcar #'create-output-row *input-table*</span><span class="org-rainbow-delimiters-depth-2"><span class="org-slime-highlight-edits">)</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span><span class="org-slime-highlight-edits">
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Create the output-table; take the function above</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">and map it onto each element of the list *input-table*</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*output-table*</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>mapcar #'create-output-row *input-table*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-</span><span class="org-comment-delimiter"><span class="org-slime-highlight-edits">;; </span></span><span class="org-comment"><span class="org-slime-highlight-edits">Write the new CSV</span></span><span class="org-slime-highlight-edits">
-</span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">(</span></span><span class="org-slime-highlight-edits">cl-csv:write-csv *output-table* </span><span class="org-builtin"><span class="org-slime-highlight-edits">:stream</span></span><span class="org-slime-highlight-edits"> #P</span><span class="org-string"><span class="org-slime-highlight-edits">"orders_cleaned.csv"</span></span><span class="org-rainbow-delimiters-depth-1"><span class="org-slime-highlight-edits">)</span></span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Write the new CSV</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>cl-csv:write-csv *output-table* <span class="org-builtin">:stream</span> #P<span class="org-string">"orders_cleaned.csv"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -485,7 +485,7 @@ Ok, that was a first try. <a href="learning-to-code-first-ocaml-project-episode-
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2022-05-04 Wed 10:37</span></p>
+<p class="footer">Published: <span class="date">2020-06-12 Fri 00:00</span> | Updated: <span class="date">2022-06-10 Fri 12:41</span></p>
 </div>
 </body>
 </html>

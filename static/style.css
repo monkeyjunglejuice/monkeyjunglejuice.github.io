@@ -94,19 +94,19 @@ h6 {
 
 a {
   text-decoration-line: underline;
-  text-decoration-thickness: 0.05em;
+  text-decoration-thickness: 0.07em;
   color: inherit;
 }
 
 a:visited {
   text-decoration-line: underline;
-  text-decoration-thickness: 0.05em;
+  text-decoration-thickness: 0.07em;
   color: inherit;
 }
 
 a:hover {
   text-decoration-line: underline;
-  text-decoration-thickness: 0.05em;
+  text-decoration-thickness: from-font;
   color: inherit;
 }
 

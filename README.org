@@ -2,15 +2,33 @@
 
 This is my personal blog to track my progress and share things coming up along the way.
 
-** Code Walktroughs
-- [[file:blog/learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][Let's code a GTK Theme Switcher for XFCE in OCaml]]
-- [[file:blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][Eat my huge Files: Tail Recursion in OCaml – Project CSV Cleaner Part 3]] 
-- [[file:blog/learning-to-code-first-ocaml-project-episode-2.tutorial.org][Rewrite in OCaml – Project CSV Cleaner Part 2]]
-- [[file:blog/learning-to-code-first-app-episode-1.tutorial.org][Manipulating CSV files in Common Lisp – Project CSV Cleaner Part 1]]
+*** Code Walkthroughs
 
-** Essays & How-tos
-- [[https://monkeyjunglejuice.github.io/blog/best-programming-language-for-beginner.essay.html][Which Programming Language should I learn first?]]
-- [[https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html][How to display the Emacs Server Name in the Frame Title?]]
+#+ATTR_HTML: :class index
+#+BEGIN_nav
+- Beginner's Project »GTK Theme Switcher«
+  1. [[file:blog/learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][Let's code a GTK Theme Switcher for XFCE in OCaml]]
+  2. [[file:blog/learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.org][Config File Parsing in OCaml]]
+
+- Beginner's Project »CSV Cleaner«
+  1. [[file:blog/learning-to-code-first-app-episode-1.tutorial.org][Manipulating CSV files in Common Lisp]]
+  2. [[file:blog/learning-to-code-first-ocaml-project-episode-2.tutorial.org][Rewrite in OCaml]]
+  3. [[file:blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][Eat my huge Files: Tail Recursion in OCaml]] 
+#+END_nav
+
+*** Essays
+
+#+ATTR_HTML: :class index
+#+BEGIN_nav
+- [[file:blog/best-programming-language-for-beginner.essay.org][Which Programming Language should I learn first?]]
+#+END_nav
+
+*** How-tos
+
+#+ATTR_HTML: :class index
+#+BEGIN_nav
+- [[file:blog/emacs-server-name-frame-title.howto.org][How to display the Emacs Server Name in the Frame Title]]
+#+END_nav
 
 -----
 /Published with [[https:/www.gnu.org/software/emacs//][Emacs]] and [[https://orgmode.org/][Org-mode]]/
