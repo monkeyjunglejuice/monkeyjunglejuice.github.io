@@ -4,18 +4,18 @@
 
 html {
   background-color: #fff8dc;
-  font-size: 62.5%; /* = 10px */
   font-family: 'Fantasque Sans Mono', monospace;
+  font-size: 62.5%; /* = 10px */
   scroll-behavior: smooth;
 }
 
 body {
+  color: #343327;
   font-size: 2.0rem;
   font-weight: 400;
   line-height: 1.4;
-  max-width: 38em;
   margin: auto;
-  color: #343327;
+  max-width: 38em;
   padding: 13px;
 }
 
@@ -37,29 +37,29 @@ h3,
 h4,
 h5,
 h6 {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-word;
   hyphens: none;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  -ms-word-break: break-all;
+  word-wrap: break-word;
 }
 
 h1 {
   font-family: 'Fantasque Sans Mono', monospace;
-  font-weight: 400;
   font-size: 2em;
-  margin-top: 5rem;
+  font-weight: 400;
   margin-bottom: 4.5rem;
+  margin-top: 5rem;
   padding-left: 5%;
   padding-right: 5%;
 }
 
 h2 {
   font-family: 'Fantasque Sans Mono', monospace;
-  font-weight: 600;
   font-size: 1em;
-  margin-top: 5rem;
+  font-weight: 600;
   margin-bottom: 4.5rem;
+  margin-top: 5rem;
   padding-left: 10%;
   padding-right: 10%;
   text-align: center;
@@ -68,56 +68,56 @@ h2 {
 
 h3 {
   font-family: 'Fantasque Sans Mono', monospace;
-  font-weight: 600;
   font-size: 1em;
-  margin-top: 5rem;
+  font-weight: 600;
   margin-bottom: 2rem;
+  margin-top: 5rem;
   text-transform: uppercase;
 }
 
 h4 {
   font-family: 'Fantasque Sans Mono', monospace;
-  font-weight: 600;
   font-size: 1em;
-  margin-top: 5rem;
+  font-weight: 600;
   margin-bottom: 2rem;
+  margin-top: 5rem;
 }
 
 h5,
 h6 {
   font-family: 'Fantasque Sans Mono', monospace;
-  font-weight: 400;
   font-size: 1em;
-  margin-top: 5rem;
+  font-weight: 400;
   margin-bottom: 2rem;
+  margin-top: 5rem;
 }
 
 a {
+  color: inherit;
   text-decoration-line: underline;
   text-decoration-thickness: 0.07em;
-  color: inherit;
 }
 
 a:visited {
+  color: inherit;
   text-decoration-line: underline;
   text-decoration-thickness: 0.07em;
-  color: inherit;
 }
 
 a:hover {
+  color: inherit;
   text-decoration-line: underline;
   text-decoration-thickness: from-font;
-  color: inherit;
 }
 
 a:active {
-  text-decoration: underline;
   color: inherit;
+  text-decoration: underline;
 }
 
 p {
-  margin-top: 0;
   margin-bottom: 2rem;
+  margin-top: 0;
 }
 
 b,
@@ -133,9 +133,9 @@ sup {
 
 ul,
 ol {
-  padding-left: 1.5em;
-  margin-top: 0;
   margin-bottom: 2rem;
+  margin-top: 0;
+  padding-left: 1.5em;
 }
 
 /* li ul, */
@@ -149,8 +149,8 @@ blockquote {
 }
 
 cite {
-  font-weight: 400;
   font-style: italic;
+  font-weight: 400;
   padding-left: 0.5em;
 }
 
@@ -160,39 +160,39 @@ cite a {
 
 img {
   height: auto;
-  max-width: 100%;
-  margin-top: 0;
   margin-bottom: 2rem;
+  margin-top: 0;
+  max-width: 100%;
 }
 
 pre {
-  font-family: 'Fantasque Sans Mono', monospace;
   background-color: transparent;
-  display: block;
-  overflow-x: auto;
-  margin-top: 0;
-  margin-right: 0;
-  margin-bottom: 2rem;
-  margin-left: 0;
-  padding: 1.5em 0 1.5em 1.5em;
   border: 0 none;
   border-left: 2px dotted;
   box-shadow: none;
+  display: block;
+  font-family: 'Fantasque Sans Mono', monospace;
+  margin-bottom: 2rem;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
   overflow: visible;
+  overflow-x: auto;
+  padding: 1.5em 0 1.5em 1.5em;
   word-break: keep-all;
 }
 
 code {
-  font-family: 'Fantasque Sans Mono', monospace;
   background-color: #0001;
   border-radius: 2px;
+  font-family: 'Fantasque Sans Mono', monospace;
   padding: 0 0.3em 0 0.3em;
   white-space: nowrap;
 }
 
 pre > code {
-  padding: 0;
   background-color: transparent;
+  padding: 0;
   white-space: pre;
 }
 
@@ -237,17 +237,17 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
+  background-color: #fff2bf;
+  border: 1px dotted #000;
+  border-radius: 10em;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
   display: inline-block;
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
-  background-color: #fff2bf;
-  color: #000;
-  border-radius: 10em;
-  border: 1px dotted #000;
-  cursor: pointer;
-  box-sizing: border-box;
 }
 
 .button[disabled],
@@ -275,25 +275,25 @@ input[type="button"]:hover:enabled {
   outline: 0;
 }
 
-button a,
 .button a,
-button a:hover,
-.button a:hover {
-  text-decoration: none;
+.button a:hover,
+button a,
+button a:hover {
   border-bottom: none;
+  text-decoration: none;
 }
 
-textarea,
+input,
 select,
-input {
-  color: #4a4a4a;
-  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
-  margin-bottom: 10px;
+textarea {
   background-color: transparent;
   border: 1px solid #f1f1f1;
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box;
+  color: #4a4a4a;
+  margin-bottom: 10px;
+  padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
 }
 
 textarea:focus,
@@ -311,15 +311,15 @@ label,
 legend,
 fieldset {
   display: block;
-  margin-bottom: 0.5rem;
   font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
 /* IDs AND CLASSES ***********************************************************/
 
 #site-name {
-    font-weight: 600;
     float: left;
+    font-weight: 600;
 }
 
 #preamble {
@@ -472,20 +472,20 @@ blockquote.center {
 #table-of-contents li,
 #table-of-contents li ul,
 #table-of-contents li ol {
-  margin-top: 0;
   margin-bottom: 0;
+  margin-top: 0;
 }
 
 pre.src::before {
   background-color: #0001;
-  color: #000c;
-  top: -5px; 
-  right: 0;
-  padding: 0 0.4em;
   border: 0 none;
   border-radius: 1em;
-  font-weight: 400;
+  color: #000c;
   font-size: 0.75em;
+  font-weight: 400;
+  padding: 0 0.4em;
+  right: 0;
+  top: -5px;
 }
 
 .org-src-name {
@@ -496,8 +496,8 @@ pre.src::before {
 }
 
 ::selection {
-  color: #0b7e71;
   background: #c3eed2;
+  color: #0b7e71;
 }
 
 li.on,
