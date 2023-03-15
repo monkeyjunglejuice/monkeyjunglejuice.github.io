@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-10 Fri 14:47 -->
+<!-- 2023-03-13 Mon 20:47 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
@@ -34,37 +34,37 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4c7ff76">Toggle light/dark Mode in XFCE (and Gnome)</a></li>
-<li><a href="#orgfc60789">Gathering Information</a>
+<li><a href="#orgc645817">Toggle light/dark Mode in XFCE (and Gnome)</a></li>
+<li><a href="#org4e6db1f">Gathering Information</a>
 <ul>
-<li><a href="#org03e25f1">Shell Commands to set dark/light Mode</a></li>
+<li><a href="#orgad6d65d">Shell Commands to set dark/light Mode</a></li>
 </ul>
 </li>
-<li><a href="#orgb7e060d">Prerequisites</a></li>
-<li><a href="#org061d5ae">Features</a></li>
-<li><a href="#org5f7fe6e">Where to begin?</a></li>
-<li><a href="#org0c6c532">The »Get« Function</a>
+<li><a href="#orgefecdaa">Prerequisites</a></li>
+<li><a href="#orga282024">Features</a></li>
+<li><a href="#org1bf13e1">Where to begin?</a></li>
+<li><a href="#org0c08ae4">The »Get« Function</a>
 <ul>
-<li><a href="#org184ad42">Modeling Data Types</a></li>
-<li><a href="#org588a784">Testing the Function in the Toplevel (REPL)</a></li>
-<li><a href="#org09a79c3">Remove superfluos Quotes from a String</a>
+<li><a href="#org1e68e97">Modeling Data Types</a></li>
+<li><a href="#org2149e08">Testing the Function in the Toplevel (REPL)</a></li>
+<li><a href="#org0a5e5d7">Remove superfluos Quotes from a String</a>
 <ul>
-<li><a href="#org3dce98e">Regular Expressions to the Rescue</a></li>
+<li><a href="#orgbb2bd1e">Regular Expressions to the Rescue</a></li>
 </ul>
 </li>
-<li><a href="#orgde80d00">Putting the Function together</a></li>
+<li><a href="#org63a5242">Putting the Function together</a></li>
 </ul>
 </li>
-<li><a href="#org393c2a1">The »Set« Function</a></li>
-<li><a href="#orgfab8b46">The »Toggle« Function</a></li>
-<li><a href="#org20b0d31">Paaartey! A working Prototype!</a></li>
+<li><a href="#org4ca9fd2">The »Set« Function</a></li>
+<li><a href="#org6d8c191">The »Toggle« Function</a></li>
+<li><a href="#orge5ac231">Paaartey! A working Prototype!</a></li>
 </ul>
 </div>
 </nav>
 
-<div id="outline-container-org4c7ff76" class="outline-2">
-<h2 id="org4c7ff76">Toggle light/dark Mode in XFCE (and Gnome)</h2>
-<div class="outline-text-2" id="text-org4c7ff76">
+<div id="outline-container-orgc645817" class="outline-2">
+<h2 id="orgc645817">Toggle light/dark Mode in XFCE (and Gnome)</h2>
+<div class="outline-text-2" id="text-orgc645817">
 <p>
 I&rsquo;m using XFCE4 since a couple of years and despite newer desktop environments for Linux, I always went back to XFCE beause it&rsquo;s the least invasive and lets me do the things I want. Changing the XFWM window manager for XMonad or even EXWM? No problem.<br>
 </p>
@@ -79,9 +79,9 @@ Normally, someone would come up with a shell script to do things like that, but 
 </div>
 </div>
 
-<div id="outline-container-orgfc60789" class="outline-2">
-<h2 id="orgfc60789">Gathering Information</h2>
-<div class="outline-text-2" id="text-orgfc60789">
+<div id="outline-container-org4e6db1f" class="outline-2">
+<h2 id="org4e6db1f">Gathering Information</h2>
+<div class="outline-text-2" id="text-org4e6db1f">
 <p>
 One can select a GTK theme in XFCE with <code>xfce4-appearance-settings</code>. XFCE remembers what theme I&rsquo;ve set, so my first guess is that we&rsquo;ll have to find out how and where XFCE does this – in order to change it.<br>
 </p>
@@ -121,9 +121,9 @@ Mmmmkay, so the functionality already exists in XFCE4. And it&rsquo;s not about 
 </p>
 </div>
 
-<div id="outline-container-org03e25f1" class="outline-3">
-<h3 id="org03e25f1">Shell Commands to set dark/light Mode</h3>
-<div class="outline-text-3" id="text-org03e25f1">
+<div id="outline-container-orgad6d65d" class="outline-3">
+<h3 id="orgad6d65d">Shell Commands to set dark/light Mode</h3>
+<div class="outline-text-3" id="text-orgad6d65d">
 <p>
 Under XFCE, you have to use the <a href="https://docs.xfce.org/xfce/xfconf/xfconf-query"><code>xfconf-query</code></a> utility to get/set themes<br>
 &#x2013;&gt; We call this from now on <b>xsettings</b> backend<br>
@@ -137,13 +137,13 @@ xfconf-query -c xsettings -p /Net/IconThemeName
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 2: </span>Set the dark UI theme and a dark icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita-dark"</span> &amp;&amp;
-    xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Dark"</span>
+xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Dark"</span>
 </pre>
 </div>
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 3: </span>Set the light UI theme and a light icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita"</span> &amp;&amp;
-    xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Light"</span>
+xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Light"</span>
 </pre>
 </div>
 
@@ -171,7 +171,7 @@ gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"P
 </div>
 
 <p>
-<b>If you just landed here because you would like to know how to set dark/light themes via commmand line or shortcut:</b><br>
+<b>If you just landed here because you searched for how to set dark/light themes via commmand line or shortcut:</b><br>
 The easiest solution for you is to define two <i>application shortcuts</i> via <code>xfce4-keyboard-settings</code>: the first shortcut to execute the commands to set your dark theme, and the second for your light theme – and you are done. Just copy &amp; paste the set commands above, either the <code>xsettings</code> variant or the <code>gsettings</code> variant.<br>
 </p>
 
@@ -183,11 +183,11 @@ For the sake of learning, we&rsquo;ll just accept the little overhead. So this i
 </div>
 </div>
 
-<div id="outline-container-orgb7e060d" class="outline-2">
-<h2 id="orgb7e060d">Prerequisites</h2>
-<div class="outline-text-2" id="text-orgb7e060d">
+<div id="outline-container-orgefecdaa" class="outline-2">
+<h2 id="orgefecdaa">Prerequisites</h2>
+<div class="outline-text-2" id="text-orgefecdaa">
 <p>
-If you want to follow the tutorial, you&rsquo;ll need at least:<br>
+If you want to follow the walktrough, you&rsquo;ll need at least:<br>
 </p>
 
 <ul class="org-ul">
@@ -199,9 +199,9 @@ If you want to follow the tutorial, you&rsquo;ll need at least:<br>
 </div>
 </div>
 
-<div id="outline-container-org061d5ae" class="outline-2">
-<h2 id="org061d5ae">Features</h2>
-<div class="outline-text-2" id="text-org061d5ae">
+<div id="outline-container-orga282024" class="outline-2">
+<h2 id="orga282024">Features</h2>
+<div class="outline-text-2" id="text-orga282024">
 <p>
 What do we need our program to do? Let&rsquo;s make a quick list:<br>
 </p>
@@ -223,9 +223,9 @@ What do we need our program to do? Let&rsquo;s make a quick list:<br>
 </div>
 </div>
 
-<div id="outline-container-org5f7fe6e" class="outline-2">
-<h2 id="org5f7fe6e">Where to begin?</h2>
-<div class="outline-text-2" id="text-org5f7fe6e">
+<div id="outline-container-org1bf13e1" class="outline-2">
+<h2 id="org1bf13e1">Where to begin?</h2>
+<div class="outline-text-2" id="text-org1bf13e1">
 <p>
 <i>I would like to see the baby!</i> Alright, let&rsquo;s implement the core feature first: toggle between the light theme and the dark theme.<br>
 </p>
@@ -236,9 +236,9 @@ When there&rsquo;s only <i>one</i> key combination to switch between light and d
 </div>
 </div>
 
-<div id="outline-container-org0c6c532" class="outline-2">
-<h2 id="org0c6c532">The »Get« Function</h2>
-<div class="outline-text-2" id="text-org0c6c532">
+<div id="outline-container-org0c08ae4" class="outline-2">
+<h2 id="org0c08ae4">The »Get« Function</h2>
+<div class="outline-text-2" id="text-org0c08ae4">
 <p>
 <b>Getting the name of the currently active theme</b><br>
 </p>
@@ -285,9 +285,9 @@ Look at the parenthesis: in OCaml we use the parens for grouping, like we do in 
 </div>
 </div>
 
-<div id="outline-container-org184ad42" class="outline-3">
-<h3 id="org184ad42">Modeling Data Types</h3>
-<div class="outline-text-3" id="text-org184ad42">
+<div id="outline-container-org1e68e97" class="outline-3">
+<h3 id="org1e68e97">Modeling Data Types</h3>
+<div class="outline-text-3" id="text-org1e68e97">
 <p>
 One more thing before we are going to implement the function: Let&rsquo;s write down what types of data we know of. Just because … we can. We could do without, but it may be of use later. So what do we know?<br>
 </p>
@@ -301,8 +301,10 @@ One more thing before we are going to implement the function: Let&rsquo;s write 
 We can write this in a formal way OCaml understands, and define types with the keyword <code>type</code>, the name of the type (a.k.a. <i>type constructor</i>; lowercase), and variants (a.k.a. <i>data constructors</i>; capitalised):<br>
 </p>
 
-<pre class="example" id="org0e270c1">
-type type_constructor = Data_construtor_1 | Data_constructor_2 | Data_constructor_n
+<pre class="example" id="org2c765a1">
+type type_constructor = Data_construtor_1
+                      | Data_constructor_2
+                      | Data_constructor_n
 </pre>
 
 <p>
@@ -344,7 +346,7 @@ get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span 
 Let&rsquo;s write down what should happen in each case: All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching. Here&rsquo;s the pattern matching syntax with 3 branches:<br>
 </p>
 
-<pre class="example" id="org4f6a4ff">
+<pre class="example" id="org718755a">
 match VALUE(S) with
 | PATTERN_1 -&gt; EXPRESSION_1
 | PATTERN_2 -&gt; EXPRESSION_2
@@ -404,9 +406,9 @@ If we fail to handle all possible cases (e.g. we forget one branch/combination),
 </div>
 </div>
 
-<div id="outline-container-org588a784" class="outline-3">
-<h3 id="org588a784">Testing the Function in the Toplevel (REPL)</h3>
-<div class="outline-text-3" id="text-org588a784">
+<div id="outline-container-org2149e08" class="outline-3">
+<h3 id="org2149e08">Testing the Function in the Toplevel (REPL)</h3>
+<div class="outline-text-3" id="text-org2149e08">
 <p>
 Let&rsquo;s see what happens when we call it with various arguments:<br>
 </p>
@@ -447,7 +449,7 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </pre>
 </div>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 16: </span>Result</label><pre class="src src-ocaml">- : string = <span class="org-string">"'Papirus-Light'"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Nonono! make those quotes go awaaaay!</span><span class="org-comment-delimiter"> *)</span>
+<label class="org-src-name"><span class="listing-number">Listing 16: </span>Result</label><pre class="src src-ocaml">- : string = <span class="org-string">"'Papirus-Light'"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Nonono! make those quotes go away!</span><span class="org-comment-delimiter"> *)</span>
 </pre>
 </div>
 
@@ -457,9 +459,9 @@ Yeah you may have  guessed it – the <code>gsettings</code> shell command retur
 </div>
 </div>
 
-<div id="outline-container-org09a79c3" class="outline-3">
-<h3 id="org09a79c3">Remove superfluos Quotes from a String</h3>
-<div class="outline-text-3" id="text-org09a79c3">
+<div id="outline-container-org0a5e5d7" class="outline-3">
+<h3 id="org0a5e5d7">Remove superfluos Quotes from a String</h3>
+<div class="outline-text-3" id="text-org0a5e5d7">
 <p>
 We could just use a function to remove the first and last character no matter what, right? But it&rsquo;s good practise to <i>be specific</i>: We&rsquo;ll need a helper function that takes a string, looks if there are single quotes at the beginning and end, and returns another string with the same content but without the single quotes.<br>
 </p>
@@ -469,9 +471,9 @@ Let&rsquo;s visit <a href="https://ocaml.org/api/">https://ocaml.org/api/</a> an
 </p>
 </div>
 
-<div id="outline-container-org3dce98e" class="outline-4">
-<h4 id="org3dce98e">Regular Expressions to the Rescue</h4>
-<div class="outline-text-4" id="text-org3dce98e">
+<div id="outline-container-orgbb2bd1e" class="outline-4">
+<h4 id="orgbb2bd1e">Regular Expressions to the Rescue</h4>
+<div class="outline-text-4" id="text-orgbb2bd1e">
 <p>
 The <a href="https://ocaml.org/api/Str.html"><code>Str</code></a> module is what we are looking for, and I particularly like the function <a href="https://www.ocaml.org/api/Str.html#VALglobal_replace"><code>Str.global_replace</code></a>:<br>
 </p>
@@ -552,9 +554,9 @@ Now we can do just:<br>
 </div>
 </div>
 
-<div id="outline-container-orgde80d00" class="outline-3">
-<h3 id="orgde80d00">Putting the Function together</h3>
-<div class="outline-text-3" id="text-orgde80d00">
+<div id="outline-container-org63a5242" class="outline-3">
+<h3 id="org63a5242">Putting the Function together</h3>
+<div class="outline-text-3" id="text-org63a5242">
 <p>
 We can make the <code>clean</code> function available within our <code>get_theme</code> function via <code>let … in</code> syntax, and then apply it to the output of the <code>gsettings</code> shell commands … but you know what?<br>
 </p>
@@ -598,9 +600,9 @@ Yes, we&rsquo;ll have to group the expression beginning with <code>input_line �
 </div>
 </div>
 
-<div id="outline-container-org393c2a1" class="outline-2">
-<h2 id="org393c2a1">The »Set« Function</h2>
-<div class="outline-text-2" id="text-org393c2a1">
+<div id="outline-container-org4ca9fd2" class="outline-2">
+<h2 id="org4ca9fd2">The »Set« Function</h2>
+<div class="outline-text-2" id="text-org4ca9fd2">
 <p>
 <b>Setting the GTK- and icon themes</b><br>
 </p>
@@ -633,9 +635,9 @@ Once again we&rsquo;re about to wrap shell commands. The <code>set_theme</code> 
 </div>
 </div>
 
-<div id="outline-container-orgfab8b46" class="outline-2">
-<h2 id="orgfab8b46">The »Toggle« Function</h2>
-<div class="outline-text-2" id="text-orgfab8b46">
+<div id="outline-container-org6d8c191" class="outline-2">
+<h2 id="org6d8c191">The »Toggle« Function</h2>
+<div class="outline-text-2" id="text-org6d8c191">
 <p>
 <b>Making a decision</b><br>
 </p>
@@ -707,9 +709,9 @@ We can use the nested <code>let … in</code> forms to do more than one thing af
 </div>
 </div>
 
-<div id="outline-container-org20b0d31" class="outline-2">
-<h2 id="org20b0d31">Paaartey! A working Prototype!</h2>
-<div class="outline-text-2" id="text-org20b0d31">
+<div id="outline-container-orge5ac231" class="outline-2">
+<h2 id="orge5ac231">Paaartey! A working Prototype!</h2>
+<div class="outline-text-2" id="text-orge5ac231">
 <p>
 Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a little break and do some Push-ups. Here&rsquo;s the code we cooked up so far:<br>
 </p>
@@ -807,7 +809,7 @@ We&rsquo;re going to finish this in the next episode!<br>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-01-28 Fri 00:00</span> | Updated: <span class="date">2022-06-10 Fri 12:21</span></p>
+<p class="footer">Last updated: <span class="date">2023-03-13 Mon 20:47</span></p>
 </div>
 </body>
 </html>

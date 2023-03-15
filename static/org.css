@@ -205,8 +205,8 @@ textarea { overflow-x: auto; }
 .org-function-name {
   /* font-lock-function-name-face */
   color: #343327;
-  font-weight: bold;
   font-style: italic;
+  font-weight: bold;
 }
 .org-keyword {
   /* font-lock-keyword-face */

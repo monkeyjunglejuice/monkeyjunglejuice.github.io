@@ -4,14 +4,14 @@
 
 html {
   background-color: #fff8dc;
-  font-family: 'Fantasque Sans Mono', monospace;
+  font-family: 'Spectral', serif;
   font-size: 62.5%; /* = 10px */
   scroll-behavior: smooth;
 }
 
 body {
   color: #343327;
-  font-size: 2.0rem;
+  font-size: 2.2rem;
   font-weight: 400;
   line-height: 1.4;
   margin: auto;
@@ -37,17 +37,18 @@ h3,
 h4,
 h5,
 h6 {
+  -ms-word-break: break-all;
   hyphens: none;
   overflow-wrap: break-word;
   word-break: break-word;
-  -ms-word-break: break-all;
   word-wrap: break-word;
 }
 
 h1 {
-  font-family: 'Fantasque Sans Mono', monospace;
-  font-size: 2em;
-  font-weight: 400;
+  font-family: 'Spectral', sans-serif;
+  font-size: 2.2em;
+  font-weight: 300;
+  line-height: 1.2;
   margin-bottom: 4.5rem;
   margin-top: 5rem;
   padding-left: 5%;
@@ -55,28 +56,28 @@ h1 {
 }
 
 h2 {
-  font-family: 'Fantasque Sans Mono', monospace;
-  font-size: 1em;
+  font-family: 'Spectral SC', sans-serif;
+  font-size: 1.4em;
   font-weight: 600;
+  line-height: 1.2;
   margin-bottom: 4.5rem;
   margin-top: 5rem;
   padding-left: 10%;
   padding-right: 10%;
   text-align: center;
-  text-transform: uppercase;
 }
 
 h3 {
-  font-family: 'Fantasque Sans Mono', monospace;
-  font-size: 1em;
+  font-family: 'Spectral SC', sans-serif;
+  font-size: 1.2em;
   font-weight: 600;
+  line-height: 1.2;
   margin-bottom: 2rem;
   margin-top: 5rem;
-  text-transform: uppercase;
 }
 
 h4 {
-  font-family: 'Fantasque Sans Mono', monospace;
+  font-family: 'Spectral', sans-serif;
   font-size: 1em;
   font-weight: 600;
   margin-bottom: 2rem;
@@ -85,7 +86,7 @@ h4 {
 
 h5,
 h6 {
-  font-family: 'Fantasque Sans Mono', monospace;
+  font-family: 'Spectral', sans-serif;
   font-size: 1em;
   font-weight: 400;
   margin-bottom: 2rem;
@@ -95,19 +96,17 @@ h6 {
 a {
   color: inherit;
   text-decoration-line: underline;
-  text-decoration-thickness: 0.07em;
 }
 
 a:visited {
   color: inherit;
   text-decoration-line: underline;
-  text-decoration-thickness: 0.07em;
 }
 
 a:hover {
   color: inherit;
   text-decoration-line: underline;
-  text-decoration-thickness: from-font;
+  text-decoration-thickness: 0.07em;
 }
 
 a:active {
@@ -167,26 +166,23 @@ img {
 
 pre {
   background-color: transparent;
-  border: 0 none;
-  border-left: 2px dotted;
+  border-color: #000;
+  border-style: dashed;
+  border-width: 0 0 0 1px;
   box-shadow: none;
   display: block;
-  font-family: 'Fantasque Sans Mono', monospace;
-  margin-bottom: 2rem;
-  margin-left: 0;
-  margin-right: 0;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.85em;
+  margin: 0 0 2rem 0;
   margin-top: 0;
   overflow: visible;
-  overflow-x: auto;
   padding: 1.5em 0 1.5em 1.5em;
   word-break: keep-all;
 }
 
 code {
-  background-color: #0001;
-  border-radius: 2px;
-  font-family: 'Fantasque Sans Mono', monospace;
-  padding: 0 0.3em 0 0.3em;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.85em;
   white-space: nowrap;
 }
 
@@ -204,7 +200,7 @@ hr {
 
 table {
   border: 1px dotted #343327;
-  font-family: 'Fantasque Sans Mono', monospace;
+  font-family: 'Source Code Pro', monospace;
   font-weight: 400;
   margin-bottom: 2rem;
   width: 100%
@@ -238,8 +234,8 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"] {
   background-color: #fff2bf;
-  border: 1px dotted #000;
   border-radius: 10em;
+  border: 1px dotted #000;
   box-sizing: border-box;
   color: #000;
   cursor: pointer;
@@ -275,20 +271,20 @@ input[type="button"]:hover:enabled {
   outline: 0;
 }
 
-.button a,
-.button a:hover,
 button a,
-button a:hover {
+.button a,
+button a:hover,
+.button a:hover {
   border-bottom: none;
   text-decoration: none;
 }
 
-input,
+textarea,
 select,
-textarea {
+input {
   background-color: transparent;
-  border: 1px solid #f1f1f1;
   border-radius: 4px;
+  border: 1px solid #f1f1f1;
   box-shadow: none;
   box-sizing: border-box;
   color: #4a4a4a;
@@ -319,7 +315,7 @@ fieldset {
 
 #site-name {
     float: left;
-    font-weight: 600;
+    font-weight: 800;
 }
 
 #preamble {
@@ -327,8 +323,8 @@ fieldset {
 }
 
 #preamble nav {
-  font-weight: 400;
   font-size: 0.75em;
+  font-weight: 400;
   text-align: right;
 }
 
@@ -346,8 +342,8 @@ fieldset {
 }
 
 #postamble p.footer {
-  font-weight: 400;
   font-size: 0.75em;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -357,6 +353,7 @@ fieldset {
 }
 
 #content p {
+  max-width: 80ch;
   padding-left: 1.5em;
   padding-right: 1.5em;
 }
@@ -381,16 +378,16 @@ fieldset {
 }
 
 .title {
-  text-align: center;
   margin-bottom: 5rem;
+  text-align: center;
 }
 
 .subtitle {
-  font-weight: 600;
   font-size: 0.75em;
-  text-align: center;
-  margin-top: 0;
+  font-weight: 600;
   margin-bottom: 0;
+  margin-top: 0;
+  text-align: center;
 }
 
 .subnav {
@@ -405,8 +402,8 @@ fieldset {
 
 .subnav ul,
 .subnav ol {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .index {
@@ -420,14 +417,6 @@ fieldset {
   margin-bottom: 1.5rem;
 }
 
-.outline-2 h2::before {
-  content: "~ ";
-}
-
-.outline-2 h2::after {
-  content: " ~";
-}
-
 .center {
   text-align: center;
 }
@@ -439,8 +428,8 @@ blockquote.center {
 
 .box {
   font-weight: bolder;
-  margin-top: 5rem;
   margin-bottom: 5rem;
+  margin-top: 5rem;
   padding-left: 1.5em;
 }
 
@@ -457,12 +446,12 @@ blockquote.center {
 }
 
 #table-of-contents h2 {
-  font-weight: 400;
   font-size: 0.75em;
-  text-align: left;
+  font-weight: 400;
   margin-bottom: 2rem;
   padding-left: 0;
   padding-right: 0;
+  text-align: left;
 }
 
 #table-of-contents li {
@@ -478,8 +467,8 @@ blockquote.center {
 
 pre.src::before {
   background-color: #0001;
-  border: 0 none;
   border-radius: 1em;
+  border: 0 none;
   color: #000c;
   font-size: 0.75em;
   font-weight: 400;

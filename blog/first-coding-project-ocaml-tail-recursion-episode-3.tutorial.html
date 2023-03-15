@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-10 Fri 14:47 -->
+<!-- 2023-03-13 Mon 20:47 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Eat my huge Files: Tail Recursion in OCaml</title>
@@ -34,48 +34,48 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb597e56">What is this about?</a>
+<li><a href="#orge747efb">What is this about?</a>
 <ul>
-<li><a href="#org0a111ee">This Code Walktrough is for you, if …</a></li>
-<li><a href="#orgf11d12a">What can this Program do?</a></li>
+<li><a href="#orga335105">This Code Walktrough is for you, if …</a></li>
+<li><a href="#orgfd246a3">What can this Program do?</a></li>
 </ul>
 </li>
-<li><a href="#org5457d3a">Ready for the funky Stuff?</a>
+<li><a href="#orgde71b09">Ready for the funky Stuff?</a>
 <ul>
-<li><a href="#orgce40083">My Benchmark Setup</a></li>
-<li><a href="#orga74ce65">Let the Madness begin!</a></li>
-<li><a href="#org97c9b5c">Why did this happen?</a></li>
+<li><a href="#org0adff6a">My Benchmark Setup</a></li>
+<li><a href="#orgbc27b68">Let the Madness begin!</a></li>
+<li><a href="#org21aab2b">Why did this happen?</a></li>
 </ul>
 </li>
-<li><a href="#org1ef9edc">How can we use Recursive Functions safely?</a>
+<li><a href="#orgaa6cd9d">How can we use Recursive Functions safely?</a>
 <ul>
-<li><a href="#orge8b8c33">How to tell if a Function is (not) tail-recursive</a></li>
-<li><a href="#org4ec2c2b">Recipe for tail-recursive Functions</a></li>
+<li><a href="#org3e1aa99">How to tell if a Function is (not) tail-recursive</a></li>
+<li><a href="#org274aff1">Recipe for tail-recursive Functions</a></li>
 </ul>
 </li>
-<li><a href="#orgd64e860">Digesting big CSVs</a>
+<li><a href="#orge03f838">Digesting really big CSV Files</a>
 <ul>
-<li><a href="#orgcc93635">Fixing the »Clean« Function</a></li>
-<li><a href="#org100b706">Fixing the »Dissoc« Function</a></li>
+<li><a href="#orgc254936">Fixing the »Clean« Function</a></li>
+<li><a href="#org4a0ce02">Fixing the »Dissoc« Function</a></li>
 </ul>
 </li>
-<li><a href="#org5168ea9">Oh how unsatisfying that was!</a>
+<li><a href="#org5b0889d">Oh how unsatisfying that was!</a>
 <ul>
-<li><a href="#orgd01fc52">Bullet-proof »Clean« Function</a></li>
-<li><a href="#orga61736b">Bullet-proof »Dissoc« Function</a></li>
+<li><a href="#org84ecb3c">Bullet-proof »Clean« Function</a></li>
+<li><a href="#org75bbc17">Bullet-proof »Dissoc« Function</a></li>
 </ul>
 </li>
-<li><a href="#orgdb26bab">Final Comparison</a></li>
-<li><a href="#org760391a">Conclusion</a></li>
-<li><a href="#org3fc96fa">Full Code Listing, Version 0.3</a></li>
-<li><a href="#org86c7c01">What&rsquo;s next?</a></li>
+<li><a href="#org8b23e94">Final Comparison</a></li>
+<li><a href="#org04d93d9">Conclusion</a></li>
+<li><a href="#org41688ff">Full Code Listing, Version 0.3</a></li>
+<li><a href="#org0ab1882">What&rsquo;s next?</a></li>
 </ul>
 </div>
 </nav>
 
-<div id="outline-container-orgb597e56" class="outline-2">
-<h2 id="orgb597e56">What is this about?</h2>
-<div class="outline-text-2" id="text-orgb597e56">
+<div id="outline-container-orge747efb" class="outline-2">
+<h2 id="orge747efb">What is this about?</h2>
+<div class="outline-text-2" id="text-orge747efb">
 <p>
 This is the 3rd episode of a blog series where we walk through my very first coding project: a small command line utility to manipulate CSV files. I found it too tedious messing with spreadsheets, so I went on to automate it.<br>
 </p>
@@ -89,9 +89,9 @@ The project started in Common Lisp, and during the previous episode it got rewri
 </p>
 </div>
 
-<div id="outline-container-org0a111ee" class="outline-3">
-<h3 id="org0a111ee">This Code Walktrough is for you, if …</h3>
-<div class="outline-text-3" id="text-org0a111ee">
+<div id="outline-container-orga335105" class="outline-3">
+<h3 id="orga335105">This Code Walktrough is for you, if …</h3>
+<div class="outline-text-3" id="text-orga335105">
 <ul class="org-ul">
 <li>you want to become a hacker (obviously)<br></li>
 <li>you struggle with recursive functions<br></li>
@@ -100,14 +100,14 @@ The project started in Common Lisp, and during the previous episode it got rewri
 </ul>
 
 <p>
-If you want to follow the walktrough: For the most part you can just use <a href="https://try.ocaml.pro/">TryOCaml</a>, and there is a <a href="https://ocaml-learn-code.com/">free App for iOS</a> and <a href="https://play.google.com/store/apps/details?id=fr.vernoux.ocaml&amp;hl=en_US&amp;gl=US">Android</a>, too. But if you want to do all the stuff here (like compiling a binary), you&rsquo;ll need a working <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html#orgb8b8f6d">OCaml setup</a> and an editor of your choice (my recommendation: invest some playtime into <a href="https://github.com/monkeyjunglejuice/emacs.onboard">Emacs</a>)<br>
+If you want to follow the walktrough: For the most part you can just use <a href="https://try.ocaml.pro/">TryOCaml</a>, and there is a <a href="https://ocaml-learn-code.com/">free App for iOS</a> and <a href="https://play.google.com/store/apps/details?id=fr.vernoux.ocaml&amp;hl=en_US&amp;gl=US">Android</a>, too. But if you want to do all the stuff here (like compiling a binary), you&rsquo;ll need a working <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html#orgf530a00">OCaml setup</a> and an editor of your choice (my recommendation: invest some playtime into <a href="https://github.com/monkeyjunglejuice/emacs.onboard">Emacs</a>)<br>
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgf11d12a" class="outline-3">
-<h3 id="orgf11d12a">What can this Program do?</h3>
-<div class="outline-text-3" id="text-orgf11d12a">
+<div id="outline-container-orgfd246a3" class="outline-3">
+<h3 id="orgfd246a3">What can this Program do?</h3>
+<div class="outline-text-3" id="text-orgfd246a3">
 <p>
 Those features got implemented in the <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">previous episode</a>:<br>
 </p>
@@ -124,19 +124,19 @@ Those features got implemented in the <a href="learning-to-code-first-ocaml-proj
 </div>
 </div>
 
-<div id="outline-container-org5457d3a" class="outline-2">
-<h2 id="org5457d3a">Ready for the funky Stuff?</h2>
-<div class="outline-text-2" id="text-org5457d3a">
+<div id="outline-container-orgde71b09" class="outline-2">
+<h2 id="orgde71b09">Ready for the funky Stuff?</h2>
+<div class="outline-text-2" id="text-orgde71b09">
 <p>
 I&rsquo;m super curious how the CSV Cleaner performs. Let&rsquo;s throw some really fat monster CSVs on it, with thousands … yeah, and millions of rows!<br>
 </p>
 </div>
 
-<div id="outline-container-orgce40083" class="outline-3">
-<h3 id="orgce40083">My Benchmark Setup</h3>
-<div class="outline-text-3" id="text-orgce40083">
+<div id="outline-container-org0adff6a" class="outline-3">
+<h3 id="org0adff6a">My Benchmark Setup</h3>
+<div class="outline-text-3" id="text-org0adff6a">
 <ol class="org-ol">
-<li>Compile the <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html#orgb34e441">CSV Cleaner v0.2</a> from the previous episode<br></li>
+<li>Compile the <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html#org0d37018">CSV Cleaner v0.2</a> from the previous episode<br></li>
 <li>Download some <a href="https://eforexcel.com/wp/downloads-18-sample-csv-files-data-sets-for-testing-sales/">sample data sets from &ldquo;EforExcel&rdquo;</a><br></li>
 <li>Make a file <code>template.csv</code> stating which columns to keep in the cleaned CSV (dropping 7 of 14 columns)<br></li>
 <li>Create a separate directory for each CSV with its own CSV Cleaner binary<br></li>
@@ -145,9 +145,9 @@ I&rsquo;m super curious how the CSV Cleaner performs. Let&rsquo;s throw some rea
 </div>
 </div>
 
-<div id="outline-container-orga74ce65" class="outline-3">
-<h3 id="orga74ce65">Let the Madness begin!</h3>
-<div class="outline-text-3" id="text-orga74ce65">
+<div id="outline-container-orgbc27b68" class="outline-3">
+<h3 id="orgbc27b68">Let the Madness begin!</h3>
+<div class="outline-text-3" id="text-orgbc27b68">
 <table>
 
 
@@ -232,9 +232,9 @@ I&rsquo;m super curious how the CSV Cleaner performs. Let&rsquo;s throw some rea
 </table>
 </div>
 
-<div id="outline-container-orgb07547e" class="outline-4">
-<h4 id="orgb07547e">Aaaaaand Crash!</h4>
-<div class="outline-text-4" id="text-orgb07547e">
+<div id="outline-container-org645e090" class="outline-4">
+<h4 id="org645e090">Aaaaaand Crash!</h4>
+<div class="outline-text-4" id="text-org645e090">
 <p>
 <code>Fatal error: exception Stack_overflow</code> somewhere on the way up to 500000 rows!<br>
 </p>
@@ -242,9 +242,9 @@ I&rsquo;m super curious how the CSV Cleaner performs. Let&rsquo;s throw some rea
 </div>
 </div>
 
-<div id="outline-container-org97c9b5c" class="outline-3">
-<h3 id="org97c9b5c">Why did this happen?</h3>
-<div class="outline-text-3" id="text-org97c9b5c">
+<div id="outline-container-org21aab2b" class="outline-3">
+<h3 id="org21aab2b">Why did this happen?</h3>
+<div class="outline-text-3" id="text-org21aab2b">
 <p>
 The <a href="https://en.wikipedia.org/wiki/Call_stack">call stack</a> or simply &ldquo;the stack&rdquo; is an area in memory that keeps track of the information associated with a function call. It can overflow because the stack is limited per thread of execution by the operating system, which leads to a certain &ldquo;stack depth&rdquo;, and therefore a maximum of function calls it can handle.<br>
 </p>
@@ -264,9 +264,9 @@ sum [1; 2; 3; 4; 5]<span class="org-tuareg-font-double-semicolon">;;</span>     
 </div>
 </div>
 
-<div id="outline-container-orgff3adfb" class="outline-4">
-<h4 id="orgff3adfb">How does this Function work?</h4>
-<div class="outline-text-4" id="text-orgff3adfb">
+<div id="outline-container-org316186f" class="outline-4">
+<h4 id="org316186f">How does this Function work?</h4>
+<div class="outline-text-4" id="text-org316186f">
 <ol class="org-ol">
 <li>&ldquo;If the list is empty, return 0 and stop.&rdquo;<br></li>
 <li>&ldquo;Alternatively … take the first element of the list and … take the first element of the rest and … take the first element of the new rest … and so on and on, until the list is empty … then add everything up and return the value.&rdquo;<br></li>
@@ -276,7 +276,7 @@ sum [1; 2; 3; 4; 5]<span class="org-tuareg-font-double-semicolon">;;</span>     
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="orgcac50cf">
+<pre class="example" id="org894e670">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -294,9 +294,9 @@ sum --&gt; 15
 </div>
 </div>
 
-<div id="outline-container-orgb2799ab" class="outline-4">
-<h4 id="orgb2799ab">The Consequence</h4>
-<div class="outline-text-4" id="text-orgb2799ab">
+<div id="outline-container-org1f8e93d" class="outline-4">
+<h4 id="org1f8e93d">The Consequence</h4>
+<div class="outline-text-4" id="text-org1f8e93d">
 <p>
 If there are just enough nested function calls piling up, at some point the stack will be exhausted and we&rsquo;re getting a &ldquo;stack overflow&rdquo; (what actually piles up are the stack frames; those are data structures containing information about the function calls).<br>
 </p>
@@ -305,9 +305,9 @@ If there are just enough nested function calls piling up, at some point the stac
 </div>
 </div>
 
-<div id="outline-container-org1ef9edc" class="outline-2">
-<h2 id="org1ef9edc">How can we use Recursive Functions safely?</h2>
-<div class="outline-text-2" id="text-org1ef9edc">
+<div id="outline-container-orgaa6cd9d" class="outline-2">
+<h2 id="orgaa6cd9d">How can we use Recursive Functions safely?</h2>
+<div class="outline-text-2" id="text-orgaa6cd9d">
 <p>
 The OCaml compiler knows a technique which is called &ldquo;<a href="https://eklitzke.org/how-tail-call-optimization-works">Tail call optimization</a>&rdquo; (TCO). It has first and foremost nothing to do with recursion – but utilizing this technique, the compiler can produce instructions to re-use use the caller&rsquo;s stack frame for the recursive calls, instead of creating a new stack frame on top of another for each nested function call.<br>
 </p>
@@ -317,9 +317,9 @@ There is one thing though: The recursive function has to be written in a certain
 </p>
 </div>
 
-<div id="outline-container-orge8b8c33" class="outline-3">
-<h3 id="orge8b8c33">How to tell if a Function is (not) tail-recursive</h3>
-<div class="outline-text-3" id="text-orge8b8c33">
+<div id="outline-container-org3e1aa99" class="outline-3">
+<h3 id="org3e1aa99">How to tell if a Function is (not) tail-recursive</h3>
+<div class="outline-text-3" id="text-org3e1aa99">
 <ol class="org-ol">
 <li>Option: Recognize it yourself.<br>
 Basically, you only need to know what will be evaluated before what.<br></li>
@@ -328,9 +328,9 @@ Basically, you only need to know what will be evaluated before what.<br></li>
 </ol>
 </div>
 
-<div id="outline-container-orgc0aa52c" class="outline-4">
-<h4 id="orgc0aa52c">✘ Not tail-recursive</h4>
-<div class="outline-text-4" id="text-orgc0aa52c">
+<div id="outline-container-org04705e0" class="outline-4">
+<h4 id="org04705e0">✘ Not tail-recursive</h4>
+<div class="outline-text-4" id="text-org04705e0">
 <p>
 Look at the recursive case (second branch). There&rsquo;s not only the call of the function <code>sum tl</code> itself, but another thing is happening too: the addition <code>hd +</code> … added to <i>what</i>? Yes, exactly … to the value of <code>sum tl</code> which has to be computed <i>before</i> the addition can happen. Ergo the recursive call is not the last thing, and therefore this is no &ldquo;tail call&rdquo;.<br>
 </p>
@@ -355,7 +355,7 @@ sum [1; 2; 3; 4; 5]<span class="org-tuareg-font-double-semicolon">;;</span>   <s
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="org1e434ad">
+<pre class="example" id="orgb019015">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -365,9 +365,9 @@ val sum : int list -&gt; int = &lt;fun&gt;
 </div>
 </div>
 
-<div id="outline-container-orga49c4dd" class="outline-4">
-<h4 id="orga49c4dd">✔ Tail-recursive</h4>
-<div class="outline-text-4" id="text-orga49c4dd">
+<div id="outline-container-orgd400fa6" class="outline-4">
+<h4 id="orgd400fa6">✔ Tail-recursive</h4>
+<div class="outline-text-4" id="text-orgd400fa6">
 <p>
 Look at the recursive case again. The addition now happens in place of an additional argument <code>accu</code>. In fact, <code>hd</code> is added to the value of the accumulator, not to the value resulting from this recursive function call. That way, the addition can and will be computed before the function calls itself, which is therefore last thing happening. That&rsquo;s a &ldquo;tail call&rdquo;.<br>
 </p>
@@ -404,9 +404,9 @@ How do we get there?<br>
 </div>
 </div>
 
-<div id="outline-container-org4ec2c2b" class="outline-3">
-<h3 id="org4ec2c2b">Recipe for tail-recursive Functions</h3>
-<div class="outline-text-3" id="text-org4ec2c2b">
+<div id="outline-container-org274aff1" class="outline-3">
+<h3 id="org274aff1">Recipe for tail-recursive Functions</h3>
+<div class="outline-text-3" id="text-org274aff1">
 <p>
 If you want to change a &ldquo;naive&rdquo; (non-tail-)recursive function into a tail-recursive function, you can follow these 4 steps (<a href="https://cs3110.github.io/textbook/chapters/basics/functions.html">source</a>):<br>
 </p>
@@ -462,9 +462,9 @@ And that&rsquo;s it! If you follow the recipe several times, you won&rsquo;t nee
 </div>
 </div>
 
-<div id="outline-container-orgd64e860" class="outline-2">
-<h2 id="orgd64e860">Digesting big CSVs</h2>
-<div class="outline-text-2" id="text-orgd64e860">
+<div id="outline-container-orge03f838" class="outline-2">
+<h2 id="orge03f838">Digesting really big CSV Files</h2>
+<div class="outline-text-2" id="text-orge03f838">
 <p>
 Now we&rsquo;re leaving the safe haven of simple, constructed examples and plunge into real-world recursive functions, one by one.<br>
 </p>
@@ -474,9 +474,9 @@ Recursive functions in OCaml are easy to spot in the code (at least the ones <i>
 </p>
 </div>
 
-<div id="outline-container-orgcc93635" class="outline-3">
-<h3 id="orgcc93635">Fixing the »Clean« Function</h3>
-<div class="outline-text-3" id="text-orgcc93635">
+<div id="outline-container-orgc254936" class="outline-3">
+<h3 id="orgc254936">Fixing the »Clean« Function</h3>
+<div class="outline-text-3" id="text-orgc254936">
 <p>
 The <code>clean</code> function receives the whole CSV data structure <code>tab</code> (table), which is essentially a long <i>list</i> containing <i>association lists</i> (rows) of <i>key-value pairs</i>. The latter represent single &ldquo;table cells&rdquo;, but each value (cell content) associated with its corresponding key (column header).<br>
 </p>
@@ -524,9 +524,9 @@ Well, there&rsquo;s also the function <code>List.map</code> (2) from OCaml&rsquo
 </p>
 </div>
 
-<div id="outline-container-orgd4910ef" class="outline-4">
-<h4 id="orgd4910ef">Tail-recursive or not?</h4>
-<div class="outline-text-4" id="text-orgd4910ef">
+<div id="outline-container-org2ebe2c7" class="outline-4">
+<h4 id="org2ebe2c7">Tail-recursive or not?</h4>
+<div class="outline-text-4" id="text-org2ebe2c7">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 8: </span>OCaml&rsquo;s official implementation</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">map</span> <span class="org-variable-name">f</span> = <span class="org-keyword">function</span>
     <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
@@ -544,9 +544,9 @@ I&rsquo;m quite surprised that such a fundamental function like <code>map</code>
 </div>
 </div>
 
-<div id="outline-container-orgb578aaf" class="outline-4">
-<h4 id="orgb578aaf">What now?</h4>
-<div class="outline-text-4" id="text-orgb578aaf">
+<div id="outline-container-orgc31f721" class="outline-4">
+<h4 id="orgc31f721">What now?</h4>
+<div class="outline-text-4" id="text-orgc31f721">
 <p>
 Let&rsquo;s look for an alternative in the <a href="https://ocaml.org/api/List.html">List module</a> … Oh, what do we have here? &ldquo;<code>rev_map f l</code> gives the same result as <code>List.rev (List.map f l)</code>, but is <i>tail-recursive</i> and more efficient.&rdquo; Mmmh. Ok, I see. There it is.<br>
 </p>
@@ -586,9 +586,9 @@ We could use <code>List.rev_map</code> instead of <code>List.map</code> then. An
 </div>
 </div>
 
-<div id="outline-container-org100b706" class="outline-3">
-<h3 id="org100b706">Fixing the »Dissoc« Function</h3>
-<div class="outline-text-3" id="text-org100b706">
+<div id="outline-container-org4a0ce02" class="outline-3">
+<h3 id="org4a0ce02">Fixing the »Dissoc« Function</h3>
+<div class="outline-text-3" id="text-org4a0ce02">
 <p>
 It may not seem obvious, but <code>dissoc</code> is actually the definition of a function that takes one argument: the long list (table) holding the association lists (rows); each of them containing key-value pairs (column-header, cell content).<br>
 </p>
@@ -651,17 +651,17 @@ When we test the CSV Cleaner again in the toplevel, we should find a new CSV fil
 </div>
 </div>
 
-<div id="outline-container-org5168ea9" class="outline-2">
-<h2 id="org5168ea9">Oh how unsatisfying that was!</h2>
-<div class="outline-text-2" id="text-org5168ea9">
+<div id="outline-container-org5b0889d" class="outline-2">
+<h2 id="org5b0889d">Oh how unsatisfying that was!</h2>
+<div class="outline-text-2" id="text-org5b0889d">
 <p>
 We&rsquo;ve just fixed the program by changing a tiny function in two places. Can you feel the emptiness, too? But you know what? Let&rsquo;s over-engineer the shit out of it and make <b>everything</b> tail-recursive, so the CSV cleaner can digest CSVs with as many rows AND columns as … I dont know … incredibly … many! Probably. Let&rsquo;s see.<br>
 </p>
 </div>
 
-<div id="outline-container-orgd01fc52" class="outline-3">
-<h3 id="orgd01fc52">Bullet-proof »Clean« Function</h3>
-<div class="outline-text-3" id="text-orgd01fc52">
+<div id="outline-container-org84ecb3c" class="outline-3">
+<h3 id="org84ecb3c">Bullet-proof »Clean« Function</h3>
+<div class="outline-text-3" id="text-org84ecb3c">
 <p>
 Since we have already fixed the function <code>clean</code> by writing a tail-recursive alternative for <code>List.map</code>, we are now focussing on the inner function <code>remove_cols</code> that iterates over a single association list (row) in order to work on the key-value pairs:<br>
 </p>
@@ -676,9 +676,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </div>
 </div>
 
-<div id="outline-container-orgfa115b0" class="outline-4">
-<h4 id="orgfa115b0">What is it doing?</h4>
-<div class="outline-text-4" id="text-orgfa115b0">
+<div id="outline-container-org971eece" class="outline-4">
+<h4 id="org971eece">What is it doing?</h4>
+<div class="outline-text-4" id="text-org971eece">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> : 'a list -&gt; ('a * 'b) list -&gt; ('a * 'b) list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -708,9 +708,9 @@ The function takes 2 arguments:<br>
 </div>
 </div>
 
-<div id="outline-container-orgde56f40" class="outline-4">
-<h4 id="orgde56f40">How does the inner Function work?</h4>
-<div class="outline-text-4" id="text-orgde56f40">
+<div id="outline-container-org3ef39d9" class="outline-4">
+<h4 id="org3ef39d9">How does the inner Function work?</h4>
+<div class="outline-text-4" id="text-org3ef39d9">
 <ol class="org-ol">
 <li>If the function receives a list <code>row</code> with nothing in it -&gt; return just an empty list.<br></li>
 <li>Destructure the list <code>row</code> into the first key-value pair <code>(k, v)</code>, while referring to its parts with <code>k</code> for the &ldquo;key&rdquo; and <code>v</code> for the &ldquo;value&rdquo;; bind <code>tl</code> to the tail (rest) of the list (which is a list itself) – but only <code>when</code> the key <code>k</code> is also member of the template <code>tpl</code> -&gt; Then take the corresponding key-value pair … and again and again … put these into a list, and return that list eventually.<br></li>
@@ -719,9 +719,9 @@ The function takes 2 arguments:<br>
 </div>
 </div>
 
-<div id="outline-container-org06bc5fb" class="outline-4">
-<h4 id="org06bc5fb">Making it tail-recursive</h4>
-<div class="outline-text-4" id="text-org06bc5fb">
+<div id="outline-container-org6c64d93" class="outline-4">
+<h4 id="org6c64d93">Making it tail-recursive</h4>
+<div class="outline-text-4" id="text-org6c64d93">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 15: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_cols</span> <span class="org-variable-name">tpl</span> <span class="org-variable-name">row</span> =
   <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
@@ -732,7 +732,7 @@ The function takes 2 arguments:<br>
 </div>
 
 <p>
-<a href="#org4ec2c2b">Maybe look at the recipe again</a>. The only part that can be kinda tricky is to rearrange the recursive case (1). The call to the function itself has to be the last thing happening, so that no other computation tries to use the value of that particular recursive call afterwards (within this recursive case/cycle).<br>
+<a href="#org274aff1">Maybe look at the recipe again</a>. The only part that can be kinda tricky is to rearrange the recursive case (1). The call to the function itself has to be the last thing happening, so that no other computation tries to use the value of that particular recursive call afterwards (within this recursive case/cycle).<br>
 </p>
 
 <div class="org-src-container">
@@ -764,9 +764,9 @@ Let&rsquo;s merge that into one single function:<br>
 </div>
 </div>
 
-<div id="outline-container-orgadb4829" class="outline-4">
-<h4 id="orgadb4829">Quick Test using the Toplevel (REPL)</h4>
-<div class="outline-text-4" id="text-orgadb4829">
+<div id="outline-container-orgea136a1" class="outline-4">
+<h4 id="orgea136a1">Quick Test using the Toplevel (REPL)</h4>
+<div class="outline-text-4" id="text-orgea136a1">
 <p>
 How can we call this function and how should the arguments be like? The type signature tells us:<br>
 </p>
@@ -798,9 +798,9 @@ So for a quick test, we can just provide the arguments as follows:<br>
 </div>
 </div>
 
-<div id="outline-container-orgdb039d9" class="outline-5">
-<h5 id="orgdb039d9">Noticed something?</h5>
-<div class="outline-text-5" id="text-orgdb039d9">
+<div id="outline-container-org6411ce9" class="outline-5">
+<h5 id="org6411ce9">Noticed something?</h5>
+<div class="outline-text-5" id="text-org6411ce9">
 <p>
 The key-value pairs came out in reverse order! There is one difference compared to the non-tail-recursive function: the helper function adds each key-value pair in front of the accumulator list <code>accu</code>, so the first pair found will eventually be at the end of the list.<br>
 </p>
@@ -823,9 +823,9 @@ This is quite a common thing when recursively working on lists. What we can do, 
 </div>
 </div>
 
-<div id="outline-container-orgdab57db" class="outline-4">
-<h4 id="orgdab57db">Putting all together, going fully tail-recursive</h4>
-<div class="outline-text-4" id="text-orgdab57db">
+<div id="outline-container-org7129959" class="outline-4">
+<h4 id="org7129959">Putting all together, going fully tail-recursive</h4>
+<div class="outline-text-4" id="text-org7129959">
 <p>
 The <code>remove_cols</code> function is now tail-recursive and should be able to handle anything you throw at it. And off we go, putting it right back into the <code>csvcleaner.ml</code> file:<br>
 </p>
@@ -852,9 +852,9 @@ The <code>remove_cols</code> function is now tail-recursive and should be able t
 </div>
 </div>
 
-<div id="outline-container-orga61736b" class="outline-3">
-<h3 id="orga61736b">Bullet-proof »Dissoc« Function</h3>
-<div class="outline-text-3" id="text-orga61736b">
+<div id="outline-container-org75bbc17" class="outline-3">
+<h3 id="org75bbc17">Bullet-proof »Dissoc« Function</h3>
+<div class="outline-text-3" id="text-org75bbc17">
 <p>
 We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve both inner functions <code>get_keys</code> and <code>get_values</code> to iterate over &ldquo;rows&rdquo; of arbitrary length without causing a stack overflow. CSV files with plenty of columns shouldn&rsquo;t pose any problem afterwards.<br>
 </p>
@@ -877,9 +877,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </div>
 </div>
 
-<div id="outline-container-orgcfd8b06" class="outline-4">
-<h4 id="orgcfd8b06">What is it doing?</h4>
-<div class="outline-text-4" id="text-orgcfd8b06">
+<div id="outline-container-orgfa38cec" class="outline-4">
+<h4 id="orgfa38cec">What is it doing?</h4>
+<div class="outline-text-4" id="text-orgfa38cec">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : ('a * 'a) list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -890,7 +890,7 @@ The <code>dissoc</code> function takes one argument, which is a <i>list of assoc
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 22: </span>BEFORE – the whole CSV data is a list of association lists</label><pre class="src src-ocaml">[[(<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)]; 
+<label class="org-src-name"><span class="listing-number">Listing 22: </span>BEFORE – the whole CSV data is a list of association lists</label><pre class="src src-ocaml">[[(<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)];
  [(<span class="org-string">"b"</span>, <span class="org-string">"6"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"8"</span>)];
  [(<span class="org-string">"b"</span>, <span class="org-string">"10"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"12"</span>)]]
 </pre>
@@ -915,9 +915,9 @@ The <code>dissoc</code> function splits the keys from the values and gathers bot
 </div>
 </div>
 
-<div id="outline-container-orgb53d42e" class="outline-4">
-<h4 id="orgb53d42e">How do the inner Functions work?</h4>
-<div class="outline-text-4" id="text-orgb53d42e">
+<div id="outline-container-org545c317" class="outline-4">
+<h4 id="org545c317">How do the inner Functions work?</h4>
+<div class="outline-text-4" id="text-org545c317">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 24: </span>BEFORE – not tail-recursive</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> =   <span class="org-comment-delimiter">(* </span><span class="org-comment">1</span><span class="org-comment-delimiter"> *)</span>
   <span class="org-keyword">function</span>
@@ -940,11 +940,11 @@ The outer function <code>dissoc</code> applies <code>get_values</code> to each k
 </div>
 </div>
 
-<div id="outline-container-org33c4440" class="outline-4">
-<h4 id="org33c4440">Making both inner Functions tail-recursive</h4>
-<div class="outline-text-4" id="text-org33c4440">
+<div id="outline-container-orgca51503" class="outline-4">
+<h4 id="orgca51503">Making both inner Functions tail-recursive</h4>
+<div class="outline-text-4" id="text-orgca51503">
 <p>
-Stoooop! Ok. Nah don&rsquo;t look further down. Wanna try to rewrite the functions on your own? I guess you propably don&rsquo;t even need the <a href="#org4ec2c2b">recipe</a> any more?<br>
+Stoooop! Ok. Nah don&rsquo;t look further down. Wanna try to rewrite the functions on your own? I guess you propably don&rsquo;t even need the <a href="#org274aff1">recipe</a> any more?<br>
 </p>
 
 <div class="org-src-container">
@@ -966,9 +966,9 @@ Stoooop! Ok. Nah don&rsquo;t look further down. Wanna try to rewrite the functio
 </div>
 </div>
 
-<div id="outline-container-orgada88d0" class="outline-4">
-<h4 id="orgada88d0">Putting all together, one more time</h4>
-<div class="outline-text-4" id="text-orgada88d0">
+<div id="outline-container-org3cdf57b" class="outline-4">
+<h4 id="org3cdf57b">Putting all together, one more time</h4>
+<div class="outline-text-4" id="text-org3cdf57b">
 <p>
 Just for the record, that&rsquo;s how the whole <code>dissoc</code> function looks afterwards:<br>
 </p>
@@ -995,20 +995,20 @@ Just for the record, that&rsquo;s how the whole <code>dissoc</code> function loo
 </div>
 </div>
 
-<div id="outline-container-org5cf2efd" class="outline-4">
-<h4 id="org5cf2efd">Quick Test in the Toplevel (REPL)</h4>
-<div class="outline-text-4" id="text-org5cf2efd">
+<div id="outline-container-orgb1007bc" class="outline-4">
+<h4 id="orgb1007bc">Quick Test in the Toplevel (REPL)</h4>
+<div class="outline-text-4" id="text-orgb1007bc">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 26: </span>Applying the function to some data in the shape of <code>('a * 'a) list list</code></label><pre class="src src-ocaml">dissoc [[(<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)];
-        [(<span class="org-string">"b"</span>, <span class="org-string">"6"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"8"</span>)]; 
+        [(<span class="org-string">"b"</span>, <span class="org-string">"6"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"8"</span>)];
         [(<span class="org-string">"b"</span>, <span class="org-string">"10"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"12"</span>)]]<span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 27: </span>Result – the same data, but transformed into a <code>string list list</code></label><pre class="src src-ocaml">- : string list list = [[<span class="org-string">"b"</span>; <span class="org-string">"d"</span>]; 
-                        [<span class="org-string">"2"</span>; <span class="org-string">"4"</span>]; 
-                        [<span class="org-string">"6"</span>; <span class="org-string">"8"</span>]; 
+<label class="org-src-name"><span class="listing-number">Listing 27: </span>Result – the same data, but transformed into a <code>string list list</code></label><pre class="src src-ocaml">- : string list list = [[<span class="org-string">"b"</span>; <span class="org-string">"d"</span>];
+                        [<span class="org-string">"2"</span>; <span class="org-string">"4"</span>];
+                        [<span class="org-string">"6"</span>; <span class="org-string">"8"</span>];
                         [<span class="org-string">"10"</span>; <span class="org-string">"12"</span>]]
 </pre>
 </div>
@@ -1021,16 +1021,16 @@ This list is then passed to the next function <code>save</code> to write the dat
 </div>
 </div>
 
-<div id="outline-container-orgdb26bab" class="outline-2">
-<h2 id="orgdb26bab">Final Comparison</h2>
-<div class="outline-text-2" id="text-orgdb26bab">
+<div id="outline-container-org8b23e94" class="outline-2">
+<h2 id="org8b23e94">Final Comparison</h2>
+<div class="outline-text-2" id="text-org8b23e94">
 <p>
 Is there a difference in speed regarding the three implementations? Let&rsquo;s find out. There we have:<br>
 </p>
 
 <ul class="org-ul">
 <li><b>&ldquo;no tr&rdquo;</b> the original variant without tail recursion<br></li>
-<li><b>&ldquo;maptr only&rdquo;</b> where we only changed <code>List.map</code> for a tail-recursive <code>maptr</code> <br></li>
+<li><b>&ldquo;maptr only&rdquo;</b> where we only changed <code>List.map</code> for a tail-recursive <code>maptr</code><br></li>
 <li><b>&ldquo;full tr&rdquo;</b> in which we&rsquo;ve made the row-functions tail-recursive too<br></li>
 </ul>
 
@@ -1265,9 +1265,9 @@ But in fact I think those differences are insignificant, because the variants ar
 </div>
 </div>
 
-<div id="outline-container-org760391a" class="outline-2">
-<h2 id="org760391a">Conclusion</h2>
-<div class="outline-text-2" id="text-org760391a">
+<div id="outline-container-org04d93d9" class="outline-2">
+<h2 id="org04d93d9">Conclusion</h2>
+<div class="outline-text-2" id="text-org04d93d9">
 <p>
 It makes sense to write functions in the tail-recursive style, since it eliminates the chance to run into a &ldquo;low-hanging&rdquo; ressource limit unneccessarily. But the next limit lurks just around the corner: the amount of total memory available. I did some runs on CSV files with 300000 rows but this time 400 columns instead of 14, and the process quickly ate up 16 GB RAM + 4 GB swap space and got killed by the OS eventually.<br>
 </p>
@@ -1278,9 +1278,9 @@ Anyway, I had fun to gnaw on those larger files. Probably I should have used a d
 </div>
 </div>
 
-<div id="outline-container-org3fc96fa" class="outline-2">
-<h2 id="org3fc96fa">Full Code Listing, Version 0.3</h2>
-<div class="outline-text-2" id="text-org3fc96fa">
+<div id="outline-container-org41688ff" class="outline-2">
+<h2 id="org41688ff">Full Code Listing, Version 0.3</h2>
+<div class="outline-text-2" id="text-org41688ff">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 28: </span>Fully tail-recursive</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.3</span><span class="org-comment-delimiter"> *)</span>
 
@@ -1356,9 +1356,9 @@ Anyway, I had fun to gnaw on those larger files. Probably I should have used a d
 </div>
 </div>
 
-<div id="outline-container-org86c7c01" class="outline-2">
-<h2 id="org86c7c01">What&rsquo;s next?</h2>
-<div class="outline-text-2" id="text-org86c7c01">
+<div id="outline-container-org0ab1882" class="outline-2">
+<h2 id="org0ab1882">What&rsquo;s next?</h2>
+<div class="outline-text-2" id="text-org0ab1882">
 <p>
 Right now I wonder how it would turn out to run the CSV Cleaner on multiple cores. But likely I&rsquo;m going to implement one or two of the pending features in the next episode.<br>
 </p>
@@ -1382,7 +1382,7 @@ Hope you enjoyed the walktrough. Suggestions are always welcome!<br>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Published: <span class="date">2022-02-25 Fri 00:00</span> | Updated: <span class="date">2022-06-10 Fri 12:40</span></p>
+<p class="footer">Last updated: <span class="date">2022-12-19 Mon 20:54</span></p>
 </div>
 </body>
 </html>
