@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-24 Fri 17:24 -->
+<!-- 2023-03-24 Fri 18:08 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Rewrite in OCaml: Tooling, Association Lists and Pattern Matching</title>
@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/gentium/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/gentium-plus/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
@@ -638,7 +639,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org6d2198d">
+<pre class="example" id="orgcd887bc">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -798,7 +799,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="orgf5c7ae0">
+<pre class="example" id="org5d6b5fd">
 "b"|"d"
 "2"|"4"
 "6"|"8"

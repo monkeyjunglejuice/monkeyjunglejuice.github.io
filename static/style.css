@@ -10,7 +10,7 @@ html {
 
 body {
   color: #343327;
-  font-family: 'Gentium Book Plus', serif;
+  font-family: 'Gentium Book Basic', serif;
   font-size: 2.3rem;
   font-weight: 400;
   line-height: 1.4;
@@ -42,7 +42,7 @@ h6 {
 }
 
 h1 {
-  font-family: 'Cormorant', 'Gentium Book Plus', serif;
+  font-family: 'Cormorant', 'Gentium Book Basic', serif;
   font-size: 3.3em;
   font-weight: 200;
   line-height: 1.1;
@@ -53,7 +53,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Gentium Book Plus', serif;
+  font-family: 'Gentium Book Basic', serif;
   font-size: 1.4em;
   font-weight: 600;
   line-height: 1.2;
@@ -65,7 +65,7 @@ h2 {
 }
 
 h3 {
-  font-family: 'Gentium Book Plus', serif;
+  font-family: 'Gentium Book Basic', serif;
   font-size: 1.2em;
   font-weight: 600;
   line-height: 1.2;
@@ -74,7 +74,7 @@ h3 {
 }
 
 h4 {
-  font-family: 'Gentium Book Plus', serif;
+  font-family: 'Gentium Book Basic', serif;
   font-size: 1em;
   font-weight: 600;
   margin-bottom: 2rem;
@@ -83,7 +83,7 @@ h4 {
 
 h5,
 h6 {
-  font-family: 'Gentium Book Plus', serif;
+  font-family: 'Gentium Book Basic', serif;
   font-size: 1em;
   font-weight: 400;
   margin-bottom: 2rem;
@@ -306,7 +306,7 @@ label,
 legend,
 fieldset {
   display: block;
-  font-family: "Gentium Book Plus";
+  font-family: "Gentium Book Basic";
   font-feature-settings: "smcp" 1;
   font-size: 0.75em;
   font-weight: 500;
@@ -443,7 +443,7 @@ fieldset {
 }
 
 .index table {
-  font-family: 'Gentium Book Plus';
+  font-family: 'Gentium Book Basic';
 }
 
 .index tbody tr :nth-child(1) {
@@ -512,7 +512,7 @@ pre.src::before {
   border-radius: 1em;
   border: 0 none;
   color: #000c;
-  font-family: "Gentium Book Plus";
+  font-family: "Gentium Book Basic";
   font-feature-settings: "smcp" 1;
   font-size: 0.75em;
   font-weight: 400;

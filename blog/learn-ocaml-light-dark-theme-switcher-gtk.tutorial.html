@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-24 Fri 17:24 -->
+<!-- 2023-03-24 Fri 18:08 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
@@ -14,7 +14,8 @@
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/gentium/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/gentium-plus/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
@@ -300,7 +301,7 @@ One more thing before we are going to implement the function: Let&rsquo;s write 
 We can write this in a formal way OCaml understands, and define types with the keyword <code>type</code>, the name of the type (a.k.a. <i>type constructor</i>; lowercase), and variants (a.k.a. <i>data constructors</i>; capitalised):<br>
 </p>
 
-<pre class="example" id="orgc3def9e">
+<pre class="example" id="org2c21151">
 type type_constructor = Data_construtor_1
                       | Data_constructor_2
                       | Data_constructor_n
@@ -345,7 +346,7 @@ get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span 
 Let&rsquo;s write down what should happen in each case: All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching. Here&rsquo;s the pattern matching syntax with 3 branches:<br>
 </p>
 
-<pre class="example" id="org981ac77">
+<pre class="example" id="org7351198">
 match VALUE(S) with
 | PATTERN_1 -&gt; EXPRESSION_1
 | PATTERN_2 -&gt; EXPRESSION_2
