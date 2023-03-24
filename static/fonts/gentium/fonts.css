@@ -4,6 +4,7 @@
   font-weight: 400;
   font-style: normal;
   src: url(GentiumBookPlus-Regular.woff2);
+  font-display: swap;
 }
 
 @font-face {
@@ -11,6 +12,7 @@
   font-weight: 400;
   font-style: italic;
   src: url(GentiumBookPlus-Italic.woff2);
+  font-display: swap;
 }
 
 @font-face {
@@ -18,6 +20,7 @@
 	font-weight: 600;
   font-style: normal;
 	src: url(GentiumBookPlus-Bold.woff2);
+  font-display: swap;
 }
 
 @font-face {
@@ -25,6 +28,7 @@
 	font-weight: 600;
 	font-style: italic;
 	src: url(GentiumBookPlus-BoldItalic.woff2);
+  font-display: swap;
 }
 
 @font-face {
@@ -32,6 +36,7 @@
   font-weight: 400;
   font-style: normal;
   src: url(GentiumPlus-Regular.woff2);
+  font-display: swap;
 }
 
 @font-face {
@@ -39,6 +44,7 @@
   font-weight: 400;
   font-style: italic;
   src: url(GentiumPlus-Italic.woff2);
+  font-display: swap;
 }
 
 @font-face {
@@ -46,6 +52,7 @@
 	font-weight: 600;
   font-style: normal;
 	src: url(GentiumPlus-Bold.woff2);
+  font-display: swap;
 }
 
 @font-face {
@@ -53,4 +60,5 @@
 	font-weight: 600;
 	font-style: italic;
 	src: url(GentiumPlus-BoldItalic.woff2);
+  font-display: swap;
 }

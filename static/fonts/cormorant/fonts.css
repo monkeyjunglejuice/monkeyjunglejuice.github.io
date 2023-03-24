@@ -4,4 +4,5 @@
   font-weight: 200;
   font-style: normal;
   src: url('cormorant-Light.woff2') format('woff2');
+  font-display: swap;
 }
