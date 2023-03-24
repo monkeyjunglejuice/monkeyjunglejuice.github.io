@@ -234,7 +234,7 @@ input[type="reset"],
 input[type="button"] {
   background-color: #fff2bf;
   border-radius: 10em;
-  border: 1px dotted #000;
+  border: 2px solid #000;
   box-sizing: border-box;
   color: #000;
   cursor: pointer;

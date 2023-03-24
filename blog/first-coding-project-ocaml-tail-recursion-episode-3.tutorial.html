@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-24 Fri 18:08 -->
+<!-- 2023-03-25 Sat 07:41 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Eat my huge Files: Tail Recursion in OCaml</title>
@@ -10,6 +10,7 @@
 <meta name="keywords" content="tail recursion, tail call, recursive, ocaml, tutorial, project idea, learn ocaml, csv, pattern matching" />
 <meta name="generator" content="Org Mode" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; img-src 'self' https://*; media-src 'self' https://*;">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
@@ -276,7 +277,7 @@ sum [1; 2; 3; 4; 5]<span class="org-tuareg-font-double-semicolon">;;</span>     
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="orgd9312d6">
+<pre class="example" id="orgc1475b7">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -355,7 +356,7 @@ sum [1; 2; 3; 4; 5]<span class="org-tuareg-font-double-semicolon">;;</span>   <s
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="org417c1cb">
+<pre class="example" id="org0ca6a7e">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -676,9 +677,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </div>
 </div>
 
-<div id="outline-container-orgdc29e7f" class="outline-4">
-<h4 id="orgdc29e7f">What is it doing?</h4>
-<div class="outline-text-4" id="text-orgdc29e7f">
+<div id="outline-container-orgd1ba001" class="outline-4">
+<h4 id="orgd1ba001">What is it doing?</h4>
+<div class="outline-text-4" id="text-orgd1ba001">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> : 'a list -&gt; ('a * 'b) list -&gt; ('a * 'b) list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -877,9 +878,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </div>
 </div>
 
-<div id="outline-container-orgcd13067" class="outline-4">
-<h4 id="orgcd13067">What is it doing?</h4>
-<div class="outline-text-4" id="text-orgcd13067">
+<div id="outline-container-orgac2c88c" class="outline-4">
+<h4 id="orgac2c88c">What is it doing?</h4>
+<div class="outline-text-4" id="text-orgac2c88c">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : ('a * 'a) list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -1166,9 +1167,9 @@ There is to say that I&rsquo;ve been a bit lazy and just picked the fastest run 
 <td class="org-right">500000</td>
 <td class="org-right">14</td>
 <td class="org-right">59.5</td>
-<td class="org-right">CRASHED</td>
-<td class="org-right">CRASHED</td>
-<td class="org-right">CRASHED</td>
+<td class="org-right">CRASH</td>
+<td class="org-right">CRASH</td>
+<td class="org-right">CRASH</td>
 </tr>
 
 <tr>
@@ -1197,9 +1198,9 @@ There is to say that I&rsquo;ve been a bit lazy and just picked the fastest run 
 <td class="org-right">1000000</td>
 <td class="org-right">14</td>
 <td class="org-right">119.0</td>
-<td class="org-right">CRASHED</td>
-<td class="org-right">CRASHED</td>
-<td class="org-right">CRASHED</td>
+<td class="org-right">CRASH</td>
+<td class="org-right">CRASH</td>
+<td class="org-right">CRASH</td>
 </tr>
 
 <tr>
@@ -1228,9 +1229,9 @@ There is to say that I&rsquo;ve been a bit lazy and just picked the fastest run 
 <td class="org-right">5000000</td>
 <td class="org-right">14</td>
 <td class="org-right">595.1</td>
-<td class="org-right">CRASHED</td>
-<td class="org-right">CRASHED</td>
-<td class="org-right">CRASHED</td>
+<td class="org-right">CRASH</td>
+<td class="org-right">CRASH</td>
+<td class="org-right">CRASH</td>
 </tr>
 
 <tr>
@@ -1382,7 +1383,7 @@ Hope you enjoyed the walktrough. Suggestions are always welcome!<br>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Last updated: <span class="date">2023-03-24 Fri 14:28</span></p>
+<p class="footer">Last updated: <span class="date">2023-03-24 Fri 20:12</span></p>
 </div>
 </body>
 </html>
