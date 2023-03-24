@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-13 Mon 20:47 -->
+<!-- 2023-03-24 Fri 14:26 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Which Programming Language should I learn first?</title>
@@ -13,10 +13,9 @@
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Regular-decl.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Italic-decl.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-Bold-decl.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/fantasque/FantasqueSansMono-BoldItalic-decl.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/gentium/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/fantasque/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <script defer src="/static/head.js"></script>
@@ -24,7 +23,7 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="nav-primary"><a id="site-name" href="/">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
 </div>
 <div id="content" class="content">
 <header>
@@ -52,18 +51,18 @@
 </li>
 <li><a href="#org8521ff5">Choose your Poison</a>
 <ul>
-<li><a href="#orgebb8138">ANSI C</a></li>
-<li><a href="#orgc121ac5">Lua</a></li>
-<li><a href="#org9a14cb4">Clojure</a></li>
-<li><a href="#org7fc2ce2">Common Lisp</a></li>
-<li><a href="#org5fa8b5c">Scheme and Racket</a></li>
-<li><a href="#org9caba09">Erlang and Elixir</a></li>
-<li><a href="#org05dfa5a">JavaScript</a></li>
-<li><a href="#org001775b">Elm</a></li>
-<li><a href="#orgbd98aa1">Haskell</a></li>
-<li><a href="#org9a82e7c">OCaml</a></li>
-<li><a href="#org063cd91">Python</a></li>
-<li><a href="#orge3c4d4e">Julia</a></li>
+<li><a href="#orgacd748b">ANSI C as a first Programming Language</a></li>
+<li><a href="#org6b4d740">Lua as a first Programming Language</a></li>
+<li><a href="#org5fe3c95">Clojure as a first Programming Language</a></li>
+<li><a href="#org001414e">Common Lisp as a first Programming Language</a></li>
+<li><a href="#org476ed7e">Scheme or Racket as a first Programming Language</a></li>
+<li><a href="#org0b496bf">Erlang or Elixir as a first Programming Language</a></li>
+<li><a href="#org4452f2c">JavaScript as a first Programming Language</a></li>
+<li><a href="#org2aa7919">Elm as a first Programming Language</a></li>
+<li><a href="#org1212b0a">Haskell as a first Programming Language</a></li>
+<li><a href="#orgf7ff25c">OCaml as a first Programming Language</a></li>
+<li><a href="#org3711d1e">Python as a first Programming Language</a></li>
+<li><a href="#org656b9e7">Julia as a first Programming Language</a></li>
 </ul>
 </li>
 <li><a href="#orgfd6c020">Mkay, but which one?</a>
@@ -412,9 +411,9 @@ Some of them are actually better teaching languages, while others not so good an
 </p>
 </div>
 
-<div id="outline-container-orgebb8138" class="outline-3">
-<h3 id="orgebb8138">ANSI C</h3>
-<div class="outline-text-3" id="text-orgebb8138">
+<div id="outline-container-orgacd748b" class="outline-3">
+<h3 id="orgacd748b">ANSI C as a first Programming Language</h3>
+<div class="outline-text-3" id="text-orgacd748b">
 <p>
 Welcome to the low-level. Programs written in C tend to be much more performant than programs written in other languages. In other words, it is the fastest (practical) programming language. Performance-critical algorithms and other parts of applications are usually written in C; e. g. the Linux kernel, drivers, high-performance libraries, etc.<br>
 </p>
@@ -428,7 +427,7 @@ There seems to be a tradeoff with programming languages:<br>
 </ul>
 
 <p>
-Development time (human) is more expensive than run-time time (computer), so mostly we agree on a slower programming language to minimize the human effort. However, since performance is a matter of the implementation and not the programming language per se, it is &#x2026; a myth. There are really fast high level programming languages coming close to C performance; <a href="#org9a82e7c">OCaml</a> for instance.<br>
+Development time (human) is more expensive than run-time time (computer), so mostly we agree on a slower programming language to minimize the human effort. However, since performance is a matter of the implementation and not the programming language per se, it is &#x2026; a myth. There are really fast high level programming languages coming close to C performance; <a href="#orgf7ff25c">OCaml</a> for instance.<br>
 </p>
 
 <p>
@@ -439,7 +438,7 @@ You may hear here and there that one must learn programming in C before even thi
 If that is the case, and you wanna become that crazy hardware hacker, you may look into the <a href="https://www.arduino.cc/en/Guide/Introduction">Arduino electronics platform</a>, coming with the Arduino programming language (which is basically a subset of C). Don&rsquo;t confuse C with C++ (an extension to C, but huge and messy) or C# (a Microsoft thing). <i>Look for &ldquo;ANSI C&rdquo;</i>, the standard.<br>
 </p>
 
-<div class="box" id="orgbc06b06">
+<div class="box" id="org3f0f35c">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/c/">C code examples</a><br></li>
 <li><a href="https://en.wikipedia.org/wiki/C_(programming_language)">Getting startet with C</a> or <a href="https://www.arduino.cc/en/Guide">Arduino</a><br></li>
@@ -454,9 +453,9 @@ If that is the case, and you wanna become that crazy hardware hacker, you may lo
 </div>
 </div>
 
-<div id="outline-container-orgc121ac5" class="outline-3">
-<h3 id="orgc121ac5">Lua</h3>
-<div class="outline-text-3" id="text-orgc121ac5">
+<div id="outline-container-org6b4d740" class="outline-3">
+<h3 id="org6b4d740">Lua as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org6b4d740">
 <p>
 On the surface, Lua is quite similar to JavaScript – just without the ugly parts (more about that later). Lua is elegant, performant, carefully designed and consistent. Therefore it is super easy to learn for <del>Muggles</del> Non-programmers, and probably the &ldquo;easiest&rdquo; programming language listed here.<br>
 </p>
@@ -477,7 +476,7 @@ It&rsquo;s straightforward to get started and build something with Lua: You migh
 As far as I know, there are not many textbooks available, but you can use <i>the</i> book written by Lua&rsquo;s chief architect Roberto Ierusalimschy. And there&rsquo;s a wiki and many many user tutorials. Lua is primarily developed at the University of Rio de Janeiro (PUC-Rio). Once you&rsquo;ve committed to learn Lua, I recommend to buy the 4th edition to support the project.<br>
 </p>
 
-<div class="box" id="orga63ac5f">
+<div class="box" id="org5c81dac">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/lua/">Lua code examples</a><br></li>
 <li><a href="https://www.lua.org/start.html">Getting started with Lua</a>, <a href="https://studio.zerobrane.com/">ZeroBrane Studio</a> and the <a href="https://love2d.org/">Löve game engine</a><br></li>
@@ -492,9 +491,9 @@ As far as I know, there are not many textbooks available, but you can use <i>the
 </div>
 </div>
 
-<div id="outline-container-org9a14cb4" class="outline-3">
-<h3 id="org9a14cb4">Clojure</h3>
-<div class="outline-text-3" id="text-org9a14cb4">
+<div id="outline-container-org5fe3c95" class="outline-3">
+<h3 id="org5fe3c95">Clojure as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org5fe3c95">
 <p>
 As a total noob, I&rsquo;ve been looking for a language with a simple syntax, because who wants to run into syntax errors all the time? Clojure is a member of the <i>Lisp</i> family; those have in fact the cleanest syntax of all programming languages. Further, it seems to be an expressive general purpose language, and it&rsquo;s designed especially with concurrency in mind.<br>
 </p>
@@ -515,7 +514,7 @@ The language is a fresh take on Lisp and well designed. But there&rsquo;s also t
 If you want to try anyway, I recommend the book &ldquo;Clojure for the Brave and True&rdquo;; ok the &ldquo;humor&rdquo; gets annoying pretty quickly, but I had a good start with it and some enlightening moments. Well, the book convinced me also to take a look at Emacs, and I&rsquo;m a fanatic Emacs user since then.<br>
 </p>
 
-<div class="box" id="orgdc2f543">
+<div class="box" id="org9ff915b">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/clojure/">Clojure code examples</a><br></li>
 <li><a href="https://clojure.org/guides/getting_started">Getting started with Clojure</a><br></li>
@@ -529,9 +528,9 @@ If you want to try anyway, I recommend the book &ldquo;Clojure for the Brave and
 </div>
 </div>
 
-<div id="outline-container-org7fc2ce2" class="outline-3">
-<h3 id="org7fc2ce2">Common Lisp</h3>
-<div class="outline-text-3" id="text-org7fc2ce2">
+<div id="outline-container-org001414e" class="outline-3">
+<h3 id="org001414e">Common Lisp as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org001414e">
 <p>
 My initial reason for me to use a programming language wasn&rsquo;t to write applications. Actually I wanted just a better calculator. A REPL makes a way better calculator than the silly concept of an interface resembling a physical pocket calculator with big buttons and a single line display.<br>
 </p>
@@ -563,7 +562,7 @@ But usually you want it on your laptop. There are plugins for <a href="https://a
 – then copy &amp; paste works like everywhere else.<br>
 </p>
 
-<div class="box" id="org6dcc907">
+<div class="box" id="org36580d9">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/common-lisp/">Common Lisp code examples</a><br></li>
 <li><a href="https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/">Getting started with Common Lisp</a> and <a href="https://portacle.github.io/">the Portacle IDE</a><br></li>
@@ -578,9 +577,9 @@ But usually you want it on your laptop. There are plugins for <a href="https://a
 </div>
 </div>
 
-<div id="outline-container-org5fa8b5c" class="outline-3">
-<h3 id="org5fa8b5c">Scheme and Racket</h3>
-<div class="outline-text-3" id="text-org5fa8b5c">
+<div id="outline-container-org476ed7e" class="outline-3">
+<h3 id="org476ed7e">Scheme or Racket as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org476ed7e">
 <p>
 Pleasantly surprised by Clojure and Common Lisp, I&rsquo;ve looked up other languages from the Lisp family. Scheme is commonly recommended to beginners, especially for those who are interested in computer science. <a href="https://www.micahcantor.com/blog/why-learn-racket/">Why learn Racket? A student&rsquo;s perspective</a><br>
 </p>
@@ -617,7 +616,7 @@ I&rsquo;ve also began to read &ldquo;How to Design Programs&rdquo;, which is sup
 You can get started very easily with Scheme and Racket – one single install and go, no matter if you are on Windows, Linux or Mac. You don&rsquo;t even have to be familiar with the command line, because it comes with DrRacket, a friendly and easy to use programming environment (IDE).<br>
 </p>
 
-<div class="box" id="org2784cf9">
+<div class="box" id="org36e8aaf">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/racket/">Racket code examples</a><br></li>
 <li><a href="https://docs.racket-lang.org/quick/index.html">Getting started with Scheme or Racket and the DrRacket IDE</a><br></li>
@@ -641,9 +640,9 @@ You can get started very easily with Scheme and Racket – one single install an
 </div>
 </div>
 
-<div id="outline-container-org9caba09" class="outline-3">
-<h3 id="org9caba09">Erlang and Elixir</h3>
-<div class="outline-text-3" id="text-org9caba09">
+<div id="outline-container-org0b496bf" class="outline-3">
+<h3 id="org0b496bf">Erlang or Elixir as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org0b496bf">
 <p>
 The Erlang platform is building block of today&rsquo;s telecommunication networks. Your mobile provider&rsquo;s infrastructure runs likely on Erlang, and so does WhatsApp. Erlang is not just a programming language, but more like an operating system to write forever-running network applications. The whole point behind Erlang is to build fault-tolerant systems – it&rsquo;s all about error handling and staying online no matter what. <a href="https://adoptingerlang.org/docs/development/otp_high_level/">For more details on what the Erlang platform is, check this out</a>.<br>
 </p>
@@ -680,7 +679,7 @@ Like with other hosted languages (Clojure on Java, Elm on JavaScript, …), the 
 Erlang or Elixir or both? You&rsquo;ll come pretty far with Elixir alone before you really need to dive into the platform technology. And once you are there, you&rsquo;ll have to develop an understanding of Erlang the language too, because the Erlang platform is explained in terms of Erlang the language, not in terms of Elixir.<br>
 </p>
 
-<div class="box" id="orgf1050ed">
+<div class="box" id="orgf6dabdd">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/erlang/">Erlang code examples</a><br></li>
 <li><a href="https://learnxinyminutes.com/docs/elixir/">Elixir code examples</a><br></li>
@@ -696,9 +695,9 @@ Erlang or Elixir or both? You&rsquo;ll come pretty far with Elixir alone before 
 </div>
 </div>
 
-<div id="outline-container-org05dfa5a" class="outline-3">
-<h3 id="org05dfa5a">JavaScript</h3>
-<div class="outline-text-3" id="text-org05dfa5a">
+<div id="outline-container-org4452f2c" class="outline-3">
+<h3 id="org4452f2c">JavaScript as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org4452f2c">
 <p>
 With JavaScript, you can build all kind of things in the browser and show it to your internet friends, without having them to download or install anything. JavaScript is the only language browsers support directly, still – and that&rsquo;s why everybody and their dog&rsquo;s fleas are coding JavaScript.<br>
 </p>
@@ -723,7 +722,7 @@ For me, it&rsquo;s a verbose frankenstein language that&rsquo;s a pain to read. 
 If you just would like to build web apps or browser games, you do have other choices (check out Elm down below) but eventually you need to know JavaScript – but maybe not necessarily learn it as your very first language.<br>
 </p>
 
-<div class="box" id="orgf749432">
+<div class="box" id="orgfdd9e78">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/javascript/">JavaScript code examples</a><br></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics">Getting started with JavaScript</a> and <a href="http://xahlee.info/js/javascript_basics.html">get a nice introduction with this tutorial</a><br></li>
@@ -737,9 +736,9 @@ If you just would like to build web apps or browser games, you do have other cho
 </div>
 </div>
 
-<div id="outline-container-org001775b" class="outline-3">
-<h3 id="org001775b">Elm</h3>
-<div class="outline-text-3" id="text-org001775b">
+<div id="outline-container-org2aa7919" class="outline-3">
+<h3 id="org2aa7919">Elm as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org2aa7919">
 <p>
 Elm is a descendant of OCaml and Haskell that compiles to JavaScript: You write your website&rsquo;s code in Elm, and then the Elm compiler writes the JavaScript for you, so that your web browser can run it. If that sounds like it makes no sense, think about it this way: All programming languages compile down to another language on a lower level anyway, and those again and again, until your code&rsquo;s representation is only 11010101. Elm is just another layer on top.<br>
 </p>
@@ -764,7 +763,7 @@ Elm comes with an easy installation and convenient tooling. The language is nice
 If I like Elm but it&rsquo;s a browser-only language, why not learn &ldquo;the real thing&rdquo; – Haskell or OCaml?<br>
 </p>
 
-<div class="box" id="orgca5e600">
+<div class="box" id="orged0df60">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/elm/">Elm code examples</a><br></li>
 <li><a href="https://elm-lang.org/">Getting startet with Elm</a><br></li>
@@ -778,9 +777,9 @@ If I like Elm but it&rsquo;s a browser-only language, why not learn &ldquo;the r
 </div>
 </div>
 
-<div id="outline-container-orgbd98aa1" class="outline-3">
-<h3 id="orgbd98aa1">Haskell</h3>
-<div class="outline-text-3" id="text-orgbd98aa1">
+<div id="outline-container-org1212b0a" class="outline-3">
+<h3 id="org1212b0a">Haskell as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org1212b0a">
 <p>
 Contrary to popular belief, basic Haskell is quite easy to pick up; that&rsquo;s even more true for a person who hasn&rsquo;t programmed before. It may be less straightforward for experienced developers, since they have preconceptions about programming.<br>
 </p>
@@ -809,7 +808,7 @@ But if you go a bit further and want some more convenience and install libraries
 Not all hope is lost: If you want to get into functional programming, you&rsquo;re probably better off to start with OCaml (see below) which I think is a far better <i>first programming language</i>. You can still move on to Haskell later, if you feel like.<br>
 </p>
 
-<div class="box" id="org3b2f40e">
+<div class="box" id="org3f8cb2d">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/haskell/">Haskell code examples</a><br></li>
 <li><a href="https://docs.haskellstack.org/en/stable/README/">Getting started with Haskell (using Stack)</a><br></li>
@@ -824,9 +823,9 @@ Not all hope is lost: If you want to get into functional programming, you&rsquo;
 </div>
 </div>
 
-<div id="outline-container-org9a82e7c" class="outline-3">
-<h3 id="org9a82e7c">OCaml</h3>
-<div class="outline-text-3" id="text-org9a82e7c">
+<div id="outline-container-orgf7ff25c" class="outline-3">
+<h3 id="orgf7ff25c">OCaml as a first Programming Language</h3>
+<div class="outline-text-3" id="text-orgf7ff25c">
 <p>
 OCaml is in the same family as Elm and Haskell, but has less ideological ballast, is pragmatic, although still not as popular. How come? OCaml&rsquo;s main point of criticism in the past was its lack of practical tooling. But a lot has happened: Meanwhile, the editor support and interactive (REPL-driven) development experience in OCaml is op par with Haskell or even better.<br>
 </p>
@@ -843,7 +842,7 @@ OCaml syntax is very similar to Haskell&rsquo;s syntax, but leaves more room to 
 The language is heavily geared towards unix-like systems (Linux and MacOS), and has an automatic user-setup routine for Emacs and Vim. OCaml works also pretty well on Windows, but within the <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">WSL (Windows Subsystem for Linux)</a>. If you use WSL 1 You may run into a minor issue during the installing process because of WSL&rsquo;s limitations; anyway, <a href="https://github.com/ocaml/opam-repository/issues/12050#issuecomment-393478072">there&rsquo;s a workaround</a> for that. If you feel the urge to write native Windows apps, you might want to look into F# (F Sharp), which is essentially a modified OCaml clone by Microsoft that runs on the .NET platform.<br>
 </p>
 
-<div class="box" id="org6fe3882">
+<div class="box" id="org837fe4f">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/ocaml/">OCaml code examples</a><br></li>
 <li><a href="https://ocaml.org/docs/up-and-running">Getting started with OCaml</a><br></li>
@@ -859,9 +858,9 @@ The language is heavily geared towards unix-like systems (Linux and MacOS), and 
 </div>
 </div>
 
-<div id="outline-container-org063cd91" class="outline-3">
-<h3 id="org063cd91">Python</h3>
-<div class="outline-text-3" id="text-org063cd91">
+<div id="outline-container-org3711d1e" class="outline-3">
+<h3 id="org3711d1e">Python as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org3711d1e">
 <p>
 It is one of the most popular languages right now, and that&rsquo;s probably Python&rsquo;s biggest benefit. So if there&rsquo;s something programmable, like say, maybe an educational drone, then it has likely a Python interface.<br>
 </p>
@@ -887,10 +886,10 @@ Beginners should not put blinkers on and march &rsquo;the pythonic way&rsquo;, b
 </p>
 
 <p>
-If you want a powerful scripting language which is easier to learn, compact and highly performant, you may have fun with <a href="#orgc121ac5">Lua</a>. And if popularity is still such a thing for you after <a href="#org7f36869">reading this</a>, you might be better off with <a href="#org05dfa5a">JavaScript</a>.<br>
+If you want a powerful scripting language which is easier to learn, compact and highly performant, you may have fun with <a href="#org6b4d740">Lua</a>. And if popularity is still such a thing for you after <a href="#org7f36869">reading this</a>, you might be better off with <a href="#org4452f2c">JavaScript</a>.<br>
 </p>
 
-<div class="box" id="org387f48a">
+<div class="box" id="org23be847">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/python/">Python code examples</a><br></li>
 <li><a href="https://www.python.org/about/gettingstarted/">Getting started with Python</a><br></li>
@@ -905,9 +904,9 @@ If you want a powerful scripting language which is easier to learn, compact and 
 </div>
 </div>
 
-<div id="outline-container-orge3c4d4e" class="outline-3">
-<h3 id="orge3c4d4e">Julia</h3>
-<div class="outline-text-3" id="text-orge3c4d4e">
+<div id="outline-container-org656b9e7" class="outline-3">
+<h3 id="org656b9e7">Julia as a first Programming Language</h3>
+<div class="outline-text-3" id="text-org656b9e7">
 <p>
 Julia is being developed as a pragmatic high performance vehicle for technical and scientific computing, as an alternative to Python, Fortran, R and other languages used in the field. I would say its not a language to build neither ready-to-ship software nor small programs, but more like a system to run your computing tasks in.<br>
 </p>
@@ -917,10 +916,10 @@ It&rsquo;s still a young language, but eagerly promoted by a couple of organizat
 </p>
 
 <p>
-Julia&rsquo;s REPL is quite powerful (maybe second to Common Lisp&rsquo;s REPL) and allows a high level of interactivity. The language looks friendly and easy to start with, and you should definitely check it out if you&rsquo;re a student and work in &ldquo;data science&rdquo;, statistics, numerical computing or want to plot some stuff (<a href="#org5fa8b5c">Racket</a> shines here, too).<br>
+Julia&rsquo;s REPL is quite powerful (maybe second to Common Lisp&rsquo;s REPL) and allows a high level of interactivity. The language looks friendly and easy to start with, and you should definitely check it out if you&rsquo;re a student and work in &ldquo;data science&rdquo;, statistics, numerical computing or want to plot some stuff (<a href="#org476ed7e">Racket</a> shines here, too).<br>
 </p>
 
-<div class="box" id="org9c4de55">
+<div class="box" id="org2737f53">
 <ul class="org-ul">
 <li><a href="https://learnxinyminutes.com/docs/julia/">Julia code examples</a><br></li>
 <li><a href="https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started">Getting started with Julia</a><br></li>
@@ -947,11 +946,11 @@ Julia&rsquo;s REPL is quite powerful (maybe second to Common Lisp&rsquo;s REPL) 
 <h3 id="org1ea9b3b">The 3 best Programming Languages to learn Programming</h3>
 <div class="outline-text-3" id="text-org1ea9b3b">
 <ol class="org-ol">
-<li><a href="#org5fa8b5c"><b>Racket</b></a> has the lowest entry barrier if you have not touched any code yet, but is also the most feature rich. It can teach you all the mind exploding concepts, comes with educational books and exceptional documentation. It&rsquo;s also quite academic (oh, I said the A-word :P) and not used in industrial settings. But you can build shiny things with it, that is what counts.<br></li>
+<li><a href="#org476ed7e"><b>Racket</b></a> has the lowest entry barrier if you have not touched any code yet, but is also the most feature rich. It can teach you all the mind exploding concepts, comes with educational books and exceptional documentation. It&rsquo;s also quite academic (oh, I said the A-word :P) and not used in industrial settings. But you can build shiny things with it, that is what counts.<br></li>
 
-<li><a href="#org9a82e7c"><b>OCaml</b></a> emphasizes functional programming but supports multiple paradigms, so it can give you a well-rounded education. It is a modern functional language used in academics and in the industry to build mission-critical software. Not sooo much hand-holding here, but a language without WTFs where just everything seems to make sense.<br></li>
+<li><a href="#orgf7ff25c"><b>OCaml</b></a> emphasizes functional programming but supports multiple paradigms, so it can give you a well-rounded education. It is a modern functional language used in academics and in the industry to build mission-critical software. Not sooo much hand-holding here, but a language without WTFs where just everything seems to make sense.<br></li>
 
-<li><a href="#orgc121ac5"><b>Lua</b></a> may not teach you all those fancy concepts like Racket and OCaml right upfront. But being minimalist <i>and</i> powerful, you will be able to start quite small and build on it while up in the air. Lua is practical: it has the smallest footprint, runs everywhere and is used for a wide spectrum of things.<br></li>
+<li><a href="#org6b4d740"><b>Lua</b></a> may not teach you all those fancy concepts like Racket and OCaml right upfront. But being minimalist <i>and</i> powerful, you will be able to start quite small and build on it while up in the air. Lua is practical: it has the smallest footprint, runs everywhere and is used for a wide spectrum of things.<br></li>
 </ol>
 </div>
 </div>
@@ -960,7 +959,7 @@ Julia&rsquo;s REPL is quite powerful (maybe second to Common Lisp&rsquo;s REPL) 
 <h3 id="org0d428ec">My personal Choice (C&rsquo;mon eat the damn Dog Food already!)</h3>
 <div class="outline-text-3" id="text-org0d428ec">
 <p>
-When I was looking around for learning material, I found this one to be <a href="https://amzn.to/308BHa0">my favorite programming book</a>. I&rsquo;ve had a hard time choosing, and honestly I&rsquo;m still torn between <a href="#org7fc2ce2">Common Lisp</a>&rsquo;s &ldquo;code is data, data is code&rdquo; and interactive programming style vs. <a href="#org9a82e7c">OCaml</a>&rsquo;s superior readability.<br>
+When I was looking around for learning material, I found this one to be <a href="https://amzn.to/308BHa0">my favorite programming book</a>. I&rsquo;ve had a hard time choosing, and honestly I&rsquo;m still torn between <a href="#org001414e">Common Lisp</a>&rsquo;s &ldquo;code is data, data is code&rdquo; and interactive programming style vs. <a href="#orgf7ff25c">OCaml</a>&rsquo;s superior readability.<br>
 </p>
 
 <p>
@@ -979,7 +978,7 @@ Besides that: for me, being a Emacs user, it makes sense to learn Lisp, since Em
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Last updated: <span class="date">2022-10-21 Fri 15:26</span></p>
+<p class="footer">Last updated: <span class="date">2023-03-21 Tue 21:02</span></p>
 </div>
 </body>
 </html>

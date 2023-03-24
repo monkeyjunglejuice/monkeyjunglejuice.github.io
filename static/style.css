@@ -1,22 +1,19 @@
-/* GENERAL *******************************************************************/
-
 /* Based on Sakura.css v1.3.0 https://github.com/oxalorg/sakura */
 
+/* GENERAL *******************************************************************/
+
 html {
-  background-color: #fff8dc;
-  font-family: 'Spectral', serif;
+  background-color: #fffdee;
   font-size: 62.5%; /* = 10px */
   scroll-behavior: smooth;
 }
 
 body {
   color: #343327;
-  font-size: 2.2rem;
+  font-family: 'Gentium Book Plus', serif;
+  font-size: 2.3rem;
   font-weight: 400;
   line-height: 1.4;
-  margin: auto;
-  max-width: 38em;
-  padding: 13px;
 }
 
 @media (max-width: 684px) {
@@ -45,10 +42,10 @@ h6 {
 }
 
 h1 {
-  font-family: 'Spectral', sans-serif;
-  font-size: 2.2em;
-  font-weight: 300;
-  line-height: 1.2;
+  font-family: 'Cormorant', 'Gentium Plus', sans-serif;
+  font-size: 3.3em;
+  font-weight: 100;
+  line-height: 1.1;
   margin-bottom: 4.5rem;
   margin-top: 5rem;
   padding-left: 5%;
@@ -56,7 +53,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Spectral SC', sans-serif;
+  font-family: 'Gentium Plus', sans-serif;
   font-size: 1.4em;
   font-weight: 600;
   line-height: 1.2;
@@ -68,7 +65,7 @@ h2 {
 }
 
 h3 {
-  font-family: 'Spectral SC', sans-serif;
+  font-family: 'Gentium Plus', sans-serif;
   font-size: 1.2em;
   font-weight: 600;
   line-height: 1.2;
@@ -77,7 +74,7 @@ h3 {
 }
 
 h4 {
-  font-family: 'Spectral', sans-serif;
+  font-family: 'Gentium Plus', sans-serif;
   font-size: 1em;
   font-weight: 600;
   margin-bottom: 2rem;
@@ -86,7 +83,7 @@ h4 {
 
 h5,
 h6 {
-  font-family: 'Spectral', sans-serif;
+  font-family: 'Gentium Book Plus', sans-serif;
   font-size: 1em;
   font-weight: 400;
   margin-bottom: 2rem;
@@ -143,8 +140,9 @@ ol {
 /* } */
 
 blockquote {
+  border-left: 1px dashed;
   font-style: italic;
-  margin: 0;
+  margin-left: 1.5em;
 }
 
 cite {
@@ -167,11 +165,12 @@ img {
 pre {
   background-color: transparent;
   border-color: #000;
-  border-style: dashed;
+  border-style: dotted;
   border-width: 0 0 0 1px;
   box-shadow: none;
   display: block;
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'mononoki', monospace;
+  font-feature-settings: "ss01" 1;
   font-size: 0.85em;
   margin: 0 0 2rem 0;
   margin-top: 0;
@@ -181,9 +180,12 @@ pre {
 }
 
 code {
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'mononoki', monospace;
+  font-feature-settings: "ss01" 1;
   font-size: 0.85em;
   white-space: nowrap;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
 }
 
 pre > code {
@@ -199,9 +201,6 @@ hr {
 }
 
 table {
-  border: 1px dotted #343327;
-  font-family: 'Source Code Pro', monospace;
-  font-weight: 400;
   margin-bottom: 2rem;
   width: 100%
 }
@@ -307,19 +306,19 @@ label,
 legend,
 fieldset {
   display: block;
+  font-family: "Gentium Plus";
+  font-feature-settings: "smcp" 1;
+  font-size: 0.75em;
   font-weight: 500;
+  letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
 }
 
 /* IDs AND CLASSES ***********************************************************/
 
-#site-name {
-    float: left;
-    font-weight: 800;
-}
-
 #preamble {
   border-bottom: 1px dotted;
+  padding: 0.5em 0.5em 0 0.5em;
 }
 
 #preamble nav {
@@ -336,9 +335,15 @@ fieldset {
   border-bottom: 0 none;
 }
 
+#site-name {
+  float: left;
+  font-weight: 800;
+}
+
 #postamble {
   border-top: 1px dotted;
   margin-top: 5rem;
+  padding: 0 0.5em 0.5em 0.5em;
 }
 
 #postamble p.footer {
@@ -347,9 +352,24 @@ fieldset {
   text-align: center;
 }
 
-#content header {
+#content {
+  padding: 0 .5em 0 .5em;
+}
+
+#content > header {
   border-bottom: 1px dotted;
   margin-bottom: 5rem;
+  max-width: 100%;
+}
+
+#content header p {
+  padding: 0;
+}
+
+#content > * {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 36em;
 }
 
 #content p {
@@ -357,8 +377,13 @@ fieldset {
   padding-right: 1.5em;
 }
 
-#content header p {
-  padding: 0;
+#content ul,
+#content ol {
+  padding-right: 1.5em;
+}
+
+#content blockquote p {
+  padding-right: 0
 }
 
 #content figure img {
@@ -382,8 +407,10 @@ fieldset {
 }
 
 .subtitle {
+  font-family: 'mononoki', monospace;
+  font-feature-settings: "ss01" 1;
   font-size: 0.75em;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0;
   margin-top: 0;
   text-align: center;
@@ -408,7 +435,6 @@ fieldset {
 .index {
   font-weight: 400;
   margin-bottom: 5rem;
-  padding-left: 1.5em;
 }
 
 .index ul {
@@ -416,23 +442,35 @@ fieldset {
   margin-bottom: 1.5rem;
 }
 
+.index table {
+  font-family: 'Gentium Book Plus';
+}
+
+.index tbody tr :nth-child(1) {
+  min-width: 2ch;
+}
+.index tbody tr :nth-child(2) {
+  width: 100%;
+}
+
 .center {
   text-align: center;
 }
 
 blockquote.center {
-  padding-left: 1.5em;
   padding-right: 1.5em;
+  border: 0;
 }
 
 .box {
   border: 1px dotted #000;
-  font-weight: bolder;
   margin-bottom: 5rem;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
   margin-top: 2rem;
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  padding-top: 1.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 2rem;
 }
 
 .box li li {
@@ -448,8 +486,10 @@ blockquote.center {
 }
 
 #table-of-contents h2 {
+  font-feature-settings: "smcp" 1;
   font-size: 0.75em;
   font-weight: 400;
+  letter-spacing: 0.05em;
   margin-bottom: 2rem;
   padding-left: 0;
   padding-right: 0;
@@ -472,19 +512,23 @@ pre.src::before {
   border-radius: 1em;
   border: 0 none;
   color: #000c;
+  font-family: "Gentium Book Plus";
+  font-feature-settings: "smcp" 1;
   font-size: 0.75em;
   font-weight: 400;
+  letter-spacing: 0.05em;
   padding: 0 0.4em;
   right: 0;
   top: -5px;
 }
 
-.org-src-name {
-  color: #000c;
-  display: initial;
-  font-size: 0.75em;
-  font-weight: initial;
-}
+/* .org-src-name { */
+/*   color: #000c; */
+/*   display: initial; */
+/*   font-feature-settings: "smcp" 1; */
+/*   font-size: 0.75em; */
+/*   letter-spacing: 0.05em; */
+/* } */
 
 ::selection {
   background: #c3eed2;
