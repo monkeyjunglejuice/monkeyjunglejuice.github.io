@@ -450,9 +450,9 @@ fieldset {
   min-width: 2ch;
 }
 
-.index tbody tr :nth-child(2) {
-  width: 100%;
-}
+/* .index tbody tr :nth-child(2) { */
+/*   width: 100%; */
+/* } */
 
 .index tbody tr :last-child {
   white-space: nowrap;
