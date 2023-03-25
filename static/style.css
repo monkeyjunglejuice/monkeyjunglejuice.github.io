@@ -446,11 +446,16 @@ fieldset {
   font-family: 'Gentium Book Basic';
 }
 
-.index tbody tr :nth-child(1) {
+.index tbody tr :first-child {
   min-width: 2ch;
 }
+
 .index tbody tr :nth-child(2) {
   width: 100%;
+}
+
+.index tbody tr :last-child {
+  hyphens: none;
 }
 
 .center {
