@@ -130,11 +130,6 @@ ol {
   padding-left: 1.5em;
 }
 
-/* li ul, */
-/* li ol { */
-/*   margin-bottom: 0; */
-/* } */
-
 blockquote {
   border-left: 1px dashed;
   font-style: italic;
@@ -450,8 +445,7 @@ fieldset {
 .index th:nth-child(2),
 .index td:nth-child(2) {
   width: 100%;
-  word-wrap: break-word;
-}
+ }
 
 .index th:last-child,
 .index td:last-child {
@@ -526,14 +520,6 @@ pre.src::before {
   right: 0;
   top: -5px;
 }
-
-/* .org-src-name { */
-/*   color: #000c; */
-/*   display: initial; */
-/*   font-feature-settings: "smcp" 1; */
-/*   font-size: 0.75em; */
-/*   letter-spacing: 0.05em; */
-/* } */
 
 ::selection {
   background: #c3eed2;
