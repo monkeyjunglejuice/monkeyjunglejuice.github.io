@@ -455,7 +455,7 @@ fieldset {
 }
 
 .index tbody tr :last-child {
-  word-break: keep-all;
+  white-space: nowrap;
 }
 
 .center {
