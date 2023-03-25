@@ -34,11 +34,7 @@ h3,
 h4,
 h5,
 h6 {
-  -ms-word-break: break-all;
   hyphens: none;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  word-wrap: break-word;
 }
 
 h1 {
@@ -446,15 +442,19 @@ fieldset {
   font-family: 'Gentium Book Basic';
 }
 
-.index tbody tr :first-child {
+.index th:first-child,
+.index td:first-child {
   min-width: 2ch;
 }
 
-/* .index tbody tr :nth-child(2) { */
-/*   width: 100%; */
-/* } */
+.index th:nth-child(2),
+.index td:nth-child(2) {
+  width: 100%;
+  word-wrap: break-word;
+}
 
-.index tbody tr :last-child {
+.index th:last-child,
+.index td:last-child {
   white-space: nowrap;
 }
 
