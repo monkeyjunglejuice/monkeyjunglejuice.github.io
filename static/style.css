@@ -455,7 +455,9 @@ fieldset {
 }
 
 .index tbody tr :last-child {
-  hyphens: none;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .center {
