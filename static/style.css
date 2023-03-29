@@ -162,7 +162,7 @@ pre {
   display: block;
   font-family: 'mononoki', monospace;
   font-feature-settings: "ss01" 1;
-  font-size: 0.85em;
+  font-size: 0.90em;
   margin: 0 0 2rem 0;
   margin-top: 0;
   overflow: visible;
@@ -173,7 +173,7 @@ pre {
 code {
   font-family: 'mononoki', monospace;
   font-feature-settings: "ss01" 1;
-  font-size: 0.85em;
+  font-size: 0.90em;
   white-space: nowrap;
   padding-left: 0.4em;
   padding-right: 0.4em;

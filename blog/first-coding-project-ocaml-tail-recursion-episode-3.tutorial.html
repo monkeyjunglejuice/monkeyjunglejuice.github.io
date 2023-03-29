@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-03-25 Sat 10:30 -->
+<!-- 2023-03-25 Sat 13:23 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Eat my huge Files: Tail Recursion in OCaml</title>
@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
-<script defer src="/static/head.js"></script>
+<script defer src="/static/header.js"></script>
 <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">
 </head>
 <body>
@@ -276,7 +276,7 @@ sum [1; 2; 3; 4; 5]<span class="org-tuareg-font-double-semicolon">;;</span>     
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="org0ff7287">
+<pre class="example" id="org9e36bf4">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -355,7 +355,7 @@ sum [1; 2; 3; 4; 5]<span class="org-tuareg-font-double-semicolon">;;</span>   <s
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="org31d548a">
+<pre class="example" id="org909a224">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -676,9 +676,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </div>
 </div>
 
-<div id="outline-container-org63995bc" class="outline-4">
-<h4 id="org63995bc">What is it doing?</h4>
-<div class="outline-text-4" id="text-org63995bc">
+<div id="outline-container-org895cd19" class="outline-4">
+<h4 id="org895cd19">What is it doing?</h4>
+<div class="outline-text-4" id="text-org895cd19">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> : 'a list -&gt; ('a * 'b) list -&gt; ('a * 'b) list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -877,9 +877,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </div>
 </div>
 
-<div id="outline-container-org895cd19" class="outline-4">
-<h4 id="org895cd19">What is it doing?</h4>
-<div class="outline-text-4" id="text-org895cd19">
+<div id="outline-container-org28cdf1b" class="outline-4">
+<h4 id="org28cdf1b">What is it doing?</h4>
+<div class="outline-text-4" id="text-org28cdf1b">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : ('a * 'a) list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -1383,7 +1383,7 @@ Hope you enjoyed the walktrough. Suggestions are always welcome!<br>
 </div>
 <div id="postamble" class="status">
 <p class="footer">Last updated: <span class="date">2023-03-24 Fri 20:12</span></p>
-<script defer src="/static/foot.js"></script>
+<script defer src="/static/footer.js"></script>
 </div>
 </body>
 </html>
