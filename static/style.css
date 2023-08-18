@@ -10,10 +10,10 @@ html {
 
 body {
   color: #343327;
-  font-family: 'Gentium Book Basic', serif;
+  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', serif;
   font-size: 2.3rem;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.7;
 }
 
 @media (max-width: 684px) {
@@ -38,9 +38,9 @@ h6 {
 }
 
 h1 {
-  font-family: 'Cormorant', 'Gentium Book Basic', serif;
-  font-size: 3.3em;
-  font-weight: 200;
+  font-family: 'Cormorant', 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
+  font-size: 3.6em;
+  font-weight: 100;
   line-height: 1.1;
   margin-bottom: 4.5rem;
   margin-top: 5rem;
@@ -49,8 +49,8 @@ h1 {
 }
 
 h2 {
-  font-family: 'Gentium Book Basic', serif;
-  font-size: 1.4em;
+  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
+  font-size: 3.7rem;
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 4.5rem;
@@ -61,28 +61,28 @@ h2 {
 }
 
 h3 {
-  font-family: 'Gentium Book Basic', serif;
-  font-size: 1.2em;
+  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
+  font-size: 2.9rem;
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: 2rem;
+  margin-bottom: 2.3rem;
   margin-top: 5rem;
 }
 
 h4 {
-  font-family: 'Gentium Book Basic', serif;
+  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
   font-size: 1em;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 2.3rem;
   margin-top: 5rem;
 }
 
 h5,
 h6 {
-  font-family: 'Gentium Book Basic', serif;
+  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
   font-size: 1em;
   font-weight: 400;
-  margin-bottom: 2rem;
+  margin-bottom: 2.3rem;
   margin-top: 5rem;
 }
 
@@ -108,7 +108,7 @@ a:active {
 }
 
 p {
-  margin-bottom: 2rem;
+  margin-bottom: 1em;
   margin-top: 0;
 }
 
@@ -125,7 +125,7 @@ sup {
 
 ul,
 ol {
-  margin-bottom: 2rem;
+  margin-bottom: 1em;
   margin-top: 0;
   padding-left: 1.5em;
 }
@@ -156,6 +156,7 @@ img {
 pre {
   background-color: transparent;
   border-color: #000;
+  border-radius: 0;
   border-style: dotted;
   border-width: 0 0 0 1px;
   box-shadow: none;
@@ -163,12 +164,18 @@ pre {
   font-family: 'mononoki', monospace;
   font-feature-settings: "ss01" 1;
   font-size: 0.90em;
+  line-height: 1.3;
   margin: 0 0 2rem 0;
   margin-top: 0;
   overflow: visible;
   padding: 1.5em 0 1.5em 1.5em;
   word-break: keep-all;
 }
+
+/* pre:hover, pre:focus {  */
+/*   width: min-content; */
+/*   border-right: 0; */
+/* } */
 
 code {
   font-family: 'mononoki', monospace;
@@ -192,6 +199,9 @@ hr {
 }
 
 table {
+  font-family: 'mononoki', monospaced;
+  font-feature-settings: "ss01" 1;
+  font-size: 0.90em;
   margin-bottom: 2rem;
   width: 100%
 }
@@ -351,6 +361,7 @@ fieldset {
   border-bottom: 1px dotted;
   margin-bottom: 5rem;
   max-width: 100%;
+  padding-top: 5rem;
 }
 
 #content header p {
@@ -397,6 +408,10 @@ fieldset {
   text-align: center;
 }
 
+h1.title {
+  margin-top: 0;
+}
+
 .subtitle {
   font-family: 'mononoki', monospace;
   font-feature-settings: "ss01" 1;
@@ -434,7 +449,8 @@ fieldset {
 }
 
 .index table {
-  font-family: 'Gentium Book Basic';
+  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', serif;
+  font-size: 1em;
 }
 
 .index th:first-child,
@@ -511,7 +527,7 @@ pre.src::before {
   border-radius: 1em;
   border: 0 none;
   color: #000c;
-  font-family: "Gentium Book Basic";
+  font-family: "Gentium Book Basic", 'Hoefler Text', 'Garamond', serif;
   font-feature-settings: "smcp" 1;
   font-size: 0.75em;
   font-weight: 400;

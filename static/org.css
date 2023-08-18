@@ -1,7 +1,11 @@
 /* ORG-PUBLISH DEFAULT STYLE *************************************************/
 
-/* Version 9.1.9 */
-
+.title  { text-align: center;
+          margin-bottom: .2em; }
+.subtitle { text-align: center;
+            font-size: medium;
+            font-weight: bold;
+            margin-top:0; }
 .todo   { font-family: monospace; color: red; }
 .done   { font-family: monospace; color: green; }
 .priority { font-family: monospace; color: orange; }
@@ -16,32 +20,32 @@
 #postamble p, #preamble p { font-size: 90%; margin: .2em; }
 p.verse { margin-left: 3%; }
 pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
+  border: 1px solid #e6e6e6;
+  border-radius: 3px;
+  background-color: #f2f2f2;
+  padding: 8pt;
+  font-family: monospace;
+  overflow: auto;
+  margin: 1.2em;
 }
 pre.src {
-    position: relative;
-    overflow: visible;
-    color: #343327;
-    /* padding-top: 1.2em; */
+  position: relative;
+  /* overflow: auto; */
 }
 pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
+  display: none;
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  padding: 3px;
+  color: #555;
+  background-color: #f2f2f299;
 }
-pre.src:hover:before { display: inline;}
+pre.src:hover:before { display: inline; margin-top: 14px;}
 /* Languages per Org manual */
 pre.src-asymptote:before { content: 'Asymptote'; }
 pre.src-awk:before { content: 'Awk'; }
+pre.src-authinfo::before { content: 'Authinfo'; }
 pre.src-C:before { content: 'C'; }
 /* pre.src-C++ doesn't work in CSS */
 pre.src-clojure:before { content: 'Clojure'; }
@@ -147,11 +151,24 @@ dt { font-weight: bold; }
 .footdef  { margin-bottom: 1em; }
 .figure { padding: 1em; }
 .figure p { text-align: center; }
+.equation-container {
+  display: table;
+  text-align: center;
+  width: 100%;
+}
+.equation {
+  vertical-align: middle;
+}
+.equation-label {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
 .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
+  padding: 10px;
+  border: 2px solid gray;
+  margin: 10px;
+  background: #ffffcc;
 }
 #org-div-home-and-up
 { text-align: right; font-size: 70%; white-space: nowrap; }
@@ -163,8 +180,7 @@ textarea { overflow-x: auto; }
 { font-size: 10px; font-weight: bold; white-space: nowrap; }
 .org-info-js_search-highlight
 { background-color: #ffff00; color: #000000; font-weight: bold; }
-.org-svg { width: 90%; }
-
+.org-svg { }
 
 /* ORG HTMLIZE CSS ***********************************************************/
 
