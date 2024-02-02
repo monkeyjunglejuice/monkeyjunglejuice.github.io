@@ -2,3 +2,6 @@
 *~
 *.draft.*
 /test.html
+/.stfolder
+/.DS_Store
+/test.org
