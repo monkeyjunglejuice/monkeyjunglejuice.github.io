@@ -1,0 +1,68 @@
+#+TITLE: The Protoverse Project
+#+DATE: <2023-08-22 Tue>
+#+SUBTITLE: Introduction
+#+LANGUAGE: en
+#+DESCRIPTION: Creating an alternate universe from scratch.
+#+KEYWORDS: computable universe, alternate reality, alife, alternative universe, non-biological evolution, selection, emergence, nonlinear dynamic systems, chaos theory, metaphysics
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/artificial-universe-introduction.project.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:2
+
+* What is This Place?
+
+*What this is /not/:*
+- has nothing to do with "metaverse"-style virtual reality;
+- this won't be simulating our universe with celestial bodies;
+- is no simulator of physical laws or quantum mechanics;
+
+The Protoverse is a computational experiment with the intent to build an artificial, abstract universe from scratch. It's not a simulation of anything, rather the actual system yet to exist.
+
+** Core Ideas
+
+The world is not made from "things", but processes --- the Protoverse represents a shift from a substantial-materialist worldview to a process-relational understanding of reality /(Process philosophy)/.
+
+*Universal Darwinism:*   --- 
+
+*Backdrop Independence:*  --- 
+
+** Project Details
+
+-  [[file:artificial-universe-metaphysics.project.org][Metaphysical Framework]]
+-  [[file:artificial-universe-engineering.project.org][Engineering]]
+-  [[file:artificial-universe-ethics.project.org][Ethical Guidelines]]
+
+* FAQ
+
+** Why?
+
+I got bored with my "learning programming for absolute beginners"-projects, so I thought maybe I should do stuff that I actually want to do. If you want, you can view it as "a beginner's first endavour in neatly entangled metaphysics, complex adaptive systems, universal darwinism, chaos theory, automata theory, quantum physics and -metaphysics, the origins of life, artificial life and beyond".
+
+Well, there are quite a bit more "whys" than just that, but they come and go. And you could even distill your own "whys" from the ideas touched upon in the [[file:artificial-universe-metaphysics.project.org][metaphysical framework]].
+
+** If it is Not Based on Physics — Then What?
+
+The Protoverse /may have/ parallels with physical models. It is purely abstract, but that doesn't mean crazy exotic or totally absurd (well, not yet). You might even find the modest [[file:artificial-universe-metaphysics.project.org][ontology]] boring. The motivation is more all-encompassing — it explores systems defined by dynamically evolving rules, regardless of the realm they have been assigned to. Its approach draws upon concepts of complexity, adaptation, and evolution to address diverse systems that can change. Hence, it's not limited to the branch of physics alone, but more about modeling a literal "possible universe" marked by dynamic complexity and evolution.
+
+** But isn't that speculation? Not Science?
+
+In a sense, speculation can be seen as a type of intellectual creativity, while creativity often involves a form of speculative thinking. Speculation can do a couple of tricks. E.g. it allows you to form theories without firm evidence. You can violate rules and play with inconherence, not unlike flying without casting a shadow for a while. It has its place in the ongoing feedback loop next to philosophical, mathematical and scientific methods, which should lead to the implementation of the Protoverse by means of engineering.
+
+** What is it good for? How can it be applied?
+
+I don't know yet (that's what I consider a fun project). The work on the Protoverse could bring up some new perspectives. Once implemented, the Protoverse could help to gain deeper insights into the nature of real-world systems and phenomena, from social/economical systems to the evolution of life and the universe itself.
+
+** How do you fund that?
+
+The Protoverse project will at any time receive the attention it deserves and the degree of funding needed.
+
+1. The first rule of the Protoverse is: You do not talk about the Protoverse.
+2. The second rule of the Protoverse is: You do not talk about the Protoverse.
+3. Third rule: Rules are subject to evolution and lead to higher-order, emergent phenomena.
+
+** Don't you have ethical concerns?
+
+I suggest to treat ethical questions not separately, but as questions arising naturally from actual phenomena, which need to be adressed in the context of the Protoverse itself. That doesn't rule out the option of /adaption/ to a broader context or other systems.
+
+From my view, it would be a futile endavour trying to work out all-encompassing, detailled ethical rules for co-existence with potential Artificial General Intelligence and non-biological life, without any knowledge /how it will be/; analogous to politicians tasked to "regulate the internet". My best guess on how AI will be: /Vastly. Diverse./)
+
+Check out the ongoing development of the [[file:artificial-universe-ethics.project.org][Ethical Guidelines for the Protoverse Project]].

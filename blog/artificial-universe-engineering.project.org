@@ -1,0 +1,219 @@
+#+TITLE: Becoming
+#+DATE: <2023-08-22 Tue>
+#+SUBTITLE: Engineering the Protoverse
+#+LANGUAGE: en
+#+DESCRIPTION: Let's build an artificial universe from scratch.
+#+KEYWORDS: computational philosophy, metaphysics, universal darwinism, alife, natural selection, emergence, nonlinear dynamic systems, chaos theory
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/embedded-universe-engineering.project.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:3
+
+#+begin_box
+*WORK IN PROGRESS ---* The aim here is to think about modeling, technical requirements and to identify helpful tools and skills. If you would like to ponder ideas, I'll be happy to chat.
+#+end_box
+
+* Prelude
+
+The Protoverse is not made from things (like particles or objects and such), but Processes (with capital 'P'). What we typically conceive of as stable entities ("things") are actually temporary aggregations of Processes and their interactions -- it's Processes all the way down. Process is the prime abstraction; uniform primitive Processes can emerge into higher-order Processes. The process-relational Protoverse is [[https://en.wikipedia.org/wiki/Background_independence][backdrop-independent]]; hence there's no a-priori time, space or gravity -- but that kind of stuff could theoretically /evolve/, darwin-style.
+
+Protoverse Processes become their own "computing substrate". As an example -- it's quite like cellular automata work, where the grid is not a pre-defined "space", but each cell's state at a given step is determined by the states of its neighbouring cells at the previous step, so that the structure of the grid is inherently linked to the operation of the automaton (this aspect is often overlooked when playing with a cellular automata within apps, as the cellular automata are always displayed in an area of a certain size).
+
+* Modeling Dynamic Structures
+
+The Protoverse has to run on digital computers, since we don't have anything more sophisticated yet. Computers operate with discrete structures -- so it would be generally easier to stick to discrete structures. But actually, I'm quite fond of fundamentally continuous structures, because the (necessary) discretization could elegantly introduce the notion of uncertainty and approximation, [[file:artificial-universe-metaphysics.project.org][as elaborated in metaphysical framework]]. Let's look at some ideas:
+
+** Cellular Automata (n-dimensional)
+Cells could be multidimensional, and also can have more than just binary ("on/off") states. Cellular automata allow for efficient parallel computation, because each cell's state depends only on its local neighboorhood, and their states are updated simultaneously. Cellular automata may not fit well, because they're inherently tied to discrete steps and a rigid a-priori concept of time and locality (well, that could be migitated by the rules -- it solely depends on how many layers one is willing to pile up on another).
+
+** Graph- or Hypergraph Rewriting
+Hypergraphs offer higher flexibility to encode (non-local) relations and interactions. Eventually, one would not just use "a hypergraph", but utilize evolving graph structures with constraints and update functions to enable and encode evolutionary dynamics. Graphs lend themselves to recursive/fractals-like structures, which corresponds to modeling nested emergent scales.
+
+** Higher-order Functions and Function Composition
+The idea here is to put aside structures like cellular automata and hypergraphs, but use just functions for dynamically evolving structures. That's pretty wild and requires careful design. Functions are idiomatic/first class in most languages, which poses little overhead — and eventually, we may end up with some kind of a graph anyway (or an unintelligible mess), because we're just abstracting the notion of structure into the behavior of functions themselves.
+
+** Language Oriented Programming (DSL)
+The idea here is to have a language representation that is subject to be utilized and evolved directly by the Protoverse Processes ("data is code, code is data"). /Everything/ then would happen on the /language level/, abstracting from stuff like functions, data structures, etc. That would certainly add semanic denseness due to the initially high level. A clearer separation of the high-level design from the lower-level implementation is appealing. The feedback loop involving design and implementation must be very tight, otherwise challenging implementation issues could show up that require extensive pivots.
+
+** Build upon an Adopted, Adapted or Self-designed Process Calculus
+A newcomer on this list: As per my current understanding, designing the Process abstraction and dynamics would result in something like a [[https://en.wikipedia.org/wiki/Process_calculus][process calculus]] anyway, just "ad hoc, informally specified, bug-ridden and half-assed".
+
+I'm aware that process calculi or algebras are considered models of computation "for" concurreny, but that's just one (albeit important) aspect -- even more interesting is that process calculi are existing formal systems to express process-relational dynamics. That's has strong DSL potential (there seem to be some implementations also).
+
+The idea is quite appealing, e.g. [[https://en.wikipedia.org/wiki/%CE%A0-calculus][π-calculus]]: there are /anonymous processes/ that communicate via named (or typed) channels. These channels can be passed around by processes through other channels, and this "mobility" allows dynamic reconfiguration of the process network. Processes can be composed into larger ones, which maps to the idea of "higher-order" Protoverse Processes. Channels might represent various "dimensions" for newly evolved means of relations (and interactions) of higher-order Processes.
+
+There's a chance that I might conflate something and be mistaken with what I said above, since I've looked into process calculi only superficially as of yet. Before deep-diving, it seems rather sensible to advance the design of the Process abstraction by own reasoning first, and reconcile afterwards.
+
+*** Bigraphs
+Today I learned that the idea above, using channels like "dimensions" seems to be the gist of /bigraphs/, modeling both the connectivity between processes (communication links) and their placement within a spatial or hierarchical context separately (location). My intuition says that there wouldn't be two distinct entities neccessary, because uniform (but typed?) channels could also represent hierarchical contexts -- but I may be confusing things here.
+
+** ... Better Ideas?
+Let me know what you think. It would be great to juggle ideas, different points of view and fresh input.
+
+* Requirements
+
+** From Metaphysics to Code
+To minimize context switching, the core langage should enable expressing the [[file:artificial-universe-metaphysics.project.org][fundamental dynamics]] closely and natively. A [[https://en.wikipedia.org/wiki/Purely_functional_programming][functional]] general-purpose language with metaprogramming and a flexible concurrency story in combination with bottom-up [[https://en.wikipedia.org/wiki/Logic_programming][logic programming]] might go a long way.
+
+** Creation and Use of Embedded DSLs
+It might be wishful thinking to achieve a close fit between code and the process-relational worldview with a general-purpose programming language alone. It's deemed necessary that unprecedented abstractions (e.g. a process calculus) can be created on top without hindrance, in form of a embedded DSL. Pivoting into different directions must be feasible (emphasis on refactoring capabilities and rather general primitives).
+
+** Exploratory Programming
+There will be no formal specification before the actual code, hence an exploratory programming style seems like the sanest approach for modeling. That sets the focus on primarily interactive use of language/platform.
+
+** Live Coding
+The programming environment/language should support conversational programming with the running live system. At this point, it's unclear how important this actually could become, relative to the tradeoffs -- because it greatly limits the number of potential programming languages. Further, increasingly interesting events are likely to happen the longer the Protoverse runs — thus, time-travel might be desired, too.
+
+** Recursion Support
+Deep recursion is likely going to play a key role, and should not have to be translated into imperative loops at the language level, but optimized by the actual compiler. "Never send a human to do a machine's job." --Agent Smith about TCO.
+
+** Infinite Structures
+I've got a feeling that infinite structures for data representation will be naturally pervasive in the Protoverse, and dealing with them natively will simplyfy certain things.
+
+** Process Calculi
+There's a huge range of process calculi: [[https://en.wikipedia.org/wiki/%CE%A0-calculus][π-calculus]], Stochastic π-calculus, Higher-order π-calculus, [[https://en.wikipedia.org/wiki/Ambient_calculus][Ambient calculus]], [[https://en.wikipedia.org/wiki/Join-calculus][Join calculus]], Psi-calculi, and many more.
+
+It would be interesting if there's a functional language with a performant implementation of a process calculus in form of a library (e.g. embedded DSL); or at least having anonymous processes plus named (or typed) channels, which does't listen to the name "Golang").
+
+The actor model is not exactly the same as a process calculus, because in the actor model, processes are /not anonymous/ and messages are adressed via process IDs. We could implement anonymous processes plus named (or typed) channels that can be passed around (π-calculus style channel-mobility) by a thin layer on top of an actor model implementation (e.g. some actors play channels, other actors play processes).
+
+** Concurrency
+In the Protoverse, a lot of stuff is going to happen concurrently; millions and later probably billions of smallish concurrent computations are to be expected.
+
+The idea is that Protoverse Processes and the underlying runtime lightweight processes are mapped one-to-one, while the lightweight processes are then multiplexed to OS-threads.
+
+The runtime capability is an important factor: we might need something along the lines of lightweight processes, each with their own memory and garbage collector. And there comes up the the question wich type of scheduler -- cooperative or preemptive?
+
+/All abstractions are leaky/. No system -- whether a formal system in logic ([[https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems][Goedel's incompleteness]]) or an abstraction in software ([[https://en.wikipedia.org/wiki/Leaky_abstraction][Spolsky's law]]) -- can be both complete and self-contained without any reference to or dependency on an outside or lower-level system.
+
+A /preemptive scheduler/ is in control of the execution order and time slices for each process. Philosophically, this is analogous to a externally governed universe where processes do not have autonomy over their execution. A preemptive scheduler is great for performance, but it seems to impose a sort of "divine control" over the processes. Principally, there should be neither god, nor gardener in the Protoverse.
+
+One way could be to let a preemptive scheduler do its thing, providing a reliable runtime, while Protoverse Processes must not be aware of the preemptive scheduler. The Protoverse Processes are solely governed by their own dynamics; that includes their own "scheduling".
+
+Hence we would have to manage the risks of the runtime scheduler leaking into the Protoverse abstraction by careful encapsulation. The Protoverse should interact with the scheduler only through well-defined interfaces, such as process creation and message passing primitives.
+
+But ... maybe do exactly the opposite: embrace the leakiness? It would be an interface to the "real world" limited by it's one truely limited resource -- the one that makes all the others /seem/ limited -- time. It's an experiment, after all?
+
+On the other hand, I don't want "limited resources" as the major "selective pressure" for evolution. But maybe, it's rather the question of /how/ Processes co-evolve in the presence of limited resources, along other selectors. It doesn't have to lead to mayhem, war and suffering? Or does it, inevitably? /If this sounds nuts to you: Processes are subject to darwin-style evolution after all (potential artificial life), and we'll have to take ethical consideration into account./
+
+As of now, I prefer a low-leaking variant with a preemptive runtime scheduler, and separate Protoverse "scheduling" that happens along relative dynamics between Processes. As long as the other selective criteria weigh more than the potential leak-through of the runtime scheduler, it might be fine.
+
+** Parallelism
+Introducing thread-based parallelism won't make this effect go away. A scheduler will be necessary still, because the number of lightweight processes likely outstrip the available CPU or GPU cores -- it's just a gradual reduction by introducing another level.
+
+That's also the case when we think about vectorization "parallelism" (that involves performing /the same operation/ on multiple elements of a collection simultaneously, without explicitly iterating over the elements; vectorization may be implemented in a way that can leverage parallel computing resources).
+
+The question would be, if computing (primitive) Protoverse Processes will fit to that. But as long as we don't have worked out the Process abstraction in detail, it makes not much sense to ponder on that.
+
+** OpenCL or CUDA Bindings
+The infrastructure may have to support parallelization at the hardware-level; for that, solid/straightforward C/C++ interop may be required.
+
+** Interfacing With other Ecosystems
+A language with a bigger ecosystem should be in direct reach, either by building on that platform (e.g. Erlang/BEAM or Java/JVM), or via seamless integration of others. This might be useful in terms of analysis, visualization, measuring or specific scientific libraries. Possible targets are C/C++, Java, Erlang or Python.
+
+** Visualization, Analysis and Profiling
+Visualization seems quite complicated stuff, so there should be (ideally native) frameworks/libraries available. Same for performance profiling and tweaking, which is often readily available when building on top of a platform that's built around a virtual machine.
+
+** Scaling
+First and foremost, the prevalent status will be "under development" rather then "in production". The scaling model depends on  the principal modus operandi of the Protoverse:
+
+- *Batch-processing:* An exponentially and infinitely growing Protoverse could translate into a "big-bang" computation. That one maybe runs for a few minutes or hours, with subsequent analysis. This approach leans toward vertical scaling, throwing more powerful hardware on it, e.g. GPU arrays.
+
+- *Long-running:* A cyclic or oscillating modus operandi might be much more interesting. The Protoverse would then be a long-running app, that calls for interaction and live-coding at the running system as the primary way of development, ongoing maintenance, and different scaling models.
+
+** Distributed Computing
+I lean towards a distributed, horizontal scaling model with independent P2P instances that could run in principle on conventional computers (and GPU-arrays). Well, maybe that's a bit too conservative: to leverage potentially infinite computing power, the Protoverse may eventually establish a mesh of Matrioshka brains that aims to encompass nearby stars. Ok, that's much better.
+
+** Fault tolerance
+That's predominantly a requirement for long-running, distributed systems and infrastructure -- when other stuff depends on it. Hence, fault-tolerance gets rather important with the long-running approach.
+
+** Pruning and Data Compression
+I'll have to consider memory-saving optimization techniques earlier in the development process; also taking into consideration, how much of Protoverse history will have to be kept around for analysis.
+
+Resource-saving would play a much greater role if he Protoverse would be a long-running system. Maybe there would be intrinsic selection that effectively prunes emergent nested Scales when it is absolutely certain that nothing interesting happens at these; e.g. when they turn out random and too boring. However, intrinsic evolutionary dynamics are prior to interventions from the outside.
+
+** Collaboration Opportunities
+The choice of languages and frameworks plays a role in terms of collaboration, albeit not a huge one. There are collab opportunities across a wide range:
+
+- Computational philosophy, ethics
+- Evolutionary biology, ALife community
+- Complex systems, chaos theory, game theory
+- Quantum theory: loop quantum gravity, relational quantum mechanics
+- Modeling: process calculi/algebras, DSLs, meta-programming
+- Engineering: performance, parallelism, OpenCL or CUDA
+- Scaling and infrastructure: distributed systems, P2P networking
+
+
+* Core Programming Language
+
+This assessment is about the language suitable for modeling the Protoverse dynamics. The ranking reflects the requirements based on my current understanding:
+
+** 1. Erlang: Elixir
+   - Small, functional language with pervasive pattern matching (like OCaml)
+   - Built around the actor model for concurrency, but that's also interesting for modeling -- it's no process calculus though, so no anonymous processes and channels;
+   - Hot swapping: support for upgrading the running sytem, but seems complicated and not a method for for shortening the development cycle;
+   - Elixir REPL can connect to a running app;
+   - Makes extensive use of metaprogramming in Elixir's implementation and Phoenix;
+   - Gradually typed language "set-theoretic types" (?);
+   - Full support for distributed architectures, fault-tolerance built-in;
+   - No Devops mess -- all that stuff can be avoided;
+   - BEAM with Erlang Platform has profilers and analysis tools
+   - Live visualization, plotting etc. seems under-represented
+   - Collab opportunities: very engaged community, pragmatic, focus on web backend, infrastructure, engineering mindset, and a bit of machine learning;
+
+** 2. Haskell
+   - Functional language;
+   - No support to modify a program while running, only REPL (what about [[https://hackage.haskell.org/package/rapid][rapid]]?);
+   - Non-strict evaluation is elegant, simplifies handling of infinite structures, but lazyness is available in other languages too;
+   - Static typing helps refactoring and documentation, type system is great for modelling, no ML-style modules but typeclasses;
+   - Concurrency: [[http://haskell-distributed.github.io/documentation.html#concurrency-and-distribution][Cloud haskell]] allows message passing using [[https://haskell-distributed.github.io/documentation.html#typed-channels][typed channels]], where the SendPort of a channel can be passed to other processes via message; processes don't share state;
+   - Purely Functional code is good for parallelization (in principle);
+   - Collab opportunities: engaged community, FP-enthusiasts;
+
+** 3. OCaml
+   - Functional language with pervasive pattern matching
+   - There has been a [[https://www.ocamlwiki.com/wiki/Join_calculus][process calculus]] implemented in OCaml, but abandoned; 
+   - Cannot connect to or modify a running program, only in the REPL;
+   - Static type system makes refactoring fun and documentation effective, type system is great for modeling;
+   - Concurrency:  [[https://ocaml.org/p/lwt/latest][Lwt]]: each light-weight process has its own stack and can maintain its own state; uses promises and cooperative scheduling, preemptive threads are possible too but based on OS threads; how can it handle millions of concurrent threads?
+   - [[http://ocamlverse.net/content/parallelism.html#domain-thread-based-parallelism][Parallelism since 5.0]] using domainslib
+   - Overall very performant, super fast compiler
+   - MirageOS (microkernel operating system) for deployment of P2P nodes
+   - Colaboration opportunities: engaged community, language ecosystem under active development, FP-pragmatics;
+     
+** 4. Common Lisp (SBCL)
+   - Supports functional programming and logic programming, anything goes;
+   - Pattern matching via Trivia library
+   - Very moldable to the domain via metaprogramming (DSLs, e.g. see [[https://coalton-lang.github.io/post/][Coalton]]);
+   - Algebraic data types available, and there is also [[https://github.com/coalton-lang/coalton][Coalton]], an ML-style, internal DSL with type classes);
+   - Conversational programming at the running system is great for prototyping/exploration;
+   - The running program can be paused, debugged, modified and continued without losing state;
+   - The state of a running immage can be dumped and restored, but that won't work out-of-the box for a distributed system;
+   - Concurrency: [[https://github.com/mdbergmann/cl-gserver][Sento]] actor framework ([[https://mdbergmann.github.io/cl-gserver/index.html][documentation]])
+   - Not so polished for parallelism, distributed computing and fault tolerance in comparison to the other contenders;
+   - Low-level access to the language itself, plenty of optimizations;
+   - SBCL is performant (Java ballpark);
+   - Collab opportunities: Community is diverse yet enthusiastic, fanatics also, fragemented, less collaborative (many one-person-projects rather than common goals realized);
+
+** 5. Julia
+   - Functional programming is not idiomatic and I'm not used to that;
+   - I expect extensive use of deep recursion — but Julia seems not to respect tail-calls and may not optimize (?);
+   - Pattern matching is available via Match.jl and MLStyle libraries;
+   - Metaprogramming is available
+   - A running program can be debugged and modified, new functions can be defined and added (with caveats; not as extensively as in Common Lisp);
+   - Dynamic typing, but allows type annotations (mostly for performance reasons);
+   - Parallel and distributed computing out-of-the-box, but no fault-tolerance;
+   - Shiny convenience libraries for all kinds of stuff;
+   - Direct calling of C functions and access to Python libraries;
+   - Low-level access to the language itself;
+   - Collab opportunities: data-, science and simulation folks of all sorts;
+
+** 6. Clojure
+   - Functional paradigm, lazy sequences;
+   - No TCO, but acknowledged by `recur' workaround;
+   - Interactive and live-coding, working at the running program;
+   - Has metaprogramming, but that is rather discouraged;
+   - Optional type system Core.Typed (?)
+   - Clojure.Spec isn't a type system but for runtime validation;
+   - Concurrency: the features of [[https://www.youtube.com/watch?v=yJxFPoxqzWE][Core.Async]] are somewhere between [[https://en.wikipedia.org/wiki/Communicating_sequential_processes][CSP]] and [[https://en.wikipedia.org/wiki/%CE%A0-calculus][π-calculus]]; it allows channels to be passed as values; but memory is shared (unlike Erlang, for instance);
+   - JVM wit Java is a scalable platform with profilers and tools;
+   - Collab opportunities: broad and diverse, business-oriented community;

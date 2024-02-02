@@ -1,0 +1,894 @@
+#+TITLE: No More Playing With "Building Blocks"
+#+DATE: <2023-08-22 Tue>
+#+SUBTITLE: Protoverse Metaphysics Framework
+#+LANGUAGE: en
+#+DESCRIPTION: Creating a synthetic universe from scratch
+#+KEYWORDS: metaphysics, process philosophy, alife, artificial universe, evolution, natural selection, emergence, dynamic systems, chaos theory
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/artificial-universe-metaphysics.project.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:3
+
+#+begin_box
+*WORK IN PROGRESS ---* Just landed here? Then you may want to check out the [[file:artificial-universe-introduction.project.org][introduction]] first, which explains what this is about, and what not.
+
+Here is the current version of the metaphysics, an informal framework for the Protoverse. The framework is speculative in large parts and still unpolished, and it doesn't consider practicability or technical feasibility. Once the metphysics feel integrated enough, I'm going to map the philosophical aspects to a computational model.
+#+end_box
+
+* The Process-relational Worldview
+
+** Objects
+
+#+begin_quote
+"I see and touch these things? Are they not ... there?"
+#+end_quote
+
+It comes quite "natural" for us to view the world as an assembly of objects or discrete entities -- The neighbor's dog's long nose, justice, this book, my kitchen, the 3 body problem -- are conventionally understood as "objects" in the broadest sense — somehow more or less discrete "things" that "are". It's largely an /intuitive/ perspective. We're even having a special type of label for those things in our languages -- the noun.
+
+#+begin_quote
+"These things are there if you believe, sort of. It's just ... they are not what they seem ... because first and foremost, they are not "things"; and secondly, they not are ..."
+@@html:&ast;@@X-Files melody playing@@html:&ast;@@;
+#+end_quote
+
+Concepts of "objects" with inherent "properties" seem an universal feature across human culture. However, there are some philosophical traditions unlike western philosophy, such as certain schools within Buddhism, where processual views of the universe are more the rule than exception: acknowledging flux, change and [[https://en.wikipedia.org/wiki/Prat%C4%ABtyasamutp%C4%81da][dependent origination]] rather than distinct, static objects.
+
+Discrete objects seem to be most likely a result of cognitive evolution in humans and other animals. In non-human perception, the idea of objects might be subordinate, radically different, or even non-existent. We do not know too much about how other life's experiences and cognition, but this view might stimulate us to reconsider our methods and their limitations to understanding the arrangement beond human reality:
+
+While humans primarily orient themselves visually, other animals rely more on sounds, smells, electric fields, or vibrations to various extends. For instance, dogs rely heavily on smell to make sense of the world. Even more than that -- dogs seem not to trust their eyes at all; their nose is the final instance. This kind of perception seems not so much centered on "objects", but includes olfactory landscapes that map out overlapping scent trails, conveying a wealth of process information such as the passage of time and the activities and even mood of other creatures.
+
+*** There is no Spoon
+
+Have you ever experienced that: You're sitting at the beach, watching the sun disappear behind the horizon — and suddenly there comes this moment of awe, where you realize that it is the ground that tilts beneath you? You experience the vast sphere rolling backwards away from the diminishing light, taking you with it? (The effect is best experienced when there are no distractions in your peripheral vision -- e.g. you sit on a spit -- so that you see nothing but the beach, water and the sky)
+
+The realization that there are in fact no stable objects, no "things" to find anywhere you look, comes more gradually though. Like in my the example concering the rotating earth, the intensity of that experience has to do with our perception of time — and wether you can detect a notion of change or not (it also helps to watch timelapses).
+
+And it helps to zoom out and set the time of an average human's lifespan in relation with the earth's or the universe's estimated age, and you realize there's actually nothing intrinsically special about what we consider "vast" or "incredibly tiny". Once you arrived there, you might assign much less significance to "objects", or hold on to a static, stable and substantial understanding of reality.
+
+Change can be frightening. Change underlies the unknown, the unstable and uncertain. Humans likes "to break things down" into neat pieces: In order to create the object-illusion, cognition splits perception into discrete dimensions, removes these dimensions from context and augments the results with mind-borne constructs, It does it so well, so that it feels like entirely real, "out there", which eventually leads to the idea of "objects" with "inherent properties".
+
+All objects, regardless of their typical 'real' or 'abstract' categorizations, should be regarded as /epiphenomena/ -- approximate and incomplete descriptions of the underlying, ever-changing processes.
+
+They are results of a cognitive process that provides essentially a subjective, reductionist simplification that we commonly call "reality".
+
+It doesn't mean that the object-heuristic is bad or we shouldn't use this abstraction — it is not bad in the same sense a spoon is not bad for soup. Objects are quite often helpful. But this cheaply available heuristic does not make objects to fundamental "building blockss" /(← see?)/ of reality, the universe and everything.
+
+We'll need to consider a paradigm shift to a worldview in terms of /process, relation and transformation/, to finally get out of the stuffy theater where the 'particles' dance to the beat of 'time' on a stage of 'space'.
+
+*** Hello Anthropocentrism, My Old Friend
+
+A whole "universe" has been created around the idea of 'objects' in various manifestations, e.g. 'person', 'number' or 'particle', assuming that they must be somehow special, important or fundamental — just because they seem so /intuitive/ — "I think, therefore they are", no? Who in his right mind could deny that?
+
+There are numerous hints, that we long ago entered territory where our intuitive concept of a substance-based reality is a hindrance, has lost it's use, or entirely fallen apart: when grappling with abstract concepts (like emotions, mathematics, software), emergent phenomena (like businesses or complex systems), and fields on the edge of human knowledge (such as neuroscience or quantum physics).
+
+Our theories might be much more contingent on human intuition than we usually admit.
+
+#+begin_quote
+If all you have is a hammer, everything looks like a nail
+#+end_quote
+
+Wouldn't it be quite a stretch to assume that a primitive cognitive pattern-recognition heuristic, evolved towards optimizing for survival and reproduction in a range of animals adapted to earth-bound environments, could be adequate to make sense of the universe and reality at all scales?
+
+Of course, that's not the whole story: Certainly, humans are developing tools and methods like mathematics and technology to overcome their limitations. But a closer look reveals that most of these methods are built on the the same substance-fundamentalist preconceptions.
+
+Certain phenomena may only /appear paradoxical/ because we use inadequate abstractions to begin with. What about the particle zoo, the 1001 interpretations of quantum mechanics, particle-wave duality? I'm notoriously bad with "concrete real-world examples" outside of my special interests, so I may ask you: What else?
+
+The nasty habit to objectify /everything/ may cause us to miss important subtleties, so that there will be subtly growing gaps in our understanding of ever-changing complex systems, as long as we fail to /update our repertoire of intuitions/.
+
+** What are Numbers Really?
+
+Various animal species grasp relative quantities, but only a rare few exhibit a concept of "exact" numbers: Crows do, Squirrels seemingly not. Throughout our animal kingom, numerical cognition majors more on relational aspects (such as 'more', 'less', 'equal', 'numerous', 'few'), rather than strict counting; it highlights that the concept of exactness may not be a universal necessity for "functioning" in the world.
+
+"Exact" numbers though, do seem to require a form of counting or a counting-like process. For instance, the number 65536 can be constructed by certain types of counting processes, as there are multiple ways to arrive at any given "natural" number.
+
+The concept of numbers in the most general sense may be defined as "regular sequence established by the repeated application of a certain rule" (reminiscent of the Peano axioms). It may be debated if the "algorithmic" description is enough for numbers to "exist", or if there's another component required that /instantiates/ the algorithm, runs it -- well, in order to achieve /what/, exactly? To make it available for someone/something to interact with it? For information transfer, basically? Observability? Becoming concrete? Oh, and what about the "algorithmic" description itself? Had something else to instantiate this algorithmic description before? Oops, we got off track.
+
+The algorithm to construct the sequence of the "natural" numbers is by incrementally adding 1 discrete unit at a time ~(n + 1)~ to a previously accumulated pile of units. However, this linear approach to count ~(n + 1)~ might be largely due to a cognitive bias for discrete objects, which in turn could be "historical accident", not just anthropocentrism, but rooted somewhere way down tree of life where the object-abstraction maybe has provided significant advantage -- due to visual senses, which have evolved multiple times independently.
+
+Interestingly, it could be argued that the "more natural" way to count is by /doubling/. Doubling ~(n + n)~ follows an exponential growth rate and is much more prevalent in nature (e.g. cell division and most biological systems) than linear incrementing by 1 ~(n + 1)~. Doubling is even /conceptionally simpler/ than incrementing by 1 -- because it requires less preconceptions (you might realize that when you shovel aside the anthropocentric bias. Fellow wanderer, do you accept the side quest?).
+
+At this point you may contend that the "more natural" counting method by doubling is utter rubbish -- because aren't there a lot of numbers missing? There's no 3, 6, 7, 9 ... ? So, this number sequence does not provide direct access to "all" numbers? Well, neither does the usual ~(n + 1)~ number sequence -- it only gives you "natural numbers", but no 9¾, which would still cause you to miss the train.
+
+At the heart of doubling is the concept of halving, essentially two sides of the same coin. But in order to arrive at a scenario where splitting a discrete unit into /arbitrary/ fractions becomes feasible, we'll need to break out of this number system and find ourselves within the system of rational numbers. And we'll need to break out of several schemas in order to float freely in the continuum or "number universe" where we could directly "access", "construct" or "manifest" all numbers.
+
+There are countless algorithms that give rise to regular number sequences (e.g. the fibonacci sequence), which could be used for counting and other numerical operations. In order to give rise to the endless number sequences we all know and love, these algorithms just have to be defined so that the algorithms repeat infinitely.
+
+Ok, so numbers are actually nothing more than sequences built on arbritrary, regular relations. And our "natural" numbers or integers are just as arbritary, because any number only acquires meaning in relation to the particularly defined sequence it happens to be part of by definition.
+
+It makes no sense to think of the apparent properties (of numbers) as inherent of particular numbers -- they're relational to the "encompassing" system that implies the properties. You may not like it, but 3 and 3 are not neccessarily the same -- only within the same number system (strictly speaking -- mathematics ignores a lot of stuff for convenience). If you still disagree, then here's what might have happened: you've confused the concept of number with the label "3"; you created informally an ad-hoc a distinct number system where this is true by definition; or both. But then, you could go on and realize inifinitely many properties "in" anything, even so in the relation to the number 3, because no constraints apply.
+
+Whatever number sequences we choose to base numerical operations on may /highlight certain aspects and obscure others/. The number sequence chosen may result in making certain calculations easier, others more difficult, and even /impossible/ (if one really adheres strictly to the defined sequence and doesn't break out ad-hoc).
+
+From the common substantial-materialist point of view, properties seem to be "external" of the "object" in question, which may look kinda weird to you. But that's only because this /perspective/ presupposes "standalone" entities, and therefore implies that "properties" must be somehow "within". This is related to our deeply rooted habit of drawing borders ad-hoc and arbitrarily, and touches Goedel's incompleteness theorem /[I should expand on this in the section about systems]/
+
+From all propable configurations of states -- of which none is inherently special -- algorithms make certain states /particular/.
+
+We now may accept there's nothing special or fundamental about "numbers", which was the initial, but not solely reason for this exercise. Their meaning is not absolute, but entirely relational. But relational to /what/?
+
+*** Infinity
+
+The widely accepted invention of 'completed infinity' (also known by the euphemism 'actual infinity') literally means "the finished unfinished" and is a contradiction in itself, like the "square circle".
+
+It's an attempt to force the concept of potential infinity (an endless /process/) into the object-centric paradigm, aligning it with the dominant thought and human bias to portray things as "concluded", "finished", "discrete" and "precise".
+
+Instead, I suggest to /embrace the infinite/ and the incomplete as the crucial driver of the "reality, the universe and everything" -- /that there can be -- and actually are -- "things" that cannot be "finished" by any means may be significant for anything to exist at all./
+
+This touches up onto the habits of how to draw boundaries (dichotomies like beginnings/ends, inner/outer) of systems in a general sense. It will be interesting to revisit this in the light of Gödel's incompleteness theorem in combination with the implications of the process-relational ontology (which are scattered all over this framework).
+
+** Time, Space and the "Laws of Physics"
+
+Given that I adopt a bottom-up approach when designing the Protoverse, the fundamental premise is that all phenomena are emergent by nature. Only when this assumption ceases to provide meaningful insights, I do consider classifying the phenomenon in question as fundamental.
+
+Hence, instead of assuming that time, space and the laws of physics are fundamental, I propose that these are merely emergent phenomena and suggest a "Nested Scales of Emergence" model, where complex systems emerge within other complex systems, following their predominantly own, higher-order dynamics — akin to our universe's apparent Nested Scales of Emergence: from a quantum Scale, macro-relativistic, chemical-biological, societal, technological, information-computational, and beyond.
+
+I prefer the term 'Scales' instead of 'layers' in order to avoid the impression that these are tree-like hierarchical. Emergent phenomena at attributed to each Scale can influence the behavior and evolution of other Scales and ultimately the entirety of the system.
+
+*** The Geometry of The Universe
+
+Speculations about the grand "shape" are usually made in terms of /space/, because 'space' is the most intuitively experienceable abstraction (in combination with "object"), which we commonly associate with 'shape'. It would be a bit weird to think about "the universe" predominantly in terms of "space", for presumably the sole reason that the spatial relation is for us the most prominent by far, and the one that whe are able to discriminate best.
+
+If we would live in a "Colorverse", that would like describing the Colorverse primarily in /hues of green/, because we distinguish best between different greens, and therefore green would take up the largest part of awareness in the Colorverse.
+
+Time feels much more mysterious than space, and through Einstein's contribution we arrived at a relativistic understanding of spacetime.
+
+In our Colorverse, hues of "green" have been mingled together with a brightness dimension, leading to shades of green. There's much more freedom in the color universe: you can choose in which direction things will go! Towards the eternal light, or towards eternal darkness? Pick one! Choose wisely.
+
+What about the other colors in the Colorverse? Well, they seem to be there, but no one thinks about them really. Some Colorverse physicists propose that the reds have collapsed into infinitesimal small dimensions.
+
+While it might be tempting to imagine this "structure", it would depend on relative /Properties/ (realized relational states) that interacting Processes may lay upon it (as discussed earlier), so there wouldn't be an absolute or defintive structure that involves all the nested scales, network dynamics, and fractal nature. But one thing is certain: It is very likely bigger from the inside than from the outside.
+
+*** Causation and Time
+
+Right now I can't find no compelling reason to introduce time as a fundamental. We could simply say that "time" emerges merely via cause and effect (at least according to my current understanding), which could be interpreted as sequences of 'befores' and 'afters' (but don't have to).
+
+Thus, causation can be argued as prior to "time" (the other way around seems less sensible to me). Like I hinted before, we could unify time into – no, not into "spacetime" — but into Process. I do not presume time to be an intrinsic component or a universal feature underpinning Process, hence Process is not an abstraction over time.
+
+While building a self-evolving synthetic universe, one thing that may come to mind is the problem of the "initial rules" (the governing laws -- can be thought as the functions) and the "initial conditions" (the specific state at the beginning -- like inputs to the functions).
+
+Could we transcend the dichotomy of 'inital rules' and 'initial conditions'? So that there will be neither, but something else in their place?
+
+
+
+A synthetic universe which is not entirely subject to its initial rules/conditions, but is somehow very much able to diverge from its fundamentals (at least in its various scales), seems like a basic requirement to make it viable. There are some considerations:
+
+The system could spawn (fractal-like) scales.
+
+It could happen that it spawns scales that are not viable -- e.g. that converge to boring states or which are too chaotic. These non-viable scales then either continue to exist in this state, collapse, or otherwise chease to exist for some reason, e.g. through a form of "entropy". Even though it may be shockingly close to a many-worlds conception, it doesn't mean that these "worlds" have to be isolated from each other.
+
+We'd like to avoid predefining fundamentals as much as possible, teleological
+
+
+
+The idea of recursion could be enough to 'change' initial conditions, in an /immutable/ way, which fits quite elegantly into this computable universe. The Protoverse' logic could learn to identify 'favorable' states and ways to reach them more efficiently or effectively. It could spawn new dynamics previously impossible under its original rule set. Ultimately, it could build an iterative learning and self-improvement mechanism into the fabric of our universe model by utilizing recursion in a way that's consistent, self-contained, and aligned with our objectives for exploration of emergent phenomena.
+
+We could introduce the idea that causes and effects are not determined by definitive states, but /probabilities/ all the way down. Then, an effect could "exists in the future" as a probability, until they are evaluated/reduced by the 'present' and therefore determined from there on, as they vanish deeper into the past forever and ever and ever. Does that make any sense? Yes? No? /Probably?/
+
+Circular causation is the rule rather than an exception. Causation is prior to time, retro-causality is uneccessary.
+
+*** Space
+
+It happened that I couldn't find any compelling reason to introduce any notion of "space" into the Protoverse model itself. Why?
+
+Well, until I relized that my intention to implement the Protoverse as a computational universe, I disciplined myself to ignore the host system (distributed computers) entirely, in order to avoid getting caught up in implementation details too early. Turns out, I couldn't find the reason to introduce space, because space was already there — but in the computers: the data structures and ultimately, memory.
+
+This sounds kinda silly (because it is). And wouldn't it be too simplistic to think that space, in our universe, is just a data structure, or memory model? I mean the analogy seem way too naive and biased: 'entropy' corresponds to empty/unwritten, 'order' means the state of written information, 2nd law of thermodynamics implements forgetting/pruning — or could it be that space is more than just a data structure? Maybe the /complete substrate/ for computation?
+
+Let's assume that the naive analogy holds — how could I make sure that this idea of space will emerge from the Protoverse itself, becoming an emergent phenomenon, not a lame pre-defined "fundamental"? How can the processes, in themselves, give rise to the structure in which they operate?
+
+Like in cellular automata, we find that the substrate (grid) isn't a pre-defined "stage" or "space" for the automaton, but part of its very definition: Each cell's state at a given timestep is determined by the states of its neighbouring cells at the previous timestep, making the structure of the grid inherently linked to the operation of the automaton. (If you play around with a cellular automata in an app, the grid only seems to be a pre-defined stage, because it is usually limited to 100 * 100 cells or so, so that it fits the app window.)
+
+It might be possible to allow the Protoverse to define its own "topology" of interactions, like in cellular automata where the rules of interaction define the grid, the Protoverse could involve processes that define which other processes they can interact with, and how. This would create an "interaction space". And via iteration, a larger scale structure would emerge, which could be perceived as "space".
+
+So in case I would not want to rely purely on the host and make it's memory available for processes to perceive and make sense of (which is the smarter idea), I will have to focus on defining rules for interactions that can create structure, and allow "space" to emerge from those dynamics.
+
+
+
+*** Bootstrapping
+
+/[INCOMPLETE]/
+
+Self-organization; emergence of high-level coherent behavior from low-level interactions
+
+:wikipedia:
+Self-organization relies on four basic ingredients:
+
+1. strong dynamical non-linearity, often (though not necessarily) involving positive and negative feedback
+2. balance of exploitation and exploration
+3. multiple interactions among components
+4. availability of energy (to overcome the natural tendency toward entropy, or loss of free energy)
+
+any deterministic dynamic system automatically evolves towards a state of equilibrium that can be described in terms of an attractor in a basin of surrounding states. Once there, the further evolution of the system is constrained to remain in the attractor. This constraint implies a form of mutual dependency or coordination between its constituent components or subsystems. In Ashby's terms, each subsystem has adapted to the environment formed by all other subsystems.
+
+self-organization is facilitated by random perturbations ("noise") that let the system explore a variety of states in its state space. This increases the chance that the system will arrive into the basin of a "strong" or "deep" attractor, from which it then quickly enters the attractor itself.
+
+the second law of thermodynamics in the 19th century. It states that total entropy, sometimes understood as disorder, will always increase over time in an isolated system. This means that a system cannot spontaneously increase its order without an external relationship that decreases order elsewhere in the system
+
+Around 2008–2009, a concept of guided self-organization started to take shape. This approach aims to regulate self-organization for specific purposes, so that a dynamical system may reach specific attractors or outcomes. The regulation constrains a self-organizing process within a complex system by restricting local interactions between the system components, rather than following an explicit control mechanism or a global design blueprint. The desired outcomes, such as increases in the resultant internal structure and/or functionality, are achieved by combining task-independent global objectives with task-dependent constraints on local interactions.
+:end:
+
+
+* What are Processes?
+
+It seems commonly accepted to say that there could be many patterns in our universe that certain "observers" might recognize that others might not — due to their evolutionary, cultural, cognitive or technological limitations, advancements or perspectives.
+
+A [[https://www.youtube.com/watch?v=jlqqZZ7q4-s][vine]] certainly may not experience reality like a [[https://www.youtube.com/watch?v=Qv-ETrzgOj8][gecko]] does. There are countless examples that suggest our perception and understanding of reality must be subjective too, depending on the patterns we're able to observe, describe and make sense of.
+
+There are various conventions what 'observer' means, leading to much confusion. We tend to understand 'observer' as part of the duality (observer/observed), an abstract "measuring device", sometimes presume an absolute perspective, a passive role, and sometimes even a conscious entity. I used the term 'observer' out of habit when I began to throw together the first vague ideas.
+
+Consider a uttterly boring example that is compatible with classical, relativistic and quantum physics. /An entity that registers change and feeds some sort of impulse back into the system as a result/ is such a well acknowledged, basic yet powerful representation of stuff /happening/:
+
+#+begin_quote
+A ball, acted upon by gravity, converts potential energy into kinetic energy as it falls.
+Upon impact with the surface, the kinetic energy of the ball is partially transferred to the surface, and to the ball itself, in the form of deformation and generation of sound and heat.
+The surface, through this interaction, absorbs some of this energy, causing its particles to vibrate more rapidly, which is perceived as an increase in temperature. Both the ball and the surface experience entropy increase as energy is redistributed into less ordered forms such as heat. The entire system moves toward thermodynamic equilibrium as a result of the energy transfer resulting from the collision.
+#+end_quote
+
+If we speak of /happening/ rather than /being/, we shift the perspective from "things" to "processes". Processes are /immaterial/ -- spread out "over time", not neatly encapsulated within definitive boundaries how humans like it; and Processes even change ([[https://en.wikipedia.org/wiki/Ship_of_Theseus][Ship of Theseus]]). I guess that's why Processes haven't received nearly as much love as they should. Well -- even matter turned out immaterial -- so it's not that much of a toad to swallow when I suggest that /all things/ are just temporary conglomerates of Processes.
+
+"Building blocks" can't build anything. When I shifted my thinking from "things" to Processes, I realized that Processes can /do/ a lot of things; things can't -- because Processes are /subjects/ rather than /objects/. The implications of this notion are particularly striking when we consider the scales outside of the "living".
+
+Processes interact, establish feedback loops and constitute all kinds of systems, from extremely simple to extremely complex. Like Darwin already demonstrated: for such complex systems as 'life' to arrive, there's no need for teleological agency or "mind"; and based on the 'Process' abstraction, the entire spectrum of complexity can be modeled.
+
+Hence, Processes incorporate all requirements to be regarded as /observers/ naturally; observers arise on a spectrum, and they are pervasive. Of course all kinds of systems are "observer-dependent" -- how could they not, recognizing that they are entirely made from 'observers' in the first place?
+
+At this point we have merged 'observers' into /Processes/, which we will use as the prime abstraction within the Protoverse. So usually I will not mention 'observers', but just refer to 'Processes'.
+
+** Process as the Primary Abstraction
+
+Processes are prior: they do not exist /within/ an environment of space and time, but they continuously /become/ their environment, actively creating the substrate they are operating in -- analogous to cells in cellular automata, where the grid is not a pre-defined "space", but each cell's state at a given step is determined by the states of its neighbouring cells at the previous step, so that the structure of the grid is inherently linked to the operation of the automaton (see also: [[https://en.wikipedia.org/wiki/Background_independence][Background independence]]).
+
+There are two ideas how Process could organize:
+
+  - *Primitive/higher-order style:* The term 'Process' can refer to one single /primitive/ Process; but it can also mean a conglomerate of Processes, which can be described as one /higher-order/ Process. Both perspectives are equally valid when referring to different levels of complexity or different emergent phenomena. There's no upper limit to higher orders, but a lower end. Higher-order Processes are no "entities" or "actors", but emergent complex systems without fixed boundaries. This is quite like cells and patterns in cellular automata, as there's also a lower end, the "primitive" (single) cell. I consider this as a pragmatic variant.
+
+  - *Fractal style:* Processes do not consist of primitive Processes at the lowest level, but recursively of further processes. This would be a dynamic, fractal-like structure where every process could be further divisible or analyzable into subprocesses ad infinitum. I consider that variant as quite elegant, since it would be one underlying principle from which all complexity emerges -- and who doesn't like fractals?
+
+I envision a process as a meta-framework that describes the interactions between processes. The rules or the framework within which the processes interact are not necessarily fixed but can evolve (well, that depends on either adhering to the primitive or fractal structure). Such a system would not only demonstrate recursion in terms of structure but also potentially recursive self-modification in terms of the interaction rules.
+
+- Primitive Processes are loops like /recursive functions/, so they are naturally legitimate "places" to keep state, generally described as relations to other Processes. It would be a matter of design if accessing state requires a "distinct" counterpart Process (observer?) in order to read the state of a Process, or if a Process can access its change-record by itself, e.g. by recursively re-evaluating its state (I'm fond of the latter, and it's probably one and the same anyway, just in other terms).
+
+- Each Process maintains a record of its Experiences, so that each Process has effectively its own "timeline". When there are Processes in the Protoverse interacting across nested scales of emergent complexity, higher-order processes would principally operate in temporal relativity.
+
+- There are no absolute or inherent boundaries between higher-order Processes. Boundaries could be drawn (and I do so quite often handwavingly) dependent on the perspective of other interacting Processes, but by entirely relational criteria.
+
+- Higher-order Processes may develop various degrees of interaction -- e.g. more effective, efficient or richer "implementations", which may deviate significantly from the interactions of primitive Processes in one or more ways. For example, they may interact via evolved, commonly shared protocols or languages built upon consensus. Nevertheless, compatibility between Processes of various n-orders is guaranteed by the capabilities of the primitive Processes.
+
+- Is the process-relational ontology monistic or pluralistic? It's actually both. The monist aspect of Processes as "universal" abstraction ensures the compatibility required to interact across nested scales of complexity; these scales in turn represent the pluralist aspect, leading to open-endness by quasi-darwinian evolution and meta-evolution (more about that later).
+
+** From Subjective Experience to Shared Realities
+
+It may come as a shock but I do not really distinguish between ontology (the study of what exists) and epistemology (the study of how we know what exists). Epistemological methods (how we come to know and validate information) are not just a means to an end (understanding an independent reality) but are fundamentally what constitutes reality itself.
+
+Yet, I do not advocate a stance that goes like: "You know, I can't know it, therefore it doesn't matter, so I declare it does not exist." That's nihilism, and that's not the point. There isn't a sharp distinction, because:
+
+"Knowledge", along with "the abstract" and "virtual", are not special half-existing twilight ghosts, but regular components of reality. Yes, usually we don't call them "real", but they are -- it's just a mix of messed up taxonomy resulting from choosing the wrong sorting criteria, imprecise language use, the convention that "matter" matters most ("A ball is something real I can touch! Electrons are tiny balls!") and ignorance (they are not, and you've never touched a ball).
+
+The human longing for an absolutes and fundamentals (and ultimately, "reality"") might be a bias that can be attributed to various evolutionary and cognitive predispositions (see also Plato's [[https://en.wikipedia.org/wiki/Allegory_of_the_cave][Allegory of the Cave]]).
+
+What's commonly understood as "knowledge" should be considered as /belief validated to a relatively satisfying degree of confidence/. Depending on the context, the threshold of 'satisfying degree' may be rooted in empirical evidence, logical consistency, consensus, faith, and most likely a combination of these and other methods. However, none of these methods are flawless in themselves, and more often than not rooted in ... well, "reality" that isn't really real, but a relational network of beliefs.
+
+How can we then be sure about the "truth" about a certain proposition? Well, we can /believe to be sure/ within constraints of self-defined edifices of beliefs (quite like formal systems based on axioms). At first glance, such a system may seem self-contained (reinforced by the impression of coherence and consistency), but this system too is ultimately rooted outside of itself in some gradually (more or less) valid beliefs, whereby the the degree of validity may not be quantified, and even cannot be quantified in certain cases (see also [[https://en.wikipedia.org/wiki/Fallibilism][fallibilism]]).
+
+However, the relational network of beliefs, not unlike a space station build from tubes and modules, provides "good enough" stability due to it's sheer mass, inertia and internal structure -- so that foundationalism, coherentism and infinitism are all legit docking protocols to attach further beliefs (their efficacy may depend on the kind of beliefs they're integrating), who extend the network and make it even more massive and inert. This implies that the network itself is made up from previously attached single-ended, circular and infinite substructures.
+
+How could Processes could revise or update their belief networks? The role can be filled by quasi-darwinian evolution, that is when selective criteria by certain Processes get hold on other Processes (resp. their sub-Processes).
+
+No system can establish its own consistency without reference to something external to itself -- this is an implication from Gödels incompleteness theorems (Gödel's incompleteness theorems are strictly proven within /formal systems of arithmetic/, and their direct extrapolation to broader epistemic systems is debated, because formal systems have particular and rigorously defined properties that do not necessarily map onto other systems).
+
+But, according to empirical evidence, "closed systems" haven't been encountered in nature; it's unknown if the universe itself is a closed or open system. Further, for a system to count as a "closed system", it would have to be guaranteed to remain "closed" for all eternity.
+
+** Process Scoping -- Access to Information
+
+While all natural systems are generally open, we encounter various scoping models who determine what information can be accessed, under what circumstances and to what extend; there's also a plethora of /interfaces/ that determine interactions.
+
+- Scope: In darwinian evolution, there are tendencies both to escalate the scope of access (ultimately interaction); e.g. resulting in improved resource acquisition, reproductive strategies, or environmental sensing -- as well as to limit it; e.g. reduced energy expenditure, avoiding predation, or preventing dilution of a successful gene pool.
+
+- Interfaces: Natural systems also operate on various scales, from microscopic to cosmic, and interactions across scales are not only possible, but seem crucial for open-endedness. However, there are natural limits to these interactions. The concept of hierarchical organization is pertinent; it imposes structural constraints on how elements within one level interact with those at another. This arrangement can be seen in everything from the cellular organization within an organism to the ecological hierarchies.
+
+*** Towards Evolving Scope
+
+Processes in the Protoverse are not distinct from the reality they experience; instead, they're active participants creating and shaping it. The characteristics of experiencing reality may correlate with the intricacies of the immediate environment -- the predominantly relevant nested scales of complexity with which the Processes have co-evolved.
+
+Which Patterns Processes may experience, how, and to make sense of them, will eventually depend on co-evolving factors -- described as analogues like a Process' "perspective", "zoom-factor" or "ability". Within the area of knowledge-aquisition, "scope" is a better term.
+
+The possibility of gradual escalation of scope, as well as gradual restriction therefore seems important. @@comment:This can be /simulated/ in Common Lisp via /dynamic scope/, but I have no clue how this could be done in OCaml, which has only lexical scope -- but I guess it has something to do with modules (the usual suspect)@@
+
+*** Ideas for Scope Models
+
+1. *Lexical Scope and Black Box* Any observing Process can only directly access the state of a Process under full control, therefore the observing Process is limited to sub-Processes of itself, created by it -- through simple adaption up to full-fledged modeling (replication). The observing Process cannot directly access the state of an arbitrary Process. An arbitrary Process can only be interacted with in terms of a black box and successively modeling thereof. There are no isolated Processes ("closed systems").
+
+   /This model is akin to local scope. Interaction with other Processes is limited to black-box operations, much like a function interfacing with other functions through their exposed APIs, without direct access to their internal states./
+
+   /It implies that any Process's understanding of another is inherently limited and shaped by interaction (observation). This encapsulation reflects human observational limitations -- we cannot know the intrinsic state of another person's mind or the exact state of a distant star, only infer or model based on indirect data./
+
+   /An observing Process must build models of other Processes (replicate) without direct access to their states, resembling how our minds construct models of reality based on the limited data gathered through our senses (according to constructivist theories)./
+
+   /In each case, there's a fusion of what is inherently accessible with what must be inferred, constructed, or modeled -- and also there's a tension between more plausible and less plausible beliefs, which could posit a driver of evolution towards validation of beliefs./
+
+2. *Global Scope*
+
+
+
+Human-Engineered Systems: Encapsulation and Predictability
+In engineering, encapsulation is used to control complexity and foster predictability. This design principle is about creating boundaries around systems (or subsystems) so that each unit can operate as independently as possible. Typically, interaction between subsystems is carefully managed through well-defined interfaces. This allows engineers to update or replace one component without risking unexpected consequences in other parts of the system. The abstraction and hiding of internal operations help prevent "spaghetti code" and make complex systems easier to maintain and scale.
+
+Natural Systems: Interconnection and Adaptation
+Natural systems, however, inherently lack of cleanly defined boundaries. They exhibit rich interconnections with high degrees of interdependence and adaptability. Instead of rigid encapsulation, they demonstrate networks of interactions where elements can be influenced by and adapt to a multitude of internal and external factors.
+
+There are no strict interfaces preventing unintended interactions, and events can cascade through multiple levels of the system. Evolution itself thrives on this interconnectedness, as it enables the flow of genetic information and selective pressures across the biosphere.
+
+Open-Ended Evolution in the Protoverse
+In your Protoverse model, considering the lack of sharp encapsulation found in natural systems could indeed be vital for fostering open-ended evolution, encouraging robustness through diversity and the ability to adapt to a wide range of conditions—mirroring the characteristics of biological systems.
+
+Rich Interactions: Allow for significant interactions between Processes, without assuming strictly defined interfaces, to promote a diversity of experiences and evolutionary possibilities.
+
+Nested Hierarchies: Just as biological organisms are part of ecosystems, which, in turn, are part of the biosphere, consider allowing Processes to form nested hierarchies, facilitating emergent complexity at various levels.
+
+Redundancy and Resilience: Unlike engineered systems where redundancy is often minimized for efficiency, natural systems use redundancy to create resilience. Your Protoverse might benefit from implementing redundant pathways for information processing and adaptation.
+
+Adaptation and Feedback: Enable Processes to adapt based on feedback from their environment, much as natural organisms do via the process of natural selection.
+
+Non-Determinism: Engineering values predictable outcomes, while evolutionary processes thrive on a certain level of randomness and non-determinism, which provides the variability upon which natural selection can act.
+
+*** How can Processes Account for Shared Realities?
+
+Well, can /we/? And with whom, exactly? What's your shared reality with a Thiobacillus — "Sulphur is yummy"?
+
+Humans share their subjective realities only with a narrow class of species, with which they /can relate to/; to the highest degree normally with other humans. If we wander off the trampled path just a little and consider other species, the degrees of shared reality are rapidly dwindling.
+
+How can Processes agree upon beliefs or even construct knowledge?
+
+It might turn out beneficial for certain processes to reach "common ground" by re-evaluating between agreement and disagreement. Hence, /striving for consensus might be one of the drivers for Evolution ("selective pressure") within the Protoverse/, as a common ground might turn out to be beneficial in multiple ways.
+
+Reality, as we humans experience it, is neither socially constructed, fundamentally physical, restricted to "matter", nor does it exists only in the mind -- it's all of that together and more, and it's dynamic on top of that. Boundaries are not fixed but relational, and "all is connected" in so far that process-relational ontology (thanks to its "monistic pluralism") can model the /required compatibility across scales of complexity/.
+
+So, /everything/ can be /real/, possible (probablistic) and true, but within specific relational context. Even the concept of an 'object' is fine, just not at every scale: The crux is that not all offsprings of higher-level consensual realities (which includes formal systems and logics) can be readily applied on every other scale, because that /could/ (not 'must'!) result in ignoring their contextual/relational "roots", so that their validity looses hold.
+
+Such violations (e.g. inappropriate abstractions -- like the concepts of 'object' or 'particle' applied pervasively) are often hard to detect because their validity /depends/ on many sources. "Roots" is a not-so-bad word to put it, instead of "foundation" -- because it gives us the more accurate picture of multiple anchors in many directions, rather than a single flat lump of concrete serving as the source(s) of validity.
+
+Systems of Processes and their relations across a span of certain scales /can be discovered/ by others, even though the overall model is primary constructivist. 'Objectivity' depends on the relationships and interactions between processes, rather than being a universal viewpoint removed from all perspective. Here are different aspects:
+
+  1. Inter-Subjectivity: The classical notion of objectivity is replaced with a more nuanced concept of inter-subjectivity. 'Subjectivity' refers to the 'experience' or 'perspective' of a given Process, while 'inter-subjectivity' refers to the shared aspects of reality that emerge from the interactions between multiple Processes.
+
+  2. Relational Objectivity: The seeming consistency and coherence of Patterns across different perspectives might manifest in threshold-delimited spectra arising from approximation (or discretization) due to the inherent lack of absolute equality, so that a relational objective fact maintains its structure or function across various Process interactions (observational invariants).
+
+  3. Emergent Objectivity: Arising from the confluence of Processes, objectivity is a reflection of robust Patterns. These patterns can be seen as objective to the extent that they are stable within the context of the system's evolutionary dynamics. This is strongly related to "universals" and consensual reality.
+
+  4. Evolutionary Objectivity: From an evolutionary perspective, certain Patterns or may be 'selected' for their resilience or adaptiveness within the system, thereby achieving a kind of evolutionary objectivity. These features are objective insofar as they consistently contribute to the loop of evolutionary processes.
+
+  5. Contextual Objectivity: The idea of "contextual objectivity" asserts that what is considered objective is not divorced from context but is relative to the shared experiences and relations within particular process ensembles or communities.
+
+Systems of interrelated Processes can re-constructed ("cloned") by the means of other scales to a certain degree (just not to their full extend, not "perfectly", ultimately for the reason that there cannot be two things absolutely equal). Re-constructing of a system of processes gives naturally rise to a new nested scale of complexity -- it's like if we develop and describe a model of something we've discovered in nature.
+
+Such a new scale in turn becomes a fully legit part of reality, independent of (our made-up) "classic" categorizations such as "abstract" or "concrete", because these categories don't apply per se.
+
+*** The "Abstract" vs. "Concrete" Dichotomy
+
+Many dichotomies and categorizations commonly tied to substance ontologies don't apply for process philosophy. Here are some not-so-obvious departures from classical views:
+
+| Classical categories | Protoverse                                             |
+|----------------------+--------------------------------------------------------|
+| Subject/Object       | Only subjects (Processes)                              |
+| Mind/Matter          | Evolving inter-related complex systems, no privileges  |
+| Monist/Dualist       | Monist pluralism                                       |
+| Abstract/Concrete    | No signifiance                                         |
+
+- *Abstract:* What's broadly considered as 'abstract' could be viewed as "algorithmic" -- relational structures between primitive (and within higher-order) Processes that exhibit a declarative aspect.
+
+- *Concrete:* Processes are like acts of 'running algorithms' that create systems of further interrelated Processes -- that in turn could be considered as 'concrete'.
+
+But I rather forced both descriptions. The point is that both "abstract" and "concrete" aspects are inseparable and occur in such a tangled interplay at evolving, nested and inter-related scales. There are not really definite boundaries. Overall, trying to apply this dichotomy wouldn't contribute to better understanding.
+
+This is also quite different to Alfred North Whitehead's process ontology, who reserved a special category "eternal objects". I'm actually very happy that we don't have to figure out a "special place" for "the abstract"; "WTF is this abstract!?" was a major pain point for me at earlier stages.
+
+*** The Problem of Universals
+
+The traditional philosophical "[[https://en.wikipedia.org/wiki/Problem_of_universals][Problem of universals]]" concerns the nature of properties, classes, or relations that different "particular" things can all share in common: /Are these universals real entities that exist independently of particular instances, or are they simply names we give to common features we observe?/
+
+Within this framework, universals would be expected to emerge convergently from the interactions and recurrent behaviors by interacting Processes. "Universals" are not static entities that exist in an abstract scale apart from "concrete instances", nor are they mere linguistic constructs.
+
+Within this framework, the "Problem of universals" transcends its historical status as an ontological dilemma, because the appearance of "universals" could be an indicator of shared reality amongst Processes; although there's no clear method for identification and measurement as of now -- likely something along the lines of "repeated appearance of universal patterns that carry specific semantic payloads in losely related contexts".
+
+*** Conceptual Pluralism
+
+Let's acknowledge the fact that there can be several different, but nevertheless entirely valid descriptions to construct anything. Does the "essence", "abstract idea" or whatever spirit dwell in the commonality distilled from all possible, valid descriptions?
+
+"Intrinsic properties" to the rescue"? What about hierarchies of properties and declaring some as more special and more important than others? Well, all of that turns out to circle back so that we arrive at the beginning, looking at one descriptions, which happens to be just one amongst all the others.
+
+Can we unify multiple descriptions into one ultimate description? How?
+
+We can try to find a "translation" from one description to another description. The point is -- there wouldn't be just one single ultimate translation between all the descriptions (what would count as "essence"), but there would be many, and there could be more than one translation between two single descriptions, and maybe there are descriptions we can't find any translation for.
+
+But couldn't we merge these translations into one? What if we put the descriptions aside, and instead pick only the /tranlations/ between them, and then figure out translations between the original translations? Oh, and what if we play this game over and over again -- will we eventually arrive at the ultimate essence of 'triangle'?
+
+What we would likely end up with, may be extremely generalized principles that describe not just 'triangle', but dissolve into a network of relations and transformations that apply across many mathematical structures, quite the contrary of distilling an 'essence' of 'triangleness' -- but maybe that's exactly the point: It not just offers an escape from the "essences" drag, but reminds that meaning arises not from isolated "things in themselves" or "inherent properties", but from relational context.
+
+* Interacting Processes
+
+The primary concept of interaction between processes is the /Experience/. It seems like a suitable term for low-level as well as higher-level interactions. What does a Process experience? Patterns produced by other Processes, because there isn't anything other than Processes (no backdrop or stage-like "environment" -- Processes continuously /become/ (co-evolve) their environment).
+
+You can understand Patterns as the raw data of Experience -- the unrealized potentials, raw data as 'not-yet-made-sense-of'. Patterns are not to be understood as static or dynamic, as this distinction would imply assumptions that are not justified if we look at Patterns in isolation.
+
+Consequently, the counterpart Processes are also sharing that Experience. There's nothing to Experience without change; and likewise, change can't happen without (causing) an Experience somewhere: everything that happens, always has /some influence/ on another Process, even if this impact is so subtle that it is virtually imperceptible. Nothing exists in isolation. How Processes handle Experience, is another story.
+
+Just recently I stumbled upon /π-calculus/. Process calculi are models of computation. Right now my understanding is that designing the Protoverse Process interactions might be basically the same as designing a /process calculus/. I had no chance to look into π-calculus yet, but maybe I could later reconcile ideas in order to refine Process interactions.
+
+** Difference and Equality
+
+Experience begins with something changing, and therefore registering of change. So what is even 'change' itself? It seems that change is noticing 'difference'. Oscillation. Oh, and 'waves' again. Yeah I mean it's quite understandable.
+
+In order to build back 'change' from 'difference', there's something else involved. "Time?!" How bold of you to assume time exists a priori! Not so fast. If we think about difference, then there can't be a singular. Difference arises only if there are at least 2 states; or put another way: 2 states come into existence because there's differene.
+
+But does that give us change? Well, not if these 2 states merely exist in juxtaposition, e.g. like 2 tiles next to each other. Even if these 2 tiles look the same, they are different alone by the fact that they are next to each other. Otherwise we couldn't recognize difference at all. But we do it, because implicit 'space' sneaked in here.
+
+Ok, it seems that (at least my thinking) requires some /dimension/ to make 'difference' even possible. That sneaky little dimension is a carrier of relation. Well, that example is flawed from the beginning.
+
+In order to make 'difference' /experiencable/ -- and therefore for change to be neccessary at all -- there must be an inability to comprehend more than 1 state at once? Don't think so. The (n)one becomes -- exhibits difference.
+
+
+For now, we should explore ways how a Process could recognize 'difference' in the first place. What comes to mind is /comparison/ with /indifference/. Hence, the concept of /equality/ ~=~ seems to be a suitable path to recognize 'difference', because it creates a counterart for comparison.
+
+Difference/Equality form a dichotomy. We can look around for other pervasive dichotomies, but I couldn't identify any that has such a fundamental appeal to it, because the principle of 'dichotomy' itself hinges on 'difference'.
+
+The question how to understand equality and how to implement it, is also fundamental in science, computer science, mathematics and logic -- and treated quite differently in each.
+
+Why? Well ultimately, it seems because true or absolute equality is impossible in our universe, not only because no observer (as a part within the system) could compare /anything/ directly, but because even within our universe /there cannot be anything truly equal to anything else/. Let me explain:
+
+While we might be able to fantasize absolute equality (within conceptual, abstract or formal systems), instantiating that equality in any way -- even by computational means -- will eventually run against the inherent uncertainties brought by quantum variability.
+
+What we commonly resort to, is only a form of pseudo-equality (similarity) that usually relies on comparing /properties/.
+
+But there's a caveat: there could be /potentially infinite properties/ assigned or realized "in" anything, so that a comprehensive list of properties is impossible due to the potentially inexhaustible amount of contexts and perspectives from which these properties could be drawn.
+
+Hence, determining "properties" (a.k.a 'measuring) is always a matter of contextualization, /not of uncovering inherent characteristics/. The "properties" in question are being realized by the interacting Processes, as these build relations (or get "entangled") — and /these relations are the properties/.
+
+Properties are relational rather than inherent -- there are no fixed "properties" per se "within" anything, that could be "universally agreed on" (by whom?). Hence, comparison should be a question of /comparing relations/, not "properties" themselves.
+
+It could mean that "properties" as commonly understood, are not stable themselves. They might be immediately expiring snapshots of changing relations within the processual context. These snapshots could -- deceptively -- appear stable, but that's just because one is in fact looking at /another snapshot/ that has just the approximately same value.
+
+The key question would be: Do the relationships between Processes last forever, once established? Which would lead to everlasting histories. Or can they be dissolved or transformed, e.g. =(A -> B -> C)= reduced to =(A -> C)=? Or shadowed? Under what /neccessary and organically arising/ circumstances?
+
+  Mkay, let's resort to a real-world-example! So, a human is a plethora of processes that are constituted by related processes all the way down. By establishing relations over and over, this higher-order process emerges.
+
+  But it doesn't end here. The human process -- let's call it "Stephania" -- constantly establishes more and more relations to other processes. And a plethora of "outside" processes mingle with this human process and the numerous processes that make up this human processes at various scales.
+
+  Interrelated Processes transcend the categorizations we lay up on them: There's no /fundamental/ difference wether if a human Process establishes certain relations and fosters Processes that entangle into a baby, or into a bestseller book about home-treating hemorrhoids that relieves millions from pain in the ass.
+
+  One sunny morning in June, Stephania is on the way to give a talk about her bestselling book. As she enters the grounds of the venue, she gets hit by a meteorite and Stephania evaporates in a split second. You may now ask yourself ... How big was that meteorite???
+
+  That's not the point here ... focus, please. It seems obvious though, that higher-order Processes (Proscesses consisting of Processes) can perish -- by what means, exactly? Does that happen by /transformations/ or /deletion -- complete loss/? Some Processes dissolve, others persist, and new ones establish at that moment. What will be left by this impact? How far through the scales of Processes reaches the impact? What about the primitive Processes?
+
+  To what degree could one Process re-instantiate another cheased high-level Processe, given that there would be traceable, intact relations (redundancy?) within the previously related Processes? How could they be captured?
+
+*** Identity -- the Self-relation
+
+'Idenity' within this context means the [[https://en.wikipedia.org/wiki/Identity_(philosophy)][self-relation as in philosophy]], /not/ the concept of 'Identity' as in logic (that one I call 'Equality' with capital 'E', because it's a technical term and works differently from classic logic).
+
+With 'identity' being nothing prior or special, everything that applies to generic properties also applies to 'identity'. What I particularly want to emphasize at this point, is that 'idenity', would not be stable or static at all.
+
+In fact, there is no inherent or pre-defined concept of 'identity' within the Protoverse, nor is it required in any way. But 'identity' /could be realized/ as a self-relation, which is /possible/ even at the lowest level. That doesn't rule out richer, more nuanced and even quite different implementations of 'identity' emerging at higher-order scales of complexity.
+
+*** Baseline or Reference
+
+Due to the lack of an objective reference, the nearest reasonable candidate for a baseline seems to use the notion of 'self'. In this view, the deviation from 'self' could become the reference for registering change [better ideas?].
+
+'Self' must be built from a continuous Process then, which is influenced by Experiences, requiring self-identity to be an ongoing, dynamic process rather than a fixed, unchanging property. So how could we create an abstract notion of 'self' at a very low level?
+
+A model of 'self' could be built from a loop by making Processes fundamentally recursive. That paves the way for preserving past states in a continually updated fashion. Recursion can enable feedback, self-adjusting behaviors, keeping state and even various degrees of 'learning'. Recursion could also be a preliminary step towards increasingly complex models of 'self' and its interactions with other Processes.
+
+  Further, it could make sense to introduce a notion of 'decay' into the recursion, so that the impact of recursive input decreases the further down the recursion chain. This is alike to what we recognize in certain biological and in psychological processes – e.g. when remembrance often favors more recent experiences over older ones when guiding future behavior (recency bias).
+
+  Not only may the influence of previous Experience decrease as per the decay principle, but also the precision of those past experiences might be degraded — they may become less orderly and more uncertain. It touches in some aspects the concept of /entropy/.
+
+  However, the idea of decay smells very bolted-on, and I'm not happy with this ad-hoc /implementation/ "let there be decay!". As I will have to think really hard about entropy sooner than later, that particular idea of decay for no other than practical reasons may not the be-all and end-all of wisdom.
+
+What does all that mean for the Protoverse model?
+
+# The association between "deviations from a baseline" and "waves" or "vibrations" comes up intuitively, which is quite obvious, as the wave model is often used to describe fluctuation or oscillation. Maybe 'waves' show up later in one form or another. Maybe they're useful to implement the 'registering of change', or 'change' propagating.
+
+*** Inherent Uncertainty
+
+The concept of "equality" (necessary to register difference), is fundamentally an approximation ([[https://en.wikipedia.org/wiki/Indeterminacy_(philosophy)#Approximation_versus_equality][I just found out that Nietzsche discovered that too]]), and therefore introduces uncertainty. This may be a way how the Protoverse could give rise to ontic uncertainty at its lowest level — within the primitive interactions that are primarily concerned about registering difference.
+
+This uncertainty makes the entire system fundamentally non-deterministic. From that follows that all kinds of things that we might like to describe as discrete entities ("objects" or "particles") are naturally approximations.
+
+It further implies that there's would be no need to include explicit, bolted-on randomness in the Protoverse model. Redefining the meaning of /Equality/ itself would have to happen on the level of logic, and that also means a departure from /classical logic/.
+
+I don't know if it's neccessary or sensible  to augment (or even replace) classical logic in order to build this quantum-like, probablistic resp. non-deterministic system. There are /propability theory/ and the paradigms /propablistic programming/ and /non-deterministic programming/ (I'm entirely unfamiliar with both), and these seem to work without touching the underlying logic.
+
+However, it feels more intuitive to me (haha!) to operate on the logic level -- maybe it make sense to adopt /fuzzy logic/. And while we're at it, we could also ditch the "Law of the excluded middle"! I've always been suspicious of it and could never accept it.
+
+I don't object Planck's idea of the quantization in quantum mechanics, but that apparent quantization might be a phenomenon that appears due to discretization (for whatever reason) as an effect of the /approximation/ that I mentioned before -- well, if this actually happens in our universe. Could this unsharpness then provide an understanding of quantum uncertainty?
+
+Ok, I'm probably mistaken -- but even if that's just bullshit, it leaves the impression that /quantum uncertainty may be not that weird/ actually (and could be understood intuitively, instead of accepting it at face value); and secondly, this concept might actually work as a computational substrate that shares some commonalities with quantum mechanics.
+
+Approximation (and uncertainty) within our universe might be a broadly misunderstood part of nature, rooted in the mistaken assumption that "precision" must be somehow "prior", "superior" or "perfect" (looking at you, Plato and Descartes). Does it come from forcing the object-abstraction onto /everything/, just because the cognitive heuristic that builds objects form observed patterns feels so intuitive?
+
+Maybe we could /intuitively understand/ quamtum mechanics (things like the uncertainty principle and particle-wave "duality'") and not merely accept it at face value, if we shift our perspective from a substantial-materialist (objects, particles, inherent properties) to process-relational worldview (processes, relations, participatory)?
+
+*TL;DR*
+There are no damn particles (nowhere!) because they would be still (abstract) objects, which are merely approximations (unsharp, uncertain), resulting from a heuristic (applied by an "observer") that builds the abstractions 'object' (and other fluff) which are incomplete and distorted descriptions of the underlying processes and relations. Give up on "building blocks"!
+
+*** Navigating Uncertainty
+
+In a universe where uncertainty is inherent, /prediction/ would be an advantageous and  highly desired skill, that most entities have evolved, if the substrate on their scale allows to. Well, /if/. To get something akin to 'prediction', but on a scale as low-level as possible, we would do good if we remove the teleological aspect (mindless stuff going on here!), then we wouldn't have "prediction" any longer, but arrive at "evolution".
+
+While prediction and evolution may not exactly be the same, both are suitable algorithms for navigating an uncertain/probablistic environment -- both implementing feedback loops. From a high-level view, their stages correspond effectively:
+
+|         | Prediction                       | Evolution                |
+|---------+----------------------------------+--------------------------|
+| Stage 1 | Assumption                       | Variaton                 |
+| Stage 2 | Testing                          | Selection                |
+| Stage 3 | Validation                       | Retention                |
+| Stage 1 | ...                              | ...                      |
+
+
+* General Darwinian Evolution
+
+I'm approaching natural selection from the perspective of diversity and adaptability, rather than "survival of the fittest". More often, creatures thrive by finding a niche without destroying their competitors. Darwinian evolution is not a zero-sum game. Let's take a look at the process itself, free from ideological ballast:
+
+Even though first recognized in biology (and hence related to) -- processes not unlike Darwinian Evolution seem to operate within, and propagate through the various Scales apparent in our universe. Evolution may not only be a process across these Scales, but actually /creates/ these.
+
+The specifics of the evolutionary process(es) -- their "implementations" -- differ vastly across the Scales, contingent upon the peculiarities of each respective Scale.
+
+Loosely formulated: Evolution creates it's "inner workings" from whatever "material" is "accessible" from the Scales it is operating at: "genes" at biological Scales, "memes" at cultural Scales -- and whatever "material" there is (and will be) available at other Scales. We'll look at this continuous bootstrapping later in more detail.
+
+Evolution did not "start" with the emergence of the "biological Scale" from the "molecular Scale", neither will it end there. Here's why.
+
+** Algorithmic Nature of Evolution
+
+Evolution (in the Darwinian sense) is a self-establishing, [[https://en.m.wikipedia.org/wiki/Self-perpetuation][self-perpetual]] and [[https://en.m.wikipedia.org/wiki/Positive_feedback][self-reinforcing]] loop (akin to a "virtuous cycle") -- and it has an algorithmic aspect, meaning it is by principle independent from the "substrate" -- the complex system it is part of. Evolutionary Processes consist of interdependent stages, where each stage circularly depends on the others. Each repetition creates and reinforces the conditions for the other stages to function, and so on. Hence, it is a /recursive/ Process.
+
+** The Stages of Evolutionary Processes
+
+So what are the fundamental stages of darwin-like evolution, in an abstract sense? I tried to give the stages generic names, so that the names carry the least possible connotation to a specific substrate. For instance, I don't call the 3rd stage not "inheritance", because that would miss the point what the 3rd stage actually is about. It would only appropriate to call that stage 'inheritance' (or 'information transfer'), when there really are /distinct replicas/ involved (which doesn't always have to be the case, as we will see).
+
+*** Variety
+As there cannot be anything perfectly equal to anything else, variety is inevitable in principle. It's just that the next stage (selection) needs to include a criterion that responds to what is different.
+
+*** Selection
+The phenomenon of preference does appear to be pervasive in our universe and arises through at least one criterion that acts like a filter (which could be virtually anything). If there is variety and a form of interaction, then selection is inevitable, too.
+
+*** Retention
+Retention of information can happen due to various mechanisms. That doesn't have to be replicators or self-replicators. That's just how retention is implemented there, in the form of information transfer and retention via genes.
+
+Other mechanisms capable of retention may fulfill this role in principle (e.g. recursive processes). Even though replicator-alternatives may be much less effective, they could be still "good enough" and the only way of implementation available at other scales of emergent complexity. The adaptive changes then would not be the result of selecting from a variety of reproductions, but rather an iterative process that could retain a memory of former states (retention) and adapt accordingly.
+
+*** Repetition
+The loop needs to /contribute/ to increasing the conditions for Stage 1 (variety). One evolutionary process doesn't have to produce variations directly; it's enough when it lead to a system-wide increase of variety, to be picked up by /some/ selection stage.
+
+** Nested Scales of Emergence
+
+When we contemplate all the dynamic structures in our universe that we've come aware of until yet, we're eager distinguishing various categories, e.g. physical phenomena, biological organisms, social dynamics, informational ecosystems, and so on, along with the epistemological networks we use to describe and understand them.
+
+These categories appear significant to us -- most are associated with one or more areas of research, and we as human animals understand ourselves belonging to several of these categories, and we interact with many others regularly.
+
+But these distinctions also appear arbitrary to some degree, because they have been choosen largely based on intuitive perception, seeming obviousness and meaningfulness, and pragmatic considerations. It's also a bit like dividing species into the phyla "grunters", "humpers", "flyers", "tail-laggers" and "two-eyers". Taxonomy is difficult, because most stuff is usually /multi-dimensional/. So the "humpers" is legit, but maybe it's not useful to put it /always that way/.
+
+When we apply reductionism in order to focus on certain aspects, /choosing the appropriate dimension(s)/ and being consequent about it is crucial when collapsing a dynamically evolving, multi-dimensional, "mycelium-like" structure with fractal properties (well, that's just how I imagine it, but you get the point) into lower dimensions, so that the relations remain meaningful and don't suggest a skewed image that leads to screwed conclusions.
+
+So, is it sensible to erect a border between 'not-living' and 'living'? Well, /it depends/. It depends on what we set out to reason about -- but universal borders, decleard 'valid' across all inquiry are misleading and /very bad/; temporary and purpose-specific borders are indeed /helpful/.
+
+*Nested Scales of Emergence are no entities or fixed structures*, but an aspect of evolution of higher-order Processes, and a view how co-evolving environments /emerge/ trough interscale connectivity (interactions between various "parent Scales" giving birth to new Scales) at the edge of chaos.
+
+Why is this aspect helpful? Because it allows us to see that each of these Scales /has its fundamentally own constitution/ (including "rules"/constants, etc.), while still maintaining its compatibility with other Scales, therefore itself becoming another part of the "substrate" for Processes to operate in.
+
+It means that /how/ darwin-like evolutionary Processes work under the hood -- their implementation -- is fundamentally dependent on the /constitution/ of each Scale and therefore looking different from Scale to Scale, while the /abstract algorithm/ of darwin-style evolution -- the feedback loop of /variety-selection-retention/ -- remains across the Scales.
+
+This principle can be understood as /meta-evolution/, too: evolutinary Processes evolve themselves, while they create (co-evolve) their very own and sucessive environments they operate in. /Same same but different:/ Darwin-style evolution is a shapeshifter hiding in plain sight, because the prevalent, yet mistaken ideas about "identity" and "change" prevent this understanding.
+
+- *'Nested Scales of Emergence' doesn't mean 'higher-order Processes of the same nth-order'.* The Processes associated with a certain Nested Scale of Emergence are a comglomerate (nexus) of many inter-related Processes that form one or more complex systems. These interacting Processes all originated from primitive Processes, but they likely have unique histories, relations and are ultimately composed from different numbers of higher-order and primitive Processes.
+
+  Apart from that: in principle, each Scale could be described as a higher-order Process.  And vice versa, each higher-order Process can be described as a Nested Scale of Emergence. It's just that applying these views emphasizes different aspects.
+
+- *Can Nested Scales of Emergence co-evolve, merge, dissolve or collapse?*
+Co-evolution is an integral part and requirement of open-ended evolution. However, the "Nested Scales of Emergence" is just an aspect (view, perspective, facet) to visualize how open-endedness becomes possible; what actually co-evolves are quite simply Processes with Processes. Processes can "merge" (become higher-order Processes), and higher-order Processes can /transform/ into lower-order Processes ("dissolve" or "collapse"), but they cannot simply "disappear", quite like physical Energy cannot "disappear".
+
+*** Phase Transitions
+
+During which evolutionary processes /create/ or /become/ their immediate environment (co-evolve their substrate/environment), phase transitions mark either gradual events or leaps where evolutionary Processes emerge new Nested Scales of Emergence.
+
+Phase transitions can lead to /complexity explosions/, when a new implementation detail appears that exponentially increases /velocity of search space exploration/, /diversity/, /resilence/, /information retention/, /insformation transfer bandwidth/, or else.
+
+Phase transitions don't necessarily lead to higher complexity in newly emerging Scales -- often quite the opposite. On the other side, Scales with less complexity will likely inform the creation of further Scales.
+
+**** Examples
+
+Retrospective: a few examples of remarkable phase transitions to consider. Phase transitions are characterized by catalytic effects.
+
+- Emergence of space
+- Gravity (perhaps from an evolutionary "selective pressure" (speed limit?) favoring the trait of /locality/?)
+- Appearance of time
+- Supernovae distribute [[https://en.wikipedia.org/wiki/CHNOPS][heavier elements (CHNOPS)]], enabling accumulation in planets and assemblage of complex molecules
+- The rise of replicators (explosive acceleration of search space exploration via parallel processing; increased diversity)
+- Self-replicators (increased redundancy, arms race)
+- [[https://en.wikipedia.org/wiki/Eukaryote#Origin_of_eukaryotes][Eukaryogenesis]]
+- Photosynthesis (new energy source, but increased oxygen levels ...)
+- [[https://en.wikipedia.org/wiki/Evolution_of_sexual_reproduction#Advantages_of_sex_and_sexual_reproduction][Sexual reproduction]] (it's ... complicated)
+- Multicellular lifeforms
+- Nervous system
+- Evolution of consciousness (the great confusor)
+- Computers
+- The internet
+- Artificial intelligence systems (new playground for anthropocentric fantasies)
+- ... ?
+
+**** See also:
+- John Maynard Smith and Eörs Szathmáry: They authored "[[https://en.wikipedia.org/wiki/The_Major_Transitions_in_Evolution][The Major Transitions in Evolution]]", which focuses on phase transitions in the evolution of life on Earth. They outline several significant transitions such as the origin of chromosomes, eukaryotes, sex, multicellularity, and the development of societies in certain animals.
+- Stephen Jay Gould and Niles Eldredge: They proposed the [[https://en.wikipedia.org/wiki/Punctuated_equilibrium][theory of punctuated equilibria]], suggesting that evolutionary change happens in relatively quick, dramatic episodes rather than solely through gradual transformation.
+
+*** Do Nested Scales of Emergence Become Increasingly Complex?
+
+Well, deeper Nested Scales of Emergence doesn't mean that such a scale must be more complex "internally": A mountainbike is certainly much less complex than a goldfish. But that's also a very isolated object-centric view that ignores the relational (historical and causal) contexts, which are maintained by the model of interrelated /Processes/ which constitute the two configurations "bike" and "goldfish".
+
+But that, in turn, doesn't mean that bikes and goldfish are determined by their history -- not even if both were destroyed or dead, respectively (they're not destroyed or dead of course: The mountain bike survived its first parachute flight. And the goldfish has met a sexually di-morphic freshwater-shrimp, and they got married just recently).
+
+Complexity is neither a goal, nor a means in itself. How entropy is currently understood, complexity isn't globally increasing, but entropy is. The prevalent opinion says that our universe will result in "heat death" (I doubt that), the most boring equilibrium ever imagined -- which is considered the opposite of complexity. Likewise, a state of lowest possible entropy is considered equally non-complex.
+
+Entropy might turn out way more nuanced than we think it is, and depends on the framework (physics vs. information theory vs. ...). But there's the fact that /replicators/ are involved in certain parts -- replicators replicate by /doubling/, by which entropy decreases exponentially. But also, there can be singular events, like a meteorite, that could wipe out the population of a whole planet (for a while at least).
+
+And ... there's the problem how to define and measure complexity. 'Complexity' is an unwieldy, hand-wavy term and /multi-dimensional/ on top of that. I think that 'complexity' cannot be defined or used in a general fashion, but is framework-dependent, so that the extend and significance of its dimensions have to be adjusted from case to case.
+
+*** There are No Privileged Nested Scales of Emergence
+
+New Scales emerge from the interplay between Processes across several Nested Scales of Emergences. Applied to our universe as a whole there's no reason for an end to Nested Scales of Emergence -- what means there can be vastly more wonderous things than the human mind -- either already existing, or yet to emerge. Watch out for new catalysators!
+
+- "The mind" is often falsely granted a privileged status across many or even all aspects, often a stance of "oooh, you can't simplify it like that, it's sooo much more, and ... and ... what about love?!" -- /yes it is/, but when we examine certain aspects, we have to be /consequent/ and focus on the /aspects/ by filtering out the irrelevant. On this level of abstraction and in relation, "the mind" is to be regarded as one of several /catalysators/ (in good company with "eukaryotes", "photosynthesis" and "sexual reproduction"), leading to a novel substrate like many that came before (and will come after).
+
+- Or the idea that only "the physical" must be the "real thing" and somehow the "fundament" of everything -- the "physical" is just how the Nested Scales of Emergences "below" apper to certain observing complex systems (to us humans, lizard people, catfolk, etc.), because these (we) have evolved from that. "Physics" is observer-dependent appearance according to the perspective of a Process (remember that being an "observer" is not limited to "minds", but a spectrum that includes all Processes).
+
+  We regard stuff as "concrete" and "abstract" for several reasons; one of them is due to we /realize/ that we have no experience, no "physical-grade" grasping of complex systems that arise "above" -- /arising from/ our immediate Scale. We're lacking "natural" means of instantation for these newly arising Scales -- that what we come to consider "abstract"; it seems we must create these means of instantiation first. Well, that's half wrong: We actually /have/ natural means of instantation, but we regard instantiations somehow not "really real" (abstracta), if the instantiation happens on the Scale of our immediate experience -- the mind. Instead, we insist that only instantiation "below" is "real" (concreta). I guess this happens because of how we communicate, with this crazy low bandwidth bottleneck.
+
+  For general AI and artificial life, that might turn out veeery different. Both their (co-evolved) environment plus our native ("physical)" world will appear naturally graspable ("physical") /to them/. But they also can evolve, and give rise to new Nested Scales of Emergence. What will set AI or ALife vastly apart, won't be so much about "processing speed", but will be their incommensurable /communication bandwith/.
+
+#+begin_comment
+I've had a hard time to find an appropriate term that doesn't lead to wrong conclusions. The challenge came from trying to define a dynamic, ever-evolving concept accidently with static, structural terminology. It took me so long to realize that, because I've considered structures never as static but always as capable of moving, growing, merging, splitting, etc. Strangely, it seems that most people don't? The other options were "Emergent Dynamics", "Processual Ecologies", "Emergents". Eventually I settled with "Nested Scales of Emergence", but "Processual Ecologies" comes very close, too.
+#+end_comment
+#+begin_comment
+Oh dang! At the first sight, my idea of "Nested Scales of Emergence" and their "phase transitions" seems quite similar to "[[https://en.wikipedia.org/wiki/Metasystem_transition][metasystem transitions]]" theory by [[https://en.wikipedia.org/wiki/Valentin_Turchin][Valentin Turchin]]. He wrote a book "[[http://pespmc1.vub.ac.be/POS/TurPOS.pdf][The Phenomenon of Science]]" (1970). This theory looks quite teleological, though -- and he was a cybernetician, hence "control" appears quite often. And there's [[https://theoperatortheory.info/][operator theory]] (book: "[[https://repository.ubn.ru.nl/bitstream/handle/2066/82605/82605;jsessionid=9F23B2F65AC77A966340A8AC5D569486?sequence=1][The Operator Hierarchy]]") from Gerard Jagers op Akkerhuis, which seems to come close to my notion of higher-order Processes. However, he seems more concerned about "definition of life", while I seek to transcend such boundaries. I'm excited to read both books!
+#+end_comment
+
+** Meta-Evolution
+
+Recognizing that evolution can act on its own processes (the "evolution of evolution") allows us to appreciate the recursive nature of life's development on Earth.
+
+*"Meta-evolution" is not a new theory:* Darwinian evolution across nested biological Scales already includes the ability for evolutionary processes themselves to be subject to change.
+
+Evolutionary Processes can be conceived in algorithmic terms, with sub-mechanisms that correspond to different stages: generation of variety, selection, retention -- and repetition. Over the history of life on Earth, these sub-mechanisms have undergone evolutionary changes -- the mechanisms themselves have evolved, leading to different implementations.
+
+
+:draft:
+Evolution of evolvability
+
+However, it's vital to continually underscore that evolvability is a trait that evolves and is selected within the bounds of traditional evolutionary mechanisms. It is not a separate evolutionary force or category—evolvability changes occur due to the same underlying processes that govern all of evolution
+
+The concept of meta-evolution must be approached with caution to avoid suggesting that there is an intentional, higher-order process guiding evolution. Instead, it is simply evolution acting on different levels and aspects of an organism's biology, including those aspects that influence how the organism evolves. This idea is consistent with evolutionary theory and complements the current research on the evolution of evolvability and the factors that influence a population's ability to respond to selection pressures.
+
+Evolutionary processes are historically contingent. That means that the paths they take are often dependent on random events and past occurrences. This historical element is fundamental to the evolution of evolutionary mechanisms.
+
+Evolvability is the propensity of a system to produce adaptive variations that can be selected for. Over evolutionary timescales, systems can develop features that influence their own evolvability
+
+One might argue that "Meta-Evolution" is a conceptual reframing of "evolution of evolvability," with an emphasis on the recursive, self-referential nature of evolutionary change. It is a way of articulating the idea that evolution is not static but dynamic, capable of modifying the very tools and strategies it uses for adaptation.
+
+Evolvability: Refers to the capacity of an organism to generate heritable phenotypic variation that can be selected by natural selection.
+Evolution of Evolvability: The process by which the mechanisms that confer evolvability might themselves evolve, leading to species or populations that can adapt more readily to their environments.
+Meta-Evolution: Your proposed term, which seems to encapsulate the "evolution of evolvability," suggesting a higher-order evolution where evolutionary mechanisms are the subject of evolution themselves.
+
+Open-ended evolution refers to a continual process of evolution in which there is no predefined endpoint, and new, often more complex forms of organization and types of entities can arise over time. This contrasts with some artificial evolutionary systems or simulations that are bounded by their specific rules and initial conditions, and thus might only explore a limited part of the possible evolutionary space.
+
+Open-endedness pertains to the continual generation of novelty and complexity without an end-goal or a limit on the diversity of forms that evolution can explore, acknowledging practical constraints.
+
+Here's a reframed understanding of your concept based on your focus:
+
+Variation (Variability Generation): The processes that create diversity within a system can evolve to be more effective or generate a wider range of possibilities. For example, the development of sexual reproduction greatly increased the variability over asexual reproduction.
+
+Selection (Differential Survival/Reproduction): The criteria or pressures that determine differential survival and reproduction may change as the environment or the system itself changes, and the mechanisms that perform selection may become more discerning or operate under different parameters.
+
+Retention (Inheritance): The ways in which selected traits are inherited can evolve to allow more faithful transmission of adaptations or allow for new kinds of inheritance (e.g., epigenetic inheritance, cultural transmission).
+
+In the Protoverse, focusing on the evolution of these mechanisms themselves and their "implementation" means you're investigating how a computational system could embody an evolutionary process that refines itself over time. This necessitates designing a flexible framework where the rules governing variation, selection, and retention are not fixed, but can themselves undergo modification based on systemic interactions and feedback.
+
+You are speaking to the notion that the principles of evolution—variation, selection, and retention—are not limited to the domain of biological organisms but are universal processes that could potentially manifest in any system capable of supporting them, whether biological, chemical, technological, or computational.
+
+In this context, "algorithmic" refers not to a mechanistic sequence of steps, but to an underlying informational structure that guides the evolution of systems in a generic sense. This structure would be "substrate-independent," meaning that the specifics of the system's components—whether they are molecules, biological cells, or software agents—are less important than the general patterns of change that drive evolution within the system.
+
+your conception of the evolution of evolutionary processes as abstract, substrate-independent phenomena supports the overarching vision of the Protoverse as a computational universe where the fundamental nature of evolutionary change is a defining characteristic.
+:END:
+
+
+Below, I will elaborate on a few examples of how major transitions in evolution have affected these stages (e.g. replicators and self-replicators, eukaryogenesis, photosynthesis, sexual reproduction, multicellularity, nervous systems):
+
+*** Examples
+
+- *Variety Generation*
+   - Original Implementation: Random mutations, genetic drift.
+   - Evolving Implementations:
+     + Sexual Reproduction: Introduced recombination, crossing over, and independent assortment, providing new mechanisms to generate variation.
+     + Gene Duplication: Allowed for redundancy in genetic material, providing opportunities for one copy to develop new functions without the loss of the original gene's function.
+     + Horizontal Gene Transfer and Endosymbiosis: In bacteria and early eukaryotic cells, respectively, provided mechanisms for acquiring genetic material from other organisms, expanding the potential for new traits.
+
+- *Selection*
+   - Original Implementation: Differential survival and reproduction in a given environment.
+   - Evolving Implementations:
+     + Multicellular Organisms: Introduced new levels of selection, including cellular (cancer cells vs. normal cells), organismal (individuals within a species), and group (between groups of social organisms) selection.
+     + Behavioral Adaptations: With the rise of nervous systems, selection operated not just on inherited physical traits but also on learned behaviors, adding a new layer to the selection process.
+     + Kin Selection and Social Selection: In social animals, including insects and mammals, behaviors that benefit relatives or group members can be selected for, even if they represent a cost to the individual.
+
+- *Retention*
+   - Original Implementation: Vertical transmission of genetic material from parent to offspring.
+   - Evolving Implementations:
+     + Epigenetics: Introduced mechanisms (such as DNA methylation and histone modification) that can produce heritable changes in gene expression without altering the underlying genetic code.
+     + Multicellularity with Germline-Soma Differentiation: Separation of germline cells ensured that changes beneficial for reproduction could be retained and passed on, while somatic mutations would not.
+     + Cultural Evolution: Particularly in humans, retention shifted from purely genetic to include the transmission of learned information across generations, profoundly affecting the direction and speed of human evolution.
+
+*** Research Concerning the Evolution of Evolution (Meta-Evolution)
+
+- [[https://en.wikipedia.org/wiki/Evolvability][Evolvability]] investigates if and how /biological/ systems can evolve, and also the [[https://en.wikipedia.org/wiki/Evolvability#Evolution_of_evolvability][evolution of evolvability]]. Amongst others, the enhancement of selection has been recognized.
+- Richard Dawkins has discussed in his book "The Selfish Gene" how the process of natural selection itself can select for traits that make evolution more effective.
+
+
+*** Entropy and its Relation to Evolutionary Processes
+
+While Entropy deserves a top level section on its own, I found no proper place to introduce it earlier, but we need to consider Entropy in the context of Universal Darwinism in order to understand why change -- or rather /why anything happens/ at all.
+
+Decrease in Entropy through Increased Entanglement (and Information)
+
+The evolutionary cycle, once established, decreases entropy by increasing relations (entanglement), therefore it creates knowledge about state, and also increases and propagates the resulting information throughout the system.
+
+The cycle decreases entropy, and it does so in whatherver scale its operating -- in principle, there are no living systems required for its effect.
+
+Once living systems appear, they decrease entropy even further while they are /becoming their own environment/, as a means of the evolutionary process creating and establishing this scale of complexity (from which further scales emerge, where the evolutionary process continues. The process' "implementation" is going to be different then, depending on the peculiarities of these newly emerging scales of complexity).
+
+*** Reception of Universal Darwinism
+
+While the application of evolutionary concepts to non-biological systems is [[https://en.m.wikipedia.org/wiki/Universal_Darwinism][widely recognized within science]], there's no generalization of Darwinian evolution (yet).
+
+Critics argue that darwin-style mechanisms cannot be directly applied to non-biological systems or that doing so oversimplifies the complexities and unique features of different domains.
+
+I think this view results from /mistaking the implementation details/ of darwinian-like evolutionary processes for the processes themselves, which can be defined by their algorithmic commonalities and effiacy. This is understandable, because these implementation details of evolutionary processes are vastly /diverse/ across the Scales, as these implementations are subject to evolution themselves.
+
+Moreover, these Scales often map 1:1 to distinct (and in many ways isolated) scientific disciplines, each of them with their own standards, languages and methods, as scholars and scientists traditionally work within the boundaries of their disciplines.
+
+There are several other reasons (organisational, political, ideological, emotional, ...), but pondering on that is not in scope of this framework.
+
+#+begin_quote
+The notion of darwinian-style general evolution (commonly termed "Universal Darwinism") may be an essential principle of the universe, and if there could be a "Theory Of Everything" (TOE) that could explain why phenomena exist at all, then this is it. Even gravity could have emerged, or evolved from evolutionary Processes.
+--Dan Dee (said it first, 2023)
+#+end_quote
+
+But even if general evolution is "the TOE", we might be /unable to reproduce all or any phenomena/ present in our universe, not just because of some arbitrary limits, but because of over-sensitivity to initial conditions (and maybe non-determinism): emerging "laws" (observed constants) may turn out differently or entirely absent, even if we get it right, up and running.
+
+** Darwin-style Evolution in a Synthetic Universe
+
+Evolutionary computation often employs extrinsic, goal-directed forms of evolutionary processes -- because genetic algorithms are used to solve practical problems, and even if not, they operate within an isolated setting, where the environment often serves as a modest backdrop.
+
+This project's approach is a bit different from that: The aim here is to build a non-deterministic, nonlinear computational substrate where intrinsic, open-ended evolutionary processes are the consequential outcome of systemic interactions.
+
+From a process-relational perspective, Processes resist "extinction" and continue evolving because they aren't susceptible to death. This could enable /direct knowledge inheritance/, which means that Processes can pass on information without a selection process acting on replicated variations. It might accelerate evolution, when favorable developments are preserved and propagated directly, without the need to be "rediscovered" by each new generation through replication and selection.
+
+  Compared to replication-based evolution, there are potential drawbacks to consider:
+
+  - Replication leverages parallel processing, by which a large search space is explored quite fast, and the resulting diversity
+
+  Evolution not based on replication doesn't rule out the emergence of evolution which is based on replication, as the latter could arise as a more effective strategy on certain scales of emerging complexity..
+
+*** Necessary Conditions for Open-Ended Evolution
+
+I believe that evolutionary processes arise intrinsically in certain kinds of complex systems, because the constutients -- variation, selection, retention -- are already present in complex systems at the edge of chaos, in form of various Processes that can fill these roles.
+
+- *Background independence:* There is no distinction between "entities" and "environment", because the entities are Processes and they are /becoming/ their "environment". What we conventionally consider to be "entities" are relations of processes, and the "environment" is not a separate canvas, but is constituted by the network of interactions among these Processes, and the relations created thereof. A half-assed version of that is commonly understood as "co-evolution".
+
+- *Emergence of higher-order Processes:* It seems that one requirement for open-ended evolution and true novelty is to enable phase transitions which lead to the emergence of nested scales of higher-order complexity. In natural evolution, this emergence of higher-order scales (e.g. molecules to cells to organisms) is a hallmark of the open-endedness.
+
+- *Inter-Process compatibility:* Novel phenomena most likely emerge at the edge of chaos. Higher-order and lower-order Processes must be compatible to interact meaningfully; but compatibility is only guaranteed between primitive Processes; higher-order Processes are expected to evolve novel ways of interaction.
+
+- *Co-evolving epistemological scope* and interfaces
+
+- *Meta-evolution:* I suggest an interpretation of evolution where "the rules" themselves can change, creating another, or more levels of evolution beyond the initial one. Here, the Processes aren't just aligned to initial rules but also are effective in creating and changing rules, independent of survival pressures (analogy: wave diffraction)
+
+- *Oscillators:* Disruptions at regular intervals may help to migitate premature convergence (settling into a fixed approach too early). Cycles similar to day/night, tides or seasonal changes are examples of such periodic perturbations.
+
+- Probablistic / non-deterministic system
+
+- Edge of Chaos
+
+- Black Swan Events
+
+# There will be some kind of "selection" that is applied in a broader sense than natural selection in biological evolution. We know how this works in genetics, but I think the principles of "selection" /(I will expand on this; deep-dive required)/ apply universally; biology/genetics is just one way of implementation, although in a higher-order substrate.
+
+# diversity maintenance and novelty search; the focus should be on expanding the objectives of evolutionary computation, not just optimizing specific problem solutions, but also modeling the genuine, open-ended evolutionary processes observed in nature, complete with environmental variations, multi-objective optimization, and aspects of co-evolution.
+
+*** Drivers of Computational Evolution
+
+In the Protoverse, the aim of evolution could be seen as a drive for novelty, exploration, understanding, creativity and sophistication rather than survival:
+
+- The process-relational model I described so far introduces uncertainty naturally, because anything we would recognize as discrete objects (physical things, individuals, identities, integers, etc) are approximations to begin with.
+
+-  Realizing and acknowledging novel situations or patterns created by the evolution of interacting processes is quite a challenge. It's central to a Process' ability of any order to adapt, learn, and evolve (Processes are recursive).
+
+- Each Process has its subjective experience (and it's own reality). As processes interact, evolve and become part of more complex Processes, the nature of subjective experience will become more nuanced. Adapting to and striving for consensus (e.g. a shared reality between processes) will pose a challenge.
+
+- In an universe where Experience exists on a spectrum, emergent phenomena will lead to new forms/domains of experience. This phenomenological richness can drive Processes to continuously evolve, in order to further explore and understand the diversity of Experiences.
+
+- In a post-scarcity environment, the challenge isn’t to secure resources, but to make sense of information.
+
+
+* Meta
+
+** Design Guidelines
+
+- Worry later about practicability! (no premature optimization): I do not think much about practicability right now, as I want to explore and develop the ideas first. That's why I start with a "metaphysical framework", which is essentially a speculative construct, that I try to make clearer and coherent with each iteration. Later I can consider the implementation specifics and how to tackle any challenges that might come with them.
+
+- One of the goals for this ontology is to spot assumptions largely rooted in anthropocentrism as thoroughly as possible and resolve those. It will not be perfect of course but an ongoing process, and I think this is neccessary good practise.
+
+- Prefer the bottom-up approach: when designing the Protoverse ontology, my fundamental premise is that all phenomena are emergent by nature. Only when this assumption ceases to provide meaningful insights, I do consider classifying the phenomenon in question as fundamental.
+
+- Process philosophy's view of reality: Reality is not made up of static substances but rather of ongoing activities. Where I encounter a complex functionality, instead of trying to pin down a rigid structure for it, I could choose to view it as a dynamic process and look where that leads to.
+
+- Events as entities: Things could be seen as events. So, instead of thinking in terms of true or false state of entities, I could focus on the transitions - the changes in the states -- just like an event-driven system.
+
+* Scratchpad
+
+** Felt like it meant something; might delete later
+
+*** Delimited Relational State Update
+
+Crude idea how interaction between Processes might work -- or not:
+
+Theoretically you could "ask" a Process for a Property, at any occasion (provided a interface or device that let's you interact with a specific Process), and it will give you an answer -- it will /realize this Property/ in turn. Note: that Property hasn't there before, it will be generated. So as an example, let's ask a Process for its "identity":
+
+How does the Process understand the request? Based on what language or protocol? And how does a Process "know" or "decide" what to respond to our specific question?
+
+Well, all that complicated stuff like protocols would be entirely superflous, if the Process wouldn't have to "know" or "decide" what to respond. And that can be so, under the circumstance that it /only can do one thing/, and responds with /one thing/ subsequently.
+
+If a Process only can do /one thing/ and responds according to that, then the Process cannot and doesn't need to "understand" the question to begin with. For the Process it makes no difference if you ask it for its "identity" or "position" or "spin", as long your question is well-formed. It will /do its one thing/ and therefore generate its answer.
+
+Each "question" (you may call it "measurement" at this point) is superficially just a trigger for the Process to realize its /relational state/ -- this is the /one thing/ it does and can do.
+
+The missing link: Whatever is connected to this Process during the query (which may include probablistic anticipations and uncertainties), becomes an integral part of the relational state it realizes when triggered -- that relational state /includes you/ (by your interface or measuring device) -- a bit like if the process takes a selfie with you in it. More accurately, it includes the /processes that are you/ and their relational states (there are plenty).
+
+It's up to you to interpret the reply from the Process, which is like an oracle. Like an oracle's gibberish, the Process' reply is entirely meaningless in itself. But as you have setup everything in order to ask the process a specific question (in this example, for a Property), it happened that you framed and narrowed down the answer (to a /certain precision/).
+
+The Process did not "answer" your question of course, since it couldn't even understand it. The reply that came from the Process, is eventually more like a hash value that completed and closed this specific loop.
+
+What does a relational state include, is there a limit or border how far or deep this relational state reaches? What's included and what not? What does the realization of a relational state require -- does it have a "time" duration or other 'cost', depending on what? Does this "border" expand, and does this expansion vary?
+
+Ok, let's assume that the effort to realize ("query") very complex relational states (more nested or far-reaching relations) is higher than the effort to realize relational states of lower complexity (less relations, trivially structured, or not so far-reaching).
+
+'Far-reaching' in this sense could either mean 'in time', 'in space', both, or neither. We must consider that time, space and various physical phenomena may arise from the realization of relational states, rather than assuming these phenomena a priori. So there's a 'cost' involved in realizing relational state.
+
+We may assume that realizing very complex relational state may require a huge effort. This could be expected if two vast conglomerates of processes with are constituted through a vast amount of relations interact.
+
+*** Is There an Ultimate Reality?
+
+Taken the term in its original meaning, immediately breaks out from the Protoverse, through all scales of our known world and seeks to get hold of the most profound. I don't regard the question as nonsensical, but rather as a tool for personal reflection of one's current state of mind. It shows the values, biases, where the focus is, and the voids -- uncharted territories for planning the next +vacation+ expedition. It seems a good idea to answer this question from time to time. Let's try:
+
+Currently, I hold the view that what we commonly expect to count as "ultimate reality" is multi-faceted -- much like in a sense that we could hypothetically develop several equally meaningful perspectives, like say highly developed "theories of everything" -- physical or otherwise. Each of these TOE coherent in itself, valid in terms of "empirically confirmed" to high degrees and so on, as far as the scientific method allows.
+
+What we might find is that, taken these separate theories, there can be morphisms between them. These morphisms /are/ what comes closest to "ultimate reality". The "ultimate reality" is not in the instantiation (not physical), but in the translations between descriptions, and there can be /many/.
+
+*** Relevant beliefs and values:
+
+- Difference is profound
+- The beginning/end doctrine is a human invention
+- Circular dependence is legit; "dependent origination""
+- Coherence globally, fundamentals locally
+- No meaning without references and relations
+- Darwinian evolutionary processes are universal - same same, but different
+- Physical laws and phenomena are not prior (time, space, gravity)
+- There's no "imperfection" in nature, but complexity misunderstood
+- Desire for the absolute, closed, discrete, perfect, precise is a cognitive bias
+- The unfinished and infinite are not flaws, but the expression of becoming
+- Be careful with (ad-hoc) formal systems; they are tools, not truths
+- Mathematics is a conglomerate of formal systems
+- 'Closed systems' are human invention
+- Be sceptic of classic logic, explore other logic frameworks
+- There might be no distinction between "ontic" and "epistemic"
+- 'Equality' is a human invention, rooted in bias
+- Recursion is profound
+
+*** Cognitive object-heuristic and Platonic thinking
+
+While these heuristics are beneficial for practical purposes, they may also be limiting. This is reflected in the Platonic Ideals, and their postulate reinforced and encouraged a view of nature that seeks out unchanging laws and fundamental building blocks—the 'objects' of the universe.
+
+*** Approximation and Uncertainty in Nature:
+
+Our misunderstandings about uncertainty and approximation could be due to the habit of objectifying nature -- the permanent strive for completeness, closedness and discreteness. This objectification is obviously practical, but might lead to the erroneous assumption that approximations are merely tools for dealing with our imperfect knowledge, instead of potentially fundamental aspects of reality itself.

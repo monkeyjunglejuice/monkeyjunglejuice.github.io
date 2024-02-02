@@ -1,0 +1,85 @@
+#+TITLE: A Magic Dwells in Each Beginning
+#+DATE: <2020-09-08>
+#+SUBTITLE: Blog Index
+#+LANGUAGE: en
+#+DESCRIPTION: The journey of a notorious noob.
+#+KEYWORDS: learn programming, coding projects, novice programmer, beginner
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io">
+#+SETUPFILE: ../monkeyjunglejuice/static/setup.org
+#+OPTIONS: toc:1
+
+* Projects
+
+#+ATTR_HTML: :class index
+#+begin_nav
+|   | Protoverse: Building An Artificial Universe from Scratch |
+|---+----------------------------------------------------------|
+|   | [[file:blog/artificial-universe-introduction.project.org][Introduction]]                                             |
+|   | [[file:blog/artificial-universe-metaphysics.project.org][Metaphysical Framework]]                                   |
+|   | [[file:blog/artificial-universe-engineering.project.org][Technical Considerations]]                                 |
+|   | [[file:blog/artificial-universe-ethics.project.org][Ethical Guidelines]]                                       |
+#+end_nav
+
+* Essays
+
+#+ATTR_HTML: :class index
+#+begin_nav
+|   | Opinions for Free                                |
+|---+--------------------------------------------------|
+|   | [[file:blog/best-programming-language-for-beginner.essay.org][Which Programming Language Should I Learn First?]] |
+#+end_nav
+
+* Code Walkthroughs
+
+#+ATTR_HTML: :class index
+#+begin_nav
+|    | Beginner's Project »GTK Theme Switcher«           |
+|----+---------------------------------------------------|
+| 1. | [[file:blog/learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][Let's code a GTK Theme Switcher for XFCE in OCaml]] |
+| 2. | [[file:blog/learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.org][Config File Parsing in OCaml]] [unfinished]         |
+#+end_nav
+
+#+ATTR_HTML: :class index
+#+begin_nav
+|    | Beginner's Project »CSV Cleaner«           |
+|----+--------------------------------------------|
+| 1. | [[file:blog/learning-to-code-first-app-episode-1.tutorial.org][Manipulating CSV Files in Common Lisp]]      |
+| 2. | [[file:blog/learning-to-code-first-ocaml-project-episode-2.tutorial.org][Rewriting CSV Cleaner in OCaml]]             |
+| 3. | [[file:blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][Eat my Huge Files: Tail Recursion in OCaml]] |
+#+end_nav
+
+* How-Tos
+
+#+ATTR_HTML: :class index
+#+begin_nav
+|   | Knowledge You Can't Live Without                        |
+|---+---------------------------------------------------------|
+|   | [[file:blog/emacs-server-name-frame-title.howto.org][How to Display the Emacs Server Name in the Frame Title]] |
+#+end_nav
+
+* Bio
+
+Hi, Dan here! Welcome to my personal blog where I track some aspects of my journey and share the finds along the way.
+
+Some pseudo-random facts about me:
+- I've got a strong drive for viewing phenomena from various angles, and love to challenge intuition
+- I practice Muay Thai, old-school skateboarding and strength training
+- I'm living at the equator and wouldn't call it "a life" under 25° C
+- Once I got bitten by a furry /Hyllus diardi/ in the wild
+- I enjoy roaming the forests
+
+I'm an entrepreneur and co-founder of a footwear brand. Prior to entrepreneurship, I specialized in conversion rate optimization, a field that excited me as it revolves around empirical experimentation into human decision-making and persuasion.
+
+Before that, my career was devoted to UX/UI and corporate design. I embarked on my design journey as a trainee at a B2B media production agency, where I worked mainly with clients from the medical technology sector.
+
+My first career of sorts was in the military police (MP), serving five years as part of a crisis response unit where I progressed to the rank of staff sergeant.
+
+Before these professional roles became a thing, there were years of vibrant youth marked by parties and clubbing. Primary- and secondary school was quite traumatic and a huge waste of time.
+
+-----
+
+#+begin_center
+CREDITS
+Static blog generator: [[https://www.gnu.org/software/emacs/][Emacs]] with [[https://orgmode.org/features.html#publishing][Org-mode]]
+CSS frameworks: [[http://necolas.github.io/normalize.css/][normalize.css]] and [[https://github.com/oxalorg/sakura][sakura]]
+#+end_center
