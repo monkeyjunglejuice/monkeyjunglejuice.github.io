@@ -1,8 +1,118 @@
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 300;
+  font-style: normal;
+  src: url('Cormorant-Light.woff2') format('woff2');
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Cormorant';
-  font-weight: 200;
+  font-weight: 300;
+  font-style: italic;
+  src: url('Cormorant-LightItalic.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 400;
   font-style: normal;
-  src: url('cormorant-Light.woff2') format('woff2');
+  src: url('Cormorant-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 400;
+  font-style: italic;
+  src: url('Cormorant-Italic.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 500;
+  font-style: normal;
+  src: url('Cormorant-Medium.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 500;
+  font-style: italic;
+  src: url('Cormorant-MediumItalic.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 600;
+  font-style: normal;
+  src: url('Cormorant-SemiBold.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 600;
+  font-style: italic;
+  src: url('Cormorant-SemiBoldItalic.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 700;
+  font-style: normal;
+  src: url('Cormorant-Bold.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant';
+  font-weight: 700;
+  font-style: italic;
+  src: url('Cormorant-BoldItalic.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  font-weight: 300;
+  font-style: normal;
+  src: url('CormorantSC-Light.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  font-weight: 400;
+  font-style: normal;
+  src: url('CormorantSC-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  font-weight: 500;
+  font-style: normal;
+  src: url('CormorantSC-Medium.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  font-weight: 600;
+  font-style: normal;
+  src: url('CormorantSC-SemiBold.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  font-weight: 700;
+  font-style: normal;
+  src: url('CormorantSC-Bold.woff2') format('woff2');
   font-display: swap;
 }

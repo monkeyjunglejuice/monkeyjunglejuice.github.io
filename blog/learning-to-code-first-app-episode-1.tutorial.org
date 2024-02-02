@@ -1,0 +1,276 @@
+#+TITLE: Manipulating CSV Files in Common Lisp
+#+DATE: <2020-06-12 Fri>
+#+SUBTITLE: Project »CSV Cleaner« – Episodes: [[file:learning-to-code-first-app-episode-1.tutorial.org][1]] | [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][2]] | [[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][3]]
+#+LANGUAGE: en
+#+DESCRIPTION: Me coding my first little script in Commmon Lisp, piece by piece | 1st episode
+#+KEYWORDS: common lisp, tutorial, first app, learn lisp, csv, cl-csv, lisp scripting
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learning-to-code-first-app-episode-1.tutorial.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:2
+
+* Automate the Boring Stuff with Lisp
+
+I was tired to manipulate CSV tables per hand using spreadsheets, so I wondered how to automate the process and let it contribute to my mission to learn programming. To be honest, this script doesn't do exciting things, but it's trivial enough to serve as a first project.
+
+I believe that the best way to understand something is to teach it (or put differently: if you cannot explain it, you do not really understand it). So I'm going to make a little blog series of it to document my progress, and to extend/refactor the script with each episode, until I'm happy with it or too bored --- whatever happens first.
+
+** Why Common Lisp and not Language XYZ?
+
+~(with-lisp #'automate *the-boring-stuff*)~
+
+I've chosen Lisp, because to me -- an unprejudiced first-time programmer -- Lisp looks like the most simple and comprehensible programming language, after thorough investigation ([[file:best-programming-language-for-beginner.essay.org][read my reasoning here]]).
+
+If you wanna follow along and tinker with the code, download it here. You'll need Common Lisp to run it. [[https://portacle.github.io/][I recommend Portacle]], if there isn't yet any Common Lisp environment installed on your machine.
+
+So welcome to the 1st episode and enjoy the glorious piece of alien technology.
+
+* What the Script should do
+
+Before we start, we'll need to define the features for the little script:
+
+- [X] Open and read a CSV file
+- [X] Remove some columns
+- [ ] Perform search and replace on cell content
+- [ ] Set the pipe '|' as the delimiter char
+- [X] Spit out a sweet cleaned CSV file
+- [ ] Compile to a standalone binary
+
+/Checked boxes means features implemented in this episode/
+
+* Woohoo, let's begin!
+
+For those who don't know: "CSV" stands for "Comma Separated Values". It is a simple text file that resembles a table: The table rows are represented by rows in the text file, and the table columns by comma-separated values. Assume we've downloaded a CSV named ~orders_export.csv~ with recent orders from our online shop. When we open that file in a text editor, it looks like this example:
+
+#+BEGIN_SRC csv
+Order No.,Name,City,Article,Size,Status
+1001,Chris,Manchester,Red thong,XXL,Paid
+1002,Monica,Adelaide,Yoni eggs,Huge,Payment pending
+1003,Hendrik,Stockholm,Hemorrhoid healing stones,9,Paid
+#+END_SRC
+
+At first, our little app has to open and read the original CSV file, and then transform the content (let's call it /data/ from now on) into some form it can work with. So we'll need a /data structure/. That's is a generic term for things like lists, tables, trees, arrays, etc. Essentially, data structures are like containers with drawers and compartments.
+
+Let's go with a very simple data structure -- /Yo dawg, I heard you like Lisp? So we'll make every single row a list, and then put those lists into another list, and then you'll have a list of lists!/ That's how we want our data structure to look like; here as a literal repesentation in Lisp code:
+
+#+BEGIN_SRC lisp
+'(("Order No." "Name" "City" "Article" "Size" "Status")
+  ("1001" "Chris" "Manchester" "Red thong" "XXL" "Paid")
+  ("1002" "Monica" "Adelaide" "Yoni eggs" "Huge" "Payment pending")
+  ("1003" "Hendrik" "Stockholm" "Hemorrhoid healing stones" "9" "Paid"))
+#+END_SRC
+
+** Using the CL-CSV Library
+
+We know how our data should look like, now we have to perform the actual converison to get there. Let's check [[https://github.com/CodyReichert/awesome-cl][Awesome Common Lisp]] for a library to work with CSV files. Turns out, [[https://github.com/CodyReichert/awesome-cl#csv][there's a library /"cl-csv"/]] for that, which is capable to do ... well, a lot of things. Opening files and other stuff included. Neat! So a good chunk of the work is already done by somebody else. That's bad for the learning effect of course, but good for making something happen quickly and getting immediate gratification! :D
+
+To use the functionality from the library, we must load it first. There's [[https://www.quicklisp.org/beta/]["Quicklisp", a package manager for Common Lisp]]. In the REPL, we can use the following command; it downloads the library, saves its code in your ~~/quicklisp/~ directory and loads it into our program:
+
+#+BEGIN_SRC lisp
+(ql:quickload "cl-csv")
+#+END_SRC
+
+Let's see what is in that library. Ok, there's a function ~cl-csv:read-csv~. We can use it to read the file ~orders_export.csv~ and transform it into the list of lists we want so badly.
+
+How can we define a variable? There's ~defvar~, and we could use ~defparameter~, too. Those are built-in Lisp macros, not from the /cl-csv/ library.
+
+We'll go ahead with ~defparameter~ to define a variable ~*input-table*~ and store the result from the expression ~(cl-csv:read-csv #P"orders_export.csv")~ in it.
+
+#+BEGIN_SRC lisp
+(defparameter *input-table* (cl-csv:read-csv #P"orders_export.csv")
+"Contains the original table in list form.")
+#+END_SRC
+
+#+BEGIN_note
+*Let's throw in a little explainer about Lisp source code, shall we?*
+
+You may have guessed it, anything enclosed in parenthesis is a /list/: opening paren ~(some things in between)~ and closing paren. A list in Lisp is foremost a collection of things, one after another, like a list written on paper.
+
+But not just collections of things are written in list form; in fact all the source code is written in list form.
+
+Example: Functions. They are fundamental building blocks in all programs. You define a function (specify what it does) → then apply the function to something → and then it returns a result.
+
+In Lisp, function application looks like this: ~(name-of-the-function 1st-argument 2nd-argument 3rd-argument)~. Noticed the parens? It's a list. The first thing in the list is the function name, and the others are the things we apply the function to. Those we call /arguments/.
+
+Here's an example: ~(+ 1 2 3)~ Yup, that's addition. The ~+~ operator is in fact just a function, applied to the arguments ~1~, ~2~ and ~3~. The function /evaluates/ to ~6~.
+
+The arguments can be anything -- numbers like in the example above, while many functions accept also other things as arguments -- they work on various data structures and even on other functions.
+
+Ok, back to defining variables.
+#+END_note
+
+I've read in the [[http://www.lispworks.com/documentation/HyperSpec/Body/m_defpar.htm][documentation for ~defparameter~,]] that it defines a dynamically scoped "global" or "special" variable. Hm. That sounds a bit suspicious, doesn't it? I suspect that's not how you usually should do this. I guess you better use a ~let~ form and lexical scope, not global variables. But I've decided it's fine for now.
+
+I've also read that you mark global/special variables with ~*earmuffs*~ by convention. "Earmuffs". How cute is that? Cold snow ... red apple cheeks ... Well, they could have called them /"sticking out armpit hair bushes"/, too. Guess that was too long.
+
+** Deleting Columns from the CSV
+
+Is it a good idea to load the whole CSV at once? Well, probably not. Imagine you have a CSV that is a few gigabytes big. In that case, you would likely work sequentially, for instance load a row, perform your operations on it, store it somehow, and then proceed with the next row. The CSVs I work with are barely bigger than a few megabytes, so I'm going this way for now.
+
+The data structure stored in the variable is a list, and within that list are other lists (I've said that before, didn't I?), each representing a row of the original CSV. Just a quick reminder, it looks like this:
+
+#+BEGIN_SRC lisp
+'(("Order No." "Name" "City" "Article" "Size" "Status")
+  ("1001" "Chris" "Manchester" "Red thong" "XXL" "Paid")
+  ("1002" "Monica" "Adelaide" "Yoni eggs" "Huge" "Payment pending")
+  ("1003" "Hendrik" "Stockholm" "Hemorrhoid healing stones" "9" "Paid"))
+#+END_SRC
+
+Now we're coming to the point where we're actually doing something: Getting rid of some columns.
+
+The thing is: those columns are not columns like in a spreadsheet. In fact, there are no columns at all. There's actually no column "Name" or "Size", if we just use a list with other lists in it.  All what we have are rows, represented as lists.
+
+So we have to build a relation and make a connection between a particular "column" header -- eg. "Size" -- and the corresponding content -- like "XXL", "Huge" and "9".
+
+Since each row has (hopefully) the same number of strings in it, we can say: when "Size" is the 4th element in the list (counting starts at 0), each corresponding element is always the 4th element in its respective list.
+
+My first idea was to look up the posititions of the columns I don't want to have in the result, and them /remove/ the corresponding strings from all rows (lists).
+
+Example: If don't want the column "Size" appearing in the result, then I'd have to write a function that removes the 4th entry of the header row (list) and also removes the 4th string from each other row (list).
+
+For that, we would need to define all the columns we don't want. We could do that here, directly in the source file in the form of a list of all column headers to get rid of. But then if we want to change something, we would always have to touch the source file ... meh. Better we specify those columns outside of the app's logic in another CSV which will serve as a template. Let's be creative and call it 'template.csv'.
+
+#+BEGIN_note
+*So here we'll make a little break to introduce a literary figure: /Future Me/ writing here!*
+
+You've noticed that I was talking the whole time about /removing/ columns? You know what? I had a bit of a hard time to figure out how exactly the filter functions should work to /remove/ the columns/strings. Because each time I delete a specific element from the list, each subsequent element moves one position forward, which makes it really complicated to grab specific elements by their positions.
+
+Then I realized it was way simpler to write a function in a way to /build/ lists from the columns I want to /keep/ in the CSV, instead of writing a function to /remove/ the columns I don't want to have in the result. Two takeaways:
+
+1. If you're stuck with something, it may help to simply switch the perspective.
+2. It may be easier to assemble what you want to have eventually, instead of removing what you would like to get rid of.
+
+That being said, let's move on before it gets to deep.
+#+END_note
+
+So, within the ~template.csv~ we now have specified all the columns we'd like to /keep/ in our cleaned CSV.
+
+For our next trick, we need those column names from our ~template.csv~, which is also the 1st row in the file. So we'll make sure to pull only that:
+
+The expression ~(cl-csv:read-csv #P"template.csv")~ transforms the content of a CSV file into list of lists, as you may remember (we used that before). Now, with the built-in function ~car~, we'll get the first element of that list, which is the header row:
+
+#+BEGIN_SRC lisp
+(defparameter *cols-to-keep-by-name*
+  (car (cl-csv:read-csv #P"template.csv"))
+"Contains the names of the columns we would like to have in the
+cleaned CSV, specified within the first row of the file 'template.csv'")
+#+END_SRC
+
+Let's get the table header from our original CSV too (which is still stored in the variable ~*input-table*~ together with the rest of the CSV), and store it separately in another variable called ~*header-input-table*~.
+
+What we have in that variable, looks like that: ~("Order No." "Name" "City" "Article" "Size" "Status")~. The first row has just been copied over (the original table header is still in the ~*input-table*~).
+
+#+BEGIN_SRC lisp
+(defparameter *header-input-table* (car *input-table*)
+"Contains the original table header, which is the first row
+from the file 'orders_export.csv'.")
+#+END_SRC
+
+Now we need a function that tells us the position of the column names (and therefore columns) within the original CSV. We write it so that we apply it to the name of a column -- like "Size" -- and then the function tells us in which position the column is.
+
+For that, we're going to use the built-in function [[http://www.lispworks.com/documentation/HyperSpec/Body/f_pos_p.htm][~position~]] within our own function. ~position~ accepts a few parameters to change it's behaviour. The ~:test~ keyword determines under which circumstances the function takes effect. It defaults to the predicate ... well, to which one exactly? I'm not sure. The HyperSpec documentation says nothing about it.
+
+Whatever the default predicate for ~:test~ is -- it doesn't match two strings, even if both are the same. The default test could be either EQ: ~(eq "Vendor" "Vendor") ; → NIL~. But there's an extra predicate that tells us if two strings are the same, and we're going to use that one ~:test #'string=~ instead of the default and ~(string= "Vendor" "Vendor") ; → t~ -- whoop whoop!
+
+#+BEGIN_SRC lisp
+(defun get-col-position (col-name)
+  "Get the position number of a column by the column name"
+  (position col-name *header-input-table* :test #'string=))
+#+END_SRC
+
+When we use ~mapcar~ to apply the function ~get-col-position~ to each column name in our list of column headers, the function returns a list with the position numbers of the columns we'd like to have in our cleaned CSV. We store that list in the variable ~*cols-to-keep-by-position*~:
+
+#+BEGIN_SRC lisp
+(defparameter *cols-to-keep-by-position*
+    (mapcar #'get-col-position *cols-to-keep-by-name*))
+#+END_SRC
+
+#+BEGIN_note
+It's me again -- former /Future Me/! Merging into your present time line and becoming just me again!
+
+Now we'll reach the point I've mentioned before that had caused me difficulties, and where a perspective switch actually helped:
+
+While I was struggling how to /remove/ from each row the strings belonging to the /unwanted/ columns, I suddenly realized that it was easier to pick the strings corresponding to the /desired/ columns and /collect/ them to construct the rows for the cleaned CSV.
+
+What was still left, was to specify the /desired/ columns via ~template.csv~, instead of the /unwanted/ columns.
+#+END_note
+
+Filter the input row:
+
+#+BEGIN_SRC lisp
+(defun create-output-row (input-row)
+  "Filter a row of the input-table to create a row for the output table"
+  (loop for x in *cols-to-keep-by-position*
+        collect (nth x input-row)))
+#+END_SRC
+
+Create the output-table. We take the function defined above and map it onto each element of the list ~*input-table*~:
+
+#+BEGIN_SRC lisp
+(defparameter *output-table*
+  (mapcar #'create-output-row *input-table*))
+#+END_SRC
+
+Write the new CSV to disk:
+
+#+BEGIN_SRC lisp
+(cl-csv:write-csv *output-table* :stream #P"orders_cleaned.csv")
+#+END_SRC
+
+* Conclusion
+
+It works! Features 1. and 2. and 5. accomplished. As I've mentioned before, the hard part was to figure out how to actually remove the columns I don't want to have in the CSV; most of the time I was trying to come up with a function to remove some elements by their positions ~(1 3 4)~ from a list ~("a" "b" "c" "d" "e")~. Sometimes you only have to change the perspective, and collecting things seems to be easier than removing things.
+
+** Here is the full Script
+
+To run it, you will need:
+
+1. Common Lisp installation with Quicklisp
+2. CSV file named ~orders_export.csv~ with some sample data
+3. CSV file ~template.csv~ where you specify the columns to keep
+
+#+begin_src lisp
+  ;; Load the library CL-CSV. We use it to read the CSV file and
+  ;; transform its content into a list of lists
+  (ql:quickload "cl-csv")
+
+  ;; Read the CSV file and store it in a variable as a list of lists
+  (defparameter *input-table* (cl-csv:read-csv #P"orders_export.csv"))
+
+  ;; We only need the table headers from the first row from 'template.csv'
+  ;; so pull only that and store it in a variable
+  (defparameter *cols-to-keep-by-name*
+    (car (cl-csv:read-csv #P"template.csv")))
+
+  ;; Get the table header from our original CSV (stored in the variable *input-table*)
+  ;; and store it in *header-input-table*
+  (defparameter *header-input-table* (car *input-table*))
+
+  ;; Define a function that tells us the position of a particular column name.
+  ;; We feed it the name of a column eg. "Size", then it tells us
+  ;; at which position that particular column is
+  (defun get-col-position (col-name)
+    "Get the position number of a column by the column name."
+    (position col-name *header-input-table* :test #'string=))
+
+  ;; When we map this function to each column name in our list of column headers,
+  ;; we're getting a list of the positions of the columns that we want to keep.
+  ;; We store that list in the variable *cols-to-keep-by-position*
+  (defparameter *cols-to-keep-by-position*
+    (mapcar #'get-col-position *cols-to-keep-by-name*))
+
+  ;; Filter the input row
+  (defun create-output-row (input-row)
+    "Filter a row of the input-table to create a row for the output table."
+    (loop for x in *cols-to-keep-by-position*
+          collect (nth x input-row)))
+
+  ;; Create the output-table; take the function above
+  ;; and map it onto each element of the list *input-table*
+  (defparameter *output-table*
+    (mapcar #'create-output-row *input-table*))
+
+  ;; Write the new CSV
+  (cl-csv:write-csv *output-table* :stream #P"orders_cleaned.csv")
+#+end_src
+
+Ok, that was a first try. [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][Check out the 2nd episode]] where I rewrite this in OCaml!

@@ -1,0 +1,214 @@
+#+TITLE: GTK Theme Switcher in OCaml: Config File Parsing
+#+DATE: <2022-01-28 Fri>
+#+SUBTITLE: Code Walktrough – Episodes: [[file:learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][1]] | [[file:learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.org][2]]
+#+LANGUAGE: en
+#+DESCRIPTION: Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut
+#+KEYWORDS: learn ocaml, parsing, config file, dark mode, gtk, xfce, gtk theme, project ideas
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:t
+
+#+begin_center
+~ WORK IN PROGRESS ~
+#+end_center
+
+Welcome to the 2nd episode of /"We're writing a GTK Theme Switcher for XFCE4 to toggle between light/dark modes via shortcut"/. [[file:learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][Here's the previous episode]].
+
+* The Config File
+
+Until now, we have "hardcoded" preferences – that means, we specified those preferences within the program code itself – like what is the dark theme, what's the light theme, and which backend we use to talk to the daemon.
+
+Under normal circumstances, this is regarded as quite inconvenient since we'd have to recompile the program every time we would like to change one of those preferences.
+
+There are three common solutions to this "problem":
+- Passing the preferences in the form of command line arguments when the program starts
+- Defining some environment variables and store the preferences in them
+- Specifying the preferences in a plain text file that is read by the program during startup. Those files are called "run control files" (that's why they often end in ="rc"=, eg. =.vimrc=); a.k.a. "dotfiles".
+
+** Is there a Syntax or Convention for Config Files?
+
+There are several formats in use: INI-style files, XML, YAML, S-expressions, and even JSON. But for simplicity's sake, let's stick closely to the [[https://web.archive.org/web/20191007042721/http://www.faqs.org/docs/artu/ch10s03.html][Unix-conventions]]:
+- Preferences are specified with key-value pairs
+- The =#= character is used as a line comment, so that everything after =#= will be ignored
+
+** Let's design a beautiful Config File!
+
+Most important is a huge impressive ASCII art banner to show off your prowess. Besides that, it’s probably a good idea to provide some comments how to use the file. And then there are the actual preferences. Here you go:
+
+#+caption: File =/home/YOUR_USER_NAME/.config/switch_gtk_theme.conf=
+#+begin_src conf
+  #   █████████  █████   ███   █████ █████ ███████████   █████████  █████   █████
+  #  ███░░░░░███░░███   ░███  ░░███ ░░███ ░█░░░███░░░█  ███░░░░░███░░███   ░░███
+  # ░███    ░░░  ░███   ░███   ░███  ░███ ░   ░███  ░  ███     ░░░  ░███    ░███
+  # ░░█████████  ░███   ░███   ░███  ░███     ░███    ░███          ░███████████
+  #  ░░░░░░░░███ ░░███  █████  ███   ░███     ░███    ░███          ░███░░░░░███
+  #  ███    ░███  ░░░█████░█████░    ░███     ░███    ░░███     ███ ░███    ░███
+  # ░░█████████     ░░███ ░░███      █████    █████    ░░█████████  █████   █████
+  #  ░░░░░░░░░       ░░░   ░░░      ░░░░░    ░░░░░      ░░░░░░░░░  ░░░░░   ░░░░░
+  #    █████████  ███████████ █████   ████
+  #   ███░░░░░███░█░░░███░░░█░░███   ███░
+  #  ███     ░░░ ░   ░███  ░  ░███  ███
+  # ░███             ░███     ░███████
+  # ░███    █████    ░███     ░███░░███
+  # ░░███  ░░███     ░███     ░███ ░░███
+  #  ░░█████████     █████    █████ ░░████
+  #   ░░░░░░░░░     ░░░░░    ░░░░░   ░░░░
+  #  ███████████ █████   █████ ██████████ ██████   ██████ ██████████
+  # ░█░░░███░░░█░░███   ░░███ ░░███░░░░░█░░██████ ██████ ░░███░░░░░█
+  # ░   ░███  ░  ░███    ░███  ░███  █ ░  ░███░█████░███  ░███  █ ░
+  #     ░███     ░███████████  ░██████    ░███░░███ ░███  ░██████
+  #     ░███     ░███░░░░░███  ░███░░█    ░███ ░░░  ░███  ░███░░█
+  #     ░███     ░███    ░███  ░███ ░   █ ░███      ░███  ░███ ░   █
+  #     █████    █████   █████ ██████████ █████     █████ ██████████
+  #    ░░░░░    ░░░░░   ░░░░░ ░░░░░░░░░░ ░░░░░     ░░░░░ ░░░░░░░░░░
+
+  # Dark GTK theme versions are usually named with a '-dark' suffix.
+  # This is however not a fixed rule. If you added a theme on your own,
+  # and it's not working as expected, please check first if your theme names
+  # are spelled correctly (names must not contain spaces!).
+
+  # UI --------------------------------------------------------------------------
+  # Configure your GTK themes here. Uncomment a theme pair or add your own:
+
+  ui_light = Adwaita
+  ui_dark = Adwaita-dark
+
+  #ui_light = Breeze
+  #ui_dark = Breeze-Dark
+
+  #ui_light = Greybird
+  #ui_dark = Greybird-dark
+
+  # ICONS -----------------------------------------------------------------------
+  # Must be set. If you don't want to switch icon themes, then set the same name
+  # for both 'icon_light' and 'icon_dark':
+
+  icon_light = Papirus-Light
+  icon_dark = Papirus-Dark
+
+  #icon_light = breeze
+  #icon_dark = breeze-dark
+
+  #icon_light = Paper
+  #icon_dark = Paper
+
+  # BACKEND ---------------------------------------------------------------------
+  # Set your preferred backend. If one doesn't do anything, try the other.
+  # Use "xsettings" with the XFCE Desktop Environment. The package 'xfconf'
+  # should have been installed along with XFCE.
+  # Or uncomment "gsettings" if you are using the GNOME Desktop Environment,
+  # and/or Wayland rather than Xorg:
+
+  backend = xsettings
+  #backend = gsettings
+#+end_src
+
+** Where to put this Config File?
+
+As per [[https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html][Freedesktop.org conventions]], config files for (desktop-)applications should be put under =$XDG_CONFIG_HOME=. That's an environment variable, referring to the the user's config directory. If this environment variable is not set, "a default equal to =$HOME/.config= should be used" (=$HOME= is another environment variable, but one that /is/ usually set. It points to the user’s home directory).
+
+So that means we could name the config file =$HOME/.config/switch_gtk_theme.conf=. But in case the environment variable =$XDG_CONFIG_HOME= /is/ already set, we should make that the 1st choice, because it could happen that a user has customized the paths to his/her liking, and we should respect that. But for now we just put it under =$HOME/.config/switch_gtk_theme.conf= and are done with it.
+
+** The Config File Path
+
+On my laptop, my =$HOME= directory is =/home/dan=, and the config file is there: =/home/dan/.config/switch_gtk_theme.conf=.
+
+But we want the program to find the config file, no matter what’s the user name like, right? So the path of the config file has to be built automatically from:
+
+- the actual home directory of the user
+- the rest of the path =/.config/switch_gtk_theme.conf=, which doesn’t change (by convention).
+
+Using the =$HOME= environment variable, we can assemble the absolute path like this:
+
+#+caption: Expression (in the toplevel)
+#+begin_src ocaml
+  Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf";;
+#+end_src
+
+[[https://ocaml.org/api/Unix.html][~Unix.getenv~]] is a function that gets the value of an arbitrary environment variable and returns it as a string. This function is defined in the Unix module.
+
+Before you can use a function from the Unix module, you probably have to ~#require "unix"~ in your OCaml toplevel to load the package ="unix"= which contains the [[https://www.ocaml.org/api/Unix.html][~Unix~]] module. A [[https://ocaml.org/learn/tutorials/modules.html][Module]] is a construct within the OCaml language, while a [[https://ocaml.org/packages][package]] is a bunch of files to install with [[https://opam.ocaml.org/][Opam (OCaml package manager)]]. They are different things. That can be confusing, since they have usually the same name. Hint: module names always begin with an uppercase letter, but packages usually with a lowercase letter.
+
+The [[https://www.ocaml.org/api/Stdlib.html#VAL(^)][~^~]] operator concatenates two strings into one. Eventually, we’ll get an expression that assembles the path depending on the user’s home directory:
+
+#+caption: Expression in the toplevel
+#+begin_src ocaml
+  let path = Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf";;
+#+end_src
+
+* Reading a Config File in OCaml
+
+Ok fine, we’re going to read a file. What's going to happen with it when we've done that? What will it become? And how will it look like? And why all that?
+
+“Reading a file” gives quite an imprecise description about what is actually going to happen. You know, it’s not about the file, but about the /data/ in it.
+
+What we actually do: extract the data from one storage format (file) that resides on the disk and transform it into another storage format to store it in RAM — while maintaining the general structure of the data, or even better: enhancing the structure of the data to make it easier to handle. ’Handle’ means to pick specific parts from it, filter it, change it, etc.
+
+And when a program has to handle some data, that also means there’s probably some kind of /data structure/ involved. Most programming languages provide some basic data structures to work with; eg. lists, dictionaries, tuples, records, etc.
+
+In fact, our theme switcher needs only the key-value pairs like ~ui_light = Adwaita~ or ~icon_light = Papirus-Light~. Everything else is useless. So here’s a plan:
+
+1. We’ll deal with the file on the disk to get the data out
+2. We put the data into a data structure
+3. We manipulate the data until it’s only left what the program needs
+4. Eventually, we feed that into the switch mechanism to control it
+
+** Getting the Data from the File
+
+According to the [[https://www.ocaml.org/learn/tutorials/file_manipulation.html#Reading][official tutorial]], we’ll have to open an =in_channel= first, using the function [[https://ocaml.org/api/Stdlib.html#VALopen_in][~open_in~]]. An =in_channel= is not a file itself, but more like a tornado; its funnel's end at your disposal, pointing initially to the beginning of a file. Yeah programming is exciting. You probably know that already.
+
+The =in_channel= can be “consumed”. That means we can e.g. read character by character, or line by line – and each time we have done so, the =in_channel= points to the next thing, until we reach the end of the file. When that happens, it’s not possible to read from that channel any more (in order to do so, we would have to re-open it again).
+
+We can read a line from the =in_channel= using the function [[https://ocaml.org/api/Stdlib.html#VALinput_line][~input_line~]] (and bind a name ~line~ to it).
+
+A channel needs to be closed when we’re done with it, using the function [[https://www.ocaml.org/api/Stdlib.html#VALclose_in][~close_in~]]. Only then the operating system will recognize this file as closed.
+
+#+caption: Toplevel
+#+begin_src ocaml
+  (* 1. Assemble the path and bind it to the name [path] *)
+  let path = (Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf");;
+
+  (* 2. Define the [in_channel] and bind it to the name [ic] *)
+  let ic = open_in path;;
+
+  (* 3. Read one line from the [in_channel] and bind it to the name [line] *)
+  let line = input_line ic;;
+
+  (* 4. Close the [in_channel] *)
+  let _ = close_in ic;;
+#+end_src
+
+*What does the underscore ~_~ mean?* Well, that's the wildcard. We can use it in different places when we don't care to bind a name to the expression – e.g. when an expression is only evaluated for its side-effects, but we have no further use for the value it evaluates to (side-effect here is: closing the =in_channel=).
+
+If the file exists and you got the path right, you’ll see this result:
+
+#+caption: Result – the first line of the config file
+#+begin_src ocaml
+  val line : string =
+    "#   █████████  █████   ███   █████ █████ ███████████   █████████  █████   █████"
+#+end_src
+
+Not so bad! But wasn’t our plan to ignore comments, starting with ~#~? Yes, we could do it either here, but also filter them out later, once the whole file is in memory. To get all the lines, [[https://ocaml.org/api/Stdlib.html#VALinput_line][~input_line~]] must be applied to the open =in_channel= over and over again – and with each time, another line is read, until the =in_channel= is consumed. Meanwhile all the resulting lines need to be collected somehow.
+
+** Reading the whole File and building the Data Structure
+
+To get all the lines, we must apply [[https://ocaml.org/api/Stdlib.html#VALinput_line][~input_line~]] repeatedly to the =in_channel=. In most other languages, repetition is done via loops. But loops are clumsy low-level made-up things, mutating variables in-place. Nonono, we don’t do that here. [[https://ocaml.org/learn/tutorials/if_statements_loops_and_recursion.html][In OCaml, we have cooler things: recursion]] – a function calling itself over and over again, until a base case is reached.
+
+#+caption: File =switch_gtk_theme.ml=
+#+begin_src ocaml
+  (* 1. Assemble the path and bind it to the name [path] *)
+  let path = (Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf")
+
+  (* 2. Define the [in_channel] and bind it to the name [ic] *)
+  let ic = open_in path;;
+
+  (* 3. Read one line from the [in_channel] and bind it to the name [line] *)
+  let line = input_line ic;;
+
+  (* 4. Close the [in_channel] *)
+  let _ = close_in ic;;
+#+end_src
+
+#+begin_center
+To be continued …
+#+end_center

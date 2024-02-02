@@ -1,0 +1,109 @@
+#+TITLE: How to display the Emacs Server Name in the Frame Title?
+#+DATE: <2020-09-21 Mon>
+#+SUBTITLE: A short How-To
+#+LANGUAGE: en
+#+DESCRIPTION: Emacs server: Set 'frame-title-format' using the 'server-name' variable
+#+KEYWORDS: howto, emacs server, server name, frame title, emacs, elisp
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:nil
+
+As you may know, the best way to optimize Emacs' startup time by magnitudes is to [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html][start a server instance]] --- e.g. at login --- and then fire up a client [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html][Emacs client]] to edit a file.
+
+There are some scenarios why one would run /more than one/ Emacs server instance: Maybe to outsource tasks to another Emacs process for whatever reason ~(server-eval-at "work" '(* 3 3))~, or to have separate workspaces -- eg. one for work and another for personal stuff -- like I do (there may be more sophisticated ways to implement workspaces in Emacs tough).
+:DRAWER:
+sdfadfadfasddf
+:END:
+You can start the servers via shell commands in your terminal, or put the commands into your autostart:
+#+BEGIN_SRC sh
+emacs --daemon=work
+emacs --daemon=personal
+#+END_SRC
+
+And then connect to a server like:
+#+BEGIN_SRC sh
+emacsclient -s personal -nc
+#+END_SRC
+
+I thought it would be nice to see the server name in my +window+ frame title to know in which frame I am ('work' or 'personal'). /By the way, a 'frame' in Emacs terminology means the ordinary desktop window./
+
+The simplest way to set a custom frame title goes like this:
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format "%b %f")
+#+END_SRC
+
+You put the expression into your =~/.emacs.d/init.el= or =~/.emacs= file, whatever exists on your system. ~%b~ stands for the name of the buffer you're currently in, and ~%f~ for the path of the file you're editing. You'll find a [[https://www.gnu.org/software/emacs/manual/html_node/elisp/_0025_002dConstructs.html][full list of all variables]] here.
+
+So what to do, if you want to have the server name there? Is there a variable ~%X~ for the server name? Of course not.
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format "%b %f %X")
+#+END_SRC
+
+We'll need to find another way to put the server name into the string. Luckily, Emacs already provides a variable ~server-name~ that holds the name of the Emacs server. The value of ~server-name~ is a string, and the ~concat~ function puts several strings together into one (noticed the string with a space =" "= between the quotes in the code block below? That's the separator between the file path and the server name; we're concatenating 3 strings here):
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format (concat "%b %f" " " server-name))
+#+END_SRC
+
+But ... meh. The code is valid, but still doesn't work. "server" appears in the frame title instead of "personal", because "server" is the default value of ~server-name~.
+
+Turns out, the server starts towards the end of the initialization process, after all the things in 'init.el' have done their thing. We cannot set the frame title just plainly in 'init.el', because if we do so, the frame title will be set /before/ the server has been started and got its name, still with the default value of ~server-name~.
+
+We have to make sure the frame title will be set /after/ the server has started. We can [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html][use a hook]] for that. There are many standard hooks in Emacs, and we have to [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Init-File.html][find the right one]] that runs after the server has been started. According to the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html][startup summary]], it seems like the ~emacs-startup-hook~ is run before ~server-start~ and therefore shouldn't work, but ... surprise, it works nevertheless:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (setq frame-title-format
+                    (concat "%b %f" " " server-name))))
+#+END_SRC
+
+What if we want to run Emacs without server-mode? In that case, the default value of ~server-name~ will be shown again. To get rid of it, we'll have to extend the ~setq~ form a bit:
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (setq frame-title-format
+                    (concat "%b %f"
+                            (when (server-running-p)
+                              (concat " " server-name))))))
+#+END_SRC
+
+Or even better -- lxet's define a separate named function to set the frame title. That looks a bit more tidy when you hook more than one functions into ~emacs-startup-hook~:
+#+BEGIN_SRC emacs-lisp
+  ;; Define the function
+  (defun my-frame-title ()
+    "Set a custom frame title."
+    (setq frame-title-format
+          (concat "%b %f"
+                  (when (server-running-p)
+                    (concat " " server-name)))))
+
+  ;; Run the hook to call the function
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (my-frame-title)))
+#+END_SRC
+The solution above works now if one summons the server via command line argument like described in the beginning (e. g. ~emacs --daemon=personal~). But it doesn't work when starting the server from within Emacs via calling the function ~server-mode~ or the respective 'M-x server-mode' command.
+
+To update the frame title when the server is started from within Emacs, we'll use another hook:
+#+BEGIN_SRC emacs-lisp
+  ;; Define the function
+  (defun my-frame-title ()
+    "Set a custom frame title."
+    (setq frame-title-format
+          (concat "%b %f"
+                  (when (server-running-p)
+                    (concat " " server-name)))))
+
+  ;; Run the hook to call the function while starting
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              "Functions to call after loading init files."
+              (my-frame-title)))
+
+  ;; Call the function after entering or leaving 'server-mode'
+  (add-hook 'server-mode-hook
+            (lambda ()
+              "Functions to apply after entering or leaving 'server-mode'."
+              (my-frame-title)))
+#+END_SRC
+That's all!

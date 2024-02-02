@@ -1,0 +1,489 @@
+#+TITLE: Which Programming Language Should I Learn First?
+#+DATE: <2020-06-25 Thu>
+#+SUBTITLE: The Right Tool for the Job
+#+LANGUAGE: en
+#+DESCRIPTION: How to pick your first programming language to learn coding
+#+KEYWORDS: learn programming, learn to code, programming languages, best programming language
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/best-programming-language-for-beginner.essay.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:2
+
+* What is this about?
+
+I'm going to explain what's important for a first programming language from a beginner's perspective, clear up common misconceptions, review the most interesting languages with their pros/cons, and point to the best (free) learning resources and books.
+
+#+ATTR_HTML: :cite https://www.cs.utexas.edu/users/EWD/transcriptions/OtherDocs/Haskell.html
+#+begin_quote
+»It is not only the violin that shapes the violinist, we are all shaped by the tools we train ourselves to use, and in this respect programming languages have a devious influence: they shape our thinking habits. This circumstance makes the choice of first programming language so important.«
+@@html:<cite>@@—[[https://www.cs.utexas.edu/users/EWD/transcriptions/OtherDocs/Haskell.html][Edsger W.Dijkstra]]@@html:</cite>@@
+#+end_quote
+
+* The hard Part
+
+"Learning a programming language" applies foremost to programmers who already know how to program. For them, picking up a new language is possible within a couple of weeks (and for you too, once you've gained some experience).
+
+But if you start out, you don't need to just learn a programming language; as a beginner:
+
+1. You will have to learn *the language itself* with it's features, syntax, semantics and … warts. I would say this is the easiest thing of the three.
+
+2. Then you want to learn *how to program*. It means learning how to analyze the problems you want to tackle, finding solutions and express them in algorithms and data structures, which is often not intuitive. For that, you're utilizing the various ways your programming langugage provides.
+
+3. And there's *the technology part*, e. g. things like protocols, networking, cryptography, the platform or operating system, tooling and the language ecosystem. This is a vast ocean of knowledge, which requires some specialization.
+
+* What do You Want to Do?
+
+Is it your plan to become a software developer? Software is built in different domains – the most prominently spoken about within the www, is obviously the development of ... itself. Big surprise. But there are other areas than web frontend and web backend; like fintech, games, aircraft systems, robotics, telecom or water supply. If you know exactly what your intentions are, you could start with a language of your specific field and go form there … or better not?
+
+#+ATTR_HTML: :class center
+#+ATTR_HTML: :cite https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/intro/pl.html
+#+BEGIN_QUOTE
+"It's crucial that you understand
+the principles behind programming
+that transcend the specifics
+of any specific language."
+@@html:<cite>@@—[[https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/intro/pl.html][Michael R. Clarkson]]@@html:</cite>@@
+#+END_QUOTE
+
+The industry workhorse may probably not be the right fit, because it could be either highly specific and/or come with a lot of distracting things that don't matter for you right now. There's a reason one does not take the very first driving lessons on a bucket wheel excavator, but on a ... yes, a car. Or motorbike. If you pick the wrong one, you might not follow through.
+
+Life changes and programming is hard. So you should go with a language that's interesting to you – for whatever reason – and which is particularly suitable for learning, according to the criteria I lay out below. Read on, I will describe the most interesting languages afterwards.
+
+You may even want to learn programming, if you have no plans to become a part of the software producing workforce. I've worked quite a long time as a designer and in the online marketing industry, but have barely written any code at all, since there were always developers working alongside me and tasked with the wizardry.
+
+But I have always been interested in computer stuff, so I've dabbled a lot with Linux, server administration and tweaking/breaking my configs as a means of procrastination. Real programming was the magical border I haven't crossed – until recently.
+
+For my part, I wanted a tool to structure and formalize thoughts, and I'd like to be able to prototype ideas. More generally, I think programming can help us tremendously to develop our minds.
+
+#+ATTR_HTML: :class center
+#+BEGIN_QUOTE class center
+"Life is short –
+pull down the curtain,
+cast some spells
+and wield some magic!"
+#+END_QUOTE
+
+* What makes a Programming Language beginner-friendly?
+
+** Available Learning Material
+
+For which programming language is the right learning material available? That point is huge!
+
+Most programming books or courses are not made for absolute beginners, but for programmers who want to /learn yet another language/. Remember, you want to /learn programming/, not just a language.
+
+"Regular" programming books are not "too advanced" to grasp; it's just that they *teach you the wrong things* instead of what you actually need to learn.
+
+Beware, there's also a lot of crap out there. And the more popular a programming language, the more crap you'll run into. First, learn how to learn things by yourself, in ways that fit your preferences and unique cognitive predispositions. That is likely the most valuable skill you'll ever develop.
+
+I recommend a textbook or e-textbook *with exercises* as your main forge of knowledge, because books are still the most accessible media – you can read a chapter even if you're queueing up somewhere, re-read each chapter until you got it, and /do the exercises/.
+
+Generally, I suggest to use material from university profs and/or other reputable personalities to make sure you adopt a well rounded foundation and good style, instead of jumping between random tutorials and wasting money on bootcamps.
+
+I've linked the best books below. Most of them come for free! Get ready to dabble with your textbook for quite some time. /So you really want an enjoyable one!/ The most recommended book may not neccesarily be the right one for you; individual taste matters a lot.
+
+** Syntax and Readability
+
+As a novice coder, you'll need enough brain capacity left to maintain focus on the concepts and what (your) code does, without the language getting in your way. So you want a simple syntax that's easy to pick up and remember. You don't want surprises and gotchas.
+
+Code is also more often read than written. A clean syntax enables the you to understand what's going on in the program. Consistency enables you to derive further things from things you already have learned before and speeds up your learning process. [[https://cs.lmu.edu/~ray/notes/syntaxdesign/][Side read: Here's a nice overview that explains certain features a syntax can have, and how they affect the perception of code.]]
+
+** Expressive Power
+
+Expressivity means how simple it is to say certain things. There are a some factors who determine how expressive a programming language can be:
+
+*** Expressions, Statements or a mix of both?
+
+One feature to look for is if a language has expressions only or if it mixes both expressions and statements.
+
+For sanity's sake, go for a language where *"everything is an expression"*. The reason for this is that expressions can be nested, so anything in the language can be combined with nearly evertything else.
+
+Languages that have both -- expressions and statements -- tend to be clumsy, because some constructs are expressions, some are statements and both cannot be nested/combined as you see fit, so you run into silly barriers all the time and need to structure your code around those artificial limitations.
+
+*** Low-level or High-level?
+
+Low-level does not mean "worse" or "inferior" than high-level – it just refers to the fact that computers are built in many layers on top of each other, and the levels close to the physical machine are called the "low level". You could also call it "foundation", if you prefer a less judgemental sounding term xP
+
+High-level languages tend to be more expressive than low-level languages, because with each layer up, the grade of /abstraction/ increases and more powerful ways to express complex things come into play.
+
+*** How simple is it to build Abstractions?
+
+What is abstraction? It means hiding the foundational workings of the level(s) below (eg. the physical machine) so you don't have to deal with them directly and can focus on your problem/idea instead.
+
+An analogy: A console used to control the lightshow of a concert is an abstraction over fumbling with the electricity cables and tieing them together to make light bulbs glow in a certain order. Now think about doing the light show only by messing with the wires. This is dangerous and way harder (practically impossible) than using the console.
+
+And so it is with programming, too. That's why no one is coding directly in 010010101, CPU instructions or Assembly language to build apps.
+
+*** Is it a wordy or concise Language?
+
+Do you have to write a lot of boilerplate or repeat yourself? In most cases you want an expressive high-level language; not overly verbose but also not too terse, so there's just the right amount of redundancy left to keep it comprehensible. [[https://redmonk.com/dberkholz/2013/03/25/programming-languages-ranked-by-expressiveness/][Side-read: programming languages ranked by their expressiveness]]
+
+** Usability and Programming Environment
+
+Ideally, your language of choice comes with tooling that's easy to use. 'Tooling' includes things like editor support (syntax highlighting, "jump-to-definition", looking up documentation), helpful (or at least comprehensible) error messages, compilers, build systems and package management for libraries.
+
+Libraries are pieces of code written by other programmers that can be re-used, so a developer has less work and doesn't need to code everything from scratch. A good selection of libraries means basically "less work". Having many libraries is desirable for industrial use, but it doesn't matter so much in the beginning. Many languages can also use libraries from other programming languages/ecosystems.
+
+Consider to pick a language that comes with a /[[https://mikelevins.github.io/posts/2020-12-18-repl-driven/][REPL]]/, sometimes called /toplevel/ to run single pieces of your code interactively. Well, nowadays many languages come with a "REPL". But just a few languages enable true /interactive development/, a.k.a. /conversational programming/.
+
+Can you get started without huge ceremonies and fumbling for days?
+
+** Static vs. Dynamic Typing
+
+You may have heard of this distinction, and you've also may have heard that "dynamic" languages are better for beginners. Spoiler: It think that is bad advice.
+
+When faced with the choice between "dynamic" and "static," one might be inclined to favor "dynamic" for its implication of speed and agility. On the other hand, "static" may seem dull and the lame corner, right? Well, the words carry a misleading conotation through their use in everyday life and may suggest a misguided conclusion:
+
+The terms "static" and "dynamic" actually come from /[[https://en.wikipedia.org/wiki/Static_program_analysis][static analysis]]/ and /[[https://en.wikipedia.org/wiki/Dynamic_program_analysis][dynamic analysis]]/, which says something about /when/ certain properties of a program will be checked; here, it's about the data types (eg. string, integer, float, boolean and custom data types).
+
+Both approaches carry benefits and tradeoffs, and I will mention those who are especially relevant for beginners:
+
+*** Dynamically typed Languages
+The data types will be checked /while the program runs/ – at runtime. That means your program may run and pretend that everything is fine, until it crashes unexpectedly when it encounters a type error.
+
+- With a dynamically typed language, we're never quite sure what kind of value we're dealing with, until it hits us at runtime. They offer more flexibility and can be faster for prototyping, thanks to their tolerance for sloppy thinking. However, this can result in technical debt, as the forethought you didn't put in up front will catch up with you later on. In other words, it's easy to get carried away, putting off work for later and ending up with a mess. And because there's usually no time afterwards for necessary untangling, the mess stays around.
+
+*** Statically typed Languages
+The data types will be checked by the type checker /before the program runs/ — at compile time. The code will not even compile until the type errors have been adressed. This behavior can lead to frustration, but that's only because there's something wrong.
+
+- Type annotations act as a concise, reliable documentation. You know instantly what a function does, what goes in and what comes out, without any guesswork.
+- Quite often you'll just have to puzzle together what fits to what. That's quite helpful when you're using a library, and want to know how to stick it together with the rest of your code.
+- Static typing helps to catch errors quickly. It prevents a whole class of potential bugs sneaking into the code. There is this saying "If it compiles, it's probably correct", and it's true more often than not (but a type checker can't protect you from logic errors).
+- Refactoring! The joy of rewriting your code over and over again in pursuit of the perfect implementation --- as a novice, this is the highest pleasure of them all. Static typing helps your editor to tell you what else has to be changed, and where.
+
+** Popularity and Commmunity
+
+#+ATTR_HTML: :cite http://www.paulgraham.com/iflisp.html
+#+BEGIN_QUOTE
+"Popularity is always self-perpetuating, but it's especially so in programming languages. More libraries get written for popular languages, which makes them still more popular. Programs often have to work with existing programs, and this is easier if they're written in the same language, so languages spread from program to program like a virus. And managers prefer popular languages, because they give them more leverage over developers, who can more easily be replaced."
+@@html:<cite>@@—[[http://www.paulgraham.com/iflisp.html][Paul Graham]]@@html:</cite>@@
+#+END_QUOTE
+
+Popular means just that: popular. It does not imply "technically superior" or "easy" or "getting a job": if everyone does it, why should they need you so badly? There'll always be someone better and cheaper. Also: Today's popular is tomorrow's most hated: Just two recent examples: Java and PHP. Popularity can diminish very quickly, so don't chase the hype (you're already too late anyway). [[https://cscalfani.medium.com/the-problem-with-popular-programming-languages-67faa14ac13b][Side read: The Problem with Popular Programming Languages]]
+
+Popular languages have some benefits though — for instance bigger ecosystems, which leads to many things built around the language to make the life of (experienced) programmers easier. Obviously, popular languages have also bigger communities.
+
+You don't need a huge community; smaller communities have their benefits, too. But it should be a welcoming one. Can you spot growth mindset and excitement?
+
+So, 700,000 people fullmoon rave or beach party with friends? Meh, forget both and practice some social distancing – it's +quite popular+ in high demand still!
+
+** Which Programming Language will be in high Demand
+
+… in late autumn 2029 so I can get filthy rich coding it? Well, nobody knows and it doesn't matter. Why? /Because it's about learning to code/ – which is a timeless skill – not about a particular language. These come and go.
+
+It's a bit like being able to ride a bicycle. Once you've learned the underlying principle, it will not make much of a difference if you hop on Grandma's grinder or shred your neighbour's toddler's tricycle, and you won't care if the current trend says in 10 years everyone will ride tiny mountain bikes with pink tyres.
+
+*** But isn't there anything future proof? I'm investing so much Time!
+
+The best future investment is [[https://www.youtube.com/watch?v=Kz_brQBl8xk][how to learn things on your own]].
+
+Language-feature-wise, there's in fact a thing that's getting more and more important, and that is +concurrency+ [[https://medium.com/@itIsMadhavan/concurrency-vs-parallelism-a-brief-review-b337c8dac350][parallelism]]. Most languages in use today have been developed years ago when [[https://en.wikipedia.org/wiki/Moore%27s_law][Moore's Law]] was still valid. Back then, everyone expected single processors getting faster and faster, so it was perfectly fine to have languages to make programs running on a single processor/core, and no one really cared to build in parallelism features.
+
+But that is not any more. To keep up with the demands of modern applications, we have no other chance than to put more processors/cores into a computer, or to run the application distributed on multiple computers. To leverage the power of multi-core processors, we need to be able to program our software conveniently in a way to utilize all available cores. It may be a good idea to learn a programming language which is designed to build programs that run tasks in parallel.
+
+** Maturity
+
+While it may be tempting to begin with the new hyped language everyone is raving about, a mature programming language has the benefit of an organically grown user base, flaws ironed out, stuff being written about it, better tooling, etc.
+
+A mature language doesn't change every couple of months, so you can be sure to learn the "right" things – you don't have to worry if you're learning old stuff without knowing (looking at you, JavaScript).
+
+Which language has been around for quite a while, but implements modern, interesting and useful concepts that may be relevant in the future?
+
+** What kind of Animal are you?
+
+It seems there are two different groups of programmers. Those that see programming languages primarily as a means of production (category 1) and those who see it as instrument of human reason (categories 2 and 3):
+
+1. *Pragmatic languages:* conservative, efficient, worse-is-better, boring.
+  /"A programming language is a tool to get the job done"/
+2. *Hackish languages:* multi-paradigm, anything goes, flexibility, unopinionated.
+  /"I pursue absolute freedom and like to explore the problem domain interactively"/
+3. *Constraining languages:* single-paradigm, protecting you from yourself, the-right-thing, opinionated.
+  /"I prefer one correct way according a fixed set of rules"/
+
+Programming languages are created by different minds, within different eras, significantly influenced by fashion. One language may be a natural fit for a certain personality type, and a less fortunate choice for another. That even applies to programming itself – it's easier for some and harder for others (doesn't mean those are more stupid – ok, some really are).
+
+* Choose your Poison
+
+Some of them are actually better teaching languages, while others not so good and now I'll explain why. But be aware: that all of them suck in some way or another. By the way, the order of appearance is just for dramaturgical purposes and does not imply any [[*Mkay, but which one?][ranking]].
+
+** ANSI C as Your First Programming Language
+
+Welcome to the low-level. Programs written in C tend to be more performant than programs written in other languages. In other words, it is the fastest (practical) programming language. Performance-critical algorithms and systems are often written in a low-level-language like C; e. g. the Linux kernel, drivers, high-performance libraries, etc.
+
+There seems to be a tradeoff with programming languages:
+- either high run-time performance (fast) plus low programmer productivity → longer development time
+- or lower run-time performance (slow) but higher programmer productivity → shorter development time
+
+Development time (human) is more expensive than run-time time (computer), so mostly we agree on a slower programming language to minimize the human effort. However, since performance is a matter of the implementation and not the programming language per se, it is ... a myth. There are really fast high level programming languages coming close to C performance; [[*OCaml as Your First Programming Language][OCaml]] for instance.
+
+You may hear here and there that one must learn programming in C before even thinking about anything else – well, no. It is true that C code is in the underpinnings of almost every system nowadays, yes – because most programming languages are not written in themselves, but in C. But there is no need to learn C as your first language: Start only with C if your main interest lies in electronics and [[https://en.wikipedia.org/wiki/Systems_programming][systems programming]], or you have some other reason to work very close to the machine.
+
+If you wanna become that crazy hardware hacker, you may look into the [[https://www.arduino.cc/en/Guide/Introduction][Arduino electronics platform]], coming with the Arduino programming language (which is basically a subset of C). Don't confuse C with C++ (an extension to C, but huge and messy) or C# (a Microsoft thing). /Look for "ANSI C"/, the standard.
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/c/][C code examples]]
+- [[https://en.wikipedia.org/wiki/C_(programming_language)][Getting startet with C]] or [[https://www.arduino.cc/en/Guide][Arduino]]
+- C programming book for beginners:
+  - [[https://amzn.to/2XqQtag][The C Programming Language, 2nd Edition (paper/Kindle)]]
+  - [[https://amzn.to/3ht17Ej][Beginning C for Arduino, Second Edition (paper/Kindle)]]
+#+END_box
+
+** Lua as Your First Programming Language
+
+On the surface, Lua is quite similar to JavaScript – just without the ugly parts (more about that later). Lua is elegant, performant, carefully designed and consistent. Therefore it is super easy to learn for +Muggles+ Non-programmers, and probably the "easiest" programming language listed here.
+
+Why is Lua an "easy language"? First, it is compact: There are not a lot of concepts or features to learn before you can do something meaningful. But then you can go on and combine the small set of building blocks with each other in many ways to implement more sophisticated things. Lua is probably the most simliar language to the Scheme programming language.
+
+Lua is used in many domains, especially in the game industry (e. g. World of Warcraft, Roblox). Lua can be a high-level counterpart to C and can be embedded into C program code, so that high-level program logic – like character behavior – can be scripted in Lua, while the other parts of the software in need for raw metal speed can be written in C or C++.
+
+It's straightforward to get started and build something with Lua: You might want to make your own 2D game with the Löve game engine, or you could use it to code native games and other apps for Android. There's a really nice IDE ("Integrated Development Environment") for Lua programming, called "ZeroBrane Studio"; think of it as an extended editor especially for Lua.
+
+As far as I know, there are not many textbooks available, but you can use /the/ book written by Lua's chief architect Roberto Ierusalimschy. And there's a wiki and many many user tutorials. Lua is primarily developed at the University of Rio de Janeiro (PUC-Rio). Once you've committed to learn Lua, I recommend to buy the 4th edition to support the project.
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/lua/][Lua code examples]]
+- [[https://www.lua.org/start.html][Getting started with Lua]], [[https://studio.zerobrane.com/][ZeroBrane Studio]] and the [[https://love2d.org/][Löve game engine]]
+- Lua programming books for beginners:
+  - [[https://www.lua.org/pil/contents.html]["Programming in Lua 1st Edition" (free online)]]
+  - [[https://store.feistyduck.com/products/programming-in-lua-fourth-edition-ebook]["Programming in Lua 4th Edition" (e-book)]] | [[https://amzn.to/3clCl6k][Paper book]]
+#+END_box
+
+** Clojure as Your First Programming Language
+
+As a total noob, I've been looking for a language with a simple syntax, because who wants to run into syntax errors all the time? Clojure is a member of the /Lisp/ family; those have in fact the cleanest syntax of all programming languages. Further, it seems to be an expressive general purpose language, and it's designed especially with concurrency in mind.
+
+The language is built on top of the Java platform. Software built on Java can run on almost any major operating system. Clojure can be used for different things, even for artsy stuff. Just as an example: [[https://overtone.github.io/][you can do live coding and make algorithmic music]], and there are things like algo-raves (yup, that exists …).
+
+It's also a practical language to build serious business software with, because it can use Java's enormous library ecosystem. And there's [[https://clojurescript.org/][ClojureScript]], a dialect of Clojure that compiles to JavaScript (so you won't have to write web apps in JavaScript).
+
+The language is a fresh take on Lisp and well designed. But there's also that Java underbelly who sticks out everywhere, coming with it's own terminology. And that's the drawback – you'll have to use Java stuff pretty soon and swallow the bleak Java speak +for a deeper understanding of Clojure+ doing even basic things.
+
+If you want to try anyway, I recommend the book "Clojure for the Brave and True"; ok the "humor" gets annoying pretty quickly, but I had a good start with it and some enlightening moments. Well, the book convinced me also to take a look at Emacs, and I'm a fanatic Emacs user since then.
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/clojure/][Clojure code examples]]
+- [[https://clojure.org/guides/getting_started][Getting started with Clojure]]
+- Clojure programming book for beginners:
+  - [[https://amzn.to/2ZZTL63]["Clojure for the Brave and True" (paper/Kindle)]]
+#+END_box
+
+** Common Lisp as Your First Programming Language
+
+My initial reason for me to use a programming language wasn't to write applications. Actually I wanted just a better calculator. A REPL makes a way better calculator than the silly concept of an interface resembling a physical pocket calculator with big buttons and a single line display.
+
+Well, here Lisp's functional notation felt really weird for doing arithmetik: Instead of ~10 + 3 + 4 + 6 + 7~ you write ~(+ 10 3 4 6 7)~. There are no operators, everything it's basically function application. The uniform syntax is easy to pick up. And it doesn't get in your way, so you can concentrate on the things that really matter. This also makes a couple of things easier, for instance writing programs who write programs ... well, that's more advanced, but one of Lisp's many selling points: metaprogramming.
+
+I think the most compelling books and essays have been written on Lisp, and it has the best learning material I could find. Well, Lisp has been around for a while and is mature in any aspect.
+
+What really fascinates me, is that Lisp is no obscure magic box, where you write some keywords and then something underneath does some things and you don't know what and why. Lisp is different: everything is built from a few simple pieces. That makes it quite straightforward to paint a mental picture how it actually works. It's low-level and high-level at the same time. Mindblowing!
+
+The tooling is excellent and designed for interactive development. *There's a really nice [[https://apps.apple.com/us/app/cl-repl/id1511296102][App for iOS]] and [[https://play.google.com/store/apps/details?id=org.eql5.android.repl][Android]] called "CL REPL".* You can use it to tinker around when ever you feel like /"Damn, I wish I could write some Lisp right now!"/ You can. It's in fact a complete Common Lisp IDE with SLIME, the "Superior Lisp Interaction Mode for Emacs".
+
+But usually you want it on your laptop. There are plugins for [[https://atom.io/packages/slima][Atom]], [[https://marketplace.visualstudio.com/items?itemName=ailisp.commonlisp-vscode][VSCode]] and [[https://github.com/vlime/vlime][Vim]], although I recommend Emacs, which is straightforward to install [[https://portacle.github.io/][via Portacle]], a ready-made bundle coming with everything you need. If you don't know Emacs yet, do:
+1. Menu → "Options" → "Use CUA keys"
+2. Menu → "Options" → "Save options"
+– then copy & paste works like everywhere else.
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/common-lisp/][Common Lisp code examples]]
+- [[https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/][Getting started with Common Lisp]] and [[https://portacle.github.io/][the Portacle IDE]]
+- Lisp programming books for beginners:
+  - [[https://amzn.to/308BHa0]["Common Lisp: A Gentle Introduction to Symbolic Computation" (paper/Kindle)]] | [[https://www.cs.cmu.edu/~dst/LispBook/book.pdf][Free PDF]]
+  - [[https://amzn.to/3cwdnkW]["Land of Lisp" (paper/Kindle)]]
+#+END_box
+
+** Scheme or Racket as Your First Programming Language
+
+Pleasantly surprised by Clojure and Common Lisp, I've into other languages from the Lisp family. Scheme is commonly recommended to beginners, especially for those who are interested in computer science. [[https://www.micahcantor.com/blog/why-learn-racket/][Why learn Racket? A student's perspective]]
+
+Like other Lisps, Scheme shares the same uniform list representation of source code (actually these are tree structures), which makes it easier to paint a mental picture of the program structure. There's no clutter, which I like.
+
+Scheme is opinionated in so far to stay unopinionated – meaning, it's a clean slate and people are eager to keep it that way. It is a minimalist language and often considered as the most elegant and consistent programming language; that makes it excellent for learning, reasoning about computation and to design algorithms, but not so much for cranking out some commercial business stuff app.
+
+Racket is a descendant of Scheme (it was called PLT Scheme before). But Racket is far from minimal. It has tons of features built in and you can think of Racket as "Scheme with batteries included", and it is also platform for programming language research.
+
+Scheme can run on Racket, so even if you just want to learn the Scheme language, you can do it comfortably in Racket. That may sound a bit confusing, but it actually isn't. You'll see.
+
+Further, Racket emphasizes "language oriented programming". It means you can design your own small (domain specific) programming languages for your particular application and then write your application in that language. But you don't have to – you can just use "normal" Racket like everyone else. So don't bother with that for now.
+
+The most recommended book on (functional) programming is the classic "Structure and Interpretation of Computer Programs", abbreviatet "SICP". It was written as an introduction for computer science students at MIT, using Scheme. But for me it was a bit too much as a very first book. But check it out anyway, it's really philosophical.
+
+I've also began to read "How to Design Programs", which is supposedly easier and often recommended to read before SICP, but found it a bit too earnest and dry. The other books are quite different. Personally I recommend "Simply Scheme", "The Little Schemer" and "Realm of Racket".
+
+You can get started very easily with Scheme and Racket – one single install and go, no matter if you are on Windows, Linux or Mac. You don't even have to be familiar with the command line, because it comes with DrRacket, a friendly and easy to use programming environment (IDE).
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/racket/][Racket code examples]]
+- [[https://docs.racket-lang.org/quick/index.html][Getting started with Scheme or Racket and the DrRacket IDE]]
+- Scheme programming books for beginners:
+  - [[https://people.eecs.berkeley.edu/~bh/simply-toc.html]["Simply Scheme" (free online)]] | [[https://amzn.to/3cpR0gV][Paper book]]
+  - [[https://amzn.to/2XXHsEL][The little Schemer (Paper book)]] | [[https://archive.org/download/Schemer/The%20Little%20Schemer.epub][Free PDF]]
+- Racket programming books for beginners:
+  - [[https://amzn.to/3gO29v8]["Realm of Racket: Learn to Program, One Game at a Time!" (paper/Kindle)]]
+  - [[https://amzn.to/2XRBWDr]["How to Design Programs: An Introduction to Programming and Computing" (paper/Kindle)]] | [[https://htdp.org/2020-5-6/Book/index.html][Free online]]
+- Introduction into computer science:
+  - [[https://mitpress.mit.edu/sites/default/files/sicp/index.html]["Structure and Interpretation of Computer Programs" (free online)]] | [[https://amzn.to/2ZZBS7f][Paper book]]
+#+END_box
+
+** Elixir as Your First Programming Language
+
+Elixir is a well designed, new language that runs on the Erlang platform. Elixir is pretty neat for writing little scripts and automating everyday's tasks. But actually, the Erlang platform has been built for distributed computing, like forever-running systems with millions of users. It's all about staying up and running, no matter what.
+
+Developed at Ericsson, the Erlang platform has become not only a major building block of today's telecommunication networks. After Ericsson has open-sourced the Erlang platform, it has found a new area of application in web backends. So not only Your mobile provider's infrastructure runs likely on Erlang, but so do [[https://smartlogic.io/podcast/elixir-wizards/s6e8-fedorov/][WhatsApp]] and [[https://discord.com/blog/how-discord-scaled-elixir-to-5-000-000-concurrent-users][Discord]].
+
+Unlike with other hosted languages (Clojure on Java, Elm on JavaScript, …), the underlying Erlang platform is no distraction at all. Quite the contrary, because the platform you deal with -- Erlang's virtual machine -- stays the same everywhere, no matter if you develop your application on Windows or MacOS, but run it on some Linux later. This saves you from a lot of pain in the ass. You'll come very far with Elixir, before you'll dive into the platform technology.
+
+Besides Elixir and the Erlang platform, there's also Erlang the (original) language. And there are quite a few more languages that run on the Erlang platform, e.g. LFE "Lisp Flavoured Erlang" and Alpaca. But these are less beginner-friendly.
+
+What I dislike about Elixir is that many constructs have 3-4 "shorthands" or special cases to write the same thing, a.k.a. "syntactic sugar". It looks a bit like the language designers couldn't decide what ideas to keep and what to throw out -- e.g. a function definition in one line has a different notation than one that spans multiple lines, and another one if function appears within a module or not.
+
+Does it make sense to learn programming with Elixir? Most books only go through the language itself and it's features. There is not really "how to program" learning material available for absolute beginners, but that may change. The first book I listed below is quite short and covers some basics, and there's a gap between that and the second one, which requires some prior knowledge (but not much). 
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/elixir/][Elixir code examples]]
+- [[https://elixir-lang.org/getting-started/introduction.html][Getting started with Elixir]]
+- Eixir programming books for beginners:
+ - [[https://joyofelixir.com/toc.html][Joy of Elixir (free online)]]
+ - [[https://amzn.to/3p1gCH9][Learn Functional Programming with Elixir (paper/Kindle)]]
+ - [[https://elixirschool.com/en][Elixir School (free online)]]
+#+END_box
+
+** JavaScript as Your First Programming Language
+
+With JavaScript, you can build all kind of things in the browser and show it to your internet friends, without having them to download or install anything. JavaScript is the only language browsers support directly, still – and that's why everybody and their dog's fleas are coding JavaScript.
+
+JavaScript +is+ was an imperative language at the very heart, but you can write object-oriented and functional style too. JavaScript assimilates new features with each version and therefore it's getting bigger and bigger. Resistance is futile. Or is it?
+
+The language has good tooling and is easy to start with, and you may have heard "all you need is a web browser and a text editor". Well, um, nope. That's not really the truth. Expect a lot exceptions, special cases and to work around the poor language design.
+
+You'll need to learn to avoid the pitfalls, and using a [[https://eslint.org/][linter]] (that's a tool that checks your code and tells you where the problematic or deprecated parts are) is mandatory to prevent you from using probably harmful things and deprecated stuff.
+
+For me, it's a verbose frankenstein language that's a pain to read. Of course there are the usual suspects who disagree and even "love" JavaScript. These people either don't know any better, or suffer from a variant of the Stockholm Syndrome. Honestly, all of that doesn't make it a good choice for a first time programmer, but many start to learn programming with JavaScript, unfortunally.
+
+If you just would like to build web apps or browser games, you do have other choices (check out Elm down below) but eventually you need to know JavaScript – but don't learn it as your very first language.
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/javascript/][JavaScript code examples]]
+- [[https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics][Getting started with JavaScript]] and [[http://xahlee.info/js/javascript_basics.html][get a nice introduction with this tutorial]]
+- JavaScript programming book for beginners:
+  - [[https://amzn.to/2U0p4K6]["Eloquent JavaScript" (paper/Kindle)]] | [[https://eloquentjavascript.net][Free online]]
+#+END_box
+
+** Elm as Your First Programming Language
+
+Elm is a descendant of OCaml and Haskell that compiles to JavaScript: You write your website's code in Elm, and then the Elm compiler writes the JavaScript for you, so that your web browser can run it. If that sounds like it makes no sense, think about it this way: All programming languages compile down to another language on a lower level anyway, and those again and again, until your code's representation is only 11010101. Elm is just another layer on top.
+
+Why not writing JavaScript directly? Elm comes with a few interesting features: first and foremost a /static type system/ (like OCaml), which helps you to feel (more) sure about the correctness of your code (think: less undiscovered bugs). And you don't have to deal with JavaScripts screwed type conversion. Secondly, Elm is a pure functional programming language: That makes it's easier to reason about what code actually does. And it comes with /immutable values/: ever writhed in disgust when you saw ~x = x + 1~? Then Elm is for you (or other programming languages with immutable values).
+
+The Elm syntax is simple and the Elm compiler famous for its helpful error messages – like a built-in teacher who pushes you gently into the right direction on your pre-defined path to statically typed functional programming. And you will learn one way how to structure your application: "The Elm Architecture".
+
+That's why I consider Elm a good fit for first-time coders, despite the fact that it's still a very young and very specifig language that runs exclusively in the browser. Which in turn means you'll need to know HTML and CSS, at least at a basic level. There is not so much literature out there about Elm, but it opens the door to other functional programming languages, like OCaml or Haskell.
+
+Elm comes with an easy installation and convenient tooling. The language is nicely designed as a whole piece, and it's quite opinionated: You'll need to do most things like intended by its creator, similar to Python. On the other hand that's one of the reasons why everything within the Elm ecosystem fits so well together.
+
+If I like Elm but it's a browser-only language, why not learn "the real thing" – Haskell or OCaml?
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/elm/][Elm code examples]]
+- [[https://elm-lang.org/][Getting startet with Elm]]
+- Elm programming book for beginners:
+  - [[https://elmprogramming.com/]["Beginning Elm" (free online)]]
+#+END_box
+
+** Haskell as Your First Programming Language
+
+Contrary to popular belief, basic Haskell is quite easy to pick up; that's even more true for a person who hasn't programmed before. It may be less straightforward for experienced developers, since they have preconceptions about programming.
+
+The Haskell programming language has not been developed with practicality in mind, rather to unify several research languages to explore /pure functional programming/, /lazy evaluation/ and /static typing/. Haskell goes lengths to live up to that ideal, which leads to all kinds of complicated trickery.
+
+It's pretty straightforward to get started with Haskell. Downloading the compiler and starting /ghci/ (the "REPL") to evaluate some expressions is no big deal, and compiling some code neither. But if you go a bit further and want some more convenience and install libraries, there are a couple of different approaches which tooling set to use, and they overlap in functionality, and … well, that could be a bit confusing.
+
+But what about Haskell as a first language? Yes, but you'll be probably spoilt forever and touch anything else only with one-way rubber gloves. It has a few downsides, namely /non-strict evaluation/ by default, aka. "lazy evaluation". It's actually an interesting feature, but you will not find that in mainstream languages — certain patterns will not transfer to other languages.
+
+There is not "one Haskell" but numerous language extensions, and there are diverging opinions about which to use. It will get complicated very soon when you'll want to use libraries and read code others have fabricated - [[https://lexi-lambda.github.io/blog/2018/02/10/an-opinionated-guide-to-haskell-in-2018/][here's a disencouraging summary about the situation]].
+
+Basic Haskell has got a very clean syntax, but it is terse and implicit. A lot is going on in a very small amount of code, and there are many ways to express one and the same thing. It's by no means a compact language. Haskellers … Haskelleers? Hasklers? Haskys??? Those who do the Haskell, you know – yes – tend to be clever, and generally like to use the advanced features the language has to offer.
+
+If you want to get into functional programming, you're probably better off to start with OCaml (see below) which I think is a better /first programming language/. You can still move on to Haskell later, if you feel like and make use of the things you've learned with OCaml.
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/haskell/][Haskell code examples]]
+- [[https://docs.haskellstack.org/en/stable/README/][Getting started with Haskell (using Stack)]]
+- Haskell programming books for beginners:
+  - [[https://amzn.to/2Uh00Pl]["Haskell - the Craft of Functional Programming" (paper/Kindle)]]
+  - [[https://haskellbook.com/img/sample.pdf]["Haskell Programming from first Priniples" (sample)]]
+#+END_box
+
+** OCaml as Your First Programming Language
+
+OCaml is in the same family as Elm and Haskell, but has less ideological ballast, is pragmatic, although still not as popular. How come? OCaml's main point of criticism in the past was its lack of practical tooling. But a lot has happened: Meanwhile, the editor support and interactive (REPL-driven) development experience in OCaml is on par with Haskell or even better.
+
+It think OCaml is long overdue for a rise in popularity: OCaml shines where speed and correct code are highly sought after; like financial technology, blockchain or compilers. [[https://ocaml.org/learn/companies.html][Some bigger companies]] are heavily invested in OCaml. Many universities use OCaml to teach functional programming, so I found enough learning material for absolute beginners.
+
+OCaml syntax is very similar to Haskell's syntax, but leaves more room to breathe. It looks well structured, what makes it easy to recognize patterns in the code to know what's going on. I'd say consistency and elegance are it's most remarkable attributes. So far, I've written a couple trivial programs in it, and still had no WTF moments yet (and I'm really sensitive to those kind of things).
+
+The language is geared towards unix-like systems (Linux and MacOS), and has an automatic user-setup routine for Emacs and Vim. OCaml works also pretty well on Windows, but within the [[https://docs.microsoft.com/en-us/windows/wsl/install-win10][WSL (Windows Subsystem for Linux)]].
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/ocaml/][OCaml code examples]]
+- [[https://ocaml.org/docs/up-and-running][Getting started with OCaml]]
+- OCaml programming books for beginners:
+  - [[https://cs3110.github.io/textbook][OCaml Programming (free online with videos!!!)]]
+  - [[https://amzn.to/2XM04XW][OCaml from the Very Beginning (paper/Kindle)]] | [[https://sites.fastspring.com/coherentgraphics/product/ocamlfromtheverybeginning][DRM-free PDF]]
+  - [[https://ocamlbook.org/][OCaml From the Ground Up (free online)]]
+#+END_box
+
+** Python as Your First Programming Language
+
+It is one of the most popular languages right now, and that's probably Python's biggest benefit: because of that, there exist Python libraries for almost anything. Many of those libraries are actually written in other languages (e.g. C or C++) for performance reasons, because Python itself is the slowest of the languages listed here – basically, Python's role is to glue those libraries together.
+
+The syntax looks clean and readable at a first glance, but is no hallmark of consistency. It's said to be an "easy" language, but it's more like that well selected code examples look nice, and the onboarding process is made frictionless to shovel newcomers in.
+
+Python is highly opinionated: The creators encourage that certain things should (only) be done in a certain way – what they call "pythonic". The opposite is "unpythonic". "To describe something as clever is not considered a compliment in the Python culture".
+
+I think Python is a dead end, even if it's popular right now, because programming language research has advanced greatly, while Python shoos you onto a narrow path ("the pythonic way"), and sends you to the object-oriented corner where all the shortcomings persist that have been resolved elsewhere.
+
+Beginners should not put blinkers on and march 'the pythonic way', but start with a language that opens the mind. Is Python a good first language? I considered to learn Python a couple of years ago, but after some research I found other languages far more elegant, consistant and simple.
+
+If you want a scripting language which is easier to learn, compact and highly performant, you may have fun with [[*Lua as Your First Programming Language][Lua]]. And if popularity is still such a thing for you after [[*Popularity and Commmunity][reading this]], then learn Python of course, but as your /second/ language.
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/python/][Python code examples]]
+- [[https://www.python.org/about/gettingstarted/][Getting started with Python]]
+- Python programming book for beginners:
+  - [[https://amzn.to/3tV2OkF][Learn Python 3 the Hard Way (paper/Kindle)]] | [[https://learnpythonthehardway.org/python3/][Author's website]]
+  - [[https://amzn.to/3gPrLbf][Automate the Boring Stuff with Python (paper/Kindle)]]
+#+END_box
+
+** Julia as Your First Programming Language
+
+Julia is being developed as a pragmatic high performance vehicle for technical and scientific computing, as an alternative to Python, Fortran, R and other languages used in the fields. I would say its a language to build neither ready-to-ship software nor small programs, but more like a system to run your computing tasks in. Julia strives to present a polished experience.
+
+It's still a young language, but eagerly promoted by a couple of organizations. So it looks like there's more of an ecosystem than you would expect for a language in that early state. The learning material is targeted for researchers who stand on the brink to make the switch. So for now, don't expect "learn programming" stuff for total beginners.
+
+Julia's REPL is quite powerful (maybe second to Common Lisp's REPL) and allows a high level of interactivity. You basically don't have to leave the REPL to do anyghing, which is awesome. The language looks friendly and easy to start with, and you should definitely check it out if you're a student and work in "data science", statistics, numerical computing, mathematics or want to plot some stuff ([[*Scheme or Racket as Your First Programming Language][Racket]] shines here, too).
+
+#+BEGIN_box
+- [[https://learnxinyminutes.com/docs/julia/][Julia code examples]]
+- [[https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started][Getting started with Julia]]
+- Julia programming book for beginners:
+  - [[https://amzn.to/381AhzH][Think Julia (paper/Kindle)]] | [[https://benlauwens.github.io/ThinkJulia.jl/latest/book.html][Free online]]
+#+END_box
+
+* Mkay, but which one?
+
+*Choose well, but don't obsess too much about it:* I've already done that part for you, and it has been a lot of fun. You are going to learn a couple more programming languages after your first one, so it is not a lifetime decision, even if you feel like that now.
+
+** The 3 best Programming Languages for Absolute Beginners
+
+1. [[*OCaml as Your First Programming Language][*OCaml*]] emphasizes functional programming but supports multiple paradigms, so it allows you a well-rounded education. It is a contemporary functional language to build high-performance, mission-critical software. OCaml is elegant, highly readable and practical language, well designed without WTFs.
+
+2. [[*Scheme or Racket as Your First Programming Language][*Racket*]] offers the lowest entry barrier if you have not touched any code yet, and you don't even have to open a shell window. Due to its heritage in programming language research, it's also the one with the most features, and comes with educational books and exceptional documentation. It's quite academic (oh, I said the A-word) and rarely used in commercial settings. But you can build shiny things with it.
+
+3. [[*Elixir as Your First Programming Language][*Elixir*]] is the "smallest" language of these three -- it has fewer concepts and is overall less complex. But it's also very practical, and Elixir is likely the best choice for app- and web-backends. The only downside is the lack of "how to program" learning material for absolute beginners, but that may change soon.
+
+** My Personal Choice (C'mon eat the damn Dog Food already!)
+
+I've had a hard time choosing, and I was eventually torn between my two finalists [[*Common Lisp as Your First Programming Language][Common Lisp]] "code is data, data is code" and interactive programming style vs. [[*OCaml as Your First Programming Language][OCaml]] coming with superior readability and exquisite design. When I was looking around for learning material, I found [[https://amzn.to/308BHa0][this the most comprehensible programming book]], because it starts form /absolute zero/ and leaves no gaps. So I [[file:learning-to-code-first-app-episode-1.tutorial.org][started out with Common Lisp]].
+
+But Common Lisp is no functional language. You'll encounter mostly projects written in object-oriented style. But since I'm inclined towards functional programming (it's way simpler!), I jumped ship to [[*OCaml as Your First Programming Language ][*OCaml*]] as my first programming language.
+
+*Ok, so what programming language are you going to learn now?*

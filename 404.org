@@ -1,0 +1,13 @@
+#+TITLE: Uh-oooh!
+#+DATE: <2020-09-08>
+#+SUBTITLE: Not found - Error 404
+#+LANGUAGE: en
+#+DESCRIPTION: Not found - Error 404
+#+KEYWORDS: error 404,
+#+HTML_HEAD_EXTRA:
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:nil todo:nil tasks:nil tags:nil
+
+#+begin_center
+#+HTML: <button><a href="/index.html">Get me out of here →</a></button>
+#+end_center

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-08-18 Fri 19:02 -->
+<!-- 2024-02-02 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Rewrite in OCaml: Tooling, Association Lists and Pattern Matching</title>
@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/gentium-plus/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
@@ -25,6 +24,7 @@
 <body>
 <div id="preamble" class="status">
 <nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<div class="info"><time itemprop="dateModified" datetime="2023-09-23">Last updated: 2023-09-23</time></div>
 </div>
 <div id="content" class="content">
 <header>
@@ -34,41 +34,41 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcc390d5">Automate the Boring Stuff with OCaml</a>
+<li><a href="#orgce1acd2">Automate the Boring Stuff with OCaml</a>
 <ul>
-<li><a href="#org5fb07d4">From Common Lisp to OCaml</a></li>
-<li><a href="#orgf530a00">OCaml Installation and Project Setup</a></li>
+<li><a href="#orge0b76b3">From Common Lisp to OCaml</a></li>
+<li><a href="#org131d42e">OCaml Installation and Project Setup</a></li>
 </ul>
 </li>
-<li><a href="#org0c0fd04">What the Program should do</a></li>
-<li><a href="#org737e742">It&rsquo;s Library Shopping Time!</a></li>
-<li><a href="#orgd5c9819">How to open a File in OCaml</a>
+<li><a href="#orgbb333b5">What the Program should do</a></li>
+<li><a href="#org6f8cd1e">It&rsquo;s Library Shopping Time!</a></li>
+<li><a href="#orgaa27db4">How to open a File in OCaml</a>
 <ul>
-<li><a href="#org4dd2a91">Types matter</a></li>
+<li><a href="#orga411eb7">Types matter</a></li>
 </ul>
 </li>
-<li><a href="#org697a321">The CSV Library</a></li>
-<li><a href="#orgd4399fb">Choosing a suitable Data Structure</a></li>
-<li><a href="#orgfe30d30">How to remove Columns from the CSV</a>
+<li><a href="#org5bbcc5c">The CSV Library</a></li>
+<li><a href="#org2d1ccfa">Choosing a suitable Data Structure</a></li>
+<li><a href="#org27e929e">How to remove Columns from the CSV</a>
 <ul>
-<li><a href="#orgf717355">The Good Ones into the List, the Bad Ones into the Garbage Collector</a></li>
+<li><a href="#org59df83f">The Good Ones into the List, the Bad Ones into the Garbage Collector</a></li>
 </ul>
 </li>
-<li><a href="#org5d4a2a0">Save the cleaned CSV to Disk</a></li>
-<li><a href="#org52c3759">Conclusion</a>
+<li><a href="#org262ceaf">Save the cleaned CSV to Disk</a></li>
+<li><a href="#org96238c8">Conclusion</a>
 <ul>
-<li><a href="#org9bb24a9">Full Code Listing</a></li>
+<li><a href="#org16c5771">Full Code Listing</a></li>
 </ul>
 </li>
-<li><a href="#orgb4871b9">Compile the Standalone Binary Executable</a></li>
-<li><a href="#org6ad980e">What&rsquo;s next?</a></li>
+<li><a href="#orgeade30c">Compile the Standalone Binary Executable</a></li>
+<li><a href="#orgc8ec681">What&rsquo;s next?</a></li>
 </ul>
 </div>
 </nav>
 
-<div id="outline-container-orgcc390d5" class="outline-2">
-<h2 id="orgcc390d5">Automate the Boring Stuff with OCaml</h2>
-<div class="outline-text-2" id="text-orgcc390d5">
+<div id="outline-container-orgce1acd2" class="outline-2">
+<h2 id="orgce1acd2"><a href="#orgce1acd2">Automate the Boring Stuff with OCaml</a></h2>
+<div class="outline-text-2" id="text-orgce1acd2">
 <p>
 This tutorial is the 2nd episode of a little blog series where I extend, refactor and rewrite a small program with each episode. If you haven&rsquo;t read the <a href="learning-to-code-first-app-episode-1.tutorial.html">1st episode using Common Lisp</a>, you might like to check it out.<br>
 </p>
@@ -90,9 +90,9 @@ What we&rsquo;re now doing here is manipulating CSV files. I find it tedious to 
 </p>
 </div>
 
-<div id="outline-container-org5fb07d4" class="outline-3">
-<h3 id="org5fb07d4">From Common Lisp to OCaml</h3>
-<div class="outline-text-3" id="text-org5fb07d4">
+<div id="outline-container-orge0b76b3" class="outline-3">
+<h3 id="orge0b76b3"><a href="#orge0b76b3">From Common Lisp to OCaml</a></h3>
+<div class="outline-text-3" id="text-orge0b76b3">
 <p>
 I was using Common Lisp in the <a href="learning-to-code-first-app-episode-1.tutorial.html">previous episode</a>. Today I&rsquo;m going to rewrite everything in OCaml, because I&rsquo;m still not sure which programming language I like more. I think OCaml is a great programming language for beginners, because:<br>
 </p>
@@ -114,17 +114,17 @@ I&rsquo;m not going to compare my experience with <b>Lisp vs. OCaml</b> this tim
 </div>
 </div>
 
-<div id="outline-container-orgf530a00" class="outline-3">
-<h3 id="orgf530a00">OCaml Installation and Project Setup</h3>
-<div class="outline-text-3" id="text-orgf530a00">
+<div id="outline-container-org131d42e" class="outline-3">
+<h3 id="org131d42e"><a href="#org131d42e">OCaml Installation and Project Setup</a></h3>
+<div class="outline-text-3" id="text-org131d42e">
 <p>
 If you would like to follow the tutorial, you&rsquo;ll need OCaml installed and set up on your machine. I won&rsquo;t go deeply into the setup process here, because it varies depending on the system you use (I use Linux with Emacs). But there&rsquo;s a comprehensive guide: <a href="https://ocaml.org/learn/tutorials/">Getting started with OCaml</a><br>
 </p>
 </div>
 
-<div id="outline-container-org203ffca" class="outline-4">
-<h4 id="org203ffca">Checklist</h4>
-<div class="outline-text-4" id="text-org203ffca">
+<div id="outline-container-org1296c57" class="outline-4">
+<h4 id="org1296c57"><a href="#org1296c57">Checklist</a></h4>
+<div class="outline-text-4" id="text-org1296c57">
 <p>
 No matter on which platform you are – when your setup is done, you should have at least OCaml&rsquo;s package manager <b>opam</b>.<br>
 </p>
@@ -159,9 +159,9 @@ opam user-setup install
 </div>
 </div>
 
-<div id="outline-container-org30c84ec" class="outline-4">
-<h4 id="org30c84ec">Project setup</h4>
-<div class="outline-text-4" id="text-org30c84ec">
+<div id="outline-container-org50c1bd4" class="outline-4">
+<h4 id="org50c1bd4"><a href="#org50c1bd4">Project setup</a></h4>
+<div class="outline-text-4" id="text-org50c1bd4">
 <p>
 We keep it short:<br>
 </p>
@@ -175,27 +175,27 @@ We keep it short:<br>
 </div>
 </div>
 
-<div id="outline-container-org0c0fd04" class="outline-2">
-<h2 id="org0c0fd04">What the Program should do</h2>
-<div class="outline-text-2" id="text-org0c0fd04">
+<div id="outline-container-orgbb333b5" class="outline-2">
+<h2 id="orgbb333b5"><a href="#orgbb333b5">What the Program should do</a></h2>
+<div class="outline-text-2" id="text-orgbb333b5">
 <p>
 Let&rsquo;s define the features first. A checked box means a feature is going to be implemented in this episode:<br>
 </p>
 
 <ul class="org-ul">
-<li class="on"><code>[X]</code> Open and read a CSV file <code>input.csv</code><br></li>
-<li class="on"><code>[X]</code> Remove some columns specified in <code>template.csv</code><br></li>
-<li class="off"><code>[&#xa0;]</code> Perform search and replace on cell content<br></li>
-<li class="on"><code>[X]</code> Set the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
-<li class="on"><code>[X]</code> Spit out a sweet cleaned CSV file <code>output.csv</code><br></li>
-<li class="on"><code>[X]</code> Compile to a standalone binary<br></li>
+<li class="on">&#x2611; Open and read a CSV file <code>input.csv</code><br></li>
+<li class="on">&#x2611; Remove some columns specified in <code>template.csv</code><br></li>
+<li class="off">&#x2610; Perform search and replace on cell content<br></li>
+<li class="on">&#x2611; Set the pipe &rsquo;|&rsquo; as the delimiter char<br></li>
+<li class="on">&#x2611; Spit out a sweet cleaned CSV file <code>output.csv</code><br></li>
+<li class="on">&#x2611; Compile to a standalone binary<br></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org737e742" class="outline-2">
-<h2 id="org737e742">It&rsquo;s Library Shopping Time!</h2>
-<div class="outline-text-2" id="text-org737e742">
+<div id="outline-container-org6f8cd1e" class="outline-2">
+<h2 id="org6f8cd1e"><a href="#org6f8cd1e">It&rsquo;s Library Shopping Time!</a></h2>
+<div class="outline-text-2" id="text-org6f8cd1e">
 <p>
 It would be a way larger program if we would code everything from scratch. Let&rsquo;s look around for a library to work with CSV files: <a href="https://opam.ocaml.org/packages/">https://opam.ocaml.org/packages/</a>. Search for &ldquo;csv&rdquo; … Yep! Let&rsquo;s install &ldquo;Csv&rdquo; via <code>opam install csv</code><br>
 </p>
@@ -272,9 +272,9 @@ If you use VSCode, I guess everything just works out of the box when the <a href
 </div>
 </div>
 
-<div id="outline-container-orgd5c9819" class="outline-2">
-<h2 id="orgd5c9819">How to open a File in OCaml</h2>
-<div class="outline-text-2" id="text-orgd5c9819">
+<div id="outline-container-orgaa27db4" class="outline-2">
+<h2 id="orgaa27db4"><a href="#orgaa27db4">How to open a File in OCaml</a></h2>
+<div class="outline-text-2" id="text-orgaa27db4">
 <p>
 Let&rsquo;s begin with Input/Output. We will try to open and read the CSV file, store its contents in the memory and use a variable to refer to the data, in order to manipulate it later. How do I open a file in OCaml? The <a href="https://ocaml.org/learn/tutorials/file_manipulation.html">tutorial section</a> on the website helps, here is what I found out:<br>
 </p>
@@ -308,9 +308,9 @@ You probably wonder about the <code>'</code> ASCII apostrophe at the end of some
 </p>
 </div>
 
-<div id="outline-container-org4dd2a91" class="outline-3">
-<h3 id="org4dd2a91">Types matter</h3>
-<div class="outline-text-3" id="text-org4dd2a91">
+<div id="outline-container-orga411eb7" class="outline-3">
+<h3 id="orga411eb7"><a href="#orga411eb7">Types matter</a></h3>
+<div class="outline-text-3" id="text-orga411eb7">
 <p>
 The value bound to the variable <code>csv_file'</code> has the <i>type</i> <code>in_channel</code>. So now we need another function that can do something with a piece of data with the type <code>in_channel</code>. Types matter a lot in OCaml, you will see that later.<br>
 </p>
@@ -348,9 +348,9 @@ And here&rsquo;s another function <code>input_char</code> in the Stdlib that ret
 </div>
 </div>
 
-<div id="outline-container-org697a321" class="outline-2">
-<h2 id="org697a321">The CSV Library</h2>
-<div class="outline-text-2" id="text-org697a321">
+<div id="outline-container-org5bbcc5c" class="outline-2">
+<h2 id="org5bbcc5c"><a href="#org5bbcc5c">The CSV Library</a></h2>
+<div class="outline-text-2" id="text-org5bbcc5c">
 <p>
 The auto-completion suggests another function <code>Csv.input_all</code> which is part of the <code>Csv</code> module. Instead of building up a data structure from single lines, perhaps we can get a bit more convenience using more of the <code>Csv</code> module functionality from here on? Let&rsquo;s try it.<br>
 </p>
@@ -410,9 +410,9 @@ So far the nested list we created in the 3 steps above looks like below. In that
 </div>
 </div>
 
-<div id="outline-container-orgd4399fb" class="outline-2">
-<h2 id="orgd4399fb">Choosing a suitable Data Structure</h2>
-<div class="outline-text-2" id="text-orgd4399fb">
+<div id="outline-container-org2d1ccfa" class="outline-2">
+<h2 id="org2d1ccfa"><a href="#org2d1ccfa">Choosing a suitable Data Structure</a></h2>
+<div class="outline-text-2" id="text-org2d1ccfa">
 <blockquote>
 <p>
 &ldquo;It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structures.&rdquo;<br>
@@ -534,9 +534,9 @@ That&rsquo;s how our table looks like after the transformation – the column he
 </div>
 </div>
 
-<div id="outline-container-orgfe30d30" class="outline-2">
-<h2 id="orgfe30d30">How to remove Columns from the CSV</h2>
-<div class="outline-text-2" id="text-orgfe30d30">
+<div id="outline-container-org27e929e" class="outline-2">
+<h2 id="org27e929e"><a href="#org27e929e">How to remove Columns from the CSV</a></h2>
+<div class="outline-text-2" id="text-org27e929e">
 <p>
 We will use another CSV that is going to serve as a template to specify which columns to keep. We can use almost the same construct like before where we read the file <code>input.csv</code>. But since we need only the first row of the <code>template.csv</code>, we&rsquo;ll make sure to get only that.<br>
 </p>
@@ -578,9 +578,9 @@ And here&rsquo;s the return value:<br>
 </div>
 </div>
 
-<div id="outline-container-orgf717355" class="outline-3">
-<h3 id="orgf717355">The Good Ones into the List, the Bad Ones into the Garbage Collector</h3>
-<div class="outline-text-3" id="text-orgf717355">
+<div id="outline-container-org59df83f" class="outline-3">
+<h3 id="org59df83f"><a href="#org59df83f">The Good Ones into the List, the Bad Ones into the Garbage Collector</a></h3>
+<div class="outline-text-3" id="text-org59df83f">
 <p>
 &ldquo;Removing columns&rdquo; is actually misleading: Technically, the function does not remove or delete anything, because … its impossible! Lists in OCaml are immutable – they cannot be changed. So what we will do instead: construct a new list from the columns we want to keep, according to the column headers specified by the template. And simply forget about the others.<br>
 </p>
@@ -620,9 +620,9 @@ Lets apply this function to all rows of the <code>table_assoc</code>, wich is a 
 </div>
 </div>
 
-<div id="outline-container-org5d4a2a0" class="outline-2">
-<h2 id="org5d4a2a0">Save the cleaned CSV to Disk</h2>
-<div class="outline-text-2" id="text-org5d4a2a0">
+<div id="outline-container-org262ceaf" class="outline-2">
+<h2 id="org262ceaf"><a href="#org262ceaf">Save the cleaned CSV to Disk</a></h2>
+<div class="outline-text-2" id="text-org262ceaf">
 <p>
 How do we get from our data structure, the association list …<br>
 </p>
@@ -639,7 +639,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="orgba20d53">
+<pre class="example" id="orgea39d22">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -799,7 +799,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org0dbd3d6">
+<pre class="example" id="org68c8726">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -808,9 +808,9 @@ When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv
 </div>
 </div>
 
-<div id="outline-container-org52c3759" class="outline-2">
-<h2 id="org52c3759">Conclusion</h2>
-<div class="outline-text-2" id="text-org52c3759">
+<div id="outline-container-org96238c8" class="outline-2">
+<h2 id="org96238c8"><a href="#org96238c8">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org96238c8">
 <p>
 <b>Pattern matching is cool</b> because you have a visualization (the pattern) of the data structure you work on right before your eyes, and not just in your head.<br>
 </p>
@@ -860,9 +860,9 @@ That argument comes from the inner function <code>Csv.save</code> which takes th
 </div>
 </div>
 
-<div id="outline-container-org9bb24a9" class="outline-3">
-<h3 id="org9bb24a9">Full Code Listing</h3>
-<div class="outline-text-3" id="text-org9bb24a9">
+<div id="outline-container-org16c5771" class="outline-3">
+<h3 id="org16c5771"><a href="#org16c5771">Full Code Listing</a></h3>
+<div class="outline-text-3" id="text-org16c5771">
 <p>
 The separation of the program comes quite naturally: input - preparation - work - preparation - output. My code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
 </p>
@@ -872,9 +872,9 @@ Is there a better structure for this program? Maybe kinda like a pipe where you 
 </p>
 </div>
 
-<div id="outline-container-org5d4709c" class="outline-4">
-<h4 id="org5d4709c">Version 0.1</h4>
-<div class="outline-text-4" id="text-org5d4709c">
+<div id="outline-container-org43ba0cc" class="outline-4">
+<h4 id="org43ba0cc"><a href="#org43ba0cc">Version 0.1</a></h4>
+<div class="outline-text-4" id="text-org43ba0cc">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 33: </span>The Spaghetti Monster</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.1</span><span class="org-comment-delimiter"> *)</span>
 
@@ -935,9 +935,9 @@ Is there a better structure for this program? Maybe kinda like a pipe where you 
 </div>
 </div>
 
-<div id="outline-container-org0d37018" class="outline-4">
-<h4 id="org0d37018">Version 0.2</h4>
-<div class="outline-text-4" id="text-org0d37018">
+<div id="outline-container-org5f15d71" class="outline-4">
+<h4 id="org5f15d71"><a href="#org5f15d71">Version 0.2</a></h4>
+<div class="outline-text-4" id="text-org5f15d71">
 <p>
 And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any shorter and the single functions got a bit more complex, but overall it got clearer than version 0.1.<br>
 </p>
@@ -1007,9 +1007,9 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
 </div>
 </div>
 
-<div id="outline-container-orgb4871b9" class="outline-2">
-<h2 id="orgb4871b9">Compile the Standalone Binary Executable</h2>
-<div class="outline-text-2" id="text-orgb4871b9">
+<div id="outline-container-orgeade30c" class="outline-2">
+<h2 id="orgeade30c"><a href="#orgeade30c">Compile the Standalone Binary Executable</a></h2>
+<div class="outline-text-2" id="text-orgeade30c">
 <ul class="org-ul">
 <li><b>Compile only:</b> Change into your project directory <code>cd csvcleaner/</code> and issue the command <code>dune build</code>. Your compiled binary will be <code>csvcleaner/_build/default/csvcleaner.exe</code>. Don&rsquo;t get confused about the <i>.exe</i> suffix — it&rsquo;s just a naming convention in dune, not a windows binary if you compile on Linux.<br></li>
 
@@ -1022,9 +1022,9 @@ If you are looking for a versatile tool to work on CSV files, check out <i>csvto
 </div>
 </div>
 
-<div id="outline-container-org6ad980e" class="outline-2">
-<h2 id="org6ad980e">What&rsquo;s next?</h2>
-<div class="outline-text-2" id="text-org6ad980e">
+<div id="outline-container-orgc8ec681" class="outline-2">
+<h2 id="orgc8ec681"><a href="#orgc8ec681">What&rsquo;s next?</a></h2>
+<div class="outline-text-2" id="text-orgc8ec681">
 <p>
 In the <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">next episode</a> I&rsquo;m probably going to rewrite this again in Common Lisp using pattern matching, add a feature to version 0.2, or do something else entirely. Please let me know if you enjoyed the walktrough. Thank you for reading!<br>
 </p>
@@ -1032,7 +1032,7 @@ In the <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.htm
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Last updated: <span class="date">2022-06-10 Fri 12:43</span></p>
+<div class="footer">Published by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></div>
 <script defer src="/static/footer.js"></script>
 </div>
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2023-08-18 Fri 19:02 -->
+<!-- 2024-02-02 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GTK Theme Switcher in OCaml: Config File Parsing</title>
@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/gentium-plus/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
@@ -25,6 +24,7 @@
 <body>
 <div id="preamble" class="status">
 <nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<div class="info"><time itemprop="dateModified" datetime="2023-09-23">Last updated: 2023-09-23</time></div>
 </div>
 <div id="content" class="content">
 <header>
@@ -34,18 +34,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd8b6a78">The Config File</a>
+<li><a href="#org74c5ddd">The Config File</a>
 <ul>
-<li><a href="#orgbc44a6f">Is there a Syntax or Convention for Config Files?</a></li>
-<li><a href="#org09a389b">Let&rsquo;s design a beautiful Config File!</a></li>
-<li><a href="#org6d90015">Where to put this Config File?</a></li>
-<li><a href="#org392793a">The Config File Path</a></li>
+<li><a href="#org1e87dba">Is there a Syntax or Convention for Config Files?</a></li>
+<li><a href="#org84652d2">Let&rsquo;s design a beautiful Config File!</a></li>
+<li><a href="#org28bc2a7">Where to put this Config File?</a></li>
+<li><a href="#orgd8483a6">The Config File Path</a></li>
 </ul>
 </li>
-<li><a href="#org21df4d2">Reading a Config File in OCaml</a>
+<li><a href="#org83ddbc5">Reading a Config File in OCaml</a>
 <ul>
-<li><a href="#org115b975">Getting the Data from the File</a></li>
-<li><a href="#orgce8176f">Reading the whole File and building the Data Structure</a></li>
+<li><a href="#org94b5b0c">Getting the Data from the File</a></li>
+<li><a href="#org78757e8">Reading the whole File and building the Data Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -61,9 +61,9 @@
 Welcome to the 2nd episode of <i>&ldquo;We&rsquo;re writing a GTK Theme Switcher for XFCE4 to toggle between light/dark modes via shortcut&rdquo;</i>. <a href="learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html">Here&rsquo;s the previous episode</a>.<br>
 </p>
 
-<div id="outline-container-orgd8b6a78" class="outline-2">
-<h2 id="orgd8b6a78">The Config File</h2>
-<div class="outline-text-2" id="text-orgd8b6a78">
+<div id="outline-container-org74c5ddd" class="outline-2">
+<h2 id="org74c5ddd"><a href="#org74c5ddd">The Config File</a></h2>
+<div class="outline-text-2" id="text-org74c5ddd">
 <p>
 Until now, we have &ldquo;hardcoded&rdquo; preferences – that means, we specified those preferences within the program code itself – like what is the dark theme, what&rsquo;s the light theme, and which backend we use to talk to the daemon.<br>
 </p>
@@ -82,9 +82,9 @@ There are three common solutions to this &ldquo;problem&rdquo;:<br>
 </ul>
 </div>
 
-<div id="outline-container-orgbc44a6f" class="outline-3">
-<h3 id="orgbc44a6f">Is there a Syntax or Convention for Config Files?</h3>
-<div class="outline-text-3" id="text-orgbc44a6f">
+<div id="outline-container-org1e87dba" class="outline-3">
+<h3 id="org1e87dba"><a href="#org1e87dba">Is there a Syntax or Convention for Config Files?</a></h3>
+<div class="outline-text-3" id="text-org1e87dba">
 <p>
 There are several formats in use: INI-style files, XML, YAML, S-expressions, and even JSON. But for simplicity&rsquo;s sake, let&rsquo;s stick closely to the <a href="https://web.archive.org/web/20191007042721/http://www.faqs.org/docs/artu/ch10s03.html">Unix-conventions</a>:<br>
 </p>
@@ -95,9 +95,9 @@ There are several formats in use: INI-style files, XML, YAML, S-expressions, and
 </div>
 </div>
 
-<div id="outline-container-org09a389b" class="outline-3">
-<h3 id="org09a389b">Let&rsquo;s design a beautiful Config File!</h3>
-<div class="outline-text-3" id="text-org09a389b">
+<div id="outline-container-org84652d2" class="outline-3">
+<h3 id="org84652d2"><a href="#org84652d2">Let&rsquo;s design a beautiful Config File!</a></h3>
+<div class="outline-text-3" id="text-org84652d2">
 <p>
 Most important is a huge impressive ASCII art banner to show off your prowess. Besides that, it’s probably a good idea to provide some comments how to use the file. And then there are the actual preferences. Here you go:<br>
 </p>
@@ -172,9 +172,9 @@ Most important is a huge impressive ASCII art banner to show off your prowess. B
 </div>
 </div>
 
-<div id="outline-container-org6d90015" class="outline-3">
-<h3 id="org6d90015">Where to put this Config File?</h3>
-<div class="outline-text-3" id="text-org6d90015">
+<div id="outline-container-org28bc2a7" class="outline-3">
+<h3 id="org28bc2a7"><a href="#org28bc2a7">Where to put this Config File?</a></h3>
+<div class="outline-text-3" id="text-org28bc2a7">
 <p>
 As per <a href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">Freedesktop.org conventions</a>, config files for (desktop-)applications should be put under <code>$XDG_CONFIG_HOME</code>. That&rsquo;s an environment variable, referring to the the user&rsquo;s config directory. If this environment variable is not set, &ldquo;a default equal to <code>$HOME/.config</code> should be used&rdquo; (<code>$HOME</code> is another environment variable, but one that <i>is</i> usually set. It points to the user’s home directory).<br>
 </p>
@@ -185,9 +185,9 @@ So that means we could name the config file <code>$HOME/.config/switch_gtk_theme
 </div>
 </div>
 
-<div id="outline-container-org392793a" class="outline-3">
-<h3 id="org392793a">The Config File Path</h3>
-<div class="outline-text-3" id="text-org392793a">
+<div id="outline-container-orgd8483a6" class="outline-3">
+<h3 id="orgd8483a6"><a href="#orgd8483a6">The Config File Path</a></h3>
+<div class="outline-text-3" id="text-orgd8483a6">
 <p>
 On my laptop, my <code>$HOME</code> directory is <code>/home/dan</code>, and the config file is there: <code>/home/dan/.config/switch_gtk_theme.conf</code>.<br>
 </p>
@@ -230,9 +230,9 @@ The <a href="https://www.ocaml.org/api/Stdlib.html#VAL(%5E)"><code>^</code></a> 
 </div>
 </div>
 
-<div id="outline-container-org21df4d2" class="outline-2">
-<h2 id="org21df4d2">Reading a Config File in OCaml</h2>
-<div class="outline-text-2" id="text-org21df4d2">
+<div id="outline-container-org83ddbc5" class="outline-2">
+<h2 id="org83ddbc5"><a href="#org83ddbc5">Reading a Config File in OCaml</a></h2>
+<div class="outline-text-2" id="text-org83ddbc5">
 <p>
 Ok fine, we’re going to read a file. What&rsquo;s going to happen with it when we&rsquo;ve done that? What will it become? And how will it look like? And why all that?<br>
 </p>
@@ -261,9 +261,9 @@ In fact, our theme switcher needs only the key-value pairs like <code>ui_light =
 </ol>
 </div>
 
-<div id="outline-container-org115b975" class="outline-3">
-<h3 id="org115b975">Getting the Data from the File</h3>
-<div class="outline-text-3" id="text-org115b975">
+<div id="outline-container-org94b5b0c" class="outline-3">
+<h3 id="org94b5b0c"><a href="#org94b5b0c">Getting the Data from the File</a></h3>
+<div class="outline-text-3" id="text-org94b5b0c">
 <p>
 According to the <a href="https://www.ocaml.org/learn/tutorials/file_manipulation.html#Reading">official tutorial</a>, we’ll have to open an <code>in_channel</code> first, using the function <a href="https://ocaml.org/api/Stdlib.html#VALopen_in"><code>open_in</code></a>. An <code>in_channel</code> is not a file itself, but more like a tornado; its funnel&rsquo;s end at your disposal, pointing initially to the beginning of a file. Yeah programming is exciting. You probably know that already.<br>
 </p>
@@ -315,9 +315,9 @@ Not so bad! But wasn’t our plan to ignore comments, starting with <code>#</cod
 </div>
 </div>
 
-<div id="outline-container-orgce8176f" class="outline-3">
-<h3 id="orgce8176f">Reading the whole File and building the Data Structure</h3>
-<div class="outline-text-3" id="text-orgce8176f">
+<div id="outline-container-org78757e8" class="outline-3">
+<h3 id="org78757e8"><a href="#org78757e8">Reading the whole File and building the Data Structure</a></h3>
+<div class="outline-text-3" id="text-org78757e8">
 <p>
 To get all the lines, we must apply <a href="https://ocaml.org/api/Stdlib.html#VALinput_line"><code>input_line</code></a> repeatedly to the <code>in_channel</code>. In most other languages, repetition is done via loops. But loops are clumsy low-level made-up things, mutating variables in-place. Nonono, we don’t do that here. <a href="https://ocaml.org/learn/tutorials/if_statements_loops_and_recursion.html">In OCaml, we have cooler things: recursion</a> – a function calling itself over and over again, until a base case is reached.<br>
 </p>
@@ -347,7 +347,7 @@ To be continued …<br>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="footer">Last updated: <span class="date">2023-04-23 Sun 20:13</span></p>
+<div class="footer">Published by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></div>
 <script defer src="/static/footer.js"></script>
 </div>
 </body>

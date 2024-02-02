@@ -1,0 +1,685 @@
+#+TITLE: Rewrite in OCaml: Tooling, Association Lists and Pattern Matching
+#+DATE: <2020-11-15 Fri>
+#+SUBTITLE: Project »CSV Cleaner« – Episodes: [[file:learning-to-code-first-app-episode-1.tutorial.org][1]] | [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][2]] | [[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][3]]
+#+LANGUAGE: en
+#+DESCRIPTION: A first coding project in OCaml – walktrough tutorial
+#+KEYWORDS: ocaml, tutorial, project idea, learn ocaml, walktrough, csv, pattern matching, ocaml scripting
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learning-to-code-first-ocaml-project-episode-2.tutorial.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:2
+
+* Automate the Boring Stuff with OCaml
+
+This tutorial is the 2nd episode of a little blog series where I extend, refactor and rewrite a small program with each episode. If you haven't read the [[file:learning-to-code-first-app-episode-1.tutorial.org][1st episode using Common Lisp]], you might like to check it out.
+
+I'm on a journey to learn programming, and realized pretty early that I learn stuff best when I prepare myself to explain it to others.
+
+Usually, beginner projects involve programming little games like Ping Pong or Snake or whatever. For me, those kind of projects wouldn't have any other purpose than learning, and I wouldn't play that Ping Pong more than once afterwards.
+
+I find it more likely to stay committed when coding projects have a real world use case. This is why I'm looking for "problems" in my own environment that I would like a computer to solve.
+
+What we're now doing here is manipulating CSV files. I find it tedious to do this by hand using a spreadsheet, so I wanted to automate the task. This little program doesn't do exciting things, but it serves well as a first trivial project.
+
+** From Common Lisp to OCaml
+
+I was using Common Lisp in the [[file:learning-to-code-first-app-episode-1.tutorial.org][previous episode]]. Today I'm going to rewrite everything in OCaml, because I'm still not sure which programming language I like more. I think OCaml is a great programming language for beginners, because:
+
+- There is [[https://cs3110.github.io/textbook/cover.html][excellent learning material]] /(I just finished the [[https://cs3110.github.io/textbook/chapters/basics/exercises.html#][exercises chapter 2.9]])/
+- The language has a coherent underlying concept
+- Actively developed by a highly engaged community
+- The syntax is clutter-free and easy to read
+- Source code can be compiled to small binaries
+- Multi-purpose and multi-paradigm
+- Packed with trend-setting features
+- OCaml is fast
+
+I'm not going to compare my experience with *Lisp vs. OCaml* this time, but probably do so in one of the coming episodes.
+
+** OCaml Installation and Project Setup
+
+If you would like to follow the tutorial, you'll need OCaml installed and set up on your machine. I won't go deeply into the setup process here, because it varies depending on the system you use (I use Linux with Emacs). But there's a comprehensive guide: [[https://ocaml.org/learn/tutorials/][Getting started with OCaml]]
+
+*** Checklist
+
+No matter on which platform you are – when your setup is done, you should have at least OCaml's package manager *opam*.
+
+- *VSCode:* Install the packages from the commmand line and the [[https://open-vsx.org/extension/ocamllabs/ocaml-platform][OCaml Platform]] extension
+  #+caption: Command line
+  #+begin_src shell
+    opam install utop ocaml-lsp-server ocamlformat-rpc -y
+  #+end_src
+
+- *Emacs:* Install the packages and run /user-setup/
+  #+caption: Command line
+  #+begin_src shell
+    opam install user-setup merlin tuareg -y &&
+    opam user-setup install
+  #+end_src
+
+- *Vim:* Install the packages and run /user-setup/
+  #+caption: Commmand line
+  #+begin_src shell
+    opam install user-setup utop ocaml-lsp-server -y &&
+    opam user-setup install
+  #+end_src
+
+*** Project setup
+
+We keep it short:
+1. Create a project folder =csvcleaner/= somewhere in your home directory
+2. Create an empty file =csvcleaner/csvcleaner.ml= where the source code lives
+3. Open the file =csvcleaner/csvcleaner.ml= in your editor of choice
+
+* What the Program should do
+
+Let's define the features first. A checked box means a feature is going to be implemented in this episode:
+
+- [X] Open and read a CSV file =input.csv=
+- [X] Remove some columns specified in =template.csv=
+- [ ] Perform search and replace on cell content
+- [X] Set the pipe '|' as the delimiter char
+- [X] Spit out a sweet cleaned CSV file =output.csv=
+- [X] Compile to a standalone binary
+
+* It's Library Shopping Time!
+
+It would be a way larger program if we would code everything from scratch. Let's look around for a library to work with CSV files: https://opam.ocaml.org/packages/. Search for "csv" … Yep! Let's install "Csv" via ~opam install csv~
+
+Now back in the editor we want that library somehow recognized by OCaml, to be able to use it within our own program code. So do we have to load that library (or to use the right words: "load a /module/ from the /package/")? Is there an import statement or something that we have to put into the source file? What happens when we put this into the source file?
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  open Csv
+#+end_src
+
+Turns out the line ~open Csv~ above produces an error "Unbound module Csv" immediately when I save the file, although everything is properly installed and configured. So what's happening here? The error comes from Merlin resp. Ocamllsp who uses Merlin under the hood. Among other things, Merlin checks the source file for errors each time you save it. Merlin should be already installed via opam as a dependency of 'user-setup' or 'ocaml-lsp-server'.
+
+It took me 2 hours to learn Merlin seems to need a file named =.merlin= within the project folder in which the Csv module has to be listed. I've read somewhere else the =csvcleaner/.merlin= file is not neccessary when using Dune, which is the en vogue /build system/ for OCaml.
+
+Back to ~open Csv~. Hm no, that's something slightly different. Once a module is within the search path – which seems to be the case when a +module or library+ package was installed via Opam – then we can refer to a function from that module by "Modulename.functionname" (analogy: Familyname.firstname), e.g. ~Csv.lines~, which is a function that spits out how many lines a CSV has. We need to ~open Csv~ only if we want to omit the function's "family name" and refer to that function by it's "first name" only. I use the full names and don't care about that for now.
+
+We definitely want to use a build system. It makes compiling super easy, avoiding endless command line arguments, messing with module paths and other labourous things. So install Dune via Opam from the command line, if not done yet: ~opam install dune~. Dune requires a configuration file describing the project details, e.g. which libraries to use, and so on. So let's create a file named =csvcleaner/dune= with the following content:
+
+#+caption: File content – csvcleaner/dune
+#+begin_src dune
+  (executable
+   (name csvcleaner)
+   (libraries csv))
+#+end_src
+
+Pretty self-explaining I guess. There are more stanzas to hold further project information, but these are enough for our little program.
+
+When the file exists, we can issue the command ~dune build~ from the command line to build the (not yet existing) project. The process creates some build artifacts in =csvcleaner/_build=. And for the first time, Merlin recognizes the "Csv" module and shows contained functions via autocompletion in Emacs.
+
+In Emacs (Lisp), you can "execute code" (nah we don't do that! We evaluate expressions!) from within a source file simply by placing the cursor behind an expression and hitting C-x C-e (that means holding down the <CTRL> key and pressing <x> and then <e>). Analogous, in VSCode you can evaluate a selection by holding down <SHIFT> and pressing <ENTER>.
+
+Those keybindings start the OCaml toplevel, either /utop/ or /ocaml/.
+
+In Emacs, the error "Unbound module Csv" appears again, but this time in the toplevel. Turns out, the toplevel doesn't know yet about the module we told Merlin about. The +module+ package has to be loaded in the toplevel separately, using another command ~#require "csv"~. Or better: create a file in the project directory =csvcleaner/.ocamlinit= with the following 2 lines:
+
+#+caption: File content – csvcleaner/.ocamlinit
+#+begin_src ocaml
+#use "topfind";;
+#require "csv";;
+#+end_src
+
+That way, the toplevel /ocaml/ or /utop/ will load the +module+ "csv" package at startup. If you use utop, everything should be fine from now on.
+
+If you use Emacs, auto-completion is probably not yet available within the /ocaml/ toplevel. But `M-x merlin-use <RET> csv <RET>' will do the trick. I probably can fix this with a few lines of Emacs Lisp later.
+
+If you use VSCode, I guess everything just works out of the box when the [[https://open-vsx.org/extension/ocamllabs/ocaml-platform][OCaml Platform]] extension is installed and the /language server/ via ~opam install ocaml-lsp-server~. You problably haven't had to learn all those details.
+
+* How to open a File in OCaml
+
+Let's begin with Input/Output. We will try to open and read the CSV file, store its contents in the memory and use a variable to refer to the data, in order to manipulate it later. How do I open a file in OCaml? The [[https://ocaml.org/learn/tutorials/file_manipulation.html][tutorial section]] on the website helps, here is what I found out:
+
+Open files are called /channels/ in OCaml. There's a function ~open_in~ to open a file. This function takes the path of the file as a =string= and returns a type =in_channel=, which seems to be … an abstraction for the open file (?) And there's another function ~close_in~ to close the channel/file again. Let's try!
+
+You can type this in your file =csvcleaner/csvcleaner.ml= and then evaluate those expressions directly ("send to REPL" or something), if your editor allows to do that:
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let csv_file' = open_in "input.csv"
+  (* <-- Do some stuff here --> *)
+  let () = close_in csv_file'
+#+end_src
+
+If your editor can't do that, open *utop* in your terminal emulator and type the lines like this. Notice the ~;;~ two semicolons after each expression. You need ~;;~ only in the interactive toplevel, but not in your code:
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let csv_file' = open_in "input.csv";;
+  (* <-- Do some stuff here --> *)
+  let () = close_in csv_file';;
+#+end_src
+
+You probably wonder about the ~'~ ASCII apostrophe at the end of some variable- or function names. That basically means "same same but different" – I use ~'~ to mark examples or alternatives that are not part of the program code.
+
+** Types matter
+
+The value bound to the variable ~csv_file'~ has the /type/ ~in_channel~. So now we need another function that can do something with a piece of data with the type ~in_channel~. Types matter a lot in OCaml, you will see that later.
+
+The ~in_channel~ is something that enables us to read a file and points to the beginnning of the file. Still it seems we are pretty far from having the content of the CSV file available as a /data structure/ that we can manipulate at will. Maybe it's time to let the ~Csv~ module take over? Nah, not so fast. Let's poke a little bit on that channel thing. I'm curious how it behaves and what I can get out of it.
+
+Cool, I found out there are a couple functions that begin with "input_" and they all can operate on the type ~in_channel~! Most of them are "built-in"; that means they are members of the module "Stdlib" which is always loaded by default. I've stumbled upon the available functions via auto-completion – it's one of the most life changing inventions of humankind and comes right after the dishwasher, which is of course the greatest of all accomplishments of all time.
+
+Let's write a couple of functions to get stuff out of that channel. So there's ~input_line~: That one reads one line from the file and makes a string out of it. The next time we apply that function, it outputs the next line and so on, until the whole channel is "consumed". So that's probably not a /pure/ function (those always return the same output with the same input)?
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let csv_file' = open_in "input.csv"
+  let () = print_endline (input_line csv_file')
+  let () = close_in csv_file'
+#+end_src
+
+And here's another function ~input_char~ in the Stdlib that returns the content of the stream character-wise. But we cannot print it to the screen via ~print_endline~, because that particular print function can only print data of the type ~string~. But ~input_char~ returns data from the type ~char~, so we either need to convert the chars into strings, or we have to use another function that prints chars directly. Same here: it spits out one char after another, until the channel is "consumed":
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let csv_file' = open_in "input.csv"
+  let () = print_char (input_char csv_file')
+  let () = close_in csv_file'
+#+end_src
+
+* The CSV Library
+
+The auto-completion suggests another function ~Csv.input_all~ which is part of the ~Csv~ module. Instead of building up a data structure from single lines, perhaps we can get a bit more convenience using more of the ~Csv~ module functionality from here on? Let's try it.
+
+But I cannot apply ~Csv.input_all~ to ~csv_file'~ which is of type ~in_channel~, because it expects its arguments to be of the type ~Csv.in_channel~, not ~in_channel~. I'm confused.
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let csv_file' = open_in "input.csv"
+  let () = print_endline (Csv.input_all csv_file') (* ← Nah, not working! Wrong type! *)
+  let () = close_in csv_file'
+#+end_src
+
+Why is ~csv_file'~ of type ~in_channel~? Because ~open_in~ is. Does it mean we'll better not use the function ~open_in~ to open the file but something else?
+
+Nope, I think I have found something: the function ~Csv.of_channel~. It can transform the ~csv_file'~ into something we can manipulate conveniently … well, hold on.
+
+We will now transform the data from ~csv_file~ in 3 steps into a data structure we can manipulate.
+1. We apply the function ~Csv.of_channel~ from the Csv library on the ~csv_file~ to set the reading parameters and eventually read the data from the ~csv_file~.
+2. Now we apply the function ~Csv.input_all~ on the returned value from the function ~Csv.of_channel~ to construct a nested list from the content of the CSV file, where each row becomes a list of strings.
+3. We bind a variable to that nested list, so we can refer to it later.
+
+#+caption:
+#+begin_src ocaml
+  let csv_file = open_in "input.csv"
+
+  let table =          (* 3. Variable bound to the list of lists *)
+    Csv.input_all      (* 2. That function makes a list of lists from the CSV content *)
+      (Csv.of_channel  (* 1. This function reads what's found in the [csv_file] *)
+         csv_file)     (*    The "normal" [in_channel] passed as an argument *)
+
+  let () = close_in csv_file  (* We have all we need, let's close that file *)
+#+end_src
+
+So far the nested list we created in the 3 steps above looks like below. In that list, the column headers "a", "b", "c" and "d" convey no special meaning; even tough they sit in the first row, they are nothing more than just a list of strings like all the other rows.
+
+#+caption: Result – not part of the program code
+#+begin_src ocaml
+  val table : Csv.t =
+              [["a"; "b"; "c"; "d"];
+               ["1"; "2"; "3"; "4"];
+               ["5"; "6"; "7"; "8"];
+               ["9"; "10"; "11"; "12"]]
+#+end_src
+
+* Choosing a suitable Data Structure
+
+#+begin_quote
+"It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structures."
+@@html:<cite>@@—Alan Perlis@@html:</cite>@@
+#+end_quote
+
+[[file:learning-to-code-first-app-episode-1.tutorial.org][In the previous episode]] I was just using a simple /list of lists/ like above as my primary data structure; and then I removed the columns (cells) from each row by their position. This is a bit awkward to work with but ok, because I treated the data like it was immutable. This time we go one step further.
+
+In order to conveniently manipulate the data, we want to associate /meaning/ (column headers) with the /content/ (table cells). To connect each column header with the cells who belong to the same column, we can transform the table above into another data structure that will allow such association: enter the /association list/ a.k.a. /map/ or /dictionary/.
+
+In OCaml, an association list is usually implemented as a list containing /tuples/. The first element in the tuple ~"a"~ is the "key", and the second element ~"1"~ is the "value". The parens around tuples can be omitted. So that means if you encounter two or more things in OCaml code separated by a comma, it's actually a tuple – parens or not:
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let example_alist' = [("a", "1"); ("b", "2"); ("c", "3"); ("d", "4")]
+  let example_alist'' = ["a", "1"; "b", "2"; "c", "3"; "d", "4"]
+#+end_src
+
+The Csv module provides a convenient function ~Csv.associate~ that transforms the ~table~ into such an association list, but it expects the data for its arguments to be of a certain type. And here's the type signature of the function ~Csv.associate~. It says what type of arguments the function wants and of what the return value will be:
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  string list -> string list list -> (string * string) list list
+#+end_src
+
+- The 1st argument must be a string list ->
+- The 2nd argument must be a string list, wrapped in another list ->
+- Returns what: two-string tuples, wrapped in lists, wrapped in another list
+
+Let's find a way to provide the arguments exactly like that. If we don't, we'll get a type error. The first argument will deliver the column headers to the function, and the second argument will deliver the other rows (lists) containing the single cells (strings).
+
+We split that ~table~ into the "head" /(that's a common concept and means the first element of a list)/ and refer to it with the variable ~header~.
+
+Then we take the "tail" of the list /(also a common term in programming which means the rest of a list, which is itself a list of the remaining elements of the original list)/ and refer to it with the variable ~content~:
+
+The expression below deserves some explanation. What we see there, is /pattern matching/, a technique available in some programming languages from the "functional" corner, eg. Haskell, Erlang, Elixir or Common Lisp. Other mainstream languages might get it bolted on in the future.
+
+What it does: Pattern matching is a form of conditional branching which allows you to match on data structure patterns and bind variables /at the same time/. It helps to produce clean, concise code. For example, we can avoid those clumsy nested if-then-else-if constructs. I'm a huge fan of pattern matching and it's everywhere in OCaml.
+
+#+caption: Multiple assignment via pattern matching
+#+begin_src ocaml
+  let header, content =
+    match table with
+    | [] -> assert false
+    | hd :: tl -> hd, tl
+#+end_src
+
+In the definition above, we take the ~table~ which is essentially a /list/ data structure with other lists in it. A list can be divided into sub-structures, the "head" and "tail"; in Lisp called "car" and "cdr", or sometimes "first" and "rest".
+
+On the left side of the branch (left of the arrow) we write down the pattern and assign variables to the sub-structures we want to use later (in that case ~hd~ for "head" and ~tl~ for "tail") -> On the right side of the branch, we write down what to do with those variables. In our case here, the right side says "construct a tuple from ~hd~ and ~tl~" which is concisely expressed as ~hd, tl~, or ~(hd, tl)~.
+
+Note that it doesn't matter how we name those variables – they don't have to be named ~hd~ and ~tl~ – they could as well be ~brain~ and ~pinky~. The crucial detail is the cons operator ~::~ who does only one thing: construct a list from an empty list ~[]~ and one or more elements: ~"a" :: "b" :: "c" :: "d" :: []~ You recognize the pattern here?
+
+If the ~table~ is not an empty list, then the expression will return the tuple ~hd, tl~ containing the head and the tail of the ~table~. What it does then, is [[https://ocamlbook.org/algebraic-types/#pattern-matching][multiple assignment by another act of pattern matching]]: The the returned tuple ~hd, tl~ is matched against the pattern ~header~, ~content~ so that the value from ~hd~ is assigned to ~header~ and from ~tl~ to ~content~.
+
+When we evaluate the expression above, we finally get the following values, and they have the desired types expected by the function ~Csv.associate~:
+
+#+caption: Results – not part of the program code
+#+begin_src ocaml
+  val header : string list = ["a"; "b"; "c"; "d"]
+
+  val content : string list list =
+                [["1"; "2"; "3"; "4"];
+                 ["5"; "6"; "7"; "8"];
+                 ["9"; "10"; "11"; "12"]]
+#+end_src
+
+Eventually we can apply the function ~Csv.assocciate~ to combine each column header element with the content cells who belong to it:
+
+#+caption: Function application
+#+begin_src ocaml
+let table_assoc = Csv.associate header content
+#+end_src
+
+That's how our table looks like after the transformation – the column headers "a", "b", "c", and "d" have been associated with the corresponding table cells:
+
+#+caption: Result – not part of the program code
+#+begin_src ocaml
+  val table_assoc : (string * string) list list =
+                    [[("a", "1"); ("b", "2"); ("c", "3"); ("d", "4")];
+                     [("a", "5"); ("b", "6"); ("c", "7"); ("d", "8")];
+                     [("a", "9"); ("b", "10"); ("c", "11"); ("d", "12")]]
+#+end_src
+
+* How to remove Columns from the CSV
+
+We will use another CSV that is going to serve as a template to specify which columns to keep. We can use almost the same construct like before where we read the file ~input.csv~. But since we need only the first row of the ~template.csv~, we'll make sure to get only that.
+
+#+caption: Creating the template
+#+begin_src ocaml
+  let template_file = open_in "template.csv"
+
+  let template =
+    Csv.Rows.header
+      (Csv.of_channel ~has_header:true
+         template_file)
+
+  let () = close_in template_file
+#+end_src
+
+So far we have read, transformed and stored the template in memory, bound it to a variable and closed the file.
+
+Small detail on the side: in OCaml we can write /function application/ like so – pipe a value trough some functions – using the "pipe operator":
+
+#+caption: Alternative – not part of the program code
+#+begin_src ocaml
+  let template' = template_file
+                  |> Csv.of_channel ~has_header:true
+                  |> Csv.Rows.header
+#+end_src
+
+And here's the return value:
+
+#+caption: Result – not part of the program code
+#+begin_src ocaml
+  val template' : string list = ["b"; "d"]
+#+end_src
+
+** The Good Ones into the List, the Bad Ones into the Garbage Collector
+
+"Removing columns" is actually misleading: Technically, the function does not remove or delete anything, because … its impossible! Lists in OCaml are immutable – they cannot be changed. So what we will do instead: construct a new list from the columns we want to keep, according to the column headers specified by the template. And simply forget about the others.
+
+#+caption: Recursive function using pattern matching on a list of tuples
+#+begin_src ocaml
+  let rec remove_columns tpl row =
+    match row with
+    | [] -> []
+    | (k, v) :: tl when List.mem k tpl -> (k, v) :: remove_columns tpl tl
+    | _ :: tl -> remove_columns tpl tl
+#+end_src
+
+Let's see if the function works on a single row, which is represented by an association list, implemented as a list of tuples ~(string * string) list~ (spoiler: it works!)
+
+Here's the example of one single row from the ~table_assoc~:
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let single_row' = [("a", "1"); ("b", "2"); ("c", "3"); ("d", "4")]
+  let cleaned_row' = remove_columns template single_row'
+#+end_src
+
+Lets apply this function to all rows of the ~table_assoc~, wich is a list of lists of tuples ~(string * string) list list~. The function ~remove_columns~ takes two arguments, but since [[http://xahlee.info/UnixResource_dir/writ/currying.html][functions in OCaml are curried by default]], they take in fact only one argument, but return a function who takes the second argument, and so on. That's also called /partial function application/. So we can apply ~remove_columns~ to the argument ~template~ and map the resulting partial function onto each element of the ~table_assoc~
+
+#+caption: Mapping a partial function onto a list of association lists
+#+begin_src ocaml
+  let table_cleaned = List.map (remove_columns template) table_assoc
+#+end_src
+
+* Save the cleaned CSV to Disk
+
+How do we get from our data structure, the association list …
+
+#+caption: Result – not part of the program code
+#+begin_src ocaml
+  val table_cleaned : (string * string) list list =
+                      [[("b", "2"); ("d", "4")];
+                       [("b", "6"); ("d", "8")];
+                       [("b", "10"); ("d", "12")]]
+#+end_src
+
+… to a CSV file =csvcleaner/output.csv= like this?
+
+#+caption: How the cleaned CSV file should look like (not part of the program code)
+#+begin_example
+"b"|"d"
+"2"|"4"
+"6"|"8"
+"10"|"12"
+#+end_example
+
+Let's check if there is a function in the Csv library that can take the association list ~table_cleaned~ and transform it into the CSV file. Here are the [[https://math.umons.ac.be/anum/software/csv/Csv/index.html][online docs for the Csv module]], by the way. But nope … nothing. Maybe a bit too far off.
+
+Ok, then let's see if there is at least a function that will accept a /list of lists/ where each list represents a row? Like we had before where we used ~Csv.input_all~ to construct a list of lists from the ~input_channel~?
+
+But there is no such one – oh wait! Now I realize that the type ~Csv.t~ is just a /type synonyme/ for ~string list list~, and there is in fact a function ~Csv.save~ that accepts an argument of the type ~Csv.t~.
+
+That means, we have to transform the /association list/ ~table_cleaned~ into that kind of simpler list. So we go from this …
+
+#+caption: Result – not part of the program code
+#+begin_src ocaml
+  val table_cleaned : (string * string) list list =
+                      [[("b", "2"); ("d", "4")];
+                       [("b", "6"); ("d", "8")];
+                       [("b", "10"); ("d", "12")]]
+#+end_src
+
+… to that:
+
+#+caption: Result – not part of the program code
+#+begin_src ocaml
+  - : string list list =
+  [["b"; "d"];
+   ["2"; "4"];
+   ["6"; "8"];
+   ["10"; "12"]]
+#+end_src
+
+We're going to pluck apart the association list ~table_cleaned~ and recombine its parts differently. Here's the plan:
+
+1. We need all column headers to construct the first row of the CSV: so let's extract the /keys/ from the association list and put them in a list.
+2. Extract the /values/ for each row and construct one list per row from them.
+3. Put all those lists (rows) into another list.
+
+I find it quite helpful to *start with small functions* who work on the *innermost structures* of the overall data structure. So let's write two little helpers:
+
+The 1st helper function ~get_keys~ will extract all the keys from one row and collect those keys in a list. It will accept one argument of the type ~(string * string) list~.
+
+The 2nd helper function ~get_values~ will extract the values from a row and collect them in a list. It will accept also one argument of the type ~(string * string) list~.
+
+You may notice there's no formal parameter for the argument we pass to those functions. Why not? We could, but we'll use a short form here. It's only for Functions who accept only one argument /and/ employ pattern matching at the same time.
+
+#+begin_src ocaml
+  let rec get_keys =
+    function
+    | [] -> []
+    | (k, _) :: tl -> k :: get_keys tl
+
+  let rec get_values =
+    function
+    | [] -> []
+    | (_, v) :: tl -> v :: get_values tl
+#+end_src
+
+Both functions are "list eaters", so they munch the elements of a list one after the other ~[("b", "2"); ("d", "4")]~. Therefore the functions will be /recursive/ – they call themself again and again until they have eaten all the rest elements, and there's nothing left but the empty list. Then they will stop.
+
+That's why we define the empty list ~[]~ via pattern matching in the first branch as the /base case/. ~[] -> []~ means simply "If the argument matches the pattern /empty list/ -> return an /empty list/ (and don't do anything further)".
+
+In the 2nd branch of the 1st function ~get_keys~ happens quite a lot: On the left side of the arrow we write down the pattern ~(k, _) :: tl~. It reads as follows: "From the list of tuples assign the variable ~k~ to the 1st element of the first tuple, ignore further elements of the first tuple if there are any. Assign the variable ~tl~ to refer to the rest of the list".
+
+And the right side says: "Put the value bound to ~k~ in front of a list and repeat the whole process until nothing is left but an empty list". Mh, that's probably not 100 % exact, but you get the idea.
+
+The 2nd function ~get_values~ is basically the same, except it cares about the second element of the tuple and assigns the variable ~v~ to its value.
+
+One more detail: We have to mark functions with the /rec/ keyword to allow them to call themselfes recursively.
+
+Now we're putting our helper functions to work as parts of a new function. Let's call that one ~dissoc~. Same here: it takes only one argument and does nothing else than pattern matching on that argument, so we can write it in short form too:
+
+#+begin_src ocaml
+  let dissoc =
+    function
+    | [] -> []
+    | hd :: tl -> get_keys hd :: List.map get_values (hd :: tl)
+#+end_src
+
+Here's its type signature. What does it tell?
+#+begin_src ocaml
+  val dissoc : ('a * 'a) list list -> 'a list list = <fun>
+#+end_src
+
+Alternatively, we could write that function without pattern matching as well:
+
+#+caption: Alternative – not part of the program code
+#+begin_src ocaml
+  let dissoc' lst =
+    if lst == [] then []
+    else get_keys (List.hd lst) :: List.map get_values lst
+#+end_src
+
+Now we can transform the association list into the type expected by the function ~Csv.save~, and we bind the result to the variable ~table_final~:
+
+#+begin_src ocaml
+  let table_final = dissoc table_cleaned
+#+end_src
+
+Finally, we can apply the function ~Csv.save~ from the Csv module. The function accepts a few other arguments for convenience (the ones that start with ~~~ are /labeled arguments/):
+
+#+begin_src ocaml
+  let () = Csv.save ~separator:'|' ~quote_all:true "output.csv" table_final
+#+end_src
+
+When we apply that function, suddenly a new CSV file =csvcleaner/output.csv= appears in the project directory!
+
+#+caption: File content – csvcleaner/output.csv
+#+begin_example
+"b"|"d"
+"2"|"4"
+"6"|"8"
+"10"|"12"
+#+end_example
+
+* Conclusion
+
+*Pattern matching is cool* because you have a visualization (the pattern) of the data structure you work on right before your eyes, and not just in your head.
+
+*Type signatures* act like a brief unified description of what a function digests and what comes out at the end. That's quite elegant and helpful in most cases. It becomes unhelpful when a library author omits further explanations and examples.
+
+*Finding sensible names* for functions and variables all the time sucks. More so, if type signatures and function definitions already say all there is to say. That means for me:
+  - always consider whether a global definition is really necessary
+  - keep small functions anonymous where possible
+  - avoid formal parameters when they don't contribute to clarity
+
+*Partial function application* (via curried functions) seems to be cool too. But to think in terms of chaining partial functions while reasoning about how to express a particular thing in code doesn't come naturally yet. Partial application can make code also more difficult to understand: Look at the following definition of the wrapper function ~save~. Is it clear that it actually takes another argument, namely the output file name?
+
+#+caption: Example – not part of the program code
+#+begin_src ocaml
+  let save tab =
+    Csv.save ~separator:'|' ~quote_all:true tab
+#+end_src
+
+One has to look at the type signature first to realize that the function can take one more argument, an innocent /string/ which is the file name:
+
+#+caption: Type signature – not part of the program code
+#+begin_src ocaml
+  val save : string -> Csv.t -> unit = <fun>
+#+end_src
+
+That argument comes from the inner function ~Csv.save~ which takes the file name as a string:
+
+#+caption: Type signature – not part of the program code
+#+begin_src ocaml
+  - : ?separator:char ->
+      ?backslash_escape:bool ->
+      ?excel_tricks:bool -> ?quote_all:bool -> string -> Csv.t -> unit
+  = <fun>
+#+end_src
+
+** Full Code Listing
+
+The separation of the program comes quite naturally: input - preparation - work - preparation - output. My code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.
+
+Is there a better structure for this program? Maybe kinda like a pipe where you can plug in other functions in between – like layers of filters. That would make it easy to add new features in the future. I couldn't wait to refactor it that way, so I'm adding version 0.2 below. But first, here's the whole spaghetti pot we cooked up so far:
+
+*** Version 0.1
+
+#+CAPTION: The Spaghetti Monster
+#+begin_src ocaml
+  (* Version 0.1 *)
+
+  (* Transforms the file into a key-value data structure *)
+
+  let csv_file = open_in "input.csv"
+  let table = Csv.input_all (Csv.of_channel csv_file)
+  let () = close_in csv_file
+
+  let header, content =
+    match table with
+    | [] -> assert false
+    | hd :: tl -> hd, tl
+
+  let table_assoc = Csv.associate header content
+
+
+  (* Drops the columns that are not specified by the template *)
+
+  let template_file = open_in "template.csv"
+  let template = Csv.Rows.header (Csv.of_channel ~has_header:true template_file)
+  let () = close_in template_file
+
+  let rec remove_columns tpl row =
+    match row with
+    | [] -> []
+    | (k, v) :: tl when List.mem k tpl -> (k, v) :: remove_columns tpl tl
+    | _ :: tl -> remove_columns tpl tl
+
+  let table_cleaned = List.map (remove_columns template) table_assoc
+
+
+  (* Transforms the key-value data structure into lists representing lines *)
+
+  let rec get_keys =
+    function
+    | [] -> []
+    | (k, _) :: tl -> k :: get_keys tl
+
+  let rec get_values =
+    function
+    | [] -> []
+    | (_, v) :: tl -> v :: get_values tl
+
+  let dissoc =
+    function
+    | [] -> []
+    | hd :: tl -> get_keys hd :: List.map get_values (hd :: tl)
+
+  let table_final = dissoc table_cleaned
+
+
+  (* Writes the cleaned CSV file to disk *)
+
+  let () = Csv.save ~separator:'|' ~quote_all:true "output.csv" table_final
+#+end_src
+
+*** Version 0.2
+
+And here comes the code after refactoring. The version 0.2 hasn't got any shorter and the single functions got a bit more complex, but overall it got clearer than version 0.1.
+
+#+CAPTION: The Pipe
+#+begin_src ocaml
+  (* Version 0.2 *)
+
+  (** Transforms the file into a key-value data structure *)
+  let prep file =
+    let tab_file = open_in file in
+    tab_file
+    |> Csv.of_channel
+    |> Csv.input_all
+    |> fun tab -> let head, body =
+                    match tab with
+                    | [] -> assert false
+                    | hd :: tl -> hd, tl in
+    let () = close_in tab_file in
+    Csv.associate head body
+
+
+  (** Drops the columns that are not specified by the template *)
+  let clean tab =
+    let tpl_file = open_in "template.csv" in
+    let tpl = tpl_file
+              |> Csv.of_channel ~has_header:true
+              |> Csv.Rows.header in
+    let () = close_in tpl_file in
+    let rec remove_cols tpl row =
+      match row with
+      | [] -> []
+      | (k, v) :: tl when List.mem k tpl -> (k, v) :: remove_cols tpl tl
+      | _ :: tl -> remove_cols tpl tl in
+    List.map (remove_cols tpl) tab
+
+
+  (** Transforms the key-value data structure into lists representing lines *)
+  let dissoc =
+    let rec get_keys =
+      function
+      | [] -> []
+      | (k, _) :: tl -> k :: get_keys tl in
+    let rec get_values =
+      function
+      | [] -> []
+      | (_, v) :: tl -> v :: get_values tl in
+    function
+    | [] -> []
+    | hd :: tl -> get_keys hd :: List.map get_values (hd :: tl)
+
+
+  (** Writes the cleaned CSV file to disk *)
+  let save tab =
+    Csv.save ~separator:'|' ~quote_all:true tab
+
+
+  (** Puts all together in one pipe *)
+  let () = "input.csv"
+           |> prep
+           |> clean
+           |> dissoc
+           |> save "output.csv"
+#+end_src
+
+* Compile the Standalone Binary Executable
+
+- *Compile only:* Change into your project directory ~cd csvcleaner/~ and issue the command ~dune build~. Your compiled binary will be =csvcleaner/_build/default/csvcleaner.exe=. Don't get confused about the /.exe/ suffix — it's just a naming convention in dune, not a windows binary if you compile on Linux.
+
+- *Compile and run* the executable: ~dune exec ./csvcleaner.exe~
+
+If you are looking for a versatile tool to work on CSV files, check out /csvtool/. It is a command line utility written in OCaml by the creator of the Csv library I'm using here, and it is available via Opam ~opam install csvtool~ or as a package in Ubuntu: ~apt install csvtool~ and probably other Linux distros.
+
+* What's next?
+
+In the [[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][next episode]] I'm probably going to rewrite this again in Common Lisp using pattern matching, add a feature to version 0.2, or do something else entirely. Please let me know if you enjoyed the walktrough. Thank you for reading!

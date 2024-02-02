@@ -1,0 +1,539 @@
+#+TITLE: Let's code a GTK Theme Switcher for XFCE in OCaml
+#+DATE: <2022-01-28 Fri>
+#+SUBTITLE: Code Walktrough – Episodes: [[file:learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][1]] | [[file:learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.org][2]]
+#+LANGUAGE: en
+#+DESCRIPTION: Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut
+#+KEYWORDS: ocaml, dark mode, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:t
+
+* Toggle light/dark Mode in XFCE (and Gnome)
+
+I'm using XFCE4 since a couple of years and despite newer desktop environments for Linux, I always went back to XFCE beause it's the least invasive and lets me do the things I want. Changing the XFWM window manager for XMonad or even EXWM? No problem.
+
+But XFCE lacks an easy way to quickly switch from a light theme to a dark mode and back via key shortcut.
+
+Normally, someone would come up with a shell script to do things like that, but I'm about to learn OCaml anyway, so let's write that in OCaml.
+
+* Gathering Information
+
+One can select a GTK theme in XFCE with =xfce4-appearance-settings=. XFCE remembers what theme I've set, so my first guess is that we'll have to find out how and where XFCE does this – in order to change it.
+
+Linux is quite simple as most user preferences are stored in "config files", which are just plain text files located somewhere in =~/.config=. So we can probably do something like this:
+
+1. Find the config file where the information about the selected theme is stored
+2. Change the information about the dark/light mode there
+3. Tell XFCE to reload the config file in order apply the change immediately
+
+Not so bad for a first guess, but the glorious [[https://wiki.archlinux.org/title/Dark_mode_switching#GTK][ArchLinux wiki has a better idea]] about setting light or dark mode for GTK apps:
+
+#+begin_quote
+To change the light/dark mode, you have to change the used theme. Most themes do have a dark variant and those have by convention the suffix -dark. For example the default GTK theme Adwaita has the variant Adwaita-dark.
+#+end_quote
+
+Further, the wiki tells us:
+
+#+begin_quote
+To switch themes instantly for running programs, either a daemon providing the xsettings spec or gsettings is required. For desktops running with Xorg, an xsettings daemon is needed. For desktops running with Wayland, gsettings is queried.
+#+end_quote
+
+Mmmmkay, so the functionality already exists in XFCE4. And it's not about a config file to change, but speaking to daemons. You can issue those commands just straight from the command line (try it!):
+
+** Shell Commands to set dark/light Mode
+
+Under XFCE, you have to use the [[https://docs.xfce.org/xfce/xfconf/xfconf-query][=xfconf-query=]] utility to get/set themes
+--> We call this from now on *xsettings* backend
+
+#+caption: Get the name of the currently active themes
+#+begin_src shell
+  xfconf-query -c xsettings -p /Net/ThemeName
+  xfconf-query -c xsettings -p /Net/IconThemeName
+#+end_src
+
+#+caption: Set the dark UI theme and a dark icon theme
+#+begin_src shell
+  xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark" &&
+  xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
+#+end_src
+
+#+caption: Set the light UI theme and a light icon theme
+#+begin_src shell
+  xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita" &&
+  xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Light"
+#+end_src
+
+And in GNOME there is the [[https://wiki.gnome.org/HowDoI/GSettings][=gsettings=]] utility (which you also have to use if you are running Wayland rather than Xorg)
+--> We refer to this as the *gsettings* backend.
+
+#+caption: Get the name of the currently active themes
+#+begin_src shell
+  gsettings get org.gnome.desktop.interface gtk-theme
+  gsettings get org.gnome.desktop.interface icon-theme
+#+end_src
+
+#+caption: Set the dark UI theme and a dark icon theme
+#+begin_src shell
+  gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark" &&
+  gsettings set org.gnome.desktop.interface icon-theme "Papirus-Dark"
+#+end_src
+
+#+caption: Set the light UI theme and a light icon theme
+#+begin_src shell
+  gsettings set org.gnome.desktop.interface gtk-theme "Adwaita" &&
+  gsettings set org.gnome.desktop.interface icon-theme "Papirus-Light"
+#+end_src
+
+*If you just landed here because you searched for how to set dark/light themes via commmand line or shortcut:*
+The easiest solution for you is to define two /application shortcuts/ via =xfce4-keyboard-settings=: the first shortcut to execute the commands to set your dark theme, and the second for your light theme – and you are done. Just copy & paste the set commands above, either the =xsettings= variant or the =gsettings= variant.
+
+*To all others: We're doing real programming here!*
+For the sake of learning, we'll just accept the little overhead. So this is going to be a wrapper utilizing the =xsettings= and =gsettings= backends to toggle between light and dark mode with one single shortcut, plus some other features.
+
+* Prerequisites
+
+If you want to follow the walktrough, you'll need at least:
+
+- *opam* (the OCaml package manager) must be installed and configured
+- A computer running either Linux/Unix with XFCE or GNOME Desktop
+- A proper editor (e.g. Emacs, Vim or VS Code) with OCaml support
+- Very basic programming knowledge (what's a function, variable, etc.)
+
+* Features
+
+What do we need our program to do? Let's make a quick list:
+
+- [ ] Determine the currently active GTK theme
+- [ ] Toggle the UI (GTK) theme
+- [ ] Change the icon theme accordingly
+- [ ] Read the preferences from a config file:
+  - [ ] … which backend to use (either xsettings or gsettings)
+  - [ ] … or check/select the available backend automatically
+  - [ ] … preferred dark/light UI themes
+  - [ ] … preferred dark/light icon themes
+- [ ] Write the initial config file if it doesn't yet exist
+- [ ] Compile a standalone executable
+
+* Where to begin?
+
+/I would like to see the baby!/ Alright, let's implement the core feature first: toggle between the light theme and the dark theme.
+
+When there's only /one/ key combination to switch between light and dark theme, our programm has to make a decision: which theme to set when we press the key. Therefore, at some point our program needs to find out which theme is currently "on". That's a start, eh?
+
+* The »Get« Function
+
+*Getting the name of the currently active theme*
+
+Remember, we can find out what theme is currently active with the shell command we talked about before:
+
+#+caption: Shell command
+#+begin_src shell
+  xfconf-query -c xsettings -p /Net/ThemeName
+#+end_src
+#+caption: Output
+#+begin_src shell
+  Adwaita
+#+end_src
+
+We have to execute the shell command from inside our program, and then capture the output of the shell command, so that our program can use this information internally to make a decision. In OCaml, we are doing things with /functions/. We can use the function [[https://www.ocaml.org/api/Unix.html#VALopen_process_in][~Unix.open_process_in~]] from OCaml's /Unix/ module:
+
+#+begin_src ocaml
+  Unix.open_process_in "xfconf-query -c xsettings -p /Net/ThemeName"
+#+end_src
+
+This function opens an =in_channel=, but doesn't yet spit out the theme name; rather we have to get the theme name from that =in_channel=. We can use another function [[https://www.ocaml.org/api/Stdlib.html#VALinput_line][~input_line~]] that reads from the =in_channel= line by line (Each time [[https://www.ocaml.org/api/Stdlib.html#VALinput_line][~input_line~]] is applied, it returns the next line, until there is none left – but here we call it only once).
+
+#+begin_src ocaml
+  input_line (Unix.open_process_in "xfconf-query -c xsettings -p /Net/ThemeName")
+#+end_src
+
+Look at the parenthesis: in OCaml we use the parens for grouping, like we do in maths. The parens ensure that the value of the inner function ~(Unix.open_process_in "xfconf-query …")~ is going to be computed first, and the resulting value is passed to the function [[https://www.ocaml.org/api/Stdlib.html#VALinput_line][~input_line~]]. So eventually, the two nested functions above will produce the output we're looking for:
+
+#+begin_src ocaml
+  - : string = "Adwaita"
+#+end_src
+
+** Modeling Data Types
+
+One more thing before we are going to implement the function: Let's write down what types of data we know of. Just because … we can. We could do without, but it may be of use later. So what do we know?
+
+- We know we are going to use a /backend/, of which there are 2 variants: either /xsettings/ or /gsettings/
+- We're also going to deal with a variant of /widget/ at a time: either /UI/ themes or /icon/ themes
+
+We can write this in a formal way OCaml understands, and define types with the keyword ~type~, the name of the type (a.k.a. /type constructor/; lowercase), and variants (a.k.a. /data constructors/; capitalised):
+
+#+begin_example
+  type type_constructor = Data_construtor_1
+                        | Data_constructor_2
+                        | Data_constructor_n
+#+end_example
+
+Here you go:
+
+#+begin_src ocaml
+  type backend = Xsettings | Gsettings
+  type widget = Ui | Icon
+#+end_src
+
+For now, the variants will serve as arguments to tell our function for which /"type of backend"/ and which /"type of widget"/ we're asking.
+
+So how could we express "Use the /xsettings/ backend to get the name of the /Ui theme/ and return it" in OCaml?
+
+#+begin_src ocaml
+  get_theme Xsettings Ui;;
+#+end_src
+
+Until now, this does nothing of course. We'll have to give this expression a meaning first – we need to /implement/ the function. Since there are 2 backends (/xsettings/ and /gsettings/) with 2 widgets each (/UI theme/ and /icon theme/), that makes 4 combinations how we can call the function:
+
+#+begin_src ocaml
+  get_theme Xsettings Ui;;            (* 1st combination *)
+  get_theme Xsettings Icon;;          (* 2nd combination *)
+  get_theme Gsettings Ui;;            (* 3rd combination *)
+  get_theme Gsettings Icon;;          (* 4th combination *)
+#+end_src
+
+Let's write down what should happen in each case: All we have to do now is just a little "if this, than that". In OCaml, we have a sleek way to do such things, namely pattern matching. Here's the pattern matching syntax with 3 branches:
+
+#+begin_example
+  match VALUE(S) with
+  | PATTERN_1 -> EXPRESSION_1
+  | PATTERN_2 -> EXPRESSION_2
+  | PATTERN_N -> EXPRESSION_N
+#+end_example
+
+When the function receives the arguments, those will be matched against the /pattern before the arrow/. If there is a match, the corresponding /expression after the arrow/ will be triggered, and that's it. If there is no match, it's the turn of the next branch.
+
+In the first branch we can say:
+
+"If the values for ~backend~ and ~widget~ match ~Xsettings~ and ~Ui~ -> return the first line from the =in_channel= opened by the expression ~(Unix.open_process_in ...~ as a /string/, and stop here. If any of them doesn't match, do nothing but continue with the next branch."
+
+… and for all other branches accordingly:
+
+#+begin_src ocaml
+  let get_theme backend widget =
+    match backend, widget with
+    | Xsettings, Ui ->                                    (* 1st branch *)
+      input_line
+        (Unix.open_process_in
+           "xfconf-query -c xsettings -p /Net/ThemeName")
+    | Xsettings, Icon ->                                  (* 2nd branch *)
+      input_line
+        (Unix.open_process_in
+           "xfconf-query -c xsettings -p /Net/IconThemeName")
+    | Gsettings, Ui ->                                    (* 3rd branch *)
+      input_line
+        (Unix.open_process_in
+           "gsettings get org.gnome.desktop.interface gtk-theme")
+    | Gsettings, Icon ->                                  (* 4th branch *)
+      input_line
+        (Unix.open_process_in
+           "gsettings get org.gnome.desktop.interface icon-theme")
+#+end_src
+
+If we fail to handle all possible cases (e.g. we forget one branch/combination), the compiler warns us that the pattern matching is not exhaustive and which cases are unhandled and suggests potential solutions.
+
+*But how does the compiler know …?* Because we've said so before:
+#+begin_src ocaml
+  type backend = Xsettings | Gsettings
+  type widget = Ui | Icon
+#+end_src
+
+** Testing the Function in the Toplevel (REPL)
+
+Let's see what happens when we call it with various arguments:
+
+/Side note: expressions in the toplevel end always with =;;= – that's how you can spot if an expression is meant to be evaluated in the toplevel./
+
+#+caption: Toplevel input
+#+begin_src ocaml
+  get_theme Xsettings Ui;;
+#+end_src
+#+caption: Result
+#+begin_src ocaml
+  - : string = "Adwaita" (* <-- Looks good … *)
+#+end_src
+
+#+caption: Toplevel input
+#+begin_src ocaml
+  get_theme Xsettings Icon;;
+#+end_src
+#+caption: Result
+#+begin_src ocaml
+  - : string = "Papirus-Light" (* <-- Ok! *)
+#+end_src
+
+#+caption: Toplevel input
+#+begin_src ocaml
+  get_theme Gsettings Ui;;
+#+end_src
+#+caption: Result
+#+begin_src ocaml
+  - : string = "'Adwaita'" (* <-- Yikes! What? *)
+#+end_src
+
+#+caption: Toplevel input
+#+begin_src ocaml
+  get_theme Gsettings Icon;;
+#+end_src
+#+caption: Result
+#+begin_src ocaml
+  - : string = "'Papirus-Light'" (* <-- Nonono! make those quotes go away! *)
+#+end_src
+
+Yeah you may have  guessed it – the =gsettings= shell command returns theme names wrapped in additional ='…'= single quotes, while =xfconf-query= does not. Nah, we don't want that. Should we get rid of them? Yeah probably. They suck.
+
+** Remove superfluos Quotes from a String
+
+We could just use a function to remove the first and last character no matter what, right? But it's good practise to /be specific/: We'll need a helper function that takes a string, looks if there are single quotes at the beginning and end, and returns another string with the same content but without the single quotes.
+
+Let's visit https://ocaml.org/api/ and check if the function we need is readily available in the OCaml library. At a glance we'll see there are two modules related to strings: [[https://ocaml.org/api/String.html][String]] and [[https://ocaml.org/api/Str.html][Str]]. There are in fact several functions we could use to achive the desired result.
+
+*** Regular Expressions to the Rescue
+
+The [[https://ocaml.org/api/Str.html][~Str~]] module is what we are looking for, and I particularly like the function [[https://www.ocaml.org/api/Str.html#VALglobal_replace][~Str.global_replace~]]:
+
+#+caption: Type signature
+#+begin_src ocaml
+  val global_replace : regexp -> string -> string -> string
+#+end_src
+
+According to the [[https://ocaml.org/api/Str.html#VALglobal_replace][documentation]], the function wants the follwing arguments:
+- a regular expression to describe what characters should be replaced
+- a template string that says what to put there instead
+- and the original string we'd like to liberate from the single quotes
+
+Ok, first we'll need the regex. There it is: ~^'\|'$~ it describes what to pay attention to: a "string beginning with" ~^~ one ~'~ "or" ~|~ one ~'~ "at the end" ~$~.
+
+It took me a while to realize the regular expression we'll going to pass to the function is not just another string, but the function [[https://ocaml.org/api/Str.html#VALregexp][~Str.regexp~]] that takes a string containing the regular expression in order to "compile" it. Yeah that was quite confusing.
+
+- we have the regular expression in parenthesis ~()~
+- the template is an empty string ~""~ (because we want to replace the sigle quotes with /nothing/)
+- and as the last argument, we'll pass our original string
+
+Now we can test the function in in the toplevel like so:
+
+#+begin_src ocaml
+  Str.global_replace (Str.regexp "^'\|'$") "" "'Freemee!'";;
+#+end_src
+
+And? Works? Yes, but we're getting a =Warning 14 [illegal-backslash]: illegal backslash escape in string.=
+
+The [[https://ocaml.org/api/Str.html#VALregexp][documentation]] says, that the regex has to be written with double backslashes ~^'\\|'$~, because within strings, the backslash has already a meaning as an escape character, e.g. for ~\n~ (new line) and others. Well well! So here's the final function to "remove" the single quotes:
+
+#+begin_src ocaml
+  Str.global_replace (Str.regexp "^'\\|'$") "" "'Freemee!'";;
+#+end_src
+
+To make it easier to refer to that function later, let's wrap it in a function and call it ~clean~, so we don't have to type or copypasta the whole thing repeatedly if we're going to use that in more places:
+
+#+begin_src ocaml
+  let clean s =
+    Str.global_replace (Str.regexp "^'\\|'$") "" s
+#+end_src
+
+Now we can do just:
+#+begin_src ocaml
+  clean "'Adwaita'";;
+#+end_src
+
+#+caption: Result
+#+begin_src ocaml
+  - : string = "Adwaita"
+#+end_src
+
+** Putting the Function together
+
+We can make the ~clean~ function available within our ~get_theme~ function via ~let … in~ syntax, and then apply it to the output of the =gsettings= shell commands … but you know what?
+
+What if, say, =xfconf-query= gets an update and suddenly spits out the theme names single-quoted, too? Or does something completly different? I mean, can we /trust/ the output of another program?
+
+Nope, we actually can't. What we can do though, is validating and filtering input – being as specific as possible. So for here, let's apply the ~clean~ function to the results of all 4 branches at least, but leave it at that.
+
+#+begin_src ocaml
+  let get_theme backend widget =
+    let clean s =        (* we LET the helper function IN here *)
+      Str.global_replace (Str.regexp "^'\\|'$") "" s in
+    match backend, widget with
+    | Xsettings, Ui ->
+      clean (input_line  (* <-- we use it in the 1st branch *)
+               (Unix.open_process_in
+                  "xfconf-query -c xsettings -p /Net/ThemeName"))
+    | Xsettings, Icon ->
+      clean (input_line  (* <-- and in the 2nd branch *)
+               (Unix.open_process_in
+                  "xfconf-query -c xsettings -p /Net/IconThemeName"))
+    | Gsettings, Ui ->
+      clean (input_line  (* <-- in the 3rd branch *)
+               (Unix.open_process_in
+                  "gsettings get org.gnome.desktop.interface gtk-theme"))
+    | Gsettings, Icon ->
+      clean (input_line  (* <-- and in the 4th branch, too *)
+               (Unix.open_process_in
+                  "gsettings get org.gnome.desktop.interface icon-theme"))
+#+end_src
+
+Yes, we'll have to group the expression beginning with ~input_line …~ in another set of parens, so that the ~clean~ function will be applied to the /result/ of [[https://www.ocaml.org/api/Stdlib.html#VALinput_line][~input_line~]].
+
+* The »Set« Function
+
+*Setting the GTK- and icon themes*
+
+Once again we're about to wrap shell commands. The ~set_theme~ function is almost the same, so I'll make it short. We're going to use the types again to tell the function which backend to use, and if either the Ui theme or the Icon theme is going to be set. Additionally, we'll pass the theme name to the function as it will become part of the shell commands (via string concatenation through the [[https://www.ocaml.org/api/Stdlib.html#VAL(^)][~^~]] operator).
+
+
+#+begin_src ocaml
+  let set_theme backend widget name =
+    match backend, widget with
+    | Xsettings, Ui ->
+      Unix.open_process
+        ("xfconf-query -c xsettings -p /Net/ThemeName -s " ^ name)
+    | Xsettings, Icon ->
+      Unix.open_process
+        ("xfconf-query -c xsettings -p /Net/IconThemeName -s " ^ name)
+    | Gsettings, Ui ->
+      Unix.open_process
+        ("gsettings set org.gnome.desktop.interface gtk-theme " ^ name)
+    | Gsettings, Icon ->
+      Unix.open_process
+        ("gsettings set org.gnome.desktop.interface icon-theme " ^ name)
+#+end_src
+#+begin_src ocaml
+  let _ = set_theme Xsettings Icon "Papirus-Dark" (* apply the function *)
+#+end_src
+
+* The »Toggle« Function
+
+*Making a decision*
+
+Until now, we have built two functions ~get_theme~ and ~set_theme~. Let's use those in our third function and bring the action!
+
+Our toggle function needs to know several preferences to wield its magic. First, we are going to specify the preferences directly within the function with ~let … in~ bindings (for simplicity's sake). Later, when we know the function works, we are going to use a config file.
+
+- Which backend to get/set the themes --> identifier ~backend~
+- Name of the currently active UI theme --> identifier ~current_ui~
+- Name of the dark UI theme --> identifier ~ui_dark~
+- Name of the light UI theme --> identifier ~ui_light~
+- Name of the dark icon theme --> identifier ~icon_dark~
+- Name of the light icon theme --> identifier ~icon_light~
+
+"Magic" is a bit of an exaggeration – we use simple conditions here. As the themes come in pairs, *the program just needs to set "the other one"*. The decision which theme to set, depends on the /currently active/ UI theme ~current_ui~. So we're going to ~match current_ui with~ pattern(s).
+
+1. For the first branch, we can do:
+   "When ~current_ui~ equals the value of ~ui_dark~ -> use the ~backend~ to set the UI theme ~ui_light~; then use the ~backend~ to set the icon theme ~icon_light~".
+2. The second branch does the same, but vice-versa.
+3. But what should happen if there has been set a different theme, which is none of the preconfigured dark/light theme pair? E.g. set by the XFCE appearance control panel? We can address this by introducing a third branch – the catch-all: Whenever the identifier ~current_ui~ carries an unexpected value, fall back to the preconfigured ~ui_light~ and ~icon_light~.
+
+#+caption: Define the function
+#+begin_src ocaml
+  let toggle () =
+    let backend = Xsettings in
+    let current_ui = get_theme backend Ui in (* 2nd argument is the value above *)
+    let ui_dark = "Adwaita-dark" in
+    let ui_light = "Adwaita" in
+    let icon_dark = "Papirus-Dark" in
+    let icon_light = "Papirus-Light" in
+    match current_ui with
+    | c when String.equal c ui_dark ->
+      let _ = set_theme backend Ui ui_light in
+      set_theme backend Icon icon_light
+    | c when String.equal c ui_light ->
+      let _ = set_theme backend Ui ui_dark in
+      set_theme backend Icon icon_dark
+    | _ ->
+      let _ = set_theme backend Ui ui_light in
+      set_theme backend Icon icon_light
+#+end_src
+#+caption: Apply the function eventually
+#+begin_src ocaml
+  let _ = toggle ()
+#+end_src
+
+There may arise some questions:
+- /What does ~c~ mean in the 1st and 2nd branch?/
+  When matching a pattern, we can simultaneously bind one or more identifiers to certain parts of the matched object to use those parts in other places within the same branch. Here, we bind the whole value of ~current_ui~ to ~c~.
+- /What does the ~when~ keyword do?/
+  ~when~ introduces a /guard/ expression. If the guard expression evaluates to ~true~, then evaluate the expression after the arrow; if false, just continue with the next branch.
+- /Why has the expression after the arrow the form ~let _ = <expression1> in <expression2>~?/
+  We can use the nested ~let … in~ forms to do more than one thing after the other. And the single underscore (wildcard) means that we don't care to give it a name. It's evaluated only for its /side effects/ (to trigger the shell commands).
+
+* Paaartey! A working Prototype!
+
+Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a little break and do some Push-ups. Here's the code we cooked up so far:
+
+#+caption: Working prototype
+#+begin_src ocaml
+  type backend = Xsettings | Gsettings
+  type widget = Ui | Icon
+
+  let get_theme backend widget =
+    let clean s =
+      Str.global_replace (Str.regexp "^'\\|'$") "" s in
+    match backend, widget with
+    | Xsettings, Ui ->
+      clean (input_line
+               (Unix.open_process_in
+                  "xfconf-query -c xsettings -p /Net/ThemeName"))
+    | Xsettings, Icon ->
+      clean (input_line
+               (Unix.open_process_in
+                  "xfconf-query -c xsettings -p /Net/IconThemeName"))
+    | Gsettings, Ui ->
+      clean (input_line
+               (Unix.open_process_in
+                  "gsettings get org.gnome.desktop.interface gtk-theme"))
+    | Gsettings, Icon ->
+      clean (input_line
+               (Unix.open_process_in
+                  "gsettings get org.gnome.desktop.interface icon-theme"))
+
+  let set_theme backend widget name =
+    match backend, widget with
+    | Xsettings, Ui ->
+      Unix.open_process
+        ("xfconf-query -c xsettings -p /Net/ThemeName -s " ^ name)
+    | Xsettings, Icon ->
+      Unix.open_process
+        ("xfconf-query -c xsettings -p /Net/IconThemeName -s " ^ name)
+    | Gsettings, Ui ->
+      Unix.open_process
+        ("gsettings set org.gnome.desktop.interface gtk-theme " ^ name)
+    | Gsettings, Icon ->
+      Unix.open_process
+        ("gsettings set org.gnome.desktop.interface icon-theme " ^ name)
+
+  let toggle () =
+    let backend = Xsettings in
+    let current_ui = get_theme backend Ui in
+    let ui_dark = "Adwaita-dark" in
+    let ui_light = "Adwaita" in
+    let icon_dark = "Papirus-Dark" in
+    let icon_light = "Papirus-Light" in
+    match current_ui with
+    | c when String.equal c ui_dark ->
+      let _ = set_theme backend Ui ui_light in
+      set_theme backend Icon icon_light
+    | c when String.equal c ui_light ->
+      let _ = set_theme backend Ui ui_dark in
+      set_theme backend Icon icon_dark
+    | _ ->
+      let _ = set_theme backend Ui ui_light in
+      set_theme backend Icon icon_light
+
+  let _ = toggle ()
+#+end_src
+
+[[file:learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.org][We're going to finish this in the next episode!]]
+
+*Where do we stand now?*
+- [X] Determine the currently active GTK theme
+- [X] Toggle the UI (GTK) theme
+- [X] Change the icon theme accordingly
+
+*What's next?*
+- [ ] Read the preferences from a config file:
+  - [ ] … preferred dark/light UI themes
+  - [ ] … preferred dark/light icon themes
+  - [ ] … which backend to use (either xsettings or gsettings)
+  - [ ] … or check/select the available backend automatically?
+- [ ] Write the initial config file if it doesn't exist yet
+- [ ] Compile a standalone executable

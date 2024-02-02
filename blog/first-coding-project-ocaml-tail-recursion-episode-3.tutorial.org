@@ -1,0 +1,768 @@
+#+TITLE: Eat my huge Files: Tail Recursion in OCaml
+#+DATE: <2022-02-25 Fri>
+#+SUBTITLE: Project »CSV Cleaner« – Episodes: [[file:learning-to-code-first-app-episode-1.tutorial.org][1]] | [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][2]] | [[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][3]]
+#+LANGUAGE: en
+#+DESCRIPTION: Coding project for beginners: "CSV Cleaner": Tail recursion in OCaml – working with big lists
+#+KEYWORDS: tail recursion, tail call, recursive, ocaml, tutorial, project idea, learn ocaml, csv, pattern matching
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">
+#+SETUPFILE: ../static/setup.org
+#+OPTIONS: toc:2
+
+* What is this about?
+
+This is the 3rd episode of a blog series where we walk through my very first coding project: a small command line utility to manipulate CSV files. I found it too tedious messing with spreadsheets, so I went on to automate it.
+
+I'm a beginner on a journey to learn programming, so this is no authoritative guide how these things should be done. It's just that I learn stuff most throughly when I explain it to … you. Welcome!
+
+The project started in Common Lisp, and during the previous episode it got rewritten in OCaml. This episode builds on top of the former, so you might want to [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][peek at the previous episode]] in order to pick up the details.
+
+** This Code Walktrough is for you, if …
+
+- you want to become a hacker (obviously)
+- you struggle with recursive functions
+- you want to learn how to write tail recursive functions
+- you are just curious about functional programming
+
+If you want to follow the walktrough: For the most part you can just use [[https://try.ocaml.pro/][TryOCaml]], and there is a [[https://ocaml-learn-code.com/][free App for iOS]] and [[https://play.google.com/store/apps/details?id=fr.vernoux.ocaml&hl=en_US&gl=US][Android]], too. But if you want to do all the stuff here (like compiling a binary), you'll need a working [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org::*OCaml Installation and Project Setup][OCaml setup]] and an editor of your choice (my recommendation: invest some playtime into [[https://github.com/monkeyjunglejuice/emacs.onboard][Emacs]])
+
+** What can this Program do?
+
+Those features got implemented in the [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][previous episode]]:
+
+- [X] Open and read a CSV file "input.csv"
+- [X] Remove some columns according to a "template.csv"
+- [ ] Perform search and replace on cell content
+- [X] Set the pipe '|' as the delimiter char
+- [X] Spit out a sweet cleaned CSV file "output.csv"
+- [X] Compile to a standalone binary
+
+* Ready for the funky Stuff?
+
+I'm super curious how the CSV Cleaner performs. Let's throw some really fat monster CSVs on it, with thousands … yeah, and millions of rows!
+
+** My Benchmark Setup
+
+1. Compile the [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org::*Version 0.2][CSV Cleaner v0.2]] from the previous episode
+2. Download some [[https://eforexcel.com/wp/downloads-18-sample-csv-files-data-sets-for-testing-sales/][sample data sets from "EforExcel"]]
+3. Make a file =template.csv= stating which columns to keep in the cleaned CSV (dropping 7 of 14 columns)
+4. Create a separate directory for each CSV with its own CSV Cleaner binary
+5. Run CSV Cleaner on all CSVs and measure the time it takes to proceed the =output.csv= (10 runs per CSV; fastest run wins)
+
+** Let the Madness begin!
+
+|    Rows | Columns | Size MiB | User sec | System sec | Elapsed sec |
+|---------+---------+----------+----------+------------+-------------|
+|  100000 |      14 |     11.9 |     0.59 |       0.05 |        0.65 |
+|  200000 |      14 |     23.4 |     1.27 |       0.12 |        1.41 |
+|  300000 |      14 |     35.1 |     2.01 |       0.11 |        2.13 |
+|  500000 |      14 |     59.5 |          |            |             |
+| 1000000 |      14 |    119.0 |          |            |             |
+| 5000000 |      14 |    595.1 |          |            |             |
+
+*** Aaaaaand Crash!
+
+=Fatal error: exception Stack_overflow= somewhere on the way up to 500000 rows!
+
+** Why did this happen?
+
+The [[https://en.wikipedia.org/wiki/Call_stack][call stack]] or simply "the stack" is an area in memory that keeps track of the information associated with a function call. It can overflow because the stack is limited per thread of execution by the operating system, which leads to a certain "stack depth", and therefore a maximum of function calls it can handle.
+
+In the CSV Cleaner program, we're making use of /recursive functions/ – who call themselves in their own definition to iterate over /lists/ (those are the data structures I've implemented the rows of the CSV file in). Here is a simple example of such a recursive function that sums a list of numbers:
+
+#+caption: Recursive function
+#+begin_src ocaml
+  let rec sum l =                  (* function definition *)
+    match l with
+    | [] -> 0                      (* 1 *)
+    | hd :: tl -> hd + (sum tl);;  (* 2 *)
+
+  sum [1; 2; 3; 4; 5];;            (* function call with a list as the argument*)
+#+end_src
+
+*** How does this Function work?
+
+1. "If the list is empty, return 0 and stop."
+2. "Alternatively … take the first element of the list and … take the first element of the rest and … take the first element of the new rest … and so on and on, until the list is empty … then add everything up and return the value."
+
+Here is how the ~sum~ function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new /stack frame/ is created on the stack:
+
+#+begin_example
+sum <-- [1; 2; 3; 4; 5]
+sum <-- [2; 3; 4; 5]
+sum <-- [3; 4; 5]
+sum <-- [4; 5]
+sum <-- [5]
+sum <-- []
+sum --> 0
+sum --> 5
+sum --> 9
+sum --> 12
+sum --> 14
+sum --> 15
+- : int = 15
+#+end_example
+
+*** The Consequence
+
+If there are just enough nested function calls piling up, at some point the stack will be exhausted and we're getting a "stack overflow" (what actually piles up are the stack frames; those are data structures containing information about the function calls).
+
+* How can we use Recursive Functions safely?
+
+The OCaml compiler knows a technique which is called "[[https://eklitzke.org/how-tail-call-optimization-works][Tail call optimization]]" (TCO). It has first and foremost nothing to do with recursion – but utilizing this technique, the compiler can produce instructions to re-use use the caller's stack frame for the recursive calls, instead of creating a new stack frame on top of another for each nested function call.
+
+There is one thing though: The recursive function has to be written in a certain way so that the compiler is able to optimize it: The function call to itself must be the very last thing that happens within one recursive cycle. Ok, but what does that mean?
+
+** How to tell if a Function is (not) tail-recursive
+
+1. Option: Recognize it yourself.
+   Basically, you only need to know what will be evaluated before what.
+2. Option: Check with the built-in "ocaml.tailcall" attribute.
+   ~[@tailcall]~ can be applied in the recursive call (see below) in order to check if the call is a tail call. If it is no tail call, a warning is emitted.
+
+*** ✘ Not tail-recursive
+Look at the recursive case (second branch). There's not only the call of the function ~sum tl~ itself, but another thing is happening too: the addition ~hd +~ … added to /what/? Yes, exactly … to the value of ~sum tl~ which has to be computed /before/ the addition can happen. Ergo the recursive call is not the last thing, and therefore this is no "tail call".
+
+#+begin_src ocaml
+  let rec sum l =   (* function definition *)
+    match l with
+    | [] -> 0
+    | hd :: tl -> hd + sum tl;;   (* <-- recursive case *)
+
+  sum [1; 2; 3; 4; 5];;   (* applying the function to a list of numbers *)
+#+end_src
+
+#+caption: Check for tail call
+#+begin_src ocaml
+let rec sum l =
+    match l with
+    | [] -> 0
+    | hd :: tl -> hd + (sum [@tailcall]) tl;;
+#+end_src
+Check failed – warning:
+#+begin_example
+  Line 4, characters 23-42:
+  4 |     | hd :: tl -> hd + (sum [@tailcall]) tl;;
+                             ^^^^^^^^^^^^^^^^^^^^
+  Warning 51 [wrong-tailcall-expectation]: expected tailcall
+  val sum : int list -> int = <fun>
+#+end_example
+
+*** ✔ Tail-recursive
+Look at the recursive case again. The addition now happens in place of an additional argument ~accu~. In fact, ~hd~ is added to the value of the accumulator, not to the value resulting from this recursive function call. That way, the addition can and will be computed before the function calls itself, which is therefore last thing happening. That's a "tail call".
+
+#+begin_src ocaml
+  let rec sumt accu l =       (* function definition with extra argument *)
+    match l with
+    | [] -> accu
+    | hd :: tl -> sumt (accu + hd) tl;;   (* <-- recursive case *)
+
+  sumt 0 [1; 2; 3; 4; 5];;   (* applying the function to a list of numbers *)
+#+end_src
+
+#+caption: Check for tail call
+#+begin_src ocaml
+  let rec sumt accu l =
+    match l with
+    | [] -> accu
+    | hd :: tl -> (sumt [@tailcall]) (accu + hd) tl;;
+#+end_src
+Check passed – no warning:
+#+begin_src ocaml
+val sumt : int -> int list -> int = <fun>
+#+end_src
+
+How do we get there?
+
+** Recipe for tail-recursive Functions
+
+If you want to change a "naive" (non-tail-)recursive function into a tail-recursive function, you can follow these 4 steps ([[https://cs3110.github.io/textbook/chapters/basics/functions.html][source]]):
+
+1. Change the original recursive function into a helper function
+   - rename it (often named ~aux~ for "auxiliary")
+   - add an extra argument: the accumulator, usually named ~accu~
+2. Now write the wrapper function ~sum~ that calls the helper function. It passes the original base case’s return value as the initial value of the accumulator.
+3. Change the helper function to return the accumulator in the base case.
+4. Change the helper function’s recursive case. It now needs to do the extra work on the accumulator argument, before the recursive call. This is the only step that requires much ingenuity.
+
+#+caption: BEFORE – not tail-recursive
+#+begin_src ocaml
+  let rec sum l =
+    match l with
+    | [] -> 0
+    | hd :: tl -> hd + (sum tl);;   (* recursive case: no tail call *)
+#+end_src
+
+#+caption: AFTER – tail-recursive
+#+begin_src ocaml
+  let rec aux accu l =                   (* define the helper function *)
+    match l with
+    | [] -> accu                         (* base case returns the accumulator *)
+    | hd :: tl -> aux (accu + hd) tl;;   (* recursive case: tail call *)
+
+  let sum l =   (* define the wrapper function *)
+    aux 0 l;;   (* call helper function with the base case value *)
+#+end_src
+
+Ok, now we've got 2 separate functions, which is not really handy, right? So let's put the helper function ~aux~ into the ~sum~ function:
+
+#+begin_src ocaml
+  let sum l =
+    let rec aux accu l =
+      match l with
+      | [] -> accu
+      | hd :: tl -> aux (accu + hd) tl in
+    aux 0 l;;
+#+end_src
+
+And that's it! If you follow the recipe several times, you won't need it any more.
+
+* Digesting really big CSV Files
+
+Now we're leaving the safe haven of simple, constructed examples and plunge into real-world recursive functions, one by one.
+
+Recursive functions in OCaml are easy to spot in the code (at least the ones /we/ defined), because of their ~let rec …~ syntax, which enables a function to call itself.
+
+** Fixing the »Clean« Function
+
+The ~clean~ function receives the whole CSV data structure ~tab~ (table), which is essentially a long /list/ containing /association lists/ (rows) of /key-value pairs/. The latter represent single "table cells", but each value (cell content) associated with its corresponding key (column header).
+
+Ah yes, not to forget: When writing about static functional languages, it's obligatory to barf out totally obvious type signatures like this. It's just a way to describe what form of data a function accepts for an argument, and what form the returned value will be:
+
+#+caption: Type signature
+#+begin_src ocaml
+  val clean : (string * 'a) list list -> (string * 'a) list list = <fun>
+#+end_src
+
+#+caption: BEFORE – causing a stack overflow
+#+begin_src ocaml
+  (** Drops the columns that are not specified in the template *)
+  let clean tab =
+    let tpl_file = open_in "template.csv" in
+    let tpl = tpl_file
+              |> Csv.of_channel ~has_header:true
+              |> Csv.Rows.header in
+    let () = close_in tpl_file in
+    let rec remove_cols tpl row =   (* 1 *)
+      match row with
+      | [] -> []
+      | (k, v) :: tl when List.mem k tpl -> (k, v) :: remove_cols tpl tl
+      | _ :: tl -> remove_cols tpl tl in
+    List.map (remove_cols tpl) tab   (* 2 *)
+#+end_src
+
+Let's zoom in to the inner function ~remove_cols~ (1), which iterates through a single /association list/ (row) specified by the =template.csv= in order to collect certain /key-value pairs/ (column headers, cell content).
+
+"*Wait … ROW you said?* When the CSVs have only 14 columns, then it means a list containing the data of a row is at most 14 elements long. A non-tail-recursive function eating this tiny list can hardly be the reason for the stack overflow!"
+
+Very true Sherlock. As long as we don't clean CSVs with many thousands of columns per row, we ain't get into trouble because of that. So what's causing the stack overflow then?
+
+Well, there's also the function ~List.map~ (2) from OCaml's [[https://ocaml.org/api/List.html][List module]] that iterates over the list ~tab~ containing the 500k CSV rows in order to apply ~remove_cols~ to each one of them. Here's that mighty beast:
+
+*** Tail-recursive or not?
+
+#+caption: OCaml's official implementation
+#+begin_src ocaml
+  let rec map f = function
+      [] -> []
+    | a::l -> let r = f a in r :: map f l
+#+end_src
+
+Looking at the recursive case ~r :: map f l~ where ~r~ is put into a list (via "cons" ~::~ operator) that still has to be computed by the recursive call(s) ~map f l~ tells us … what? That this is no tail call, so the function is not tail-recursive.
+
+I'm quite surprised that such a fundamental function like ~map~ is not implemented tail-recursively by default. I mean OCaml is a functional programming language after all. Well, non-tail-recursive functions are marked in the [[https://ocaml.org/api/List.html][List module documentation]]).
+
+*** What now?
+
+Let's look for an alternative in the [[https://ocaml.org/api/List.html][List module]] … Oh, what do we have here? "~rev_map f l~ gives the same result as ~List.rev (List.map f l)~, but is /tail-recursive/ and more efficient." Mmmh. Ok, I see. There it is.
+
+We could use ~List.rev_map~ instead of ~List.map~ then. Anything else? Yes, there's just … it returns the list in /reverse order/, as the name suggests … Well then we'll reverse the reversed list again via ~List.rev~. And since we'll need a tail-recursive map function quite more often anyway, we can just wrap both in one and have our own tail-recursive "map" function:
+
+#+begin_src ocaml
+  (** Tail-recursive alternative to [List.map] *)
+  let mapt f l =
+    List.rev (List.rev_map f l)
+#+end_src
+
+"But isn't the additional step of reversing the linked list inefficient and slows down the program?" I don't know, but I'm curious too. So at the end of this walktrough, let's do a furious race between the different variants. But – patience, please. For the sake of completeness, here's the fixed function, with the single change in the last line:
+
+#+begin_src ocaml
+  (** Drops the columns that are not specified in the template *)
+  let clean tab =
+    let tpl_file = open_in "template.csv" in
+    let tpl = tpl_file
+              |> Csv.of_channel ~has_header:true
+              |> Csv.Rows.header in
+    let () = close_in tpl_file in
+    let rec remove_cols tpl row =
+      match row with
+      | [] -> []
+      | (k, v) :: tl when List.mem k tpl -> (k, v) :: remove_cols tpl tl
+      | _ :: tl -> remove_cols tpl tl in
+    mapt (remove_cols tpl) tab   (* <-- using our mapt here instead of List.map *)
+#+end_src
+
+** Fixing the »Dissoc« Function
+
+It may not seem obvious, but ~dissoc~ is actually the definition of a function that takes one argument: the long list (table) holding the association lists (rows); each of them containing key-value pairs (column-header, cell content).
+
+#+caption: Type signature
+#+begin_src ocaml
+  val dissoc : ('a * 'a) list list -> 'a list list = <fun>
+#+end_src
+
+#+caption: BEFORE – causing a stack overflow
+#+begin_src ocaml
+  (** Transforms the (key, value) data structure into lists representing lines *)
+  let dissoc =
+    let rec get_keys =
+      function
+      | [] -> []
+      | (k, _) :: tl -> k :: get_keys tl in
+    let rec get_values =
+      function
+      | [] -> []
+      | (_, v) :: tl -> v :: get_values tl in
+    function
+    | [] -> []                (* ↓ change this for mapt *)
+    | hd :: tl -> get_keys hd :: List.map get_values (hd :: tl)
+#+end_src
+
+The CSV files we've been using for the benchmark have thousands of rows, but only 14 columns. Both inner functions ~get_keys~ and ~get_values~ iterate through the "rows", each of them containing as many key-value pairs as there are columns in the CSV.
+
+So we're getting away with those functions not being tail-recursive, as long as we feed them only "small" rows. But how small is "small"? The documentation says "not longer than about 10000 elements"; but this is no absolute guideline.
+
+Over all, same here as before with the ~clean~ function: ~List.map~ applies the function ~get_values~ to each of the 500k rows from the CSV, causing a stack overflow itself due its own non-tail-recursive implementation. Again, let's replace ~List.map~ with our tail-recursive alternative ~mapt~ and we're done:
+
+#+caption: AFTER – using the tail-recursive 'mapt' alternative
+#+begin_src ocaml
+  (** Transforms the (key, value) data structure into lists representing lines *)
+  let dissoc =
+    let rec get_keys =
+      function
+      | [] -> []
+      | (k, _) :: tl -> k :: get_keys tl in
+    let rec get_values =
+      function
+      | [] -> []
+      | (_, v) :: tl -> v :: get_values tl in
+    function
+    | [] -> []                (* ↓ using our tail-recursive version *)
+    | hd :: tl -> get_keys hd :: mapt get_values (hd :: tl)
+#+end_src
+
+When we test the CSV Cleaner again in the toplevel, we should find a new CSV file =output.csv= in the project directory – even if we process a CSV file with 5 million lines.
+
+* Oh how unsatisfying that was!
+
+We've just fixed the program by changing a tiny function in two places. Can you feel the emptiness, too? But you know what? Let's over-engineer the shit out of it and make *everything* tail-recursive, so the CSV cleaner can digest CSVs with as many rows AND columns as … I dont know … incredibly … many! Probably. Let's see.
+
+** Bullet-proof »Clean« Function
+
+Since we have already fixed the function ~clean~ by writing a tail-recursive alternative for ~List.map~, we are now focussing on the inner function ~remove_cols~ that iterates over a single association list (row) in order to work on the key-value pairs:
+
+#+begin_src ocaml
+  let rec remove_cols tpl row =
+    match row with
+    | [] -> []                                                           (* 1 *)
+    | (k, v) :: tl when List.mem k tpl -> (k, v) :: remove_cols tpl tl   (* 2 *)
+    | _ :: tl -> remove_cols tpl tl                                      (* 3 *)
+#+end_src
+
+*** What is it doing?
+
+#+caption: Type signature
+#+begin_src ocaml
+  val remove_cols : 'a list -> ('a * 'b) list -> ('a * 'b) list = <fun>
+#+end_src
+
+The function takes 2 arguments:
+
+- ~tpl~: the template is one simple /list/ ~'a list~ that holds the column headers of all columns to keep, while all others are getting dropped. This list looks like so:
+
+#+caption: Template data structure ["columnheader"; "columnheader"]
+#+begin_src ocaml
+  ["b"; "c";]   (* list of column headers specifying the columns to keep *)
+#+end_src
+
+- ~row~: is a /list of tuples/ ~('a * 'b) list~. Those are key-value pairs; the key represents a column header, and the value represents the cell content:
+
+#+caption: Row data structure [("columnheader", "cellcontent"); … ]
+#+begin_src ocaml
+  [("a", "1"); ("b", "2"); ("c", "3"); ("d", "4")]   (* a single CSV row *)
+#+end_src
+
+*** How does the inner Function work?
+
+1. If the function receives a list ~row~ with nothing in it -> return just an empty list.
+2. Destructure the list ~row~ into the first key-value pair ~(k, v)~, while referring to its parts with ~k~ for the "key" and ~v~ for the "value"; bind ~tl~ to the tail (rest) of the list (which is a list itself) – but only ~when~ the key ~k~ is also member of the template ~tpl~ -> Then take the corresponding key-value pair … and again and again … put these into a list, and return that list eventually.
+3. The 3rd branch takes over if the 2nd branch encounters a key ~k~ that is not member of the template ~tpl~ (those key-value pairs will be ignored). The 3rd branch just continues to call the function again with the next element from the tail ~tl~ of the list ~row~.
+
+*** Making it tail-recursive
+
+#+caption: BEFORE – not tail-recursive
+#+begin_src ocaml
+  let rec remove_cols tpl row =
+    match row with
+    | [] -> []
+    | (k, v) :: tl when List.mem k tpl -> (k, v) :: remove_cols tpl tl (* 1 *)
+    | _ :: tl -> remove_cols tpl tl (* <- that is already a tail call *)
+#+end_src
+
+[[*Recipe for tail-recursive Functions][Maybe look at the recipe again]]. The only part that can be kinda tricky is to rearrange the recursive case (1). The call to the function itself has to be the last thing happening, so that no other computation tries to use the value of that particular recursive call afterwards (within this recursive case/cycle).
+
+#+caption: AFTER – helper function (1) and separate wrapper function (2)
+#+begin_src ocaml
+  let rec aux accu tpl row =   (* 1 *)
+    match row with
+    | [] -> accu   (* <-- replace the base case with the accumulator *)
+    | (k, v) :: tl when List.mem k tpl -> aux ((k, v) :: accu) tpl tl
+    | _ :: tl -> aux accu tpl tl
+
+  let remove_cols tpl row =   (* 2 *)
+    aux [] tpl row   (* <-- set the empty list [] as the base case *)
+#+end_src
+
+Let's merge that into one single function:
+
+#+caption: AFTER – helper function (1) inside the wrapper function (2)
+#+begin_src ocaml
+  let remove_cols tpl row =   (* 2 *)
+    let rec aux accu tpl row =   (* 1 *)
+      match row with
+      | [] -> accu
+      | (k, v) :: tl when List.mem k tpl -> aux ((k, v) :: accu) tpl tl
+      | _ :: tl -> aux accu tpl tl in
+    aux [] tpl row
+#+end_src
+
+*** Quick Test using the Toplevel (REPL)
+
+How can we call this function and how should the arguments be like? The type signature tells us:
+
+#+caption: Yeah, hello again type signature. BFF!
+#+begin_src ocaml
+  val remove_cols : 'a list -> ('a * 'b) list -> ('a * 'b) list = <fun>
+#+end_src
+
+- The 1st argument ~tpl~ must be a list of single elements
+- The 2nd argument ~row~ must be a list of tuples with 2 elements each (key, value)
+- The result will also be a list of tuples with 2 elements each (key, value)
+
+So for a quick test, we can just provide the arguments as follows:
+
+#+caption: Function call with two arguments (lists)
+#+begin_src ocaml
+  remove_cols ["b"; "c";] [("a", "1"); ("b", "2"); ("c", "3"); ("d", "4")]
+           (* ↑ template  ↑ row *)
+#+end_src
+
+#+caption: Result – all the other key-value pairs got dropped
+#+begin_src ocaml
+  - : (string * string) list = [("c", "3"); ("b", "2")]
+#+end_src
+
+**** Noticed something?
+
+The key-value pairs came out in reverse order! There is one difference compared to the non-tail-recursive function: the helper function adds each key-value pair in front of the accumulator list ~accu~, so the first pair found will eventually be at the end of the list.
+
+This is quite a common thing when recursively working on lists. What we can do, is to reverse the accumulator with ~List.rev~, which itself /is/ tail-recursive:
+
+#+begin_src ocaml
+  let remove_cols tpl row =
+    let rec aux accu tpl row =
+      match row with
+      | [] -> List.rev accu  (* <-- reverse the accumulator *)
+      | (k, v) :: tl when List.mem k tpl -> aux ((k, v) :: accu) tpl tl
+      | _ :: tl -> aux accu tpl tl in
+    aux [] tpl row
+#+end_src
+
+*** Putting all together, going fully tail-recursive
+
+The ~remove_cols~ function is now tail-recursive and should be able to handle anything you throw at it. And off we go, putting it right back into the =csvcleaner.ml= file:
+
+#+begin_src ocaml
+  (** Drops the columns that are not specified in the template *)
+  let clean tab =
+    let tpl_file = open_in "template.csv" in
+    let tpl = tpl_file
+              |> Csv.of_channel ~has_header:true
+              |> Csv.Rows.header in
+    let () = close_in tpl_file in
+    let remove_cols tpl row =     (* Here starts our new tail-recursive function *)
+      let rec aux accu tpl row =
+        match row with
+        | [] -> List.rev accu
+        | (k, v) :: tl when List.mem k tpl -> aux ((k, v) :: accu) tpl tl
+        | _ :: tl -> aux accu tpl tl in
+      aux [] tpl row in           (* ... and it ends here *)
+    mapt (remove_cols tpl) tab
+#+end_src
+
+** Bullet-proof »Dissoc« Function
+
+We fixed the outer function ~dissoc~ already, now let's improve both inner functions ~get_keys~ and ~get_values~ to iterate over "rows" of arbitrary length without causing a stack overflow. CSV files with plenty of columns shouldn't pose any problem afterwards.
+
+#+begin_src ocaml
+  (** Transforms the key-value data structure into lists representing lines *)
+  let dissoc =
+    let rec get_keys =   (* 1 *)
+      function
+      | [] -> []
+      | (k, _) :: tl -> k :: get_keys tl in
+    let rec get_values =   (* 2 *)
+      function
+      | [] -> []
+      | (_, v) :: tl -> v :: get_values tl in
+    function
+    | [] -> []
+    | hd :: tl -> get_keys hd :: mapt get_values (hd :: tl)
+#+end_src
+
+*** What is it doing?
+
+#+caption: Type signature
+#+begin_src ocaml
+  val dissoc : ('a * 'a) list list -> 'a list list = <fun>
+#+end_src
+
+The ~dissoc~ function takes one argument, which is a /list of association lists/ created by ~clean~, containing only the columns specified by the template. Here you see how the structure literally looks like:
+
+#+caption: BEFORE – the whole CSV data is a list of association lists
+#+begin_src ocaml
+  [[("b", "2"); ("d", "4")];
+   [("b", "6"); ("d", "8")];
+   [("b", "10"); ("d", "12")]]
+#+end_src
+
+The ~dissoc~ function splits the keys from the values and gathers both separately in order to change the structure into something that comes a bit closer to how a CSV file looks like:
+
+1. the first list becoming the first line a.k.a. table head
+2. and the following lists becoming the table rows
+
+#+caption: AFTER – the whole CSV data is a list of lists
+#+begin_src ocaml
+  [["b"; "d"];     (* 1 *)
+   ["2"; "4"];     (* 2 *)
+   ["6"; "8"];     (* 2 *)
+   ["10"; "12"]]   (* 2 *)
+#+end_src
+
+*** How do the inner Functions work?
+
+#+caption: BEFORE – not tail-recursive
+#+begin_src ocaml
+  let rec get_keys =   (* 1 *)
+    function
+    | [] -> []
+    | (k, _) :: tl -> k :: get_keys tl   (* ← ? *)
+
+  let rec get_values =   (* 2 *)
+    function
+    | [] -> []
+    | (_, v) :: tl -> v :: get_values tl   (* ← ? *)
+#+end_src
+
+1. ~val get_keys : ('a * 'b) list -> 'a list = <fun>~
+   The outer function ~dissoc~ applies ~get_keys~ to each key-value pair of the first row, in order to collect only the keys and put them in a list.
+2. ~val get_values : ('a * 'b) list -> 'b list = <fun>~
+   The outer function ~dissoc~ applies ~get_values~ to each key-value pair of /all rows/ in order to make a list of values from each row.
+
+*** Making both inner Functions tail-recursive
+
+Stoooop! Ok. Nah don't look further down. Wanna try to rewrite the functions on your own? I guess you propably don't even need the [[*Recipe for tail-recursive Functions][recipe]] any more?
+
+#+caption: AFTER – tail-recursive
+#+begin_src ocaml
+  let get_keys row =             (* Wrapper function *)
+    let rec aux accu =           (* Helper function … *)
+      function
+      | [] -> accu               (* … with accumulator *)
+      | (k, _) :: tl -> aux (k :: accu) tl in
+    List.rev (aux [] row)        (* Don't forget to reverse the returned list *)
+
+  let get_values row =           (* Wrapper function *)
+    let rec aux accu =           (* Helper function … *)
+      function
+      | [] -> accu               (* … with accumulator *)
+      | (_, v) :: tl -> aux (v :: accu) tl in
+    List.rev (aux [] row)        (* Reverse the returned list *)
+#+end_src
+
+*** Putting all together, one more time
+
+Just for the record, that's how the whole ~dissoc~ function looks afterwards:
+
+#+begin_src ocaml
+let dissoc =
+  let get_keys row =
+    let rec aux accu =
+      function
+      | [] -> accu
+      | (k, _) :: tl -> aux (k :: accu) tl in
+    List.rev (aux [] row) in
+  let get_values row =
+    let rec aux accu =
+      function
+      | [] -> accu
+      | (_, v) :: tl -> aux (v :: accu) tl in
+    List.rev (aux [] row) in
+  function
+  | [] -> []
+  | hd :: tl -> get_keys hd :: mapt get_values (hd :: tl)
+#+end_src
+
+*** Quick Test in the Toplevel (REPL)
+
+#+caption: Applying the function to some data in the shape of ~('a * 'a) list list~
+#+begin_src ocaml
+  dissoc [[("b", "2"); ("d", "4")];
+          [("b", "6"); ("d", "8")];
+          [("b", "10"); ("d", "12")]];;
+#+end_src
+
+#+caption: Result – the same data, but transformed into a ~string list list~
+#+begin_src ocaml
+  - : string list list = [["b"; "d"];
+                          ["2"; "4"];
+                          ["6"; "8"];
+                          ["10"; "12"]]
+#+end_src
+
+This list is then passed to the next function ~save~ to write the data to disk as a CSV file.
+
+* Final Comparison
+
+Is there a difference in speed regarding the three implementations? Let's find out. There we have:
+
+- *"no tr"* the original variant without tail recursion
+- *"mapt only"* where we only changed ~List.map~ for a tail-recursive ~mapt~
+- *"full tr"* in which we've made the row-functions tail-recursive too
+
+There is to say that I've been a bit lazy and just picked the fastest run out of ten for each variant per CSV size, so the method is probably as scientific as a lizard race in Thailand.
+
+| Variant   |    Rows | Columns | Size MiB | User sec | System sec | Elapsed sec |
+|-----------+---------+---------+----------+----------+------------+-------------|
+| no tr     |  100000 |      14 |     11.9 |     0.59 |       0.05 |        0.65 |
+| mapt only |  100000 |      14 |     11.9 |     0.58 |       0.06 |        0.65 |
+| full tr   |  100000 |      14 |     11.9 |     0.62 |       0.02 |        0.65 |
+|-----------+---------+---------+----------+----------+------------+-------------|
+| no tr     |  200000 |      14 |     23.4 |     1.27 |       0.12 |        1.41 |
+| mapt only |  200000 |      14 |     23.4 |     1.32 |       0.06 |        1.40 |
+| full tr   |  200000 |      14 |     23.4 |     1.30 |       0.08 |        1.39 |
+|-----------+---------+---------+----------+----------+------------+-------------|
+| no tr     |  300000 |      14 |     35.1 |     2.01 |       0.11 |        2.13 |
+| mapt only |  300000 |      14 |     35.1 |     1.92 |       0.17 |        2.10 |
+| full tr   |  300000 |      14 |     35.1 |     1.97 |       0.12 |        2.11 |
+|-----------+---------+---------+----------+----------+------------+-------------|
+| no tr     |  500000 |      14 |     59.5 |    CRASH |      CRASH |       CRASH |
+| mapt only |  500000 |      14 |     59.5 |     3.15 |       0.15 |        3.32 |
+| full tr   |  500000 |      14 |     59.5 |     3.13 |       0.17 |        3.32 |
+|-----------+---------+---------+----------+----------+------------+-------------|
+| no tr     | 1000000 |      14 |    119.0 |    CRASH |      CRASH |       CRASH |
+| mapt only | 1000000 |      14 |    119.0 |     6.47 |       0.35 |        6.86 |
+| full tr   | 1000000 |      14 |    119.0 |     6.55 |       0.34 |        6.92 |
+|-----------+---------+---------+----------+----------+------------+-------------|
+| no tr     | 5000000 |      14 |    595.1 |    CRASH |      CRASH |       CRASH |
+| mapt only | 5000000 |      14 |    595.1 |    31.27 |       1.90 |       33.28 |
+| full tr   | 5000000 |      14 |    595.1 |    31.59 |       1.76 |       33.46 |
+
+One might assume the tail-recursive CSV Cleaner variants ("mapt only", "full tr") were a bit faster than the one implementation "no tr" without tail recursion. When we compare both tail-recursive variants with each other, they seem to come pretty close, while the "full tr" seems a little behind.
+
+But in fact I think those differences are insignificant, because the variants are often only hundereds of milliseconds apart, and the results sometimes overlap. I guess that things like file system cache, processor cache, other background processes etc. matter much more.
+
+* Conclusion
+
+It makes sense to write functions in the tail-recursive style, since it eliminates the chance to run into a "low-hanging" ressource limit unneccessarily. But the next limit lurks just around the corner: the amount of total memory available. I did some runs on CSV files with 300000 rows but this time 400 columns instead of 14, and the process quickly ate up 16 GB RAM + 4 GB swap space and got killed by the OS eventually.
+
+Anyway, I had fun to gnaw on those larger files. Probably I should have used a data structure other than linked lists in the first place; and I'm quite optimistic the whole task could be done more efficiently.
+
+* Full Code Listing, Version 0.3
+
+#+caption: Fully tail-recursive
+#+begin_src ocaml
+  (* Version 0.3 *)
+
+
+  (** Tail-recursive alternative to [List.map] *)
+  let mapt f l =
+    List.rev (List.rev_map f l)
+
+
+  (** Transforms the file into a key-value data structure *)
+  let prep file =
+    let tab_file = open_in file in
+    tab_file
+    |> Csv.of_channel
+    |> Csv.input_all
+    |> fun tab -> let head, body =
+                    match tab with
+                    | [] -> assert false
+                    | hd :: tl -> hd, tl in
+    let () = close_in tab_file in
+    Csv.associate head body
+
+
+  (** Drops the columns that are not specified by the template *)
+  let clean tab =
+    let tpl_file = open_in "template.csv" in
+    let tpl = tpl_file
+              |> Csv.of_channel ~has_header:true
+              |> Csv.Rows.header in
+    let () = close_in tpl_file in
+    let remove_cols tpl row =
+      let rec aux accu tpl row =
+        match row with
+        | [] -> List.rev accu
+        | (k, v) :: tl when List.mem k tpl -> aux ((k, v) :: accu) tpl tl
+        | _ :: tl -> aux accu tpl tl in
+      aux [] tpl row in
+    mapt (remove_cols tpl) tab
+
+
+  (** Transforms the key-value data structure into lists representing lines *)
+  let dissoc =
+    let get_keys row =
+      let rec aux accu =
+        function
+        | [] -> accu
+        | (k, _) :: tl -> aux (k :: accu) tl in
+      List.rev (aux [] row) in
+    let get_values row =
+      let rec aux accu =
+        function
+        | [] -> accu
+        | (_, v) :: tl -> aux (v :: accu) tl in
+      List.rev (aux [] row) in
+    function
+    | [] -> []
+    | hd :: tl -> get_keys hd :: mapt get_values (hd :: tl)
+
+
+  (** Writes the cleaned CSV file to disk *)
+  let save tab =
+    Csv.save ~separator:'|' ~quote_all:true tab
+
+
+  (** Puts all together in one pipe *)
+  let () = "input.csv"
+           |> prep
+           |> clean
+           |> dissoc
+           |> save "output.csv"
+#+end_src
+
+* What's next?
+Right now I wonder how it would turn out to run the CSV Cleaner on multiple cores. But likely I'm going to implement one or two of the pending features in the next episode.
+
+- [X] Open and read a CSV file "input.csv"
+- [X] Remove some columns according to a "template.csv"
+- [ ] Perform search and replace on cell content
+- [X] Set the pipe '|' as the delimiter char
+- [X] Spit out a sweet cleaned CSV file "output.csv"
+- [X] Compile to a standalone binary
+- [X] Make it work with bigger CSV files
+- [ ] File selection via command line arguments
+- [ ] Combine content of certain rows into one
+
+Hope you enjoyed the walktrough. Suggestions are always welcome!

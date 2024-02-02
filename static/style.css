@@ -10,10 +10,10 @@ html {
 
 body {
   color: #343327;
-  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', serif;
-  font-size: 2.3rem;
+  font-family: 'Gentium Basic', 'Hoefler Text', 'Garamond', serif;
+  font-size: 2.0rem;
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 @media (max-width: 684px) {
@@ -37,10 +37,25 @@ h6 {
   hyphens: none;
 }
 
+h1 a,
+h1 a:hover,
+h2 a,
+h2 a:hover,
+h3 a,
+h3 a:hover,
+h4 a,
+h4 a:hover,
+h5 a,
+h5 a:hover,
+h6 a,
+h6 a:hover {
+  text-decoration: none;
+}
+
 h1 {
-  font-family: 'Cormorant', 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
+  font-family: 'Cormorant', 'Hoefler Text', 'Garamond', sans-serif;
   font-size: 3.6em;
-  font-weight: 100;
+  font-weight: 300;
   line-height: 1.1;
   margin-bottom: 4.5rem;
   margin-top: 5rem;
@@ -49,8 +64,8 @@ h1 {
 }
 
 h2 {
-  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
-  font-size: 3.7rem;
+  font-family: 'Cormorant SC', 'Hoefler Text', 'Garamond', sans-serif;
+  font-size: 3.6rem;
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 4.5rem;
@@ -61,8 +76,8 @@ h2 {
 }
 
 h3 {
-  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
-  font-size: 2.9rem;
+  font-family: 'Cormorant', 'Hoefler Text', 'Garamond', sans-serif;
+  font-size: 2.8rem;
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 2.3rem;
@@ -70,8 +85,8 @@ h3 {
 }
 
 h4 {
-  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
-  font-size: 1em;
+  font-family: 'Cormorant', 'Hoefler Text', 'Garamond', sans-serif;
+  font-size: 2.4rem;
   font-weight: 600;
   margin-bottom: 2.3rem;
   margin-top: 5rem;
@@ -79,9 +94,9 @@ h4 {
 
 h5,
 h6 {
-  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', sans-serif;
+  font-family: 'Cormorant', 'Hoefler Text', 'Garamond', sans-serif;
   font-size: 1em;
-  font-weight: 400;
+  font-weight: 600;
   margin-bottom: 2.3rem;
   margin-top: 5rem;
 }
@@ -307,7 +322,7 @@ label,
 legend,
 fieldset {
   display: block;
-  font-family: "Gentium Book Basic";
+  font-family: "Cormorant";
   font-feature-settings: "smcp" 1;
   font-size: 0.75em;
   font-weight: 500;
@@ -318,13 +333,13 @@ fieldset {
 /* IDs AND CLASSES ***********************************************************/
 
 #preamble {
-  border-bottom: 1px dotted;
-  padding: 0.5em 0.5em 0 0.5em;
 }
 
 #preamble nav {
+  border-bottom: 1px dotted;
   font-size: 0.75em;
   font-weight: 400;
+  padding: 0.5em 0.5em 0 0.5em;
   text-align: right;
 }
 
@@ -342,14 +357,14 @@ fieldset {
 }
 
 #postamble {
-  border-top: 1px dotted;
   margin-top: 5rem;
-  padding: 0 0.5em 0.5em 0.5em;
 }
 
-#postamble p.footer {
+#postamble .footer {
+  border-top: 1px dotted;
   font-size: 0.75em;
   font-weight: 400;
+  padding: 0 0.5em 0.5em 0.5em;
   text-align: center;
 }
 
@@ -384,6 +399,10 @@ fieldset {
   padding-right: 1.5em;
 }
 
+#content ul {
+  list-style-type: '\2013\00A0\00A0';
+}
+
 #content blockquote p {
   padding-right: 0
 }
@@ -412,6 +431,7 @@ h1.title {
   margin-top: 0;
 }
 
+.info,
 .subtitle {
   font-family: 'mononoki', monospace;
   font-feature-settings: "ss01" 1;
@@ -449,7 +469,7 @@ h1.title {
 }
 
 .index table {
-  font-family: 'Gentium Book Basic', 'Hoefler Text', 'Garamond', serif;
+  font-family: 'Gentium Basic', 'Hoefler Text', 'Garamond', serif;
   font-size: 1em;
 }
 
@@ -503,7 +523,7 @@ blockquote.center {
 #table-of-contents h2 {
   font-feature-settings: "smcp" 1;
   font-size: 0.75em;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.05em;
   margin-bottom: 2rem;
   padding-left: 0;
@@ -527,7 +547,7 @@ pre.src::before {
   border-radius: 1em;
   border: 0 none;
   color: #000c;
-  font-family: "Gentium Book Basic", 'Hoefler Text', 'Garamond', serif;
+  font-family: "Cormorant", 'Hoefler Text', 'Garamond', serif;
   font-feature-settings: "smcp" 1;
   font-size: 0.75em;
   font-weight: 400;
