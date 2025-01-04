@@ -1,7 +1,11 @@
 \#*
 *~
+.DS_Store
+.stfolder
 *.draft.*
-/test.html
-/.stfolder
-/.DS_Store
-/test.org
+*_archive
+test.html
+test.org
+_build
+deps
+erl_crash.dump
