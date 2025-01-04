@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-02-02 -->
+<!-- 2024-10-20 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GTK Theme Switcher in OCaml: Config File Parsing</title>
@@ -9,13 +9,15 @@
 <meta name="description" content="Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut" />
 <meta name="keywords" content="learn ocaml, parsing, config file, dark mode, gtk, xfce, gtk theme, project ideas" />
 <meta name="generator" content="Org Mode" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; img-src 'self' https://*; media-src 'self' https://*;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka-etoile/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka-aile/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <script defer src="/static/header.js"></script>
@@ -23,34 +25,45 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2023-09-23">Last updated: 2023-09-23</time></div>
+<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="about" href="/about.html">About</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<div class="info"><time itemprop="dateModified" datetime="2024-04-04">Last updated: 2024-04-04</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">GTK Theme Switcher in OCaml: Config File Parsing</h1>
-<p class="subtitle" role="doc-subtitle">Code Walktrough – Episodes: <a href="learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html">1</a> | <a href="learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.html">2</a></p>
-</header><nav id="table-of-contents" role="doc-toc">
+<p class="subtitle" role="doc-subtitle">Code Walktrough – 2nd Episode</p>
+</header><nav class="pager" id="org65bb2e8">
+<p>
+This post is part of a miniseries:<br>
+</p>
+<ol class="org-ol">
+<li><a href="learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html">Let&rsquo;s Code a GTK Theme Switcher for XFCE in OCaml</a><br></li>
+<li><b><a href="learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.html">Config File Parsing in OCaml</a></b><br></li>
+</ol>
+</nav>
+
+<nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org74c5ddd">The Config File</a>
+<li><a href="#orgcdaedb9">The Config File</a>
 <ul>
-<li><a href="#org1e87dba">Is there a Syntax or Convention for Config Files?</a></li>
-<li><a href="#org84652d2">Let&rsquo;s design a beautiful Config File!</a></li>
-<li><a href="#org28bc2a7">Where to put this Config File?</a></li>
-<li><a href="#orgd8483a6">The Config File Path</a></li>
+<li><a href="#org478ea75">Is there a Syntax or Convention for Config Files?</a></li>
+<li><a href="#org8295dcc">Let&rsquo;s design a beautiful Config File!</a></li>
+<li><a href="#org2819e49">Where to put this Config File?</a></li>
+<li><a href="#orgf386387">The Config File Path</a></li>
 </ul>
 </li>
-<li><a href="#org83ddbc5">Reading a Config File in OCaml</a>
+<li><a href="#org7472dfa">Reading a Config File in OCaml</a>
 <ul>
-<li><a href="#org94b5b0c">Getting the Data from the File</a></li>
-<li><a href="#org78757e8">Reading the whole File and building the Data Structure</a></li>
+<li><a href="#org6d3fe80">Getting the Data from the File</a></li>
+<li><a href="#org1549b2e">Reading the whole File and building the Data Structure</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </nav>
+
 <div class="org-center">
 <p>
 ~ WORK IN PROGRESS ~<br>
@@ -60,10 +73,9 @@
 <p>
 Welcome to the 2nd episode of <i>&ldquo;We&rsquo;re writing a GTK Theme Switcher for XFCE4 to toggle between light/dark modes via shortcut&rdquo;</i>. <a href="learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html">Here&rsquo;s the previous episode</a>.<br>
 </p>
-
-<div id="outline-container-org74c5ddd" class="outline-2">
-<h2 id="org74c5ddd"><a href="#org74c5ddd">The Config File</a></h2>
-<div class="outline-text-2" id="text-org74c5ddd">
+<div id="outline-container-orgcdaedb9" class="outline-2">
+<h2 id="orgcdaedb9"><a href="#orgcdaedb9">The Config File</a></h2>
+<div class="outline-text-2" id="text-orgcdaedb9">
 <p>
 Until now, we have &ldquo;hardcoded&rdquo; preferences – that means, we specified those preferences within the program code itself – like what is the dark theme, what&rsquo;s the light theme, and which backend we use to talk to the daemon.<br>
 </p>
@@ -81,10 +93,9 @@ There are three common solutions to this &ldquo;problem&rdquo;:<br>
 <li>Specifying the preferences in a plain text file that is read by the program during startup. Those files are called &ldquo;run control files&rdquo; (that&rsquo;s why they often end in <code>"rc"</code>, eg. <code>.vimrc</code>); a.k.a. &ldquo;dotfiles&rdquo;.<br></li>
 </ul>
 </div>
-
-<div id="outline-container-org1e87dba" class="outline-3">
-<h3 id="org1e87dba"><a href="#org1e87dba">Is there a Syntax or Convention for Config Files?</a></h3>
-<div class="outline-text-3" id="text-org1e87dba">
+<div id="outline-container-org478ea75" class="outline-3">
+<h3 id="org478ea75"><a href="#org478ea75">Is there a Syntax or Convention for Config Files?</a></h3>
+<div class="outline-text-3" id="text-org478ea75">
 <p>
 There are several formats in use: INI-style files, XML, YAML, S-expressions, and even JSON. But for simplicity&rsquo;s sake, let&rsquo;s stick closely to the <a href="https://web.archive.org/web/20191007042721/http://www.faqs.org/docs/artu/ch10s03.html">Unix-conventions</a>:<br>
 </p>
@@ -94,10 +105,9 @@ There are several formats in use: INI-style files, XML, YAML, S-expressions, and
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org84652d2" class="outline-3">
-<h3 id="org84652d2"><a href="#org84652d2">Let&rsquo;s design a beautiful Config File!</a></h3>
-<div class="outline-text-3" id="text-org84652d2">
+<div id="outline-container-org8295dcc" class="outline-3">
+<h3 id="org8295dcc"><a href="#org8295dcc">Let&rsquo;s design a beautiful Config File!</a></h3>
+<div class="outline-text-3" id="text-org8295dcc">
 <p>
 Most important is a huge impressive ASCII art banner to show off your prowess. Besides that, it’s probably a good idea to provide some comments how to use the file. And then there are the actual preferences. Here you go:<br>
 </p>
@@ -171,10 +181,9 @@ Most important is a huge impressive ASCII art banner to show off your prowess. B
 </div>
 </div>
 </div>
-
-<div id="outline-container-org28bc2a7" class="outline-3">
-<h3 id="org28bc2a7"><a href="#org28bc2a7">Where to put this Config File?</a></h3>
-<div class="outline-text-3" id="text-org28bc2a7">
+<div id="outline-container-org2819e49" class="outline-3">
+<h3 id="org2819e49"><a href="#org2819e49">Where to put this Config File?</a></h3>
+<div class="outline-text-3" id="text-org2819e49">
 <p>
 As per <a href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">Freedesktop.org conventions</a>, config files for (desktop-)applications should be put under <code>$XDG_CONFIG_HOME</code>. That&rsquo;s an environment variable, referring to the the user&rsquo;s config directory. If this environment variable is not set, &ldquo;a default equal to <code>$HOME/.config</code> should be used&rdquo; (<code>$HOME</code> is another environment variable, but one that <i>is</i> usually set. It points to the user’s home directory).<br>
 </p>
@@ -184,10 +193,9 @@ So that means we could name the config file <code>$HOME/.config/switch_gtk_theme
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgd8483a6" class="outline-3">
-<h3 id="orgd8483a6"><a href="#orgd8483a6">The Config File Path</a></h3>
-<div class="outline-text-3" id="text-orgd8483a6">
+<div id="outline-container-orgf386387" class="outline-3">
+<h3 id="orgf386387"><a href="#orgf386387">The Config File Path</a></h3>
+<div class="outline-text-3" id="text-orgf386387">
 <p>
 On my laptop, my <code>$HOME</code> directory is <code>/home/dan</code>, and the config file is there: <code>/home/dan/.config/switch_gtk_theme.conf</code>.<br>
 </p>
@@ -229,10 +237,9 @@ The <a href="https://www.ocaml.org/api/Stdlib.html#VAL(%5E)"><code>^</code></a> 
 </div>
 </div>
 </div>
-
-<div id="outline-container-org83ddbc5" class="outline-2">
-<h2 id="org83ddbc5"><a href="#org83ddbc5">Reading a Config File in OCaml</a></h2>
-<div class="outline-text-2" id="text-org83ddbc5">
+<div id="outline-container-org7472dfa" class="outline-2">
+<h2 id="org7472dfa"><a href="#org7472dfa">Reading a Config File in OCaml</a></h2>
+<div class="outline-text-2" id="text-org7472dfa">
 <p>
 Ok fine, we’re going to read a file. What&rsquo;s going to happen with it when we&rsquo;ve done that? What will it become? And how will it look like? And why all that?<br>
 </p>
@@ -260,10 +267,9 @@ In fact, our theme switcher needs only the key-value pairs like <code>ui_light =
 <li>Eventually, we feed that into the switch mechanism to control it<br></li>
 </ol>
 </div>
-
-<div id="outline-container-org94b5b0c" class="outline-3">
-<h3 id="org94b5b0c"><a href="#org94b5b0c">Getting the Data from the File</a></h3>
-<div class="outline-text-3" id="text-org94b5b0c">
+<div id="outline-container-org6d3fe80" class="outline-3">
+<h3 id="org6d3fe80"><a href="#org6d3fe80">Getting the Data from the File</a></h3>
+<div class="outline-text-3" id="text-org6d3fe80">
 <p>
 According to the <a href="https://www.ocaml.org/learn/tutorials/file_manipulation.html#Reading">official tutorial</a>, we’ll have to open an <code>in_channel</code> first, using the function <a href="https://ocaml.org/api/Stdlib.html#VALopen_in"><code>open_in</code></a>. An <code>in_channel</code> is not a file itself, but more like a tornado; its funnel&rsquo;s end at your disposal, pointing initially to the beginning of a file. Yeah programming is exciting. You probably know that already.<br>
 </p>
@@ -282,7 +288,7 @@ A channel needs to be closed when we’re done with it, using the function <a hr
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 4: </span>Toplevel</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = (<span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span>)<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-tuareg-font-double-semicolon">;;</span>
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
@@ -314,17 +320,16 @@ Not so bad! But wasn’t our plan to ignore comments, starting with <code>#</cod
 </p>
 </div>
 </div>
-
-<div id="outline-container-org78757e8" class="outline-3">
-<h3 id="org78757e8"><a href="#org78757e8">Reading the whole File and building the Data Structure</a></h3>
-<div class="outline-text-3" id="text-org78757e8">
+<div id="outline-container-org1549b2e" class="outline-3">
+<h3 id="org1549b2e"><a href="#org1549b2e">Reading the whole File and building the Data Structure</a></h3>
+<div class="outline-text-3" id="text-org1549b2e">
 <p>
 To get all the lines, we must apply <a href="https://ocaml.org/api/Stdlib.html#VALinput_line"><code>input_line</code></a> repeatedly to the <code>in_channel</code>. In most other languages, repetition is done via loops. But loops are clumsy low-level made-up things, mutating variables in-place. Nonono, we don’t do that here. <a href="https://ocaml.org/learn/tutorials/if_statements_loops_and_recursion.html">In OCaml, we have cooler things: recursion</a> – a function calling itself over and over again, until a base case is reached.<br>
 </p>
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 6: </span>File <code>switch_gtk_theme.ml</code></label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = (<span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span>)
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
@@ -347,7 +352,7 @@ To be continued …<br>
 </div>
 </div>
 <div id="postamble" class="status">
-<div class="footer">Published by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></div>
+<div class="footer">Published by <span class="author"><a href="/about.html">Dan Dee</a></span></div>
 <script defer src="/static/footer.js"></script>
 </div>
 </body>

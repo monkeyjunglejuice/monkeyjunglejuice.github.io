@@ -1,12 +1,21 @@
 #+TITLE: GTK Theme Switcher in OCaml: Config File Parsing
 #+DATE: <2022-01-28 Fri>
-#+SUBTITLE: Code Walktrough – Episodes: [[file:learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][1]] | [[file:learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.org][2]]
+#+SUBTITLE: Code Walktrough – 2nd Episode
 #+LANGUAGE: en
 #+DESCRIPTION: Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut
 #+KEYWORDS: learn ocaml, parsing, config file, dark mode, gtk, xfce, gtk theme, project ideas
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.html">
 #+SETUPFILE: ../static/setup.org
-#+OPTIONS: toc:t
+#+OPTIONS:
+
+#+ATTR_HTML: :class pager
+#+begin_nav
+This post is part of a miniseries:
+1. [[file:learn-ocaml-light-dark-theme-switcher-gtk.tutorial.org][Let's Code a GTK Theme Switcher for XFCE in OCaml]]
+2. *[[file:learn-ocaml-config-file-parsing-switch-gtk-theme.walktrough.org][Config File Parsing in OCaml]]*
+#+end_nav
+  
+#+TOC: headlines 2
 
 #+begin_center
 ~ WORK IN PROGRESS ~

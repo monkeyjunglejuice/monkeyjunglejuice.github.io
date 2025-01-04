@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-02-02 -->
+<!-- 2024-10-20 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Rewrite in OCaml: Tooling, Association Lists and Pattern Matching</title>
@@ -9,13 +9,15 @@
 <meta name="description" content="A first coding project in OCaml – walktrough tutorial" />
 <meta name="keywords" content="ocaml, tutorial, project idea, learn ocaml, walktrough, csv, pattern matching, ocaml scripting" />
 <meta name="generator" content="Org Mode" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; img-src 'self' https://*; media-src 'self' https://*;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka-etoile/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka-aile/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <script defer src="/static/header.js"></script>
@@ -23,52 +25,62 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2023-09-23">Last updated: 2023-09-23</time></div>
+<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="about" href="/about.html">About</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<div class="info"><time itemprop="dateModified" datetime="2024-10-19">Last updated: 2024-10-19</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">Rewrite in OCaml: Tooling, Association Lists and Pattern Matching</h1>
-<p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – Episodes: <a href="learning-to-code-first-app-episode-1.tutorial.html">1</a> | <a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">2</a> | <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">3</a></p>
-</header><nav id="table-of-contents" role="doc-toc">
+<p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 2nd Episode</p>
+</header><nav class="pager" id="org7a4e9e1">
+<p>
+This post is part of a miniseries:<br>
+</p>
+<ol class="org-ol">
+<li><a href="learning-to-code-first-app-episode-1.tutorial.html">Manipulation CSV Files in Common Lisp</a><br></li>
+<li><b><a href="learning-to-code-first-ocaml-project-episode-2.tutorial.html">Rewrite in OCaml &#x2013; Tooling, Association Lists and Pattern Matching</a></b><br></li>
+<li><a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">Eat my Huge Files: Tail Recursion in OCaml</a><br></li>
+</ol>
+</nav>
+
+<nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgce1acd2">Automate the Boring Stuff with OCaml</a>
+<li><a href="#org9225aa0">Automate the Boring Stuff with OCaml</a>
 <ul>
-<li><a href="#orge0b76b3">From Common Lisp to OCaml</a></li>
-<li><a href="#org131d42e">OCaml Installation and Project Setup</a></li>
+<li><a href="#org5a2bde1">From Common Lisp to OCaml</a></li>
+<li><a href="#orgd6a26d1">OCaml Installation and Project Setup</a></li>
 </ul>
 </li>
-<li><a href="#orgbb333b5">What the Program should do</a></li>
-<li><a href="#org6f8cd1e">It&rsquo;s Library Shopping Time!</a></li>
-<li><a href="#orgaa27db4">How to open a File in OCaml</a>
+<li><a href="#org521402a">What the Program should do</a></li>
+<li><a href="#org5ab2b4d">It&rsquo;s Library Shopping Time!</a></li>
+<li><a href="#org12d6682">How to open a File in OCaml</a>
 <ul>
-<li><a href="#orga411eb7">Types matter</a></li>
+<li><a href="#org80cccdc">Types matter</a></li>
 </ul>
 </li>
-<li><a href="#org5bbcc5c">The CSV Library</a></li>
-<li><a href="#org2d1ccfa">Choosing a suitable Data Structure</a></li>
-<li><a href="#org27e929e">How to remove Columns from the CSV</a>
+<li><a href="#org29f9875">The CSV Library</a></li>
+<li><a href="#orga4e73bb">Choosing a suitable Data Structure</a></li>
+<li><a href="#orgafba615">How to remove Columns from the CSV</a>
 <ul>
-<li><a href="#org59df83f">The Good Ones into the List, the Bad Ones into the Garbage Collector</a></li>
+<li><a href="#org7cd46bd">The Good Ones into the List, the Bad Ones into the Garbage Collector</a></li>
 </ul>
 </li>
-<li><a href="#org262ceaf">Save the cleaned CSV to Disk</a></li>
-<li><a href="#org96238c8">Conclusion</a>
+<li><a href="#orgf5c1be7">Save the cleaned CSV to Disk</a></li>
+<li><a href="#org550699e">Conclusion</a>
 <ul>
-<li><a href="#org16c5771">Full Code Listing</a></li>
+<li><a href="#org094e20b">Full Code Listing</a></li>
 </ul>
 </li>
-<li><a href="#orgeade30c">Compile the Standalone Binary Executable</a></li>
-<li><a href="#orgc8ec681">What&rsquo;s next?</a></li>
+<li><a href="#orgb9e2b7f">Compile the Standalone Binary Executable</a></li>
+<li><a href="#orgf0fecb2">What&rsquo;s next?</a></li>
 </ul>
 </div>
 </nav>
-
-<div id="outline-container-orgce1acd2" class="outline-2">
-<h2 id="orgce1acd2"><a href="#orgce1acd2">Automate the Boring Stuff with OCaml</a></h2>
-<div class="outline-text-2" id="text-orgce1acd2">
+<div id="outline-container-org9225aa0" class="outline-2">
+<h2 id="org9225aa0"><a href="#org9225aa0">Automate the Boring Stuff with OCaml</a></h2>
+<div class="outline-text-2" id="text-org9225aa0">
 <p>
 This tutorial is the 2nd episode of a little blog series where I extend, refactor and rewrite a small program with each episode. If you haven&rsquo;t read the <a href="learning-to-code-first-app-episode-1.tutorial.html">1st episode using Common Lisp</a>, you might like to check it out.<br>
 </p>
@@ -89,10 +101,9 @@ I find it more likely to stay committed when coding projects have a real world u
 What we&rsquo;re now doing here is manipulating CSV files. I find it tedious to do this by hand using a spreadsheet, so I wanted to automate the task. This little program doesn&rsquo;t do exciting things, but it serves well as a first trivial project.<br>
 </p>
 </div>
-
-<div id="outline-container-orge0b76b3" class="outline-3">
-<h3 id="orge0b76b3"><a href="#orge0b76b3">From Common Lisp to OCaml</a></h3>
-<div class="outline-text-3" id="text-orge0b76b3">
+<div id="outline-container-org5a2bde1" class="outline-3">
+<h3 id="org5a2bde1"><a href="#org5a2bde1">From Common Lisp to OCaml</a></h3>
+<div class="outline-text-3" id="text-org5a2bde1">
 <p>
 I was using Common Lisp in the <a href="learning-to-code-first-app-episode-1.tutorial.html">previous episode</a>. Today I&rsquo;m going to rewrite everything in OCaml, because I&rsquo;m still not sure which programming language I like more. I think OCaml is a great programming language for beginners, because:<br>
 </p>
@@ -113,18 +124,16 @@ I&rsquo;m not going to compare my experience with <b>Lisp vs. OCaml</b> this tim
 </p>
 </div>
 </div>
-
-<div id="outline-container-org131d42e" class="outline-3">
-<h3 id="org131d42e"><a href="#org131d42e">OCaml Installation and Project Setup</a></h3>
-<div class="outline-text-3" id="text-org131d42e">
+<div id="outline-container-orgd6a26d1" class="outline-3">
+<h3 id="orgd6a26d1"><a href="#orgd6a26d1">OCaml Installation and Project Setup</a></h3>
+<div class="outline-text-3" id="text-orgd6a26d1">
 <p>
 If you would like to follow the tutorial, you&rsquo;ll need OCaml installed and set up on your machine. I won&rsquo;t go deeply into the setup process here, because it varies depending on the system you use (I use Linux with Emacs). But there&rsquo;s a comprehensive guide: <a href="https://ocaml.org/learn/tutorials/">Getting started with OCaml</a><br>
 </p>
 </div>
-
-<div id="outline-container-org1296c57" class="outline-4">
-<h4 id="org1296c57"><a href="#org1296c57">Checklist</a></h4>
-<div class="outline-text-4" id="text-org1296c57">
+<div id="outline-container-orgad597db" class="outline-4">
+<h4 id="orgad597db"><a href="#orgad597db">Checklist</a></h4>
+<div class="outline-text-4" id="text-orgad597db">
 <p>
 No matter on which platform you are – when your setup is done, you should have at least OCaml&rsquo;s package manager <b>opam</b>.<br>
 </p>
@@ -158,10 +167,9 @@ opam user-setup install
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org50c1bd4" class="outline-4">
-<h4 id="org50c1bd4"><a href="#org50c1bd4">Project setup</a></h4>
-<div class="outline-text-4" id="text-org50c1bd4">
+<div id="outline-container-org082dae8" class="outline-4">
+<h4 id="org082dae8"><a href="#org082dae8">Project setup</a></h4>
+<div class="outline-text-4" id="text-org082dae8">
 <p>
 We keep it short:<br>
 </p>
@@ -174,10 +182,9 @@ We keep it short:<br>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgbb333b5" class="outline-2">
-<h2 id="orgbb333b5"><a href="#orgbb333b5">What the Program should do</a></h2>
-<div class="outline-text-2" id="text-orgbb333b5">
+<div id="outline-container-org521402a" class="outline-2">
+<h2 id="org521402a"><a href="#org521402a">What the Program should do</a></h2>
+<div class="outline-text-2" id="text-org521402a">
 <p>
 Let&rsquo;s define the features first. A checked box means a feature is going to be implemented in this episode:<br>
 </p>
@@ -192,10 +199,9 @@ Let&rsquo;s define the features first. A checked box means a feature is going to
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org6f8cd1e" class="outline-2">
-<h2 id="org6f8cd1e"><a href="#org6f8cd1e">It&rsquo;s Library Shopping Time!</a></h2>
-<div class="outline-text-2" id="text-org6f8cd1e">
+<div id="outline-container-org5ab2b4d" class="outline-2">
+<h2 id="org5ab2b4d"><a href="#org5ab2b4d">It&rsquo;s Library Shopping Time!</a></h2>
+<div class="outline-text-2" id="text-org5ab2b4d">
 <p>
 It would be a way larger program if we would code everything from scratch. Let&rsquo;s look around for a library to work with CSV files: <a href="https://opam.ocaml.org/packages/">https://opam.ocaml.org/packages/</a>. Search for &ldquo;csv&rdquo; … Yep! Let&rsquo;s install &ldquo;Csv&rdquo; via <code>opam install csv</code><br>
 </p>
@@ -226,9 +232,9 @@ We definitely want to use a build system. It makes compiling super easy, avoidin
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>File content – csvcleaner/dune</label><pre class="src src-dune">(<span class="org-keyword">executable</span>
- (<span class="org-function-name">name</span> csvcleaner)
- (<span class="org-function-name">libraries</span> csv))
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>File content – csvcleaner/dune</label><pre class="src src-dune"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">executable</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-function-name">name</span> csvcleaner<span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-function-name">libraries</span> csv<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -271,10 +277,9 @@ If you use VSCode, I guess everything just works out of the box when the <a href
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgaa27db4" class="outline-2">
-<h2 id="orgaa27db4"><a href="#orgaa27db4">How to open a File in OCaml</a></h2>
-<div class="outline-text-2" id="text-orgaa27db4">
+<div id="outline-container-org12d6682" class="outline-2">
+<h2 id="org12d6682"><a href="#org12d6682">How to open a File in OCaml</a></h2>
+<div class="outline-text-2" id="text-org12d6682">
 <p>
 Let&rsquo;s begin with Input/Output. We will try to open and read the CSV file, store its contents in the memory and use a variable to refer to the data, in order to manipulate it later. How do I open a file in OCaml? The <a href="https://ocaml.org/learn/tutorials/file_manipulation.html">tutorial section</a> on the website helps, here is what I found out:<br>
 </p>
@@ -289,7 +294,7 @@ You can type this in your file <code>csvcleaner/csvcleaner.ml</code> and then ev
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 7: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> = open_in <span class="org-string">"input.csv"</span>
 <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Do some stuff here --&gt;</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in csv_file'
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in csv_file'
 </pre>
 </div>
 
@@ -299,7 +304,7 @@ If your editor can&rsquo;t do that, open <b>utop</b> in your terminal emulator a
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 8: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> = open_in <span class="org-string">"input.csv"</span><span class="org-tuareg-font-double-semicolon">;;</span>
 <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Do some stuff here --&gt;</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in csv_file'<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in csv_file'<span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
@@ -307,10 +312,9 @@ If your editor can&rsquo;t do that, open <b>utop</b> in your terminal emulator a
 You probably wonder about the <code>'</code> ASCII apostrophe at the end of some variable- or function names. That basically means &ldquo;same same but different&rdquo; – I use <code>'</code> to mark examples or alternatives that are not part of the program code.<br>
 </p>
 </div>
-
-<div id="outline-container-orga411eb7" class="outline-3">
-<h3 id="orga411eb7"><a href="#orga411eb7">Types matter</a></h3>
-<div class="outline-text-3" id="text-orga411eb7">
+<div id="outline-container-org80cccdc" class="outline-3">
+<h3 id="org80cccdc"><a href="#org80cccdc">Types matter</a></h3>
+<div class="outline-text-3" id="text-org80cccdc">
 <p>
 The value bound to the variable <code>csv_file'</code> has the <i>type</i> <code>in_channel</code>. So now we need another function that can do something with a piece of data with the type <code>in_channel</code>. Types matter a lot in OCaml, you will see that later.<br>
 </p>
@@ -329,8 +333,8 @@ Let&rsquo;s write a couple of functions to get stuff out of that channel. So the
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 9: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> = open_in <span class="org-string">"input.csv"</span>
-<span class="org-tuareg-font-lock-governing">let</span> () = print_endline (input_line csv_file')
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in csv_file'
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = print_endline <span class="org-rainbow-delimiters-depth-1">(</span>input_line csv_file'<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in csv_file'
 </pre>
 </div>
 
@@ -340,17 +344,16 @@ And here&rsquo;s another function <code>input_char</code> in the Stdlib that ret
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 10: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> = open_in <span class="org-string">"input.csv"</span>
-<span class="org-tuareg-font-lock-governing">let</span> () = print_char (input_char csv_file')
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in csv_file'
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = print_char <span class="org-rainbow-delimiters-depth-1">(</span>input_char csv_file'<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in csv_file'
 </pre>
 </div>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org5bbcc5c" class="outline-2">
-<h2 id="org5bbcc5c"><a href="#org5bbcc5c">The CSV Library</a></h2>
-<div class="outline-text-2" id="text-org5bbcc5c">
+<div id="outline-container-org29f9875" class="outline-2">
+<h2 id="org29f9875"><a href="#org29f9875">The CSV Library</a></h2>
+<div class="outline-text-2" id="text-org29f9875">
 <p>
 The auto-completion suggests another function <code>Csv.input_all</code> which is part of the <code>Csv</code> module. Instead of building up a data structure from single lines, perhaps we can get a bit more convenience using more of the <code>Csv</code> module functionality from here on? Let&rsquo;s try it.<br>
 </p>
@@ -361,8 +364,8 @@ But I cannot apply <code>Csv.input_all</code> to <code>csv_file'</code> which is
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 11: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file'</span> = open_in <span class="org-string">"input.csv"</span>
-<span class="org-tuareg-font-lock-governing">let</span> () = print_endline (<span class="org-tuareg-font-lock-module">Csv.</span>input_all csv_file') <span class="org-comment-delimiter">(* </span><span class="org-comment">&#8592; Nah, not working! Wrong type!</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in csv_file'
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = print_endline <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Csv.</span>input_all csv_file'<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&#8592; Nah, not working! Wrong type!</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in csv_file'
 </pre>
 </div>
 
@@ -388,10 +391,10 @@ We will now transform the data from <code>csv_file</code> in 3 steps into a data
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table</span> =          <span class="org-comment-delimiter">(* </span><span class="org-comment">3. Variable bound to the list of lists</span><span class="org-comment-delimiter"> *)</span>
   <span class="org-tuareg-font-lock-module">Csv.</span>input_all      <span class="org-comment-delimiter">(* </span><span class="org-comment">2. That function makes a list of lists from the CSV content</span><span class="org-comment-delimiter"> *)</span>
-    (<span class="org-tuareg-font-lock-module">Csv.</span>of_channel  <span class="org-comment-delimiter">(* </span><span class="org-comment">1. This function reads what's found in the [csv_file]</span><span class="org-comment-delimiter"> *)</span>
-       csv_file)     <span class="org-comment-delimiter">(*    </span><span class="org-comment">The "normal" [in_channel] passed as an argument</span><span class="org-comment-delimiter"> *)</span>
+    <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel  <span class="org-comment-delimiter">(* </span><span class="org-comment">1. This function reads what's found in the [csv_file]</span><span class="org-comment-delimiter"> *)</span>
+       csv_file<span class="org-rainbow-delimiters-depth-1">)</span>     <span class="org-comment-delimiter">(*    </span><span class="org-comment">The "normal" [in_channel] passed as an argument</span><span class="org-comment-delimiter"> *)</span>
 
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in csv_file  <span class="org-comment-delimiter">(* </span><span class="org-comment">We have all we need, let's close that file</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in csv_file  <span class="org-comment-delimiter">(* </span><span class="org-comment">We have all we need, let's close that file</span><span class="org-comment-delimiter"> *)</span>
 </pre>
 </div>
 
@@ -401,18 +404,17 @@ So far the nested list we created in the 3 steps above looks like below. In that
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 13: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table</span> : <span class="org-tuareg-font-lock-module">Csv.</span>t =
-            [[<span class="org-string">"a"</span>; <span class="org-string">"b"</span>; <span class="org-string">"c"</span>; <span class="org-string">"d"</span>];
-             [<span class="org-string">"1"</span>; <span class="org-string">"2"</span>; <span class="org-string">"3"</span>; <span class="org-string">"4"</span>];
-             [<span class="org-string">"5"</span>; <span class="org-string">"6"</span>; <span class="org-string">"7"</span>; <span class="org-string">"8"</span>];
-             [<span class="org-string">"9"</span>; <span class="org-string">"10"</span>; <span class="org-string">"11"</span>; <span class="org-string">"12"</span>]]
+            <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"a"</span>; <span class="org-string">"b"</span>; <span class="org-string">"c"</span>; <span class="org-string">"d"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+             <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"1"</span>; <span class="org-string">"2"</span>; <span class="org-string">"3"</span>; <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+             <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"5"</span>; <span class="org-string">"6"</span>; <span class="org-string">"7"</span>; <span class="org-string">"8"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+             <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"9"</span>; <span class="org-string">"10"</span>; <span class="org-string">"11"</span>; <span class="org-string">"12"</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org2d1ccfa" class="outline-2">
-<h2 id="org2d1ccfa"><a href="#org2d1ccfa">Choosing a suitable Data Structure</a></h2>
-<div class="outline-text-2" id="text-org2d1ccfa">
+<div id="outline-container-orga4e73bb" class="outline-2">
+<h2 id="orga4e73bb"><a href="#orga4e73bb">Choosing a suitable Data Structure</a></h2>
+<div class="outline-text-2" id="text-orga4e73bb">
 <blockquote>
 <p>
 &ldquo;It is better to have 100 functions operate on one data structure than to have 10 functions operate on 10 data structures.&rdquo;<br>
@@ -433,8 +435,8 @@ In OCaml, an association list is usually implemented as a list containing <i>tup
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 14: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">example_alist'</span> = [(<span class="org-string">"a"</span>, <span class="org-string">"1"</span>); (<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"c"</span>, <span class="org-string">"3"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)]
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">example_alist''</span> = [<span class="org-string">"a"</span>, <span class="org-string">"1"</span>; <span class="org-string">"b"</span>, <span class="org-string">"2"</span>; <span class="org-string">"c"</span>, <span class="org-string">"3"</span>; <span class="org-string">"d"</span>, <span class="org-string">"4"</span>]
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">example_alist'</span> = <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"a"</span>, <span class="org-string">"1"</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"b"</span>, <span class="org-string">"2"</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"c"</span>, <span class="org-string">"3"</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"d"</span>, <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">]</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">example_alist''</span> = <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"a"</span>, <span class="org-string">"1"</span>; <span class="org-string">"b"</span>, <span class="org-string">"2"</span>; <span class="org-string">"c"</span>, <span class="org-string">"3"</span>; <span class="org-string">"d"</span>, <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 
@@ -443,7 +445,7 @@ The Csv module provides a convenient function <code>Csv.associate</code> that tr
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 15: </span>Example – not part of the program code</label><pre class="src src-ocaml">string list -&gt; string list list -&gt; (string * string) list list
+<label class="org-src-name"><span class="listing-number">Listing 15: </span>Example – not part of the program code</label><pre class="src src-ocaml">string list -&gt; string list list -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>string * string<span class="org-rainbow-delimiters-depth-1">)</span> list list
 </pre>
 </div>
 
@@ -476,7 +478,7 @@ What it does: Pattern matching is a form of conditional branching which allows y
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 16: </span>Multiple assignment via pattern matching</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">header</span>, <span class="org-variable-name">content</span> =
   <span class="org-keyword">match</span> table <span class="org-keyword">with</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-keyword">assert</span> <span class="org-constant">false</span>
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-keyword">assert</span> <span class="org-constant">false</span>
   | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; hd, tl
 </pre>
 </div>
@@ -502,12 +504,12 @@ When we evaluate the expression above, we finally get the following values, and 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 17: </span>Results – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">header</span> : string list = [<span class="org-string">"a"</span>; <span class="org-string">"b"</span>; <span class="org-string">"c"</span>; <span class="org-string">"d"</span>]
+<label class="org-src-name"><span class="listing-number">Listing 17: </span>Results – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">header</span> : string list = <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"a"</span>; <span class="org-string">"b"</span>; <span class="org-string">"c"</span>; <span class="org-string">"d"</span><span class="org-rainbow-delimiters-depth-1">]</span>
 
 <span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">content</span> : string list list =
-              [[<span class="org-string">"1"</span>; <span class="org-string">"2"</span>; <span class="org-string">"3"</span>; <span class="org-string">"4"</span>];
-               [<span class="org-string">"5"</span>; <span class="org-string">"6"</span>; <span class="org-string">"7"</span>; <span class="org-string">"8"</span>];
-               [<span class="org-string">"9"</span>; <span class="org-string">"10"</span>; <span class="org-string">"11"</span>; <span class="org-string">"12"</span>]]
+              <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"1"</span>; <span class="org-string">"2"</span>; <span class="org-string">"3"</span>; <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+               <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"5"</span>; <span class="org-string">"6"</span>; <span class="org-string">"7"</span>; <span class="org-string">"8"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+               <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"9"</span>; <span class="org-string">"10"</span>; <span class="org-string">"11"</span>; <span class="org-string">"12"</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 
@@ -525,18 +527,17 @@ That&rsquo;s how our table looks like after the transformation – the column he
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 19: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_assoc</span> : (string * string) list list =
-                  [[(<span class="org-string">"a"</span>, <span class="org-string">"1"</span>); (<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"c"</span>, <span class="org-string">"3"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)];
-                   [(<span class="org-string">"a"</span>, <span class="org-string">"5"</span>); (<span class="org-string">"b"</span>, <span class="org-string">"6"</span>); (<span class="org-string">"c"</span>, <span class="org-string">"7"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"8"</span>)];
-                   [(<span class="org-string">"a"</span>, <span class="org-string">"9"</span>); (<span class="org-string">"b"</span>, <span class="org-string">"10"</span>); (<span class="org-string">"c"</span>, <span class="org-string">"11"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"12"</span>)]]
+<label class="org-src-name"><span class="listing-number">Listing 19: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_assoc</span> : <span class="org-rainbow-delimiters-depth-1">(</span>string * string<span class="org-rainbow-delimiters-depth-1">)</span> list list =
+                  <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"a"</span>, <span class="org-string">"1"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"2"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"c"</span>, <span class="org-string">"3"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+                   <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"a"</span>, <span class="org-string">"5"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"6"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"c"</span>, <span class="org-string">"7"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"8"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+                   <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"a"</span>, <span class="org-string">"9"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"10"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"c"</span>, <span class="org-string">"11"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"12"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org27e929e" class="outline-2">
-<h2 id="org27e929e"><a href="#org27e929e">How to remove Columns from the CSV</a></h2>
-<div class="outline-text-2" id="text-org27e929e">
+<div id="outline-container-orgafba615" class="outline-2">
+<h2 id="orgafba615"><a href="#orgafba615">How to remove Columns from the CSV</a></h2>
+<div class="outline-text-2" id="text-orgafba615">
 <p>
 We will use another CSV that is going to serve as a template to specify which columns to keep. We can use almost the same construct like before where we read the file <code>input.csv</code>. But since we need only the first row of the <code>template.csv</code>, we&rsquo;ll make sure to get only that.<br>
 </p>
@@ -546,10 +547,10 @@ We will use another CSV that is going to serve as a template to specify which co
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template</span> =
   <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header
-    (<span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span>:<span class="org-constant">true</span>
-       template_file)
+    <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span>:<span class="org-constant">true</span>
+       template_file<span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in template_file
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in template_file
 </pre>
 </div>
 
@@ -573,14 +574,13 @@ And here&rsquo;s the return value:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 22: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">template'</span> : string list = [<span class="org-string">"b"</span>; <span class="org-string">"d"</span>]
+<label class="org-src-name"><span class="listing-number">Listing 22: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">template'</span> : string list = <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-string">"b"</span>; <span class="org-string">"d"</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 </div>
-
-<div id="outline-container-org59df83f" class="outline-3">
-<h3 id="org59df83f"><a href="#org59df83f">The Good Ones into the List, the Bad Ones into the Garbage Collector</a></h3>
-<div class="outline-text-3" id="text-org59df83f">
+<div id="outline-container-org7cd46bd" class="outline-3">
+<h3 id="org7cd46bd"><a href="#org7cd46bd">The Good Ones into the List, the Bad Ones into the Garbage Collector</a></h3>
+<div class="outline-text-3" id="text-org7cd46bd">
 <p>
 &ldquo;Removing columns&rdquo; is actually misleading: Technically, the function does not remove or delete anything, because … its impossible! Lists in OCaml are immutable – they cannot be changed. So what we will do instead: construct a new list from the columns we want to keep, according to the column headers specified by the template. And simply forget about the others.<br>
 </p>
@@ -588,8 +588,8 @@ And here&rsquo;s the return value:<br>
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 23: </span>Recursive function using pattern matching on a list of tuples</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_columns</span> <span class="org-variable-name">tpl</span> <span class="org-variable-name">row</span> =
   <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | (k, v) <span class="org-tuareg-font-lock-constructor">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl -&gt; (k, v) <span class="org-tuareg-font-lock-constructor">::</span> remove_columns tpl tl
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | <span class="org-rainbow-delimiters-depth-1">(</span>k, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>k, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> remove_columns tpl tl
   | _ <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; remove_columns tpl tl
 </pre>
 </div>
@@ -603,7 +603,7 @@ Here&rsquo;s the example of one single row from the <code>table_assoc</code>:<br
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 24: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">single_row'</span> = [(<span class="org-string">"a"</span>, <span class="org-string">"1"</span>); (<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"c"</span>, <span class="org-string">"3"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)]
+<label class="org-src-name"><span class="listing-number">Listing 24: </span>Example – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">single_row'</span> = <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"a"</span>, <span class="org-string">"1"</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"b"</span>, <span class="org-string">"2"</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"c"</span>, <span class="org-string">"3"</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-string">"d"</span>, <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">]</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">cleaned_row'</span> = remove_columns template single_row'
 </pre>
 </div>
@@ -613,25 +613,24 @@ Lets apply this function to all rows of the <code>table_assoc</code>, wich is a 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 25: </span>Mapping a partial function onto a list of association lists</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_cleaned</span> = <span class="org-tuareg-font-lock-module">List.</span>map (remove_columns template) table_assoc
+<label class="org-src-name"><span class="listing-number">Listing 25: </span>Mapping a partial function onto a list of association lists</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_cleaned</span> = <span class="org-tuareg-font-lock-module">List.</span>map <span class="org-rainbow-delimiters-depth-1">(</span>remove_columns template<span class="org-rainbow-delimiters-depth-1">)</span> table_assoc
 </pre>
 </div>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org262ceaf" class="outline-2">
-<h2 id="org262ceaf"><a href="#org262ceaf">Save the cleaned CSV to Disk</a></h2>
-<div class="outline-text-2" id="text-org262ceaf">
+<div id="outline-container-orgf5c1be7" class="outline-2">
+<h2 id="orgf5c1be7"><a href="#orgf5c1be7">Save the cleaned CSV to Disk</a></h2>
+<div class="outline-text-2" id="text-orgf5c1be7">
 <p>
 How do we get from our data structure, the association list …<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 26: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_cleaned</span> : (string * string) list list =
-                    [[(<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)];
-                     [(<span class="org-string">"b"</span>, <span class="org-string">"6"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"8"</span>)];
-                     [(<span class="org-string">"b"</span>, <span class="org-string">"10"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"12"</span>)]]
+<label class="org-src-name"><span class="listing-number">Listing 26: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_cleaned</span> : <span class="org-rainbow-delimiters-depth-1">(</span>string * string<span class="org-rainbow-delimiters-depth-1">)</span> list list =
+                    <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"2"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+                     <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"6"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"8"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+                     <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"10"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"12"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 
@@ -639,7 +638,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="orgea39d22">
+<pre class="example" id="org98d125f">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -663,10 +662,10 @@ That means, we have to transform the <i>association list</i> <code>table_cleaned
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 27: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_cleaned</span> : (string * string) list list =
-                    [[(<span class="org-string">"b"</span>, <span class="org-string">"2"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"4"</span>)];
-                     [(<span class="org-string">"b"</span>, <span class="org-string">"6"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"8"</span>)];
-                     [(<span class="org-string">"b"</span>, <span class="org-string">"10"</span>); (<span class="org-string">"d"</span>, <span class="org-string">"12"</span>)]]
+<label class="org-src-name"><span class="listing-number">Listing 27: </span>Result – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">table_cleaned</span> : <span class="org-rainbow-delimiters-depth-1">(</span>string * string<span class="org-rainbow-delimiters-depth-1">)</span> list list =
+                    <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"2"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+                     <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"6"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"8"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+                     <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"b"</span>, <span class="org-string">"10"</span><span class="org-rainbow-delimiters-depth-3">)</span>; <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"d"</span>, <span class="org-string">"12"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 
@@ -676,10 +675,10 @@ That means, we have to transform the <i>association list</i> <code>table_cleaned
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 28: </span>Result – not part of the program code</label><pre class="src src-ocaml">- : string list list =
-[[<span class="org-string">"b"</span>; <span class="org-string">"d"</span>];
- [<span class="org-string">"2"</span>; <span class="org-string">"4"</span>];
- [<span class="org-string">"6"</span>; <span class="org-string">"8"</span>];
- [<span class="org-string">"10"</span>; <span class="org-string">"12"</span>]]
+<span class="org-rainbow-delimiters-depth-1">[</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"b"</span>; <span class="org-string">"d"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"2"</span>; <span class="org-string">"4"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"6"</span>; <span class="org-string">"8"</span><span class="org-rainbow-delimiters-depth-2">]</span>;
+ <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-string">"10"</span>; <span class="org-string">"12"</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">]</span>
 </pre>
 </div>
 
@@ -712,13 +711,13 @@ You may notice there&rsquo;s no formal parameter for the argument we pass to tho
 <div class="org-src-container">
 <pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> =
   <span class="org-keyword">function</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | (k, _) <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; k <span class="org-tuareg-font-lock-constructor">::</span> get_keys tl
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | <span class="org-rainbow-delimiters-depth-1">(</span>k, _<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; k <span class="org-tuareg-font-lock-constructor">::</span> get_keys tl
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_values</span> =
   <span class="org-keyword">function</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | (_, v) <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; v <span class="org-tuareg-font-lock-constructor">::</span> get_values tl
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | <span class="org-rainbow-delimiters-depth-1">(</span>_, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; v <span class="org-tuareg-font-lock-constructor">::</span> get_values tl
 </pre>
 </div>
 
@@ -753,8 +752,8 @@ Now we&rsquo;re putting our helper functions to work as parts of a new function.
 <div class="org-src-container">
 <pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">dissoc</span> =
   <span class="org-keyword">function</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; get_keys hd <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values (hd <span class="org-tuareg-font-lock-constructor">::</span> tl)
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; get_keys hd <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values <span class="org-rainbow-delimiters-depth-1">(</span>hd <span class="org-tuareg-font-lock-constructor">::</span> tl<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -762,7 +761,7 @@ Now we&rsquo;re putting our helper functions to work as parts of a new function.
 Here&rsquo;s its type signature. What does it tell?<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : ('a * 'a) list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'a<span class="org-rainbow-delimiters-depth-1">)</span> list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
 </div>
 
@@ -772,8 +771,8 @@ Alternatively, we could write that function without pattern matching as well:<br
 
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 29: </span>Alternative – not part of the program code</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">dissoc'</span> <span class="org-variable-name">lst</span> =
-  <span class="org-keyword">if</span> lst == <span class="org-tuareg-font-lock-constructor">[]</span> <span class="org-keyword">then</span> <span class="org-tuareg-font-lock-constructor">[]</span>
-  <span class="org-keyword">else</span> get_keys (<span class="org-tuareg-font-lock-module">List.</span>hd lst) <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values lst
+  <span class="org-keyword">if</span> lst == <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> <span class="org-keyword">then</span> <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  <span class="org-keyword">else</span> get_keys <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">List.</span>hd lst<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values lst
 </pre>
 </div>
 
@@ -791,7 +790,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> () = <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span>:<span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span>:<span class="org-constant">true</span> <span class="org-string">"output.csv"</span> table_final
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span>:<span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span>:<span class="org-constant">true</span> <span class="org-string">"output.csv"</span> table_final
 </pre>
 </div>
 
@@ -799,7 +798,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org68c8726">
+<pre class="example" id="org3af98b0">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -807,10 +806,9 @@ When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv
 </pre>
 </div>
 </div>
-
-<div id="outline-container-org96238c8" class="outline-2">
-<h2 id="org96238c8"><a href="#org96238c8">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org96238c8">
+<div id="outline-container-org550699e" class="outline-2">
+<h2 id="org550699e"><a href="#org550699e">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org550699e">
 <p>
 <b>Pattern matching is cool</b> because you have a visualization (the pattern) of the data structure you work on right before your eyes, and not just in your head.<br>
 </p>
@@ -859,10 +857,9 @@ That argument comes from the inner function <code>Csv.save</code> which takes th
 </pre>
 </div>
 </div>
-
-<div id="outline-container-org16c5771" class="outline-3">
-<h3 id="org16c5771"><a href="#org16c5771">Full Code Listing</a></h3>
-<div class="outline-text-3" id="text-org16c5771">
+<div id="outline-container-org094e20b" class="outline-3">
+<h3 id="org094e20b"><a href="#org094e20b">Full Code Listing</a></h3>
+<div class="outline-text-3" id="text-org094e20b">
 <p>
 The separation of the program comes quite naturally: input - preparation - work - preparation - output. My code is not so elegant: Many many top-level definitions and variables who carry the intermediary results for the next steps.<br>
 </p>
@@ -871,22 +868,21 @@ The separation of the program comes quite naturally: input - preparation - work 
 Is there a better structure for this program? Maybe kinda like a pipe where you can plug in other functions in between – like layers of filters. That would make it easy to add new features in the future. I couldn&rsquo;t wait to refactor it that way, so I&rsquo;m adding version 0.2 below. But first, here&rsquo;s the whole spaghetti pot we cooked up so far:<br>
 </p>
 </div>
-
-<div id="outline-container-org43ba0cc" class="outline-4">
-<h4 id="org43ba0cc"><a href="#org43ba0cc">Version 0.1</a></h4>
-<div class="outline-text-4" id="text-org43ba0cc">
+<div id="outline-container-org580e4bf" class="outline-4">
+<h4 id="org580e4bf"><a href="#org580e4bf">Version 0.1</a></h4>
+<div class="outline-text-4" id="text-org580e4bf">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 33: </span>The Spaghetti Monster</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">Version 0.1</span><span class="org-comment-delimiter"> *)</span>
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Transforms the file into a key-value data structure</span><span class="org-comment-delimiter"> *)</span>
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">csv_file</span> = open_in <span class="org-string">"input.csv"</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table</span> = <span class="org-tuareg-font-lock-module">Csv.</span>input_all (<span class="org-tuareg-font-lock-module">Csv.</span>of_channel csv_file)
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in csv_file
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table</span> = <span class="org-tuareg-font-lock-module">Csv.</span>input_all <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel csv_file<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in csv_file
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">header</span>, <span class="org-variable-name">content</span> =
   <span class="org-keyword">match</span> table <span class="org-keyword">with</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-keyword">assert</span> <span class="org-constant">false</span>
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-keyword">assert</span> <span class="org-constant">false</span>
   | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; hd, tl
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_assoc</span> = <span class="org-tuareg-font-lock-module">Csv.</span>associate header content
@@ -895,49 +891,48 @@ Is there a better structure for this program? Maybe kinda like a pipe where you 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Drops the columns that are not specified by the template</span><span class="org-comment-delimiter"> *)</span>
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template_file</span> = open_in <span class="org-string">"template.csv"</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template</span> = <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header (<span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span>:<span class="org-constant">true</span> template_file)
-<span class="org-tuareg-font-lock-governing">let</span> () = close_in template_file
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">template</span> = <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span>:<span class="org-constant">true</span> template_file<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in template_file
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_columns</span> <span class="org-variable-name">tpl</span> <span class="org-variable-name">row</span> =
   <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | (k, v) <span class="org-tuareg-font-lock-constructor">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl -&gt; (k, v) <span class="org-tuareg-font-lock-constructor">::</span> remove_columns tpl tl
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | <span class="org-rainbow-delimiters-depth-1">(</span>k, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>k, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> remove_columns tpl tl
   | _ <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; remove_columns tpl tl
 
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_cleaned</span> = <span class="org-tuareg-font-lock-module">List.</span>map (remove_columns template) table_assoc
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_cleaned</span> = <span class="org-tuareg-font-lock-module">List.</span>map <span class="org-rainbow-delimiters-depth-1">(</span>remove_columns template<span class="org-rainbow-delimiters-depth-1">)</span> table_assoc
 
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Transforms the key-value data structure into lists representing lines</span><span class="org-comment-delimiter"> *)</span>
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> =
   <span class="org-keyword">function</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | (k, _) <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; k <span class="org-tuareg-font-lock-constructor">::</span> get_keys tl
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | <span class="org-rainbow-delimiters-depth-1">(</span>k, _<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; k <span class="org-tuareg-font-lock-constructor">::</span> get_keys tl
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_values</span> =
   <span class="org-keyword">function</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | (_, v) <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; v <span class="org-tuareg-font-lock-constructor">::</span> get_values tl
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | <span class="org-rainbow-delimiters-depth-1">(</span>_, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; v <span class="org-tuareg-font-lock-constructor">::</span> get_values tl
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">dissoc</span> =
   <span class="org-keyword">function</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; get_keys hd <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values (hd <span class="org-tuareg-font-lock-constructor">::</span> tl)
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; get_keys hd <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values <span class="org-rainbow-delimiters-depth-1">(</span>hd <span class="org-tuareg-font-lock-constructor">::</span> tl<span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">table_final</span> = dissoc table_cleaned
 
 
 <span class="org-comment-delimiter">(* </span><span class="org-comment">Writes the cleaned CSV file to disk</span><span class="org-comment-delimiter"> *)</span>
 
-<span class="org-tuareg-font-lock-governing">let</span> () = <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span>:<span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span>:<span class="org-constant">true</span> <span class="org-string">"output.csv"</span> table_final
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = <span class="org-tuareg-font-lock-module">Csv.</span>save <span class="org-tuareg-font-lock-label">~separator</span>:<span class="org-string">'|'</span> <span class="org-tuareg-font-lock-label">~quote_all</span>:<span class="org-constant">true</span> <span class="org-string">"output.csv"</span> table_final
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org5f15d71" class="outline-4">
-<h4 id="org5f15d71"><a href="#org5f15d71">Version 0.2</a></h4>
-<div class="outline-text-4" id="text-org5f15d71">
+<div id="outline-container-org5f85c55" class="outline-4">
+<h4 id="org5f85c55"><a href="#org5f85c55">Version 0.2</a></h4>
+<div class="outline-text-4" id="text-org5f85c55">
 <p>
 And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any shorter and the single functions got a bit more complex, but overall it got clearer than version 0.1.<br>
 </p>
@@ -953,9 +948,9 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
   <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>input_all
   <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-keyword">fun</span> <span class="org-variable-name">tab</span> -&gt; <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">head</span>, <span class="org-variable-name">body</span> =
                   <span class="org-keyword">match</span> tab <span class="org-keyword">with</span>
-                  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-keyword">assert</span> <span class="org-constant">false</span>
+                  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-keyword">assert</span> <span class="org-constant">false</span>
                   | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; hd, tl <span class="org-tuareg-font-lock-governing">in</span>
-  <span class="org-tuareg-font-lock-governing">let</span> () = close_in tab_file <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in tab_file <span class="org-tuareg-font-lock-governing">in</span>
   <span class="org-tuareg-font-lock-module">Csv.</span>associate head body
 
 
@@ -965,28 +960,28 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">tpl</span> = tpl_file
             <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.</span>of_channel <span class="org-tuareg-font-lock-label">~has_header</span>:<span class="org-constant">true</span>
             <span class="org-tuareg-font-lock-operator">|&gt;</span> <span class="org-tuareg-font-lock-module">Csv.Rows.</span>header <span class="org-tuareg-font-lock-governing">in</span>
-  <span class="org-tuareg-font-lock-governing">let</span> () = close_in tpl_file <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = close_in tpl_file <span class="org-tuareg-font-lock-governing">in</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-function-name">remove_cols</span> <span class="org-variable-name">tpl</span> <span class="org-variable-name">row</span> =
     <span class="org-keyword">match</span> row <span class="org-keyword">with</span>
-    | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-    | (k, v) <span class="org-tuareg-font-lock-constructor">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl -&gt; (k, v) <span class="org-tuareg-font-lock-constructor">::</span> remove_cols tpl tl
+    | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+    | <span class="org-rainbow-delimiters-depth-1">(</span>k, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">List.</span>mem k tpl -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>k, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> remove_cols tpl tl
     | _ <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; remove_cols tpl tl <span class="org-tuareg-font-lock-governing">in</span>
-  <span class="org-tuareg-font-lock-module">List.</span>map (remove_cols tpl) tab
+  <span class="org-tuareg-font-lock-module">List.</span>map <span class="org-rainbow-delimiters-depth-1">(</span>remove_cols tpl<span class="org-rainbow-delimiters-depth-1">)</span> tab
 
 
 <span class="org-doc">(** Transforms the key-value data structure into lists representing lines *)</span>
 <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">dissoc</span> =
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_keys</span> =
     <span class="org-keyword">function</span>
-    | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-    | (k, _) <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; k <span class="org-tuareg-font-lock-constructor">::</span> get_keys tl <span class="org-tuareg-font-lock-governing">in</span>
+    | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+    | <span class="org-rainbow-delimiters-depth-1">(</span>k, _<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; k <span class="org-tuareg-font-lock-constructor">::</span> get_keys tl <span class="org-tuareg-font-lock-governing">in</span>
   <span class="org-tuareg-font-lock-governing">let</span> <span class="org-tuareg-font-lock-governing">rec</span> <span class="org-variable-name">get_values</span> =
     <span class="org-keyword">function</span>
-    | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-    | (_, v) <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; v <span class="org-tuareg-font-lock-constructor">::</span> get_values tl <span class="org-tuareg-font-lock-governing">in</span>
+    | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+    | <span class="org-rainbow-delimiters-depth-1">(</span>_, v<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; v <span class="org-tuareg-font-lock-constructor">::</span> get_values tl <span class="org-tuareg-font-lock-governing">in</span>
   <span class="org-keyword">function</span>
-  | <span class="org-tuareg-font-lock-constructor">[]</span> -&gt; <span class="org-tuareg-font-lock-constructor">[]</span>
-  | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; get_keys hd <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values (hd <span class="org-tuareg-font-lock-constructor">::</span> tl)
+  | <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span> -&gt; <span class="org-tuareg-font-lock-constructor"><span class="org-rainbow-delimiters-depth-1">[]</span></span>
+  | hd <span class="org-tuareg-font-lock-constructor">::</span> tl -&gt; get_keys hd <span class="org-tuareg-font-lock-constructor">::</span> <span class="org-tuareg-font-lock-module">List.</span>map get_values <span class="org-rainbow-delimiters-depth-1">(</span>hd <span class="org-tuareg-font-lock-constructor">::</span> tl<span class="org-rainbow-delimiters-depth-1">)</span>
 
 
 <span class="org-doc">(** Writes the cleaned CSV file to disk *)</span>
@@ -995,7 +990,7 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
 
 
 <span class="org-doc">(** Puts all together in one pipe *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> () = <span class="org-string">"input.csv"</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-rainbow-delimiters-depth-1">()</span> = <span class="org-string">"input.csv"</span>
          <span class="org-tuareg-font-lock-operator">|&gt;</span> prep
          <span class="org-tuareg-font-lock-operator">|&gt;</span> clean
          <span class="org-tuareg-font-lock-operator">|&gt;</span> dissoc
@@ -1006,10 +1001,9 @@ And here comes the code after refactoring. The version 0.2 hasn&rsquo;t got any 
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgeade30c" class="outline-2">
-<h2 id="orgeade30c"><a href="#orgeade30c">Compile the Standalone Binary Executable</a></h2>
-<div class="outline-text-2" id="text-orgeade30c">
+<div id="outline-container-orgb9e2b7f" class="outline-2">
+<h2 id="orgb9e2b7f"><a href="#orgb9e2b7f">Compile the Standalone Binary Executable</a></h2>
+<div class="outline-text-2" id="text-orgb9e2b7f">
 <ul class="org-ul">
 <li><b>Compile only:</b> Change into your project directory <code>cd csvcleaner/</code> and issue the command <code>dune build</code>. Your compiled binary will be <code>csvcleaner/_build/default/csvcleaner.exe</code>. Don&rsquo;t get confused about the <i>.exe</i> suffix — it&rsquo;s just a naming convention in dune, not a windows binary if you compile on Linux.<br></li>
 
@@ -1021,10 +1015,9 @@ If you are looking for a versatile tool to work on CSV files, check out <i>csvto
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgc8ec681" class="outline-2">
-<h2 id="orgc8ec681"><a href="#orgc8ec681">What&rsquo;s next?</a></h2>
-<div class="outline-text-2" id="text-orgc8ec681">
+<div id="outline-container-orgf0fecb2" class="outline-2">
+<h2 id="orgf0fecb2"><a href="#orgf0fecb2">What&rsquo;s next?</a></h2>
+<div class="outline-text-2" id="text-orgf0fecb2">
 <p>
 In the <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">next episode</a> I&rsquo;m probably going to rewrite this again in Common Lisp using pattern matching, add a feature to version 0.2, or do something else entirely. Please let me know if you enjoyed the walktrough. Thank you for reading!<br>
 </p>
@@ -1032,7 +1025,7 @@ In the <a href="first-coding-project-ocaml-tail-recursion-episode-3.tutorial.htm
 </div>
 </div>
 <div id="postamble" class="status">
-<div class="footer">Published by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></div>
+<div class="footer">Published by <span class="author"><a href="/about.html">Dan Dee</a></span></div>
 <script defer src="/static/footer.js"></script>
 </div>
 </body>

@@ -6,14 +6,14 @@
 #+KEYWORDS: howto, emacs server, server name, frame title, emacs, elisp
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html">
 #+SETUPFILE: ../static/setup.org
-#+OPTIONS: toc:nil
+#+OPTIONS:
+
+#+TOC: nil
 
 As you may know, the best way to optimize Emacs' startup time by magnitudes is to [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html][start a server instance]] --- e.g. at login --- and then fire up a client [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Invoking-emacsclient.html][Emacs client]] to edit a file.
 
 There are some scenarios why one would run /more than one/ Emacs server instance: Maybe to outsource tasks to another Emacs process for whatever reason ~(server-eval-at "work" '(* 3 3))~, or to have separate workspaces -- eg. one for work and another for personal stuff -- like I do (there may be more sophisticated ways to implement workspaces in Emacs tough).
-:DRAWER:
-sdfadfadfasddf
-:END:
+
 You can start the servers via shell commands in your terminal, or put the commands into your autostart:
 #+BEGIN_SRC sh
 emacs --daemon=work
@@ -67,7 +67,7 @@ What if we want to run Emacs without server-mode? In that case, the default valu
                               (concat " " server-name))))))
 #+END_SRC
 
-Or even better -- lxet's define a separate named function to set the frame title. That looks a bit more tidy when you hook more than one functions into ~emacs-startup-hook~:
+Or even better -- let's define a separate named function to set the frame title. That looks a bit more tidy when you hook more than one functions into ~emacs-startup-hook~:
 #+BEGIN_SRC emacs-lisp
   ;; Define the function
   (defun my-frame-title ()

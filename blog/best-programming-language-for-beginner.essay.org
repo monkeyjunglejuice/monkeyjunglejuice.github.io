@@ -6,7 +6,9 @@
 #+KEYWORDS: learn programming, learn to code, programming languages, best programming language
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/best-programming-language-for-beginner.essay.html">
 #+SETUPFILE: ../static/setup.org
-#+OPTIONS: toc:2
+#+OPTIONS:
+
+#+TOC: headlines 2
 
 * What is this about?
 
@@ -34,19 +36,15 @@ But if you start out, you don't need to just learn a programming language; as a 
 
 Is it your plan to become a software developer? Software is built in different domains – the most prominently spoken about within the www, is obviously the development of ... itself. Big surprise. But there are other areas than web frontend and web backend; like fintech, games, aircraft systems, robotics, telecom or water supply. If you know exactly what your intentions are, you could start with a language of your specific field and go form there … or better not?
 
-#+ATTR_HTML: :class center
 #+ATTR_HTML: :cite https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/intro/pl.html
 #+BEGIN_QUOTE
-"It's crucial that you understand
-the principles behind programming
-that transcend the specifics
-of any specific language."
+»It's crucial that you understand the principles behind programming that transcend the specifics of any specific language.«
 @@html:<cite>@@—[[https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/intro/pl.html][Michael R. Clarkson]]@@html:</cite>@@
 #+END_QUOTE
 
 The industry workhorse may probably not be the right fit, because it could be either highly specific and/or come with a lot of distracting things that don't matter for you right now. There's a reason one does not take the very first driving lessons on a bucket wheel excavator, but on a ... yes, a car. Or motorbike. If you pick the wrong one, you might not follow through.
 
-Life changes and programming is hard. So you should go with a language that's interesting to you – for whatever reason – and which is particularly suitable for learning, according to the criteria I lay out below. Read on, I will describe the most interesting languages afterwards.
+Life changes and programming is hard. So you should go with a language that's interesting to you – for whatever reason – and which is particularly suitable for learning, according to the criteria I lay out below. The more curious and interested you are, the deeper you  can immerse yourseld, and this directly influences your capacity to understand. Read on, I will describe the most interesting languages afterwards.
 
 You may even want to learn programming, if you have no plans to become a part of the software producing workforce. I've worked quite a long time as a designer and in the online marketing industry, but have barely written any code at all, since there were always developers working alongside me and tasked with the wizardry.
 
@@ -54,12 +52,8 @@ But I have always been interested in computer stuff, so I've dabbled a lot with 
 
 For my part, I wanted a tool to structure and formalize thoughts, and I'd like to be able to prototype ideas. More generally, I think programming can help us tremendously to develop our minds.
 
-#+ATTR_HTML: :class center
-#+BEGIN_QUOTE class center
-"Life is short –
-pull down the curtain,
-cast some spells
-and wield some magic!"
+#+BEGIN_QUOTE
+»Life is short – pull down the curtain, cast some spells and wield some magic!«
 #+END_QUOTE
 
 * What makes a Programming Language beginner-friendly?
@@ -218,13 +212,11 @@ You may hear here and there that one must learn programming in C before even thi
 
 If you wanna become that crazy hardware hacker, you may look into the [[https://www.arduino.cc/en/Guide/Introduction][Arduino electronics platform]], coming with the Arduino programming language (which is basically a subset of C). Don't confuse C with C++ (an extension to C, but huge and messy) or C# (a Microsoft thing). /Look for "ANSI C"/, the standard.
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/c/][C code examples]]
 - [[https://en.wikipedia.org/wiki/C_(programming_language)][Getting startet with C]] or [[https://www.arduino.cc/en/Guide][Arduino]]
 - C programming book for beginners:
   - [[https://amzn.to/2XqQtag][The C Programming Language, 2nd Edition (paper/Kindle)]]
   - [[https://amzn.to/3ht17Ej][Beginning C for Arduino, Second Edition (paper/Kindle)]]
-#+END_box
 
 ** Lua as Your First Programming Language
 
@@ -238,13 +230,11 @@ It's straightforward to get started and build something with Lua: You might want
 
 As far as I know, there are not many textbooks available, but you can use /the/ book written by Lua's chief architect Roberto Ierusalimschy. And there's a wiki and many many user tutorials. Lua is primarily developed at the University of Rio de Janeiro (PUC-Rio). Once you've committed to learn Lua, I recommend to buy the 4th edition to support the project.
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/lua/][Lua code examples]]
 - [[https://www.lua.org/start.html][Getting started with Lua]], [[https://studio.zerobrane.com/][ZeroBrane Studio]] and the [[https://love2d.org/][Löve game engine]]
 - Lua programming books for beginners:
   - [[https://www.lua.org/pil/contents.html]["Programming in Lua 1st Edition" (free online)]]
   - [[https://store.feistyduck.com/products/programming-in-lua-fourth-edition-ebook]["Programming in Lua 4th Edition" (e-book)]] | [[https://amzn.to/3clCl6k][Paper book]]
-#+END_box
 
 ** Clojure as Your First Programming Language
 
@@ -258,12 +248,10 @@ The language is a fresh take on Lisp and well designed. But there's also that Ja
 
 If you want to try anyway, I recommend the book "Clojure for the Brave and True"; ok the "humor" gets annoying pretty quickly, but I had a good start with it and some enlightening moments. Well, the book convinced me also to take a look at Emacs, and I'm a fanatic Emacs user since then.
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/clojure/][Clojure code examples]]
 - [[https://clojure.org/guides/getting_started][Getting started with Clojure]]
 - Clojure programming book for beginners:
   - [[https://amzn.to/2ZZTL63]["Clojure for the Brave and True" (paper/Kindle)]]
-#+END_box
 
 ** Common Lisp as Your First Programming Language
 
@@ -282,13 +270,11 @@ But usually you want it on your laptop. There are plugins for [[https://atom.io/
 2. Menu → "Options" → "Save options"
 – then copy & paste works like everywhere else.
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/common-lisp/][Common Lisp code examples]]
 - [[https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/][Getting started with Common Lisp]] and [[https://portacle.github.io/][the Portacle IDE]]
 - Lisp programming books for beginners:
   - [[https://amzn.to/308BHa0]["Common Lisp: A Gentle Introduction to Symbolic Computation" (paper/Kindle)]] | [[https://www.cs.cmu.edu/~dst/LispBook/book.pdf][Free PDF]]
   - [[https://amzn.to/3cwdnkW]["Land of Lisp" (paper/Kindle)]]
-#+END_box
 
 ** Scheme or Racket as Your First Programming Language
 
@@ -310,7 +296,6 @@ I've also began to read "How to Design Programs", which is supposedly easier and
 
 You can get started very easily with Scheme and Racket – one single install and go, no matter if you are on Windows, Linux or Mac. You don't even have to be familiar with the command line, because it comes with DrRacket, a friendly and easy to use programming environment (IDE).
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/racket/][Racket code examples]]
 - [[https://docs.racket-lang.org/quick/index.html][Getting started with Scheme or Racket and the DrRacket IDE]]
 - Scheme programming books for beginners:
@@ -321,7 +306,6 @@ You can get started very easily with Scheme and Racket – one single install an
   - [[https://amzn.to/2XRBWDr]["How to Design Programs: An Introduction to Programming and Computing" (paper/Kindle)]] | [[https://htdp.org/2020-5-6/Book/index.html][Free online]]
 - Introduction into computer science:
   - [[https://mitpress.mit.edu/sites/default/files/sicp/index.html]["Structure and Interpretation of Computer Programs" (free online)]] | [[https://amzn.to/2ZZBS7f][Paper book]]
-#+END_box
 
 ** Elixir as Your First Programming Language
 
@@ -337,14 +321,12 @@ What I dislike about Elixir is that many constructs have 3-4 "shorthands" or spe
 
 Does it make sense to learn programming with Elixir? Most books only go through the language itself and it's features. There is not really "how to program" learning material available for absolute beginners, but that may change. The first book I listed below is quite short and covers some basics, and there's a gap between that and the second one, which requires some prior knowledge (but not much). 
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/elixir/][Elixir code examples]]
 - [[https://elixir-lang.org/getting-started/introduction.html][Getting started with Elixir]]
 - Eixir programming books for beginners:
  - [[https://joyofelixir.com/toc.html][Joy of Elixir (free online)]]
  - [[https://amzn.to/3p1gCH9][Learn Functional Programming with Elixir (paper/Kindle)]]
  - [[https://elixirschool.com/en][Elixir School (free online)]]
-#+END_box
 
 ** JavaScript as Your First Programming Language
 
@@ -360,12 +342,10 @@ For me, it's a verbose frankenstein language that's a pain to read. Of course th
 
 If you just would like to build web apps or browser games, you do have other choices (check out Elm down below) but eventually you need to know JavaScript – but don't learn it as your very first language.
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/javascript/][JavaScript code examples]]
 - [[https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics][Getting started with JavaScript]] and [[http://xahlee.info/js/javascript_basics.html][get a nice introduction with this tutorial]]
 - JavaScript programming book for beginners:
   - [[https://amzn.to/2U0p4K6]["Eloquent JavaScript" (paper/Kindle)]] | [[https://eloquentjavascript.net][Free online]]
-#+END_box
 
 ** Elm as Your First Programming Language
 
@@ -381,12 +361,10 @@ Elm comes with an easy installation and convenient tooling. The language is nice
 
 If I like Elm but it's a browser-only language, why not learn "the real thing" – Haskell or OCaml?
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/elm/][Elm code examples]]
 - [[https://elm-lang.org/][Getting startet with Elm]]
 - Elm programming book for beginners:
   - [[https://elmprogramming.com/]["Beginning Elm" (free online)]]
-#+END_box
 
 ** Haskell as Your First Programming Language
 
@@ -404,13 +382,11 @@ Basic Haskell has got a very clean syntax, but it is terse and implicit. A lot i
 
 If you want to get into functional programming, you're probably better off to start with OCaml (see below) which I think is a better /first programming language/. You can still move on to Haskell later, if you feel like and make use of the things you've learned with OCaml.
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/haskell/][Haskell code examples]]
 - [[https://docs.haskellstack.org/en/stable/README/][Getting started with Haskell (using Stack)]]
 - Haskell programming books for beginners:
   - [[https://amzn.to/2Uh00Pl]["Haskell - the Craft of Functional Programming" (paper/Kindle)]]
   - [[https://haskellbook.com/img/sample.pdf]["Haskell Programming from first Priniples" (sample)]]
-#+END_box
 
 ** OCaml as Your First Programming Language
 
@@ -422,14 +398,12 @@ OCaml syntax is very similar to Haskell's syntax, but leaves more room to breath
 
 The language is geared towards unix-like systems (Linux and MacOS), and has an automatic user-setup routine for Emacs and Vim. OCaml works also pretty well on Windows, but within the [[https://docs.microsoft.com/en-us/windows/wsl/install-win10][WSL (Windows Subsystem for Linux)]].
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/ocaml/][OCaml code examples]]
 - [[https://ocaml.org/docs/up-and-running][Getting started with OCaml]]
 - OCaml programming books for beginners:
   - [[https://cs3110.github.io/textbook][OCaml Programming (free online with videos!!!)]]
   - [[https://amzn.to/2XM04XW][OCaml from the Very Beginning (paper/Kindle)]] | [[https://sites.fastspring.com/coherentgraphics/product/ocamlfromtheverybeginning][DRM-free PDF]]
   - [[https://ocamlbook.org/][OCaml From the Ground Up (free online)]]
-#+END_box
 
 ** Python as Your First Programming Language
 
@@ -445,13 +419,11 @@ Beginners should not put blinkers on and march 'the pythonic way', but start wit
 
 If you want a scripting language which is easier to learn, compact and highly performant, you may have fun with [[*Lua as Your First Programming Language][Lua]]. And if popularity is still such a thing for you after [[*Popularity and Commmunity][reading this]], then learn Python of course, but as your /second/ language.
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/python/][Python code examples]]
 - [[https://www.python.org/about/gettingstarted/][Getting started with Python]]
 - Python programming book for beginners:
   - [[https://amzn.to/3tV2OkF][Learn Python 3 the Hard Way (paper/Kindle)]] | [[https://learnpythonthehardway.org/python3/][Author's website]]
   - [[https://amzn.to/3gPrLbf][Automate the Boring Stuff with Python (paper/Kindle)]]
-#+END_box
 
 ** Julia as Your First Programming Language
 
@@ -461,12 +433,10 @@ It's still a young language, but eagerly promoted by a couple of organizations. 
 
 Julia's REPL is quite powerful (maybe second to Common Lisp's REPL) and allows a high level of interactivity. You basically don't have to leave the REPL to do anyghing, which is awesome. The language looks friendly and easy to start with, and you should definitely check it out if you're a student and work in "data science", statistics, numerical computing, mathematics or want to plot some stuff ([[*Scheme or Racket as Your First Programming Language][Racket]] shines here, too).
 
-#+BEGIN_box
 - [[https://learnxinyminutes.com/docs/julia/][Julia code examples]]
 - [[https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started][Getting started with Julia]]
 - Julia programming book for beginners:
   - [[https://amzn.to/381AhzH][Think Julia (paper/Kindle)]] | [[https://benlauwens.github.io/ThinkJulia.jl/latest/book.html][Free online]]
-#+END_box
 
 * Mkay, but which one?
 

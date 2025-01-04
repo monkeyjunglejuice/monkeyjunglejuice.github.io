@@ -1,12 +1,22 @@
 #+TITLE: Eat my huge Files: Tail Recursion in OCaml
 #+DATE: <2022-02-25 Fri>
-#+SUBTITLE: Project »CSV Cleaner« – Episodes: [[file:learning-to-code-first-app-episode-1.tutorial.org][1]] | [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][2]] | [[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][3]]
+#+SUBTITLE: Project »CSV Cleaner« – 3rd Episode
 #+LANGUAGE: en
 #+DESCRIPTION: Coding project for beginners: "CSV Cleaner": Tail recursion in OCaml – working with big lists
 #+KEYWORDS: tail recursion, tail call, recursive, ocaml, tutorial, project idea, learn ocaml, csv, pattern matching
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">
 #+SETUPFILE: ../static/setup.org
-#+OPTIONS: toc:2
+#+OPTIONS:
+
+#+ATTR_HTML: :class pager
+#+begin_nav
+This post is part of a miniseries:
+1. [[file:learning-to-code-first-app-episode-1.tutorial.org][Manipulation CSV Files in Common Lisp]]
+2. [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][Rewrite in OCaml -- Tooling, Association Lists and Pattern Matching]]
+3. *[[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][Eat my Huge Files: Tail Recursion in OCaml]]*
+#+end_nav
+
+#+TOC: headlines 2
 
 * What is this about?
 
@@ -683,11 +693,9 @@ Anyway, I had fun to gnaw on those larger files. Probably I should have used a d
 #+begin_src ocaml
   (* Version 0.3 *)
 
-
   (** Tail-recursive alternative to [List.map] *)
   let mapt f l =
     List.rev (List.rev_map f l)
-
 
   (** Transforms the file into a key-value data structure *)
   let prep file =
@@ -701,7 +709,6 @@ Anyway, I had fun to gnaw on those larger files. Probably I should have used a d
                     | hd :: tl -> hd, tl in
     let () = close_in tab_file in
     Csv.associate head body
-
 
   (** Drops the columns that are not specified by the template *)
   let clean tab =
@@ -718,7 +725,6 @@ Anyway, I had fun to gnaw on those larger files. Probably I should have used a d
         | _ :: tl -> aux accu tpl tl in
       aux [] tpl row in
     mapt (remove_cols tpl) tab
-
 
   (** Transforms the key-value data structure into lists representing lines *)
   let dissoc =
@@ -738,11 +744,9 @@ Anyway, I had fun to gnaw on those larger files. Probably I should have used a d
     | [] -> []
     | hd :: tl -> get_keys hd :: mapt get_values (hd :: tl)
 
-
   (** Writes the cleaned CSV file to disk *)
   let save tab =
     Csv.save ~separator:'|' ~quote_all:true tab
-
 
   (** Puts all together in one pipe *)
   let () = "input.csv"

@@ -1,12 +1,22 @@
 #+TITLE: Rewrite in OCaml: Tooling, Association Lists and Pattern Matching
 #+DATE: <2020-11-15 Fri>
-#+SUBTITLE: Project »CSV Cleaner« – Episodes: [[file:learning-to-code-first-app-episode-1.tutorial.org][1]] | [[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][2]] | [[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][3]]
+#+SUBTITLE: Project »CSV Cleaner« – 2nd Episode
 #+LANGUAGE: en
 #+DESCRIPTION: A first coding project in OCaml – walktrough tutorial
 #+KEYWORDS: ocaml, tutorial, project idea, learn ocaml, walktrough, csv, pattern matching, ocaml scripting
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learning-to-code-first-ocaml-project-episode-2.tutorial.html">
 #+SETUPFILE: ../static/setup.org
-#+OPTIONS: toc:2
+#+OPTIONS:
+
+#+ATTR_HTML: :class pager
+#+begin_nav
+This post is part of a miniseries:
+1. [[file:learning-to-code-first-app-episode-1.tutorial.org][Manipulation CSV Files in Common Lisp]]
+2. *[[file:learning-to-code-first-ocaml-project-episode-2.tutorial.org][Rewrite in OCaml -- Tooling, Association Lists and Pattern Matching]]*
+3. [[file:first-coding-project-ocaml-tail-recursion-episode-3.tutorial.org][Eat my Huge Files: Tail Recursion in OCaml]]
+#+end_nav
+
+#+TOC: headlines 2
 
 * Automate the Boring Stuff with OCaml
 
