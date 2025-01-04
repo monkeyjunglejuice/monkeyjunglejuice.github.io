@@ -99,14 +99,14 @@ installation."
        "<nav id=\"nav-primary\">"
        "<a id=\"site-name\" href=\"/index.html\">MonkeyJungleJuice</a>"
        " "
-       "<a id=\"about\" href=\"/about.html\">About</a>"
+       "<a id=\"bio\" href=\"/bio.html\">Bio</a>"
        "<a id=\"github\" href=\"https://github.com/monkeyjunglejuice\">Github</a>"
        "</nav>"))
 
 (defvar mjj-page-postamble nil "Footer for pages.")
 (setq mjj-page-postamble
       (concat
-       "<div class=\"footer\">Published by <span class=\"author\"><a href=\"/about.html\">%a</a></span></div>\n"
+       "<div class=\"footer\">Published by <span class=\"author\"><a href=\"/bio.html\">%a</a></span></div>\n"
        "<script defer src=\"/static/footer.js\"></script>"))
 
 ;;  ____________________________________________________________________________
@@ -134,7 +134,7 @@ installation."
        "<nav id=\"nav-primary\">"
        "<a id=\"site-name\" href=\"/index.html\">MonkeyJungleJuice</a>"
        " "
-       "<a id=\"about\" href=\"/about.html\">About</a>"
+       "<a id=\"bio\" href=\"/bio.html\">Bio</a>"
        "<a id=\"github\" href=\"https://github.com/monkeyjunglejuice\">Github</a>"
        "</nav>\n"
        "<div class=\"info\"><time itemprop=\"dateModified\" datetime=\"%C\">Last updated: %C</time></div>"))
@@ -142,7 +142,7 @@ installation."
 (defvar mjj-blog-postamble nil "Footer for blog articles.")
 (setq mjj-blog-postamble
       (concat
-       "<div class=\"footer\">Published by <span class=\"author\"><a href=\"/about.html\">%a</a></span></div>\n"
+       "<div class=\"footer\">Published by <span class=\"author\"><a href=\"/bio.html\">%a</a></span></div>\n"
        "<script defer src=\"/static/footer.js\"></script>"))
 
 ;;  ____________________________________________________________________________
