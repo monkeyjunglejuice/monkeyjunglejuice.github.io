@@ -1,541 +1,790 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2024-02-02 -->
+<!-- 2024-11-04 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Becoming</title>
+<title>Technical Considerations</title>
 <meta name="author" content="Dan Dee" />
 <meta name="description" content="Let's build an artificial universe from scratch." />
 <meta name="keywords" content="computational philosophy, metaphysics, universal darwinism, alife, natural selection, emergence, nonlinear dynamic systems, chaos theory" />
 <meta name="generator" content="Org Mode" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; img-src 'self' https://*; media-src 'self' https://*;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka-etoile/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
-<link rel="stylesheet" href="/static/fonts/mononoki/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka-aile/fonts.css" type="text/css">
+<link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <script defer src="/static/header.js"></script>
-<link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/embedded-universe-engineering.project.html">
+<link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/artificial-universe-engineering.project.html">
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2024-02-01">Last updated: 2024-02-01</time></div>
+<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="about" href="/about.html">About</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<div class="info"><time itemprop="dateModified" datetime="2024-10-21">Last updated: 2024-10-21</time></div>
 </div>
 <div id="content" class="content">
 <header>
-<h1 class="title">Becoming</h1>
-<p class="subtitle" role="doc-subtitle">Engineering the Protoverse</p>
-</header><nav id="table-of-contents" role="doc-toc">
+<h1 class="title">Technical Considerations</h1>
+<p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
+</header><nav class="pager" id="org61865a0">
+<p>
+This is part of the Protoverse project:<br>
+</p>
+<ul class="org-ul">
+<li><a href="artificial-universe-introduction.project.html">Introduction</a><br></li>
+<li><a href="artificial-universe-metaphysics.project.html">Metaphysical Framework</a><br></li>
+<li><b><a href="artificial-universe-engineering.project.html">Technical Considerations</a></b><br></li>
+<li><a href="artificial-universe-resources.project.html">Resources</a><br></li>
+<li><a href="artificial-universe-model.project.html">Computational Model</a><br></li>
+<li><a href="artificial-universe-ethics.project.html">Ethical Guidelines</a><br></li>
+</ul>
+</nav>
+
+<div class="message" id="org82668ab">
+<p>
+WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
+</p>
+
+</div>
+
+<nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4edac65">Prelude</a></li>
-<li><a href="#org08eac7f">Modeling Dynamic Structures</a>
+<li><a href="#org91dfa9b">Prelude</a></li>
+<li><a href="#orge86801a">Dynamic Structures</a>
 <ul>
-<li><a href="#org4703170">Cellular Automata (n-dimensional)</a></li>
-<li><a href="#org547bfe9">Graph- or Hypergraph Rewriting</a></li>
-<li><a href="#org6d6aa3a">Higher-order Functions and Function Composition</a></li>
-<li><a href="#org31cbcb6">Language Oriented Programming (DSL)</a></li>
-<li><a href="#orgc13a6b9">Build upon an Adopted, Adapted or Self-designed Process Calculus</a>
+<li><a href="#org2b2971c">Cellular Automata</a></li>
+<li><a href="#orge28248d">Dynamic Graphs, Hypergraph</a></li>
+<li><a href="#org2c685a1">Higher-order Functions and Function Composition</a></li>
+<li><a href="#org2f4ea4e">Language Oriented Programming (LOP)</a>
 <ul>
-<li><a href="#org1515be5">Bigraphs</a></li>
+<li><a href="#org9c68578">Adopt, Adapt or Design a Process Calculus</a></li>
 </ul>
 </li>
-<li><a href="#org659519e">&#x2026; Better Ideas?</a></li>
 </ul>
 </li>
-<li><a href="#orgfb40a23">Requirements</a>
+<li><a href="#org8da4451">Requirements</a>
 <ul>
-<li><a href="#org805ebe7">From Metaphysics to Code</a></li>
-<li><a href="#org9aee9a2">Creation and Use of Embedded DSLs</a></li>
-<li><a href="#org8e5fa14">Exploratory Programming</a></li>
-<li><a href="#orgefcfc9f">Live Coding</a></li>
-<li><a href="#org3e0d56b">Recursion Support</a></li>
-<li><a href="#orga3adb43">Infinite Structures</a></li>
-<li><a href="#org585fabb">Process Calculi</a></li>
-<li><a href="#org0226302">Concurrency</a></li>
-<li><a href="#org8577188">Parallelism</a></li>
-<li><a href="#orgd86e030">OpenCL or CUDA Bindings</a></li>
-<li><a href="#org80f629e">Interfacing With other Ecosystems</a></li>
-<li><a href="#orgad2d05f">Visualization, Analysis and Profiling</a></li>
-<li><a href="#orge224263">Scaling</a></li>
-<li><a href="#org34a2894">Distributed Computing</a></li>
-<li><a href="#org15ad55d">Fault tolerance</a></li>
-<li><a href="#orgb3d730c">Pruning and Data Compression</a></li>
-<li><a href="#orgdabdc7c">Collaboration Opportunities</a></li>
-</ul>
-</li>
-<li><a href="#org0f7d4fd">Core Programming Language</a>
+<li><a href="#orgeab85cb">Modus Operandi</a>
 <ul>
-<li><a href="#org4eea73e">1. Erlang: Elixir</a></li>
-<li><a href="#org551e15b">2. Haskell</a></li>
-<li><a href="#org8509f78">3. OCaml</a></li>
-<li><a href="#orgd91d60c">4. Common Lisp (SBCL)</a></li>
-<li><a href="#orgc4a12a6">5. Julia</a></li>
-<li><a href="#org42fef09">6. Clojure</a></li>
+<li><a href="#org9aa5dac">Batch-processing</a></li>
+<li><a href="#orgbf4c02e">Long-running</a></li>
+<li><a href="#org0120365">Conclusion</a></li>
 </ul>
 </li>
+<li><a href="#org88d7f1e">From Metaphysics to Code</a>
+<ul>
+<li><a href="#orge7df9ac">Creation and Use of Embedded DSLs</a></li>
+</ul>
+</li>
+<li><a href="#orgbf068f6">Exploratory Programming</a></li>
+<li><a href="#org0bffcf8">Conversational Programming</a></li>
+<li><a href="#orgda41586">Massively Interacting Computations</a>
+<ul>
+<li><a href="#org2d83556">Concurrency</a></li>
+<li><a href="#org94fb32b">Task-Parallelism vs. Data-Parallelism</a></li>
+</ul>
+</li>
+<li><a href="#orgf45d5d8">Recursion Support</a></li>
+<li><a href="#orgdc9512d">Infinite Structures</a></li>
+<li><a href="#org54493a1">Computation by Need</a></li>
+<li><a href="#org792e336">Observability: Visualization, Analysis and Profiling</a></li>
+<li><a href="#org0c4a163">Interfacing With Other Ecosystems</a></li>
+<li><a href="#orgf84c7ad">State Management, Pruning and Data Compression</a></li>
+<li><a href="#org18c4f67">Scalability</a>
+<ul>
+<li><a href="#orgc12054a">Distributed Computing</a></li>
+</ul>
+</li>
+<li><a href="#orgff675d3">Collaboration Opportunities</a></li>
+</ul>
+</li>
+<li><a href="#org56051eb">Programming Environment and Language</a>
+<ul>
+<li><a href="#org8c205a8">Erlang Platform (BEAM)</a>
+<ul>
+<li><a href="#org9db7bfc">Erlang</a></li>
+<li><a href="#org95780b3">Elixir</a></li>
+<li><a href="#org47dcd70">LFE (Lisp Flavored Erlang)</a></li>
+</ul>
+</li>
+<li><a href="#orgd836ece">Gerbil Scheme</a></li>
+<li><a href="#org18e8829">Guile Scheme</a></li>
+<li><a href="#org780835b">Julia</a></li>
+<li><a href="#orgaa2c8d1">OCaml</a></li>
+<li><a href="#org429542b">Haskell</a></li>
+<li><a href="#orgd6b873a">JVM: Clojure</a></li>
+<li><a href="#org7d164f9">Common Lisp (SBCL)</a></li>
+</ul>
+</li>
+<li><a href="#org17cee6b">Choosing the tech stack</a></li>
 </ul>
 </div>
 </nav>
-<div class="box" id="org2999400">
+<div id="outline-container-org91dfa9b" class="outline-2">
+<h2 id="org91dfa9b"><a href="#org91dfa9b">Prelude</a></h2>
+<div class="outline-text-2" id="text-org91dfa9b">
 <p>
-<b>WORK IN PROGRESS ---</b> The aim here is to think about modeling, technical requirements and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be happy to chat.<br>
-</p>
-
-</div>
-
-<div id="outline-container-org4edac65" class="outline-2">
-<h2 id="org4edac65"><a href="#org4edac65">Prelude</a></h2>
-<div class="outline-text-2" id="text-org4edac65">
-<p>
-The Protoverse is not made from things (like particles or objects and such), but Processes (with capital &rsquo;P&rsquo;). What we typically conceive of as stable entities (&ldquo;things&rdquo;) are actually temporary aggregations of Processes and their interactions &#x2013; it&rsquo;s Processes all the way down. Process is the prime abstraction; uniform primitive Processes can emerge into higher-order Processes. The process-relational Protoverse is <a href="https://en.wikipedia.org/wiki/Background_independence">backdrop-independent</a>; hence there&rsquo;s no a-priori time, space or gravity &#x2013; but that kind of stuff could theoretically <i>evolve</i>, darwin-style.<br>
+The Protoverse is not made from things (like particles or objects and such), but <i>processes</i>. What we typically conceive of as entities (&ldquo;things&rdquo;) are actually temporary aggregations of Processes and their interactions &#x2013; it&rsquo;s Processes all the way down. The Protoverse is relational, co-evolving (darwin-style) and <a href="https://en.wikipedia.org/wiki/Background_independence">backdrop-independent</a>; hence there&rsquo;s no a-priori conception of time, space or gravity; although from Processes interacting on certain scales, constants could emerge, resembling a form of &ldquo;physics&rdquo;.<br>
 </p>
 
 <p>
-Protoverse Processes become their own &ldquo;computing substrate&rdquo;. As an example &#x2013; it&rsquo;s quite like cellular automata work, where the grid is not a pre-defined &ldquo;space&rdquo;, but each cell&rsquo;s state at a given step is determined by the states of its neighbouring cells at the previous step, so that the structure of the grid is inherently linked to the operation of the automaton (this aspect is often overlooked when playing with a cellular automata within apps, as the cellular automata are always displayed in an area of a certain size).<br>
+The prime abstraction is &ldquo;Process&rdquo; (with capital &rsquo;P&rsquo;). Through the interaction, uniform primitive Processes build relations and compose, so that higher-order Processes emerge. Processes constantly become their own &ldquo;computing substrate&rdquo;. That&rsquo;s in principle quite like cellular automata work, where the grid is not a pre-defined &ldquo;space&rdquo;, but each cell&rsquo;s state at a given step is determined by the states of its neighbouring cells at the previous step, so that the structure of the grid is inherently linked to the operation of the automaton (this aspect may be overlooked when playing with cellular automata within apps, where cellular automata are always displayed in an area of a certain size).<br>
 </p>
 </div>
 </div>
-
-<div id="outline-container-org08eac7f" class="outline-2">
-<h2 id="org08eac7f"><a href="#org08eac7f">Modeling Dynamic Structures</a></h2>
-<div class="outline-text-2" id="text-org08eac7f">
+<div id="outline-container-orge86801a" class="outline-2">
+<h2 id="orge86801a"><a href="#orge86801a">Dynamic Structures</a></h2>
+<div class="outline-text-2" id="text-orge86801a">
 <p>
-The Protoverse has to run on digital computers, since we don&rsquo;t have anything more sophisticated yet. Computers operate with discrete structures &#x2013; so it would be generally easier to stick to discrete structures. But actually, I&rsquo;m quite fond of fundamentally continuous structures, because the (necessary) discretization could elegantly introduce the notion of uncertainty and approximation, <a href="artificial-universe-metaphysics.project.html">as elaborated in metaphysical framework</a>. Let&rsquo;s look at some ideas:<br>
-</p>
-</div>
-
-<div id="outline-container-org4703170" class="outline-3">
-<h3 id="org4703170"><a href="#org4703170">Cellular Automata (n-dimensional)</a></h3>
-<div class="outline-text-3" id="text-org4703170">
-<p>
-Cells could be multidimensional, and also can have more than just binary (&ldquo;on/off&rdquo;) states. Cellular automata allow for efficient parallel computation, because each cell&rsquo;s state depends only on its local neighboorhood, and their states are updated simultaneously. Cellular automata may not fit well, because they&rsquo;re inherently tied to discrete steps and a rigid a-priori concept of time and locality (well, that could be migitated by the rules &#x2013; it solely depends on how many layers one is willing to pile up on another).<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org547bfe9" class="outline-3">
-<h3 id="org547bfe9"><a href="#org547bfe9">Graph- or Hypergraph Rewriting</a></h3>
-<div class="outline-text-3" id="text-org547bfe9">
-<p>
-Hypergraphs offer higher flexibility to encode (non-local) relations and interactions. Eventually, one would not just use &ldquo;a hypergraph&rdquo;, but utilize evolving graph structures with constraints and update functions to enable and encode evolutionary dynamics. Graphs lend themselves to recursive/fractals-like structures, which corresponds to modeling nested emergent scales.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org6d6aa3a" class="outline-3">
-<h3 id="org6d6aa3a"><a href="#org6d6aa3a">Higher-order Functions and Function Composition</a></h3>
-<div class="outline-text-3" id="text-org6d6aa3a">
-<p>
-The idea here is to put aside structures like cellular automata and hypergraphs, but use just functions for dynamically evolving structures. That&rsquo;s pretty wild and requires careful design. Functions are idiomatic/first class in most languages, which poses little overhead — and eventually, we may end up with some kind of a graph anyway (or an unintelligible mess), because we&rsquo;re just abstracting the notion of structure into the behavior of functions themselves.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org31cbcb6" class="outline-3">
-<h3 id="org31cbcb6"><a href="#org31cbcb6">Language Oriented Programming (DSL)</a></h3>
-<div class="outline-text-3" id="text-org31cbcb6">
-<p>
-The idea here is to have a language representation that is subject to be utilized and evolved directly by the Protoverse Processes (&ldquo;data is code, code is data&rdquo;). <i>Everything</i> then would happen on the <i>language level</i>, abstracting from stuff like functions, data structures, etc. That would certainly add semanic denseness due to the initially high level. A clearer separation of the high-level design from the lower-level implementation is appealing. The feedback loop involving design and implementation must be very tight, otherwise challenging implementation issues could show up that require extensive pivots.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgc13a6b9" class="outline-3">
-<h3 id="orgc13a6b9"><a href="#orgc13a6b9">Build upon an Adopted, Adapted or Self-designed Process Calculus</a></h3>
-<div class="outline-text-3" id="text-orgc13a6b9">
-<p>
-A newcomer on this list: As per my current understanding, designing the Process abstraction and dynamics would result in something like a <a href="https://en.wikipedia.org/wiki/Process_calculus">process calculus</a> anyway, just &ldquo;ad hoc, informally specified, bug-ridden and half-assed&rdquo;.<br>
+The Protoverse needs to run on digital computers, since we don&rsquo;t have anything more sophisticated yet at scale. Digital computers operate inherently and efficiently with discrete structures &#x2013; so it would be generally reasonable to stick to discrete structures.<br>
 </p>
 
 <p>
-I&rsquo;m aware that process calculi or algebras are considered models of computation &ldquo;for&rdquo; concurreny, but that&rsquo;s just one (albeit important) aspect &#x2013; even more interesting is that process calculi are existing formal systems to express process-relational dynamics. That&rsquo;s has strong DSL potential (there seem to be some implementations also).<br>
+Aside from that, I&rsquo;m quite fond of continuous structures at the lowest level, because  necessary successive discretization could elegantly introduce notions of approximation and uncertainty, <a href="artificial-universe-metaphysics.project.html">as mentioned in metaphysical framework</a>. I&rsquo;m thinking of a &ldquo;level of detail&rdquo; (LoD) approach, where the discretization happens according to a Process&rsquo; perspective or epistemological constraints; the discretization would be defined by relationships between Processes rather than by fixed spatial or temporal grids. Let&rsquo;s keep that aside right now, and look at some (discrete) ideas first:<br>
+</p>
+</div>
+<div id="outline-container-org2b2971c" class="outline-3">
+<h3 id="org2b2971c"><a href="#org2b2971c">Cellular Automata</a></h3>
+<div class="outline-text-3" id="text-org2b2971c">
+<p>
+Cellular automata allow for efficient parallel computation in theory, because each cell&rsquo;s state depends only on its local neighboorhood, and their states are updated simultaneously.<br>
 </p>
 
 <p>
-The idea is quite appealing, e.g. <a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">π-calculus</a>: there are <i>anonymous processes</i> that communicate via named (or typed) channels. These channels can be passed around by processes through other channels, and this &ldquo;mobility&rdquo; allows dynamic reconfiguration of the process network. Processes can be composed into larger ones, which maps to the idea of &ldquo;higher-order&rdquo; Protoverse Processes. Channels might represent various &ldquo;dimensions&rdquo; for newly evolved means of relations (and interactions) of higher-order Processes.<br>
+But cellular automata may not fit all too well to the Protoverse; at least not directly, because cellular automata are pretty low-level, and their expressiveness is inherently tied to discrete steps, a rigid a-priori concept of uniform time progression and locality.<br>
+</p>
+
+<p>
+Well, that could be migitated by the rules &#x2013; it solely depends on how many layers of abstraction we are willing to pile up on another. Put differently, it would be necessary to design a higher-level DSL that compiles down to cellular automaton rulesets. But given that &#x2013; what&rsquo;s the point using a cellular automata in the first place?<br>
+</p>
+</div>
+</div>
+<div id="outline-container-orge28248d" class="outline-3">
+<h3 id="orge28248d"><a href="#orge28248d">Dynamic Graphs, Hypergraph</a></h3>
+<div class="outline-text-3" id="text-orge28248d">
+<p>
+Hypergraphs offer higher flexibility to encode also non-local relations and interactions. Eventually, one would not just use &ldquo;a hypergraph&rdquo;, but utilize evolving substructures to encode evolutionary dynamics. Graphs lend themselves to recursive and fractal-like structures, which corresponds to modeling Nested Scales of Complexity.<br>
+</p>
+</div>
+</div>
+<div id="outline-container-org2c685a1" class="outline-3">
+<h3 id="org2c685a1"><a href="#org2c685a1">Higher-order Functions and Function Composition</a></h3>
+<div class="outline-text-3" id="text-org2c685a1">
+<p>
+The idea here is to put aside structures like cellular automata and hypergraphs, but use just functions for dynamically evolving structures. That&rsquo;s pretty wild and requires careful design. Eentually, we may end up with some kind of a graph anyway (or an unintelligible mess), because we&rsquo;re just abstracting the notion of structure into the behavior of functions themselves.<br>
+</p>
+</div>
+</div>
+<div id="outline-container-org2f4ea4e" class="outline-3">
+<h3 id="org2f4ea4e"><a href="#org2f4ea4e">Language Oriented Programming (LOP)</a></h3>
+<div class="outline-text-3" id="text-org2f4ea4e">
+<p>
+The idea here is to have a language representation that is subject to be utilized and evolved directly by the Protoverse Processes (&ldquo;data is code, code is data&rdquo;). <i>Everything</i> then would happen at the language level, abstracting from stuff like functions, data structures, graphs, etc. That would certainly add semantic denseness, and brings a clear distinction between high-level design and lower-level implementation. The feedback loop involving design and implementation would have to be very tight, otherwise issues could show up that lead to frequent pivots.<br>
+</p>
+</div>
+<div id="outline-container-org9c68578" class="outline-4">
+<h4 id="org9c68578"><a href="#org9c68578">Adopt, Adapt or Design a Process Calculus</a></h4>
+<div class="outline-text-4" id="text-org9c68578">
+<p>
+A newcomer on this list and my favorite: As per my current understanding, designing the Process abstraction and dynamics would result in something like a <a href="https://en.wikipedia.org/wiki/Process_calculus">process calculus</a> anyway, just &ldquo;ad hoc, informally specified, bug-ridden and half-assed&rdquo;.<br>
+</p>
+
+<p>
+I&rsquo;m aware that process calculi are considered models of computation &ldquo;for concurreny&rdquo;, but that&rsquo;s just one (albeit convenient) aspect &#x2013; in this context, it&rsquo;s even more interesting is that process calculi are existing formal systems to express process dynamics, and it seems that they are used to model dynamics in biology.<br>
+</p>
+
+<p>
+The idea behind process calculi seems quite appealing, e.g. <a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">π-calculus</a>: there are <i>anonymous processes</i> that communicate via named (or typed) channels. These channels can be passed around by processes through other channels, and this &ldquo;mobility&rdquo; allows dynamic reconfiguration of the process network. Processes can be composed into larger ones, which maps nicely to the idea of &ldquo;higher-order&rdquo; Protoverse Processes. Typed channels might represent various &ldquo;dimensions&rdquo; for newly evolved means of relations (and interactions) of higher-order Processes.<br>
 </p>
 
 <p>
 There&rsquo;s a chance that I might conflate something and be mistaken with what I said above, since I&rsquo;ve looked into process calculi only superficially as of yet. Before deep-diving, it seems rather sensible to advance the design of the Process abstraction by own reasoning first, and reconcile afterwards.<br>
 </p>
 </div>
-
-<div id="outline-container-org1515be5" class="outline-4">
-<h4 id="org1515be5"><a href="#org1515be5">Bigraphs</a></h4>
-<div class="outline-text-4" id="text-org1515be5">
+<div id="outline-container-org14cf429" class="outline-5">
+<h5 id="org14cf429"><a href="#org14cf429">Bigraphs (Robin Milner)</a></h5>
+<div class="outline-text-5" id="text-org14cf429">
 <p>
-Today I learned that the idea above, using channels like &ldquo;dimensions&rdquo; seems to be the gist of <i>bigraphs</i>, modeling both the connectivity between processes (communication links) and their placement within a spatial or hierarchical context separately (location). My intuition says that there wouldn&rsquo;t be two distinct entities neccessary, because uniform (but typed?) channels could also represent hierarchical contexts &#x2013; but I may be confusing things here.<br>
+Today I learned that the idea of using channels as &ldquo;dimensions&rdquo; is central to  <i><a href="https://en.wikipedia.org/wiki/Bigraph">bigraphs</a></i>, which are considered a generalization of the π-Calculus. Bigraphs consist of two distinct but connected graphs: one modeling the connectivity between processes (communication links) and the other modeling their placement within a spatial or hierarchical context (location).<br>
+</p>
+
+<p>
+My intuition suggests that this would be equivalent to using two typed channels, one representing the hierarchical context and the other representing connectivity. Such a typed approach could accommodate more than just two dimensions. However, I might be confusing things here; the key point seems to be that Robin Milner explicitly defined the formal specification and interactions for each of these two connected graphs, which provides a rigurous formal model.<br>
 </p>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org659519e" class="outline-3">
-<h3 id="org659519e"><a href="#org659519e">&#x2026; Better Ideas?</a></h3>
-<div class="outline-text-3" id="text-org659519e">
+</div>
+</div>
+<div id="outline-container-org8da4451" class="outline-2">
+<h2 id="org8da4451"><a href="#org8da4451">Requirements</a></h2>
+<div class="outline-text-2" id="text-org8da4451">
 <p>
-Let me know what you think. It would be great to juggle ideas, different points of view and fresh input.<br>
+The following requirements are roughly sorted from most immediate neccesity to long-term concerns (optimizations):<br>
+</p>
+</div>
+<div id="outline-container-orgeab85cb" class="outline-3">
+<h3 id="orgeab85cb"><a href="#orgeab85cb">Modus Operandi</a></h3>
+<div class="outline-text-3" id="text-orgeab85cb">
+<p>
+What type of application will it become? Each approach calls for different development styles, choice of language and platform, different analysis methods, maintenance- and scaling strategies, and a plethora of other requirements.<br>
+</p>
+</div>
+<div id="outline-container-org9aa5dac" class="outline-4">
+<h4 id="org9aa5dac"><a href="#org9aa5dac">Batch-processing</a></h4>
+<div class="outline-text-4" id="text-org9aa5dac">
+<p>
+An exponentially growing Protoverse could translate into a &ldquo;big-bang&rdquo; computation that runs for a few minutes or hours, with runtime- and subsequent analysis. The batch-processing approach could also be a &ldquo;big bang/crunch&rdquo; model: a snapshot of the state is going to be pruned, written to the database, and then fed into the next run. This approach is conceptually simple, contained and portable: we could optimize the entire run as a single, closed computation, potentially leveraging computing resources more efficiently. But it might be likely too simple to be viable: Even though self-contained, complexity is growing anyway. This approach doesn&rsquo;t encourage resource management, but ignores it; The length of the development cycle (develop-compile-load-run-save-analyze) will become increasingly lengthy, slowing down the iteration process.<br>
+</p>
+</div>
+</div>
+<div id="outline-container-orgbf4c02e" class="outline-4">
+<h4 id="orgbf4c02e"><a href="#orgbf4c02e">Long-running</a></h4>
+<div class="outline-text-4" id="text-orgbf4c02e">
+<p>
+A long-running app might be much more interesting: real-time interaction and observation becomes possible, and there&rsquo;s inherent encouragement for fine-grained state- and resource-management from the beginning. The development cycle could be kept short. Computing resources must be continuously available. The infrastructure will introduce additional overhead, in terms of performance and development effort.<br>
+</p>
+</div>
+</div>
+<div id="outline-container-org0120365" class="outline-4">
+<h4 id="org0120365"><a href="#org0120365">Conclusion</a></h4>
+<div class="outline-text-4" id="text-org0120365">
+<p>
+Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
+</p>
+
+<p>
+However, early stages or specific experiments within the Protoverse could benefit from the simplicity and control offered by batch processing, especially for testing hypotheses or performing intensive computations that are self-contained.<br>
 </p>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgfb40a23" class="outline-2">
-<h2 id="orgfb40a23"><a href="#orgfb40a23">Requirements</a></h2>
-<div class="outline-text-2" id="text-orgfb40a23">
-</div>
-<div id="outline-container-org805ebe7" class="outline-3">
-<h3 id="org805ebe7"><a href="#org805ebe7">From Metaphysics to Code</a></h3>
-<div class="outline-text-3" id="text-org805ebe7">
+<div id="outline-container-org88d7f1e" class="outline-3">
+<h3 id="org88d7f1e"><a href="#org88d7f1e">From Metaphysics to Code</a></h3>
+<div class="outline-text-3" id="text-org88d7f1e">
 <p>
-To minimize context switching, the core langage should enable expressing the <a href="artificial-universe-metaphysics.project.html">fundamental dynamics</a> closely and natively. A <a href="https://en.wikipedia.org/wiki/Purely_functional_programming">functional</a> general-purpose language with metaprogramming and a flexible concurrency story in combination with bottom-up <a href="https://en.wikipedia.org/wiki/Logic_programming">logic programming</a> might go a long way.<br>
+The primary langage should enable expressing the fundamental dynamics as closely and naturally as possible in order to minimixe context-switching. An expressive, high-level, <a href="https://en.wikipedia.org/wiki/Purely_functional_programming">functional</a> programming language with metaprogramming, maybe in combination with <a href="https://en.wikipedia.org/wiki/Logic_programming">logic programming</a> seems a good fit.<br>
+</p>
+</div>
+<div id="outline-container-orge7df9ac" class="outline-4">
+<h4 id="orge7df9ac"><a href="#orge7df9ac">Creation and Use of Embedded DSLs</a></h4>
+<div class="outline-text-4" id="text-orge7df9ac">
+<p>
+However, it seems unlikely to achieve a close fit of metaphysics and code with a general-purpose programming language alone. It might be reasonable to leverage syntactic abstractions to a larger extend (e.g. a DSL resembling some form of process calculus). Pivoting quickly into different directions must be feasible (emphasis on refactoring capabilities and rather general primitives).<br>
 </p>
 </div>
 </div>
-
-<div id="outline-container-org9aee9a2" class="outline-3">
-<h3 id="org9aee9a2"><a href="#org9aee9a2">Creation and Use of Embedded DSLs</a></h3>
-<div class="outline-text-3" id="text-org9aee9a2">
+</div>
+<div id="outline-container-orgbf068f6" class="outline-3">
+<h3 id="orgbf068f6"><a href="#orgbf068f6">Exploratory Programming</a></h3>
+<div class="outline-text-3" id="text-orgbf068f6">
 <p>
-It might be wishful thinking to achieve a close fit between code and the process-relational worldview with a general-purpose programming language alone. It&rsquo;s deemed necessary that unprecedented abstractions (e.g. a process calculus) can be created on top without hindrance, in form of a embedded DSL. Pivoting into different directions must be feasible (emphasis on refactoring capabilities and rather general primitives).<br>
+There will be no distinct formal specification of the Protoverse model (or put differently, the code will be the specification), hence an exploratory programming style seems like the sanest approach to model the Protoverse dynamics. That sets the focus on primarily interactive use of a language or computing environment.<br>
 </p>
 </div>
 </div>
-
-<div id="outline-container-org8e5fa14" class="outline-3">
-<h3 id="org8e5fa14"><a href="#org8e5fa14">Exploratory Programming</a></h3>
-<div class="outline-text-3" id="text-org8e5fa14">
+<div id="outline-container-org0bffcf8" class="outline-3">
+<h3 id="org0bffcf8"><a href="#org0bffcf8">Conversational Programming</a></h3>
+<div class="outline-text-3" id="text-org0bffcf8">
 <p>
-There will be no formal specification before the actual code, hence an exploratory programming style seems like the sanest approach for modeling. That sets the focus on primarily interactive use of language/platform.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgefcfc9f" class="outline-3">
-<h3 id="orgefcfc9f"><a href="#orgefcfc9f">Live Coding</a></h3>
-<div class="outline-text-3" id="text-orgefcfc9f">
-<p>
-The programming environment/language should support conversational programming with the running live system. At this point, it&rsquo;s unclear how important this actually could become, relative to the tradeoffs &#x2013; because it greatly limits the number of potential programming languages. Further, increasingly interesting events are likely to happen the longer the Protoverse runs — thus, time-travel might be desired, too.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org3e0d56b" class="outline-3">
-<h3 id="org3e0d56b"><a href="#org3e0d56b">Recursion Support</a></h3>
-<div class="outline-text-3" id="text-org3e0d56b">
-<p>
-Deep recursion is likely going to play a key role, and should not have to be translated into imperative loops at the language level, but optimized by the actual compiler. &ldquo;Never send a human to do a machine&rsquo;s job.&rdquo; &#x2013;Agent Smith about TCO.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orga3adb43" class="outline-3">
-<h3 id="orga3adb43"><a href="#orga3adb43">Infinite Structures</a></h3>
-<div class="outline-text-3" id="text-orga3adb43">
-<p>
-I&rsquo;ve got a feeling that infinite structures for data representation will be naturally pervasive in the Protoverse, and dealing with them natively will simplyfy certain things.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org585fabb" class="outline-3">
-<h3 id="org585fabb"><a href="#org585fabb">Process Calculi</a></h3>
-<div class="outline-text-3" id="text-org585fabb">
-<p>
-There&rsquo;s a huge range of process calculi: <a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">π-calculus</a>, Stochastic π-calculus, Higher-order π-calculus, <a href="https://en.wikipedia.org/wiki/Ambient_calculus">Ambient calculus</a>, <a href="https://en.wikipedia.org/wiki/Join-calculus">Join calculus</a>, Psi-calculi, and many more.<br>
-</p>
-
-<p>
-It would be interesting if there&rsquo;s a functional language with a performant implementation of a process calculus in form of a library (e.g. embedded DSL); or at least having anonymous processes plus named (or typed) channels, which does&rsquo;t listen to the name &ldquo;Golang&rdquo;).<br>
-</p>
-
-<p>
-The actor model is not exactly the same as a process calculus, because in the actor model, processes are <i>not anonymous</i> and messages are adressed via process IDs. We could implement anonymous processes plus named (or typed) channels that can be passed around (π-calculus style channel-mobility) by a thin layer on top of an actor model implementation (e.g. some actors play channels, other actors play processes).<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org0226302" class="outline-3">
-<h3 id="org0226302"><a href="#org0226302">Concurrency</a></h3>
-<div class="outline-text-3" id="text-org0226302">
-<p>
-In the Protoverse, a lot of stuff is going to happen concurrently; millions and later probably billions of smallish concurrent computations are to be expected.<br>
-</p>
-
-<p>
-The idea is that Protoverse Processes and the underlying runtime lightweight processes are mapped one-to-one, while the lightweight processes are then multiplexed to OS-threads.<br>
-</p>
-
-<p>
-The runtime capability is an important factor: we might need something along the lines of lightweight processes, each with their own memory and garbage collector. And there comes up the the question wich type of scheduler &#x2013; cooperative or preemptive?<br>
-</p>
-
-<p>
-<i>All abstractions are leaky</i>. No system &#x2013; whether a formal system in logic (<a href="https://en.wikipedia.org/wiki/G%C3%B6del%27s_incompleteness_theorems">Goedel&rsquo;s incompleteness</a>) or an abstraction in software (<a href="https://en.wikipedia.org/wiki/Leaky_abstraction">Spolsky&rsquo;s law</a>) &#x2013; can be both complete and self-contained without any reference to or dependency on an outside or lower-level system.<br>
-</p>
-
-<p>
-A <i>preemptive scheduler</i> is in control of the execution order and time slices for each process. Philosophically, this is analogous to a externally governed universe where processes do not have autonomy over their execution. A preemptive scheduler is great for performance, but it seems to impose a sort of &ldquo;divine control&rdquo; over the processes. Principally, there should be neither god, nor gardener in the Protoverse.<br>
-</p>
-
-<p>
-One way could be to let a preemptive scheduler do its thing, providing a reliable runtime, while Protoverse Processes must not be aware of the preemptive scheduler. The Protoverse Processes are solely governed by their own dynamics; that includes their own &ldquo;scheduling&rdquo;.<br>
-</p>
-
-<p>
-Hence we would have to manage the risks of the runtime scheduler leaking into the Protoverse abstraction by careful encapsulation. The Protoverse should interact with the scheduler only through well-defined interfaces, such as process creation and message passing primitives.<br>
-</p>
-
-<p>
-But &#x2026; maybe do exactly the opposite: embrace the leakiness? It would be an interface to the &ldquo;real world&rdquo; limited by it&rsquo;s one truely limited resource &#x2013; the one that makes all the others <i>seem</i> limited &#x2013; time. It&rsquo;s an experiment, after all?<br>
-</p>
-
-<p>
-On the other hand, I don&rsquo;t want &ldquo;limited resources&rdquo; as the major &ldquo;selective pressure&rdquo; for evolution. But maybe, it&rsquo;s rather the question of <i>how</i> Processes co-evolve in the presence of limited resources, along other selectors. It doesn&rsquo;t have to lead to mayhem, war and suffering? Or does it, inevitably? <i>If this sounds nuts to you: Processes are subject to darwin-style evolution after all (potential artificial life), and we&rsquo;ll have to take ethical consideration into account.</i><br>
-</p>
-
-<p>
-As of now, I prefer a low-leaking variant with a preemptive runtime scheduler, and separate Protoverse &ldquo;scheduling&rdquo; that happens along relative dynamics between Processes. As long as the other selective criteria weigh more than the potential leak-through of the runtime scheduler, it might be fine.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org8577188" class="outline-3">
-<h3 id="org8577188"><a href="#org8577188">Parallelism</a></h3>
-<div class="outline-text-3" id="text-org8577188">
-<p>
-Introducing thread-based parallelism won&rsquo;t make this effect go away. A scheduler will be necessary still, because the number of lightweight processes likely outstrip the available CPU or GPU cores &#x2013; it&rsquo;s just a gradual reduction by introducing another level.<br>
-</p>
-
-<p>
-That&rsquo;s also the case when we think about vectorization &ldquo;parallelism&rdquo; (that involves performing <i>the same operation</i> on multiple elements of a collection simultaneously, without explicitly iterating over the elements; vectorization may be implemented in a way that can leverage parallel computing resources).<br>
-</p>
-
-<p>
-The question would be, if computing (primitive) Protoverse Processes will fit to that. But as long as we don&rsquo;t have worked out the Process abstraction in detail, it makes not much sense to ponder on that.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgd86e030" class="outline-3">
-<h3 id="orgd86e030"><a href="#orgd86e030">OpenCL or CUDA Bindings</a></h3>
-<div class="outline-text-3" id="text-orgd86e030">
-<p>
-The infrastructure may have to support parallelization at the hardware-level; for that, solid/straightforward C/C++ interop may be required.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org80f629e" class="outline-3">
-<h3 id="org80f629e"><a href="#org80f629e">Interfacing With other Ecosystems</a></h3>
-<div class="outline-text-3" id="text-org80f629e">
-<p>
-A language with a bigger ecosystem should be in direct reach, either by building on that platform (e.g. Erlang/BEAM or Java/JVM), or via seamless integration of others. This might be useful in terms of analysis, visualization, measuring or specific scientific libraries. Possible targets are C/C++, Java, Erlang or Python.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgad2d05f" class="outline-3">
-<h3 id="orgad2d05f"><a href="#orgad2d05f">Visualization, Analysis and Profiling</a></h3>
-<div class="outline-text-3" id="text-orgad2d05f">
-<p>
-Visualization seems quite complicated stuff, so there should be (ideally native) frameworks/libraries available. Same for performance profiling and tweaking, which is often readily available when building on top of a platform that&rsquo;s built around a virtual machine.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orge224263" class="outline-3">
-<h3 id="orge224263"><a href="#orge224263">Scaling</a></h3>
-<div class="outline-text-3" id="text-orge224263">
-<p>
-First and foremost, the prevalent status will be &ldquo;under development&rdquo; rather then &ldquo;in production&rdquo;. The scaling model depends on  the principal modus operandi of the Protoverse:<br>
+The benefit hinges on the anticipated modus operandi of the Protoverse:<br>
 </p>
 
 <ul class="org-ul">
-<li><b>Batch-processing:</b> An exponentially and infinitely growing Protoverse could translate into a &ldquo;big-bang&rdquo; computation. That one maybe runs for a few minutes or hours, with subsequent analysis. This approach leans toward vertical scaling, throwing more powerful hardware on it, e.g. GPU arrays.<br></li>
+<li>Batch-processing: This approach would make live-coding abilities not a requirement. We would be free to compile down to machine code and use a statically typed language, where the strict distinction between programming time, compile time and run time wouldn&rsquo;t be a hindrance.<br></li>
+<li>Long-running: The Protoverse as an application that reconfigures itself continuosly leans inherently towards being stateful. It calls for interaction and live-coding at the running system as the primary way of development and maintenance.<br></li>
+</ul>
 
-<li><b>Long-running:</b> A cyclic or oscillating modus operandi might be much more interesting. The Protoverse would then be a long-running app, that calls for interaction and live-coding at the running system as the primary way of development, ongoing maintenance, and different scaling models.<br></li>
+<p>
+The help of a VM- or image-based runtime and language that allows to experiment with the system and to tweak it at runtime would greatly enhance understanding and development efficiency. Unfortunately, this rules out statically typed languages because of their sharp distinctions between programming time, compile time and run time.<br>
+</p>
+
+<p>
+Since the interesting stuff is likely to happen the longer the Protoverse runs, the ability to step back and forth through the execution history might be desired, too (straightforward state-recreation, or actually circumventing the need for state recreation to begin with).<br>
+</p>
+</div>
+</div>
+<div id="outline-container-orgda41586" class="outline-3">
+<h3 id="orgda41586"><a href="#orgda41586">Massively Interacting Computations</a></h3>
+<div class="outline-text-3" id="text-orgda41586">
+<p>
+A lot of stuff is going to happen in realtime. Eventually I&rsquo;m expecting several billions of smallish, interacting computations. In the early stages, where the focus is on modeling the Process abstraction and dynamics, the capacity to handle a couple of millions will be enough, which is achievable on a small Rasperry Pi cluster or even a bunch of laptops.<br>
+</p>
+</div>
+<div id="outline-container-org2d83556" class="outline-4">
+<h4 id="org2d83556"><a href="#org2d83556">Concurrency</a></h4>
+<div class="outline-text-4" id="text-org2d83556">
+<p>
+Since massive concurrency is a basic need, this will practically rule out concurrency solely based on native threads scheduled by the OS kernel.<br>
+</p>
+
+<p>
+There are basically two facilities in common use that fit massive concurrency: Either <a href="https://en.wikipedia.org/wiki/Actor_model">actors</a> or CSP-style channels (<a href="https://wingolog.org/archives/2016/10/12/an-incomplete-history-of-language-facilities-for-concurrency">breakdown here</a>). My first idea was that the primitive Protoverse Processes and user-level threads are mapped one-to-one, where the user-level threads are then multiplexed to OS-threads. Here is to note that Protoverse Processes compose into higher-order Processes, which leads to and relies on relations (state) and communication between the underlying runtime threads.<br>
+</p>
+</div>
+<div id="outline-container-orga7170a2" class="outline-5">
+<h5 id="orga7170a2"><a href="#orga7170a2">Actor Model vs. Process Calculi</a></h5>
+<div class="outline-text-5" id="text-orga7170a2">
+<p>
+<b><a href="https://en.wikipedia.org/wiki/Process_calculus">Process calculi</a></b> are interesting for the sake of pondering about Process dynamics, as they are languages for modeling concurrent computation.<br>
+</p>
+
+<p>
+There&rsquo;s a range of process calculi: <a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">π-calculus</a>, <a href="https://en.wikipedia.org/wiki/Join-calculus">Join calculus</a>, <a href="https://en.wikipedia.org/wiki/Ambient_calculus">Ambient calculus</a> (related: <a href="https://en.wikipedia.org/wiki/Mobile_membranes">membranes</a>) and several others. I think the π-calculus and Join Calculus are particularly interesting (maybe due to the fact that I didn&rsquo;t look into others as much).<br>
+</p>
+
+<p>
+As far as I know there are no &ldquo;production-ready&rdquo; performant languages that implement π-calculus. However, there are at least two Join-calculus implementations: <a href="https://en.wikipedia.org/wiki/JoCaml">JoCaml</a> (in OCaml) and <a href="https://github.com/Chymyst/chymyst-core/">Chymyst</a> (in Scala, chemical machine) &#x2013; both abanoned. More common are CSP implementations though (Communicating Sequential Processes), e.g. Clojure&rsquo;s core.async or Go&rsquo;s go-routines; but even though CSP is conceptually related, its capabilities are quite different as CSP lacks the dynamic parts that makes π-calculus and Join-calculus interesting modeling tools.<br>
+</p>
+
+<p>
+The <b><a href="https://en.wikipedia.org/wiki/Actor_model">actor model</a></b> <a href="https://en.wikipedia.org/wiki/Actor_model_and_process_calculi">differs from process calculi</a> in several aspects, for instance actors are based on the idea of individual entities; they are not anonymous, but messages are adressed via unique identifiers. The Actor Model is &ldquo;modeled after physics&rdquo; (or an understanding thereof) and very identity-centered, which runs strongly against the process-relational <a href="artificial-universe-metaphysics.project.html">Protoverse metaphysics</a>, where &ldquo;identity&rdquo; is a rather fluid concept.<br>
+</p>
+
+<p>
+However, we could implement something resembling π-calculus or Join-calculus by a thin layer on top of an existing actor model implementation &#x2013; interestingly, that has been done before: see <a href="https://github.com/rhumbertgz/jerlang">JErlang</a>, which implements Join-calculus. Such an implementation based on the yet-to-design Protoverse specifcs could then serve as a DSL to express the Protoverse Process dynamics; essentially a multiscale abstract machine.<br>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org94fb32b" class="outline-4">
+<h4 id="org94fb32b"><a href="#org94fb32b">Task-Parallelism vs. Data-Parallelism</a></h4>
+<div class="outline-text-4" id="text-org94fb32b">
+<p>
+The Proptoverses model&rsquo;s focus is on relational dynamics, recursive algorithms (e.g. manipulation of nested hypergraphs) to model potentially infinite Nested Scales of Complexity. Protoverse dynamics are supposed to be largely irregular, highly interconnected (not strictly hierarchical).<br>
+</p>
+
+<p>
+This seems to align well with <a href="https://en.wikipedia.org/wiki/Task_parallelism">task parallelism</a> rather than <a href="https://en.wikipedia.org/wiki/Data_parallelism">data parallelism</a>. However, data parallelism is more more widespread in use today and generally more efficient (e.g. SIMD). Hence it&rsquo;s worth considering if parts of the dynamics could be computed in a data-parallel approach, e.g. vectorization.<br>
+</p>
+
+<p>
+Generally speaking, encapsulation and locality are good indicators for how effectively computations can be parallelized. What strategies in regard to parallelization deal specifically well with deeply nested structures/dynamics?<br>
+</p>
+
+<ul class="org-ul">
+<li>For deeply nested and interconnected structures, a hybrid approach might be beneficial.<br>
+<ul class="org-ul">
+<li>Use task parallelism to manage the high-level structure and irregular tasks.<br></li>
+<li>Apply data-parallel techniques on subcomponents of the problem where data can be processed uniformly.<br></li>
+</ul></li>
+<li>Recursive tasks can sometimes be decomposed into smaller problems where data parallelism can be exploited, especially if parts of the computation manifest regular patterns or repeated operations.<br></li>
+</ul>
+
+<p>
+In any case, it makes sense to have straightforward GPU computing available (OpenCL or CUDA).<br>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf45d5d8" class="outline-3">
+<h3 id="orgf45d5d8"><a href="#orgf45d5d8">Recursion Support</a></h3>
+<div class="outline-text-3" id="text-orgf45d5d8">
+<p>
+&ldquo;Never send a human to do a machine&rsquo;s job.&rdquo; &#x2014;Agent Smith about TCO.<br>
+</p>
+
+<p>
+Deep recursion is going to play a key role (evolutionary dynamics at multiple Nested Scales of Complexity). Specifically, more complex recursive algorithms who use the intermediate values returned by successive recursive calls cannot be expressed via recursion in tail-call position.<br>
+</p>
+
+<p>
+Hence, it would be great to have an unlimited or dynamically managed call stack depth to prevent stack overflows, so that we could write recursive functions in a naive style for convenience, specifically during prototyping.<br>
+</p>
+
+<p>
+If that isn&rsquo;t available, we could work around that limitation with an explicit stack, using a heap-allocated data structure. The stack management logic could be hidden with a helper macro, keeping the actual function clean.<br>
+</p>
+</div>
+</div>
+<div id="outline-container-orgdc9512d" class="outline-3">
+<h3 id="orgdc9512d"><a href="#orgdc9512d">Infinite Structures</a></h3>
+<div class="outline-text-3" id="text-orgdc9512d">
+<p>
+I&rsquo;ve got a feeling that infinite structures for data representation (open-endedness) might be naturally pervasive in the Protoverse, and dealing with them easily would simplyfy certain things. This may require non-strict evaluation (laziness), either by default or opt-in (preferred), depending on how much hinges on infinite structures.<br>
+</p>
+</div>
+</div>
+<div id="outline-container-org54493a1" class="outline-3">
+<h3 id="org54493a1"><a href="#org54493a1">Computation by Need</a></h3>
+<div class="outline-text-3" id="text-org54493a1">
+<p>
+The concept of &ldquo;observer dependency&rdquo; (which is part of the metaphysic participatory universe) could be understood that the state of a Process is not determined (computed) until it is &ldquo;observed&rdquo; &#x2013; <i>observation as evaluation</i> or observational computation (not to confuse with the &ldquo;Gang of Four&rdquo; observer pattern, which is something else).<br>
+</p>
+
+<p>
+The analogy becomes stronger, if we assume our universe is somehow &ldquo;computational&rdquo;. It seems like deferring the resolution of quantum states is similar to how a computer defers computations by <a href="https://en.wikipedia.org/wiki/Lazy_evaluation">lazy evaluation</a>. Although the analogy is not really correct, both concepts deal with the transition from potential to actual states, implying that states are determined as needed, rather than being predetermined and statically defined.<br>
+</p>
+
+<p>
+Theoretically, might turn out practical to follow such an approach to save computing resources; but it might also turn out extremely impractical (piling up thunks). Any way, it deserves consideration and further thought.<br>
+</p>
+</div>
+</div>
+<div id="outline-container-org792e336" class="outline-3">
+<h3 id="org792e336"><a href="#org792e336">Observability: Visualization, Analysis and Profiling</a></h3>
+<div class="outline-text-3" id="text-org792e336">
+<p>
+Meta-functionality is complicated stuff and imposes overhead that eats away development resources; it&rsquo;s quite boring but neccessary.<br>
+</p>
+
+<ul class="org-ul">
+<li>So there should be (ideally native) frameworks/libraries available that we can use for data visualization and analysis.<br></li>
+
+<li>Same for performance profiling and tweaking, which is often readily available when building on top of a virtual machine/platform, such as BEAM or JVM.<br></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org34a2894" class="outline-3">
-<h3 id="org34a2894"><a href="#org34a2894">Distributed Computing</a></h3>
-<div class="outline-text-3" id="text-org34a2894">
+<div id="outline-container-org0c4a163" class="outline-3">
+<h3 id="org0c4a163"><a href="#org0c4a163">Interfacing With Other Ecosystems</a></h3>
+<div class="outline-text-3" id="text-org0c4a163">
 <p>
-I lean towards a distributed, horizontal scaling model with independent P2P instances that could run in principle on conventional computers (and GPU-arrays). Well, maybe that&rsquo;s a bit too conservative: to leverage potentially infinite computing power, the Protoverse may eventually establish a mesh of Matrioshka brains that aims to encompass nearby stars. Ok, that&rsquo;s much better.<br>
+It might turn out beneficial if a bigger language ecosystem is within reach, either by directly building on that very ecosystem/platform, or via straightforward interop with others. This might be useful for analysis, visualization, measuring; or to offload heavy computations if they cannot be implemented efficiently in the primary language/runtime; or to use specific scientific libraries. Possible targets are the usual suspects: Rust, C, C++, but also Java and Python.<br>
 </p>
 </div>
 </div>
-
-<div id="outline-container-org15ad55d" class="outline-3">
-<h3 id="org15ad55d"><a href="#org15ad55d">Fault tolerance</a></h3>
-<div class="outline-text-3" id="text-org15ad55d">
+<div id="outline-container-orgf84c7ad" class="outline-3">
+<h3 id="orgf84c7ad"><a href="#orgf84c7ad">State Management, Pruning and Data Compression</a></h3>
+<div class="outline-text-3" id="text-orgf84c7ad">
 <p>
-That&rsquo;s predominantly a requirement for long-running, distributed systems and infrastructure &#x2013; when other stuff depends on it. Hence, fault-tolerance gets rather important with the long-running approach.<br>
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgb3d730c" class="outline-3">
-<h3 id="orgb3d730c"><a href="#orgb3d730c">Pruning and Data Compression</a></h3>
-<div class="outline-text-3" id="text-orgb3d730c">
-<p>
-I&rsquo;ll have to consider memory-saving optimization techniques earlier in the development process; also taking into consideration, how much of Protoverse history will have to be kept around for analysis.<br>
+We probably have to consider memory-saving techniques earlier in the development process; also taking into consideration, how much of Protoverse history will have to be kept around. We have to consider if a Markovian approach (history-less) would be possible, and where.<br>
 </p>
 
 <p>
-Resource-saving would play a much greater role if he Protoverse would be a long-running system. Maybe there would be intrinsic selection that effectively prunes emergent nested Scales when it is absolutely certain that nothing interesting happens at these; e.g. when they turn out random and too boring. However, intrinsic evolutionary dynamics are prior to interventions from the outside.<br>
+Clever resource-saving plays a larger role if he Protoverse would be a long-running application. There could be intrinsic selection (as a part of the Protoverse dynamics) that effectively prunes certain Nested Scales Of Complexity when it is highly probable that nothing interesting happens at these; e.g. when they turn out random and too boring and therefore &ldquo;non-viable&rdquo;. On the other side &#x2013; even inconspicuous, boring dynamics can turn out to be further influential for evolution, and the extent may be unforeseeable.<br>
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgdabdc7c" class="outline-3">
-<h3 id="orgdabdc7c"><a href="#orgdabdc7c">Collaboration Opportunities</a></h3>
-<div class="outline-text-3" id="text-orgdabdc7c">
+<div id="outline-container-org18c4f67" class="outline-3">
+<h3 id="org18c4f67"><a href="#org18c4f67">Scalability</a></h3>
+<div class="outline-text-3" id="text-org18c4f67">
 <p>
-The choice of languages and frameworks plays a role in terms of collaboration, albeit not a huge one. There are collab opportunities across a wide range:<br>
+First and foremost, the prevalent status will be &ldquo;under development&rdquo;; and increasing resource counsumption. Therefore easy scaling should be baked-in from the beginning. It depends on the principal modus operandi of the Protoverse which scaling model to prefer:<br>
 </p>
 
 <ul class="org-ul">
-<li>Computational philosophy, ethics<br></li>
-<li>Evolutionary biology, ALife community<br></li>
-<li>Complex systems, chaos theory, game theory<br></li>
-<li>Quantum theory: loop quantum gravity, relational quantum mechanics<br></li>
-<li>Modeling: process calculi/algebras, DSLs, meta-programming<br></li>
-<li>Engineering: performance, parallelism, OpenCL or CUDA<br></li>
-<li>Scaling and infrastructure: distributed systems, P2P networking<br></li>
+<li>Batch-processing: This approach leans toward vertical scaling, throwing more powerful hardware on it, e.g. CPU/GPU arrays. This hardware doesn&rsquo;t have to be available all the time.<br></li>
+<li>Long-running: The Protoverse as a continuously running application could benefit from a horizontal, distributed scaling model. Permanent access to the hardware infrastructure is required.<br></li>
+</ul>
+</div>
+<div id="outline-container-orgc12054a" class="outline-4">
+<h4 id="orgc12054a"><a href="#orgc12054a">Distributed Computing</a></h4>
+<div class="outline-text-4" id="text-orgc12054a">
+<p>
+Since I anticipate the Protoverse rather as a long-running application than a batch computation, I lean towards a distributed, horizontal scaling model with redundant nodes that runs in the cloud, and eventually can run on commodity hardware (e.g. a heterogenous peer-to-peer network), much like Ethereum.<br>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgff675d3" class="outline-3">
+<h3 id="orgff675d3"><a href="#orgff675d3">Collaboration Opportunities</a></h3>
+<div class="outline-text-3" id="text-orgff675d3">
+<ul class="org-ul">
+<li>Computer Science: process algebras, artificial life<br></li>
+<li>Complex Systems Theory: non-linear dynamics, adaptive systems,  process theory<br></li>
+<li>Theoretical Physics: loop quantum gravity, relational quantum mechanics<br></li>
+<li>Biology: bioinformatics, evolutionary theory, computational biology<br></li>
+<li>Math/Logic: formal logic, category theory, game theory<br></li>
+<li>Systems Architecture: parallelism, distributed systems<br></li>
+<li>Data science / machine learning: data analyzation, visualization, predictive modeling<br></li>
 </ul>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-org0f7d4fd" class="outline-2">
-<h2 id="org0f7d4fd"><a href="#org0f7d4fd">Core Programming Language</a></h2>
-<div class="outline-text-2" id="text-org0f7d4fd">
+<div id="outline-container-org56051eb" class="outline-2">
+<h2 id="org56051eb"><a href="#org56051eb">Programming Environment and Language</a></h2>
+<div class="outline-text-2" id="text-org56051eb">
 <p>
-This assessment is about the language suitable for modeling the Protoverse dynamics. The ranking reflects the requirements based on my current understanding:<br>
+The following assessment is about choosing the primary platform/language for modeling and implementation. There are gradual pros/cons which are rather tricky to gauge at this point, not knowing in advance what requirements will turn out more or less important over the course of the project; and there are absolute dealbreakers too.<br>
 </p>
 </div>
-
-<div id="outline-container-org4eea73e" class="outline-3">
-<h3 id="org4eea73e"><a href="#org4eea73e">1. Erlang: Elixir</a></h3>
-<div class="outline-text-3" id="text-org4eea73e">
+<div id="outline-container-org8c205a8" class="outline-3">
+<h3 id="org8c205a8"><a href="#org8c205a8">Erlang Platform (BEAM)</a></h3>
+<div class="outline-text-3" id="text-org8c205a8">
 <ul class="org-ul">
-<li>Small, functional language with pervasive pattern matching (like OCaml)<br></li>
-<li>Built around the actor model for concurrency, but that&rsquo;s also interesting for modeling &#x2013; it&rsquo;s no process calculus though, so no anonymous processes and channels;<br></li>
-<li>Hot swapping: support for upgrading the running sytem, but seems complicated and not a method for for shortening the development cycle;<br></li>
-<li>Elixir REPL can connect to a running app;<br></li>
-<li>Makes extensive use of metaprogramming in Elixir&rsquo;s implementation and Phoenix;<br></li>
-<li>Gradually typed language &ldquo;set-theoretic types&rdquo; (?);<br></li>
-<li>Full support for distributed architectures, fault-tolerance built-in;<br></li>
-<li>No Devops mess &#x2013; all that stuff can be avoided;<br></li>
-<li>BEAM with Erlang Platform has profilers and analysis tools<br></li>
-<li>Live visualization, plotting etc. seems under-represented<br></li>
-<li>Collab opportunities: very engaged community, pragmatic, focus on web backend, infrastructure, engineering mindset, and a bit of machine learning;<br></li>
+<li>Hot swapping: support for upgrading a running application; but it&rsquo;s said to be complicated (?);<br></li>
+<li>Not the same grade of tight-looped interactivity as Common Lisp;<br></li>
+<li>Function-call level tracing in live applications;<br></li>
+<li>Recursion is idiomatic: dynamically growing stack depth, stack-per-process, no stack overflows (afaik); TCO is available;<br></li>
+<li>Each lightweight Erlang process has it&rsquo;s own stack, heap and garbage collection;<br></li>
+<li>Responsive under heavy load, fault tolerance facilities;<br></li>
+<li>Passing around a lot (or large) messages is inefficient, because shared-nothing message passing involves copying that data;<br></li>
+<li>Hence the need for massive, high-frequency interactions might be a challenge;<br></li>
+<li>Is said to be slow for CPU-heavy stuff (maybe a matter of concern);<br></li>
+<li>Ad-hoc distributed computing, fault-tolerance built-in;<br></li>
+<li>Concurrency primitives readily available; actor model implementation;<br></li>
+<li>No DevOps mess, a plethora of infrastructure tools can be avoided;<br></li>
+<li>Erlang has built-in observability (profilers and analysis tools);<br></li>
+<li>Live visualization, plotting etc. is under-represented (except Livebook);<br></li>
+</ul>
+</div>
+<div id="outline-container-org9db7bfc" class="outline-4">
+<h4 id="org9db7bfc"><a href="#org9db7bfc">Erlang</a></h4>
+<div class="outline-text-4" id="text-org9db7bfc">
+<ul class="org-ul">
+<li>Simple, functional actor-oriented language with pervasive pattern matching;<br></li>
+<li>Advantages over Elixir/LFE:<br>
+<ul class="org-ul">
+<li>Simple, consistent and readable syntax;<br></li>
+<li>Lingua franca on the BEAM;<br></li>
+<li>Lots of in-depth documentation and howtos available;<br></li>
+</ul></li>
+<li>No Lisp-style metaprogramming (macros);<br></li>
+<li>No algebraic data types;<br></li>
+<li>Fewer libraries than Elixir and less diverse landscape;<br></li>
+<li>Cannot use libraries from the larger Elixir ecosystem;<br></li>
+<li>Collab opportunities: Engaged community, focus on infrastructure, engineering-mindset;<br></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org551e15b" class="outline-3">
-<h3 id="org551e15b"><a href="#org551e15b">2. Haskell</a></h3>
-<div class="outline-text-3" id="text-org551e15b">
+<div id="outline-container-org95780b3" class="outline-4">
+<h4 id="org95780b3"><a href="#org95780b3">Elixir</a></h4>
+<div class="outline-text-4" id="text-org95780b3">
 <ul class="org-ul">
-<li>Functional language;<br></li>
-<li>No support to modify a program while running, only REPL (what about <a href="https://hackage.haskell.org/package/rapid">rapid</a>?);<br></li>
-<li>Non-strict evaluation is elegant, simplifies handling of infinite structures, but lazyness is available in other languages too;<br></li>
-<li>Static typing helps refactoring and documentation, type system is great for modelling, no ML-style modules but typeclasses;<br></li>
-<li>Concurrency: <a href="http://haskell-distributed.github.io/documentation.html#concurrency-and-distribution">Cloud haskell</a> allows message passing using <a href="https://haskell-distributed.github.io/documentation.html#typed-channels">typed channels</a>, where the SendPort of a channel can be passed to other processes via message; processes don&rsquo;t share state;<br></li>
-<li>Purely Functional code is good for parallelization (in principle);<br></li>
-<li>Collab opportunities: engaged community, FP-enthusiasts;<br></li>
+<li>Functional actor-oriented language with pervasive pattern matching;<br></li>
+<li>Advantages over Erlang/LFE<br>
+<ul class="org-ul">
+<li>Nx (tensor operations) and Axon (framework for neuronal networks)<br></li>
+<li>Elixir-native interop: <a href="https://github.com/rusterlium/rustler">Rustler</a> (Rust/C/C++ via NIFs);<br></li>
+<li>Good interactive development with Emacs and Livebook, incl. plotting, visualization, etc.;<br></li>
+<li>Largest library ecosystem on the BEAM, very active;<br></li>
+<li>Gradual type system in the making;<br></li>
+</ul></li>
+<li>Opinionated and inconsistent language design (mostly syntax), way too much special cases and syntactic sugar;<br></li>
+<li>Steeper learning curve than Erlang and LFE;<br></li>
+<li>Makes extensive use of metaprogramming (hygienc, compile-time only), although it looks quite awkward, implicit and verbose compared to Lisp;<br></li>
+<li>Lazy streams;<br></li>
+<li>No ADTs yet, which would be great for modeling;<br></li>
+<li>Most 3rd-party documentation and howtos are related to the Phoenix web framework;<br></li>
+<li>Collab opportunities: Community centered around web backend; building stuff outside of this domain is slowly taking off (e.g. machine learning);<br></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org8509f78" class="outline-3">
-<h3 id="org8509f78"><a href="#org8509f78">3. OCaml</a></h3>
-<div class="outline-text-3" id="text-org8509f78">
+<div id="outline-container-org47dcd70" class="outline-4">
+<h4 id="org47dcd70"><a href="#org47dcd70">LFE (Lisp Flavored Erlang)</a></h4>
+<div class="outline-text-4" id="text-org47dcd70">
 <ul class="org-ul">
-<li>Functional language with pervasive pattern matching<br></li>
-<li>There has been a <a href="https://www.ocamlwiki.com/wiki/Join_calculus">process calculus</a> implemented in OCaml, but abandoned;<br></li>
-<li>Cannot connect to or modify a running program, only in the REPL;<br></li>
-<li>Static type system makes refactoring fun and documentation effective, type system is great for modeling;<br></li>
-<li>Concurrency:  <a href="https://ocaml.org/p/lwt/latest">Lwt</a>: each light-weight process has its own stack and can maintain its own state; uses promises and cooperative scheduling, preemptive threads are possible too but based on OS threads; how can it handle millions of concurrent threads?<br></li>
-<li><a href="http://ocamlverse.net/content/parallelism.html#domain-thread-based-parallelism">Parallelism since 5.0</a> using domainslib<br></li>
-<li>Overall very performant, super fast compiler<br></li>
-<li>MirageOS (microkernel operating system) for deployment of P2P nodes<br></li>
-<li>Colaboration opportunities: engaged community, language ecosystem under active development, FP-pragmatics;<br></li>
+<li>Simple Lisp with pervasive pattern matching;<br></li>
+<li>Advantages over Elixir/Erlang:<br>
+<ul class="org-ul">
+<li>Elegant and consistent language design, easy to get into;<br></li>
+<li>Much closer to Erlang than Elixir, documentation translates easily;<br></li>
+<li>Has real Lisp macros (unhygienic), but compile-time only;<br></li>
+<li>Macros are not awkward like in Elixir;<br></li>
+<li>Prototyping: better interactive experience compared to Erlang and Elixir; e.g. defining named functions directly in the REPL, instead of representing recursive functions with anonymous functions + fixed-point combinators;<br></li>
+</ul></li>
+<li>LFE is basically a small hobby project, slow development cycles;<br></li>
+<li>External documentation is incomplete, fragmented, unpolished and inconsistent;<br></li>
+<li>Emacs integration is outdated and inferior-lfe needs refactoring (probably I could fix most usability issues in one afternoon);<br></li>
+<li>Eval at runtime is inefficient, because input expressions are evaluated by the LFE interpreter;<br></li>
+<li>No algebraic data types;<br></li>
+<li>LFE can&rsquo;t really use Elixir libraries, no real interop with the biggest BEAM ecosystem;<br></li>
+<li>Erlang libs can be used without problems;<br></li>
+<li>Collab opportunities: intersection of Lisp/Erlang afficinados (very tiny), far lower momentum than Elixir or Gleam;<br></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgd91d60c" class="outline-3">
-<h3 id="orgd91d60c"><a href="#orgd91d60c">4. Common Lisp (SBCL)</a></h3>
-<div class="outline-text-3" id="text-orgd91d60c">
+</div>
+<div id="outline-container-orgd836ece" class="outline-3">
+<h3 id="orgd836ece"><a href="#orgd836ece">Gerbil Scheme</a></h3>
+<div class="outline-text-3" id="text-orgd836ece">
 <ul class="org-ul">
-<li>Supports functional programming and logic programming, anything goes;<br></li>
-<li>Pattern matching via Trivia library<br></li>
-<li>Very moldable to the domain via metaprogramming (DSLs, e.g. see <a href="https://coalton-lang.github.io/post/">Coalton</a>);<br></li>
-<li>Algebraic data types available, and there is also <a href="https://github.com/coalton-lang/coalton">Coalton</a>, an ML-style, internal DSL with type classes);<br></li>
-<li>Conversational programming at the running system is great for prototyping/exploration;<br></li>
-<li>The running program can be paused, debugged, modified and continued without losing state;<br></li>
-<li>The state of a running immage can be dumped and restored, but that won&rsquo;t work out-of-the box for a distributed system;<br></li>
-<li>Concurrency: <a href="https://github.com/mdbergmann/cl-gserver">Sento</a> actor framework (<a href="https://mdbergmann.github.io/cl-gserver/index.html">documentation</a>)<br></li>
-<li>Not so polished for parallelism, distributed computing and fault tolerance in comparison to the other contenders;<br></li>
-<li>Low-level access to the language itself, plenty of optimizations;<br></li>
-<li>SBCL is performant (Java ballpark);<br></li>
-<li>Collab opportunities: Community is diverse yet enthusiastic, fanatics also, fragemented, less collaborative (many one-person-projects rather than common goals realized);<br></li>
+<li>Clean, higly general, expressive;<br></li>
+<li>Great for prototyping abstractions and algorithms;<br></li>
+<li>Powerful metaprogramming;<br></li>
+<li>Connect REPL to running program (actor ensemble server);<br></li>
+<li>Basically no library ecosystem;<br></li>
+<li>No LSP yet, planned for v0.19 release;<br></li>
+<li>Multiprocessor-parallelism (SMP) <a href="https://github.com/mighty-gerbils/gerbil/issues/837">not working yet</a>, depends on Gambit Scheme implementation;<br></li>
+<li>Built-in concurrency (actor model) based on light-weight Gambit threads;<br></li>
+<li>Ad-hoc distributed computing with actor ensembles;<br></li>
+<li>Compiles to C, overall performance on CPU-heavy tasks better than Guile&rsquo;s;<br></li>
+<li>Small documentation, but gives a well-rounded overview;<br></li>
+<li>Collab opportunities: Scheme enthusiasts, academic;<br></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgc4a12a6" class="outline-3">
-<h3 id="orgc4a12a6"><a href="#orgc4a12a6">5. Julia</a></h3>
-<div class="outline-text-3" id="text-orgc4a12a6">
+<div id="outline-container-org18e8829" class="outline-3">
+<h3 id="org18e8829"><a href="#org18e8829">Guile Scheme</a></h3>
+<div class="outline-text-3" id="text-org18e8829">
 <ul class="org-ul">
-<li>Functional programming is not idiomatic and I&rsquo;m not used to that;<br></li>
-<li>I expect extensive use of deep recursion — but Julia seems not to respect tail-calls and may not optimize (?);<br></li>
-<li>Pattern matching is available via Match.jl and MLStyle libraries;<br></li>
-<li>Metaprogramming is available<br></li>
-<li>A running program can be debugged and modified, new functions can be defined and added (with caveats; not as extensively as in Common Lisp);<br></li>
-<li>Dynamic typing, but allows type annotations (mostly for performance reasons);<br></li>
-<li>Parallel and distributed computing out-of-the-box, but no fault-tolerance;<br></li>
-<li>Shiny convenience libraries for all kinds of stuff;<br></li>
+<li>Clean, higly general, expressive;<br></li>
+<li>Great for prototyping abstractions and algorithms;<br></li>
+<li>Full metaprogramming (syntax-rules, syntax-case, defmacro);<br></li>
+<li>Good for interactive development (Emacs with Geiser);<br></li>
+<li>Relies on guix for package management (MacOS unsupported) or homebrew;<br></li>
+<li>JIT compiler, but is considered quite &ldquo;slow&rdquo; (hearsay);<br></li>
+<li><a href="https://www.gnu.org/software/guile/manual/guile.html#Stack-Overflow-1">Unlimited stack depth for Scheme code</a>, TCO;<br></li>
+<li>Concurrency and multicore <a href="https://github.com/wingo/fibers/wiki/Manual#13-parallelism">parallelism</a> via <a href="https://github.com/wingo/fibers">fibers</a> (<a href="https://github.com/wingo/fibers/wiki/Manual">manual</a>), preemptive scheduler;<br></li>
+<li>Distributed: <a href="https://spritely.institute/goblins/">Goblins</a> actor-framework in the making (<a href="https://spritely.institute/files/docs/guile-goblins/0.14.0/index.html">docs</a>), for P2P;<br></li>
+<li>Overall performance for CPU-heavy tasks worse than Gerbil&rsquo;s (?);<br></li>
+<li>Collab opportunities: Scheme enthusiasts, academic;<br></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org780835b" class="outline-3">
+<h3 id="org780835b"><a href="#org780835b">Julia</a></h3>
+<div class="outline-text-3" id="text-org780835b">
+<ul class="org-ul">
+<li>The only conventional imperative language considered;<br></li>
+<li>Pattern matching and other niceties are available via <a href="https://github.com/thautwarm/MLStyle.jl">MLStyle.jl</a> library;<br></li>
+<li>Using recursion is not idiomatic: Julia&rsquo;s stack depth is capped by the OS; Julia does not even guarantee optimization of tail-calls (?);<br></li>
+<li>A running program can be debugged and modified, new functions can be defined and added (with caveats; not extensively as in Common Lisp);<br></li>
+<li>Metaprogramming is available, looks less awkward than Elixir&rsquo;s approach;<br></li>
+<li>Dynamic typing, but allows type annotations (mostly for performance reasons); <a href="https://thautwarm.github.io/MLStyle.jl/latest/preview.html#generalized-algebraic-data-types">Algebraic Data Types via MLStyle.jl</a><br></li>
+<li>Parallel and distributed computing out-of-the-box (cluster-oriented);<br></li>
+<li>Shiny convenience libraries for all kinds of scientific stuff, visualization and plotting;<br></li>
 <li>Direct calling of C functions and access to Python libraries;<br></li>
+<li>Has native access to GPU computing (CUDA only);<br></li>
 <li>Low-level access to the language itself;<br></li>
 <li>Collab opportunities: data-, science and simulation folks of all sorts;<br></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org42fef09" class="outline-3">
-<h3 id="org42fef09"><a href="#org42fef09">6. Clojure</a></h3>
-<div class="outline-text-3" id="text-org42fef09">
+<div id="outline-container-orgaa2c8d1" class="outline-3">
+<h3 id="orgaa2c8d1"><a href="#orgaa2c8d1">OCaml</a></h3>
+<div class="outline-text-3" id="text-orgaa2c8d1">
 <ul class="org-ul">
-<li>Functional paradigm, lazy sequences;<br></li>
-<li>No TCO, but acknowledged by `recur&rsquo; workaround;<br></li>
-<li>Interactive and live-coding, working at the running program;<br></li>
-<li>Has metaprogramming, but that is rather discouraged;<br></li>
-<li>Optional type system Core.Typed (?)<br></li>
-<li>Clojure.Spec isn&rsquo;t a type system but for runtime validation;<br></li>
-<li>Concurrency: the features of <a href="https://www.youtube.com/watch?v=yJxFPoxqzWE">Core.Async</a> are somewhere between <a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">CSP</a> and <a href="https://en.wikipedia.org/wiki/%CE%A0-calculus">π-calculus</a>; it allows channels to be passed as values; but memory is shared (unlike Erlang, for instance);<br></li>
-<li>JVM wit Java is a scalable platform with profilers and tools;<br></li>
-<li>Collab opportunities: broad and diverse, business-oriented community;<br></li>
+<li>Functional language with pervasive pattern matching;<br></li>
+<li>There has been a <a href="https://www.ocamlwiki.com/wiki/Join_calculus">process calculus</a> implemented in OCaml, but abandoned;<br></li>
+<li>No true interactive programming; cannot connect to, or modify a running program, only in the REPL;<br></li>
+<li>Static type system makes refactoring fun and documentation effective;<br></li>
+<li>ADTs are great for modeling;<br></li>
+<li>Concurrency: There&rsquo;s an early-stage actor library <a href="https://github.com/riot-ml/riot">Riot</a> based on algebraic effects and effect handlers, OCaml&rsquo;s goto-concurrency <a href="https://ocaml.org/p/lwt/latest">Lwt</a> implements promises instead;<br></li>
+<li><a href="http://ocamlverse.net/content/parallelism.html#domain-thread-based-parallelism">Parallelism since 5.0</a> using domainslib;<br></li>
+<li>No ad-hoc distributed computing;<br></li>
+<li>Overall performant, super fast compiler<br></li>
+<li>Messy workflow (dune), there&rsquo;s always something that stops working;<br></li>
+<li>Colaboration opportunities: engaged community, language ecosystem under active development, FP-pragmatics;<br></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org429542b" class="outline-3">
+<h3 id="org429542b"><a href="#org429542b">Haskell</a></h3>
+<div class="outline-text-3" id="text-org429542b">
+<ul class="org-ul">
+<li>Functional language, expressive and low-noise;<br></li>
+<li>No support to modify a running program, only REPL (what about <a href="https://hackage.haskell.org/package/rapid">rapid</a>?);<br></li>
+<li>Non-strict evaluation is elegant, simplifies handling of infinite structures; but laziness is available in other languages too;<br></li>
+<li>Static typing simplifies refactoring and improves reasoning, type system is great for modeling;<br></li>
+<li>Concurrency: <a href="http://haskell-distributed.github.io/documentation.html#concurrency-and-distribution">Cloud Haskell</a> (actors) allows also message passing using <a href="https://haskell-distributed.github.io/documentation.html#typed-channels">typed channels</a>, where the SendPort of a channel can be passed to other processes via message; processes don&rsquo;t share state; seems unpolished, not much used and and there are few how-tos;<br></li>
+<li>While excellent Haskell learning material is abundant, libraries lack of howtos, examples and documentation;<br></li>
+<li>Purely functional code is good for parallelization (in principle); not sure how actor model message passing (wich is bsically IO), the type system and purity go together;<br></li>
+<li>I&rsquo;m afraid of lazy-per-default, that reasoning about resource usage may become too complicated and a lot time is spent on optimization;<br></li>
+<li>Collab opportunities: engaged community, FP-enthusiasts;<br></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd6b873a" class="outline-3">
+<h3 id="orgd6b873a"><a href="#orgd6b873a">JVM: Clojure</a></h3>
+<div class="outline-text-3" id="text-orgd6b873a">
+<ul class="org-ul">
+<li>Functional paradigm, superficially nice and clean Lisp;<br></li>
+<li>Recursion support: no TCO, but acknowledged by loop/recur workaround due to JVM limitations;<br></li>
+<li>Interactive and live-coding, working at the running program is possible;<br></li>
+<li>Great Emacs integration and prototyping ergonomics;<br></li>
+<li>Has metaprogramming (hygienic), but that seems rather discouraged;<br></li>
+<li>Optional type system <a href="https://github.com/typedclojure/typedclojure">Typed Clojure</a> (?); <a href="https://clojure.org/about/spec">clojure.spec</a> isn&rsquo;t a type system but for runtime validation;<br></li>
+<li>Lazy sequences;<br></li>
+<li>Concurrency: Several concurrency abstractions; <a href="https://www.youtube.com/watch?v=yJxFPoxqzWE">core.async</a> implements <a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">CSP-style</a> concurrency and allows channels to be passed as values; but memory is shared (unlike Erlang&rsquo;s processes), no message passing;<br></li>
+<li>I ran into various errors when I did trivial benchmarks involving 100k concurrent computations via core.async &ldquo;go blocks&rdquo;; depending on which concurrency facility you use, there are always various limitations you run into when it comes to large numbers of concurrent operations;<br></li>
+<li>Observability: JVM has lots of profilers and tools;<br></li>
+<li>Collab opportunities: rather business-oriented community and a few lispers;<br></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org7d164f9" class="outline-3">
+<h3 id="org7d164f9"><a href="#org7d164f9">Common Lisp (SBCL)</a></h3>
+<div class="outline-text-3" id="text-org7d164f9">
+<ul class="org-ul">
+<li>Supports functional programming and logic programming, anything goes but not all goes well;<br></li>
+<li>Pattern matching via trivia library<br></li>
+<li>Very moldable to the domain via metaprogramming (DSLs);<br></li>
+<li>Algebraic data types available, and there is also <a href="https://github.com/coalton-lang/coalton">Coalton</a>, an ML-style, internal DSL with type classes);<br></li>
+<li>Conversational programming at the running system is great for prototyping/exploration;<br></li>
+<li>The running program can be paused, debugged, modified and continued without losing state;<br></li>
+<li>The state of a running immage can be dumped and restored, but that won&rsquo;t work out-of-the box for a distributed system;<br></li>
+<li>Great Emacs integration, simple tooling (slime, quicklisp, asdf and roswell)<br></li>
+<li>Concurrency: <a href="https://github.com/mdbergmann/cl-gserver">Sento</a> actor framework, <a href="https://github.com/dbmcclain/Lisp-Actors">Lisp-Actors</a>, <a href="https://github.com/zkat/chanl">ChanL</a> (all of them use OS-threads) and there&rsquo;s <a href="https://github.com/thezerobit/green-threads">Green-Threads</a>;<br></li>
+<li>Not so polished for parallelism, distributed computing and fault tolerance in comparison to the other candidates, maybe <a href="https://github.com/marcoheisig/cl-mpi/">OpenMPI bindings</a> (could be a large overhead and I know nothing about <a href="https://www.open-mpi.org">OpenMPI</a>);<br></li>
+<li>Low-level access to the language itself, plenty of optimizations;<br></li>
+<li>SBCL is performant (Java ballpark);<br></li>
+<li>Collab opportunities: Community is diverse yet enthusiastic, fragemented, less collaborative (many one-person-projects rather than common goals realized);<br></li>
 </ul>
 </div>
 </div>
 </div>
+<div id="outline-container-org17cee6b" class="outline-2">
+<h2 id="org17cee6b"><a href="#org17cee6b">Choosing the tech stack</a></h2>
+<div class="outline-text-2" id="text-org17cee6b">
+<p>
+I tend to go ahead with the BEAM, even though I&rsquo;m not quite sure how well the BEAM will handle huge amounts of massively interacting processes due to the shared-nothinbg message passing overhead. This is my biggest concern, but I can&rsquo;t figure that out beforehand.<br>
+</p>
+
+<p>
+And concerning the language, well &#x2026; most likely Elixir, because it ticks most of the boxes, even though I find Elxir rather clumsy &#x2013; syntax-wise for once, and also due to the function scoping, and having separate namespaces for functions and variables (&ldquo;Lisp 2&rdquo;) which is an Erlang heritage. Erlang solves that quite elegantly by just using ariable names who start with a capital. That should have been fixed &#x2013; I mean it&rsquo;s a &ldquo;functional&rdquo; language, but it&rsquo;s getting really messy with higher-order functions.<br>
+</p>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>This is the first Elixir variant that comes to my mind &#x2026;</label><pre class="src src-elixir-ts">sum_list <span class="org-operator">=</span> <span class="org-keyword">fn</span> fun -&gt;
+  <span class="org-keyword">fn</span>
+    <span class="org-rainbow-delimiters-depth-1">[]</span> -&gt; 0
+    <span class="org-rainbow-delimiters-depth-1">[</span>head <span class="org-operator">|</span> tail<span class="org-rainbow-delimiters-depth-1">]</span> -&gt; head <span class="org-operator">+</span> fun.<span class="org-rainbow-delimiters-depth-1">(</span>fun<span class="org-rainbow-delimiters-depth-1">)</span>.<span class="org-rainbow-delimiters-depth-1">(</span>tail<span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-keyword">end</span>
+<span class="org-keyword">end</span>
+
+<span class="org-comment"># Using the function in the REPL</span>
+sum_list.<span class="org-rainbow-delimiters-depth-1">(</span>sum_list<span class="org-rainbow-delimiters-depth-1">)</span>.<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>1, 2, 3, 4, 5<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Another variant &#x2026;</label><pre class="src src-elixir-ts">sum_list <span class="org-operator">=</span> <span class="org-keyword">fn</span> 
+  <span class="org-comment">_fun</span>, <span class="org-rainbow-delimiters-depth-1">[]</span> -&gt; 0
+  fun, <span class="org-rainbow-delimiters-depth-1">[</span>head <span class="org-operator">|</span> tail<span class="org-rainbow-delimiters-depth-1">]</span> -&gt; head <span class="org-operator">+</span> fun.<span class="org-rainbow-delimiters-depth-1">(</span>fun, tail<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-keyword">end</span>
+
+<span class="org-comment"># Using the funtion in the REPL</span>
+sum_list.<span class="org-rainbow-delimiters-depth-1">(</span>sum_list, <span class="org-rainbow-delimiters-depth-2">[</span>1, 2, 3, 4, 5<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>&#x2026; and this is the Erlang version</label><pre class="src src-erlang">SumList = <span class="org-keyword">fun</span>
+  <span class="org-variable-name">Fun</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[]</span><span class="org-rainbow-delimiters-depth-1">)</span> -&gt;<span class="org-function-name"> </span>0;
+  <span class="org-variable-name">Fun</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span><span class="org-variable-name">Head</span> | <span class="org-variable-name">Tail</span><span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span> -&gt;<span class="org-function-name"> </span><span class="org-variable-name">Head</span> + <span class="org-variable-name">Fun</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-variable-name">Tail</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-keyword">end</span>.
+
+<span class="org-comment-delimiter">% </span><span class="org-comment">Using the function in the REPL</span>
+<span class="org-variable-name">SumList</span><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-rainbow-delimiters-depth-2">[</span>1, 2, 3, 4, 5<span class="org-rainbow-delimiters-depth-2">]</span><span class="org-rainbow-delimiters-depth-1">)</span>.
+</pre>
+</div>
+
+<p>
+So it will be quite reasonable to implement an MVP of the core abstraction in at least 3 languages, beginning with the most expressive, prototyping-friendly one. But before I can indulge in that, I&rsquo;ll have to design the core abstraction (Protoverse Process) reasonably far enough.<br>
+</p>
+
+<ol class="org-ol">
+<li>I should start to explore using one of the Schemes, either Guile or Gerbil.<br></li>
+
+<li>Then, I&rsquo;m ready to consider the BEAM languages Elixir and LFE, in orer to check if the BEAM actually can provide a suitable platform to build on.<br></li>
+
+<li>And as a third, it&rsquo;s worth considering Haskell and OCaml. Both of them provide suitable facilities, like STM (Haskell) and algebraic effects (OCaml), even though both are not party-hard interactive.<br></li>
+</ol>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<div class="footer">Published by <span class="author">Dan Dee</span> <span class="email"><a href="mailto:MonkeyJungleJuice@pm.me">MonkeyJungleJuice@pm.me</a></span></div>
+<div class="footer">Published by <span class="author"><a href="/about.html">Dan Dee</a></span></div>
 <script defer src="/static/footer.js"></script>
 </div>
 </body>
