@@ -5,8 +5,8 @@
 #+DESCRIPTION: Not found - Error 404
 #+KEYWORDS: error 404,
 #+HTML_HEAD_EXTRA:
-#+SETUPFILE: ../static/setup.org
-#+OPTIONS: toc:nil todo:nil tasks:nil tags:nil
+#+SETUPFILE: ./static/setup.org
+#+OPTIONS:
 
 #+begin_center
 #+HTML: <button><a href="/index.html">Get me out of here →</a></button>
