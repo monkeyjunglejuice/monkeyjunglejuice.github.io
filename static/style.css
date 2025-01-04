@@ -1,18 +1,39 @@
+/* Global variables */
+
+:root {
+  --color-bg: #fef7dc;
+  --color-bg-darker: #f4edd2;
+  --color-bg-lighter: #fffb;
+  --color-text: #46432f;
+  --color-text-alt: #181611;
+  --color-dim: #9b957d;
+  --color-dimmer: #d9d5b5;
+  --color-select: #d3f7e1;
+  --color-focus: #4ba7a5;
+  --color-bright: #e68f4c;
+  --color-bright-light: #ffefb6;
+  --color-strong: #ac390c;
+  --color-strong-light: #ffdac2;
+  --font-body: 2.0rem 'Gentium Basic', 'Hoefler Text', 'Garamond', serif;
+  --font-code: 0.86em 'Iosevka Web', monospace;
+  --font-data: 0.75em 'Iosevka Web', monospace;
+  --font-caption: 0.75em 'Iosevka Aile Web', sans-serif;
+  --font-headline: 'Iosevka Etoile Web', sans-serif;
+}
+
 /* Based on Sakura.css v1.3.0 https://github.com/oxalorg/sakura */
 
 /* GENERAL *******************************************************************/
 
 html {
-  background-color:  #f6f6ef;
+  background-color: var(--color-bg);
   font-size: 62.5%; /* = 10px */
   scroll-behavior: smooth;
 }
 
 body {
-  color: #43402d;
-  font-family: 'Gentium Basic', 'Hoefler Text', 'Garamond', serif;
-  font-size: 2.0rem;
-  font-weight: 400;
+  color: var(--color-text);
+  font: var(--font-body);
   line-height: 1.6;
 }
 
@@ -49,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-family: 'Iosevka Etoile Web', sans-serif;
+  font-family: var(--font-headline);
   font-size: 6.4rem;
   font-weight: 100;
   line-height: 1.2;
@@ -60,7 +81,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Iosevka Etoile Web', sans-serif;
+  font-family: var(--font-headline);
   font-size: 3.2rem;
   font-weight: 300;
   margin-bottom: 4.5rem;
@@ -71,7 +92,7 @@ h2 {
 }
 
 h3 {
-  font-family: 'Iosevka Etoile Web', sans-serif;
+  font-family: var(--font-headline);
   font-size: 2.4rem;
   font-weight: 300;
   margin-bottom: 2.0rem;
@@ -80,7 +101,7 @@ h3 {
 }
 
 h4 {
-  font-family: 'Iosevka Etoile Web', sans-serif;
+  font-family: var(--font-headline);
   font-size: 2.2rem;
   font-weight: 300;
   margin-bottom: 2.0rem;
@@ -89,7 +110,7 @@ h4 {
 }
 
 h5, h6 {
-  font-family: 'Iosevka Etoile Web', sans-serif;
+  font-family: var(--font-headline);
   font-size: 1.8rem;
   font-weight: 300;
   margin-bottom: 2rem;
@@ -131,26 +152,24 @@ strong {
 small,
 sub,
 sup {
-  font-size: 0.75em;
+  font: var(--font-caption);
 }
 
 ul,
 ol {
-  list-style-position: inside;
   margin-bottom: 1em;
   margin-top: 0;
   padding-left: 1.6em;
 }
 
 blockquote {
-  border-left: 1px dashed;
+  border-left: 1px solid;
   font-style: italic;
   margin-left: 1.6em;
 }
 
 cite {
-  font-family: 'Iosevka Aile Web', sans-serif;
-  font-size: 0.75em;
+  font: var(--font-caption);
   font-style: normal;
   font-weight: 300;
   letter-spacing: 0.01em;
@@ -169,33 +188,67 @@ img {
   max-width: 100%;
 }
 
+/* Source code block */
 pre {
   background-color: transparent;
-  border-color: #000c;
+  border-color: var(--color-text);
   border-radius: 0;
-  border-style: dotted;
-  border-width: 0 0 0 1px;
+  border-style: dashed;
+  border-width: 0 1px 0 1px;
   box-shadow: none;
-  display: block;
-  font-family: 'Iosevka Web', monospace;
-  font-size: 0.86em;
+  font: var(--font-code);
   line-height: 1.5;
   margin: 0 0 2rem 0;
   margin-top: 0;
-  overflow: visible;
-  padding: 1.6em 0 1.6em 1.6em;
+  overflow: auto;
+  padding: 1.6em 1.6em 1.6em 1.6em;
   word-break: keep-all;
 }
 
-/* pre:hover, pre:focus {  */
-/*   width: min-content; */
-/*   border-right: 0; */
-/* } */
+/* Expand source code box automatically */
+pre:hover, pre:focus {
+    border-right: 1px dashed;
+    min-width: 100%;
+    width: max-content;
+}
 
+/* Shadow standard org.css */
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+
+/* Code language name */
+pre.src::before {
+    background-color: var(--color-bg-darker);
+    border: 0;
+    color: var(--color-dim);
+    display: inline;
+    font: var(--font-caption);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.25em 0.75em;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+/* Reveal code language name */
+pre.src:hover::before {
+    display: inline;
+    margin-top: 0;
+}
+
+/* Listing caption */
+label.org-src-name {
+    margin-bottom: 0;
+    padding-top: 0.5em;  /* Balance visually with upper <p> elements */
+}
+
+/* Inline code */
 code {
-  background-color: #fffe;
-  font-family: 'Iosevka Web', monospace;
-  font-size: 0.86em;
+  background-color: var(--color-bg-lighter);
+  font: var(--font-code);
   /* white-space: nowrap; */
   hyphenate-character: "";
   padding-left: 0.2em;
@@ -210,21 +263,20 @@ pre > code {
 
 hr {
   border: 0;
-  border-bottom: 1px dotted #000e;
-  margin-bottom: 5rem;
-  margin-top: 5rem;
+  border-bottom: 1px dotted var(--color-text);
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 table {
-  font-family: 'Iosevka Web', monospaced;
-  font-size: 0.75em;
+  font: var(--font-data);
   margin-bottom: 2rem;
   width: 100%
 }
 
 td,
 th {
-  border: 1px dotted #000e;
+  border: 1px dotted var(--color-dim);
   padding: 0.75em;
 }
 
@@ -232,7 +284,7 @@ th {
 
 input,
 textarea {
-  border: 1px solid #8d8973;
+  border: 1px solid var(--color-dim);
 }
 
 textarea {
@@ -241,7 +293,7 @@ textarea {
 
 input:focus,
 textarea:focus {
-  border: 1px solid #54b2ad;
+  border: 1px solid var(--color-focus);
 }
 
 .button,
@@ -249,11 +301,11 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-  background-color: #ffefc2;
+  background-color: var(--color-bright-light);
   border-radius: 10em;
-  border: 2px solid #000;
+  border: 2px solid var(--color-text);
   box-sizing: border-box;
-  color: #000;
+  color: var(--color-text);
   cursor: pointer;
   display: inline-block;
   padding: 5px 10px;
@@ -281,9 +333,9 @@ input[type="reset"]:focus:enabled,
 input[type="reset"]:hover:enabled,
 input[type="button"]:focus:enabled,
 input[type="button"]:hover:enabled {
-  background-color: #d3f7e0;
-  border-color: #000c;
-  color: #000;
+  background-color: var(--color-select);
+  border-color: var(--color-dim);
+  color: var(--color-text);
   outline: 0;
 }
 
@@ -302,7 +354,7 @@ input {
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box;
-  color: #4a4a4a;
+  color: var(--color-text);
   margin-bottom: 10px;
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
 }
@@ -310,21 +362,20 @@ input {
 textarea:focus,
 select:focus,
 input:focus {
-  background-color: #fff8dc;
-  border: 1px solid #000;
+  background-color: var(--color-bg-lighter);
+  border: 1px solid var(--color-text);
   outline: 0;
 }
 
 input[type="checkbox"]:focus {
-  outline: 1px dotted #2c8898;
+  outline: 1px dotted var(--color-input-focus);
 }
 
 label,
 legend,
 fieldset {
   display: block;
-  font-family: "Iosevka Aile Web", sans-serif;
-  font-size: 0.75em;
+  font: var(--font-caption);
   font-weight: 300;
   letter-spacing: 0.01em;
   margin-bottom: 0.5rem;
@@ -337,8 +388,7 @@ fieldset {
 
 #preamble nav {
   border-bottom: 1px dotted;
-  font-family: 'Iosevka Aile Web', sans-serif;
-  font-size: 0.75em;
+  font: var(--font-caption);
   font-weight: 400;
   letter-spacing: 0.01em;
   padding: 0.5em 0.5em 0 0.5em;
@@ -356,21 +406,18 @@ fieldset {
 
 #site-name {
   float: left;
-  font-family: 'Iosevka Aile Web', sans-serif;
-  font-weight: 400;
 }
 
 #postamble {
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 
 #postamble .footer {
   border-top: 1px dotted;
-  font-family: 'Iosevka Aile Web', sans-serif;
-  font-size: 0.75em;
+  font: var(--font-caption);
   font-weight: 400;
   letter-spacing: 0.01em;
-  padding: 0 0.5em 0.5em 0.5em;
+  padding: 0.5em 0.5em 0.5em 0.5em;
   text-align: center;
 }
 
@@ -408,6 +455,15 @@ fieldset {
   text-align: justify;
   hyphens: auto;
 }
+
+span.section-number-2,
+span.section-number-3,
+span.section-number-4,
+span.section-number-5,
+span.section-number-6 {
+  color: var(--color-dim);
+}
+
 
 #content ul {
   list-style-type: '\2013\00A0\00A0';
@@ -448,8 +504,7 @@ h1.title {
 
 .info,
 .subtitle {
-  font-family: 'Iosevka Aile Web', sans-serif;
-  font-size: 0.75em;
+  font: var(--font-caption);
   letter-spacing: 0.01em;
   margin-bottom: 0;
   margin-top: 0;
@@ -458,10 +513,6 @@ h1.title {
 
 .info {
   font-weight: 300;
-}
-
-.subtitle {
-  font-weight: 400;
 }
 
 /* Sub-navigation for parts of a content series */
@@ -482,8 +533,7 @@ h1.title {
 }
 
 #content nav.pager > ul li {
-  font-family: 'Iosevka Aile Web', sans-serif;
-  font-size: 0.75em;
+  font: var(--font-caption);
   letter-spacing: 0.01em;
   line-height: 2em;
 }
@@ -497,8 +547,7 @@ h1.title {
 }
 
 #table-of-contents h2 {
-  font-family: 'Iosevka Web', sans-serif;
-  font-size: 0.75em;
+  font: var(--font-caption);
   line-height: 2em;
   margin-bottom: 0;
   margin-top: 0;
@@ -509,29 +558,35 @@ h1.title {
 /* Messages */
 
 .message {
-  border-left: 2px solid #9e240a;}
+  font-style: italic;
+}
 
-/* Tree view for arbitrary lists and TOC
+/* tree view for arbitrary lists and TOC
 stolen from <https://gist.github.com/dylancwood/7368914> */
 
 .tree {
-  font-family: 'Iosevka Web', monospace;
+  font: var(--font-data);
 }
 
 #text-table-of-contents {
-  font-family: 'Iosevka Aile Web', sans-serif;
+  font: var(--font-caption);
+}
+
+#text-table-of-contents p {
+  margin: 0;
+  padding: 0;
 }
 
 /* Tree- and TOC commonalities */
 
 .tree,
 #text-table-of-contents {
-  font-size: 0.75em;
   line-height: 2em;
 }
 
-.tree li,
-#text-table-of-contents li {
+.tree ul li,
+.tree ol li,
+#text-table-of-contents ul li {
   list-style-type: none;
   text-decoration-line: underline;
   text-decoration-style: dotted;
@@ -552,8 +607,11 @@ stolen from <https://gist.github.com/dylancwood/7368914> */
 
 .tree p,
 .tree ul,
+.tree ol,
 .tree ul ul,
-#text-table-of-contents p,
+.tree ol ol,
+.tree ul ol,
+.tree ol ul,
 #text-table-of-contents ul,
 #text-table-of-contents ul ul {
   margin: 0;
@@ -561,11 +619,15 @@ stolen from <https://gist.github.com/dylancwood/7368914> */
 }
 
 .tree ul ul,
+.tree ol ol,
+.tree ul ol,
+.tree ol ul,
 #text-table-of-contents ul ul {
   margin-left: 0em;
 }
 
 .tree ul li,
+.tree ol li,
 #text-table-of-contents ul li {
   position: relative;    
   margin-left: 0;
@@ -576,11 +638,13 @@ stolen from <https://gist.github.com/dylancwood/7368914> */
 }
 
 .tree ul li:last-child,
+.tree ol li:last-child,
 #text-table-of-contents ul li:last-child {
   border-left: none;
 }
 
 .tree ul li:before,
+.tree ol li:before,
 #text-table-of-contents ul li:before {
   position: absolute;
   top: 0;
@@ -594,6 +658,7 @@ stolen from <https://gist.github.com/dylancwood/7368914> */
 }
 
 .tree ul li:last-child:before,
+.tree ol li:last-child:before,
 #text-table-of-contents ul li:last-child:before {
   border-left: 1px dotted;
 }
@@ -601,7 +666,7 @@ stolen from <https://gist.github.com/dylancwood/7368914> */
 /* Boxed content */
 
 .box {
-  border: 1px dashed #0006;
+  border: 1px dotted var(--color-text);
   display: block;
   margin-bottom: 1em;
   padding-top: 1em;
@@ -631,21 +696,6 @@ stolen from <https://gist.github.com/dylancwood/7368914> */
   margin-top: 0
 }
 
-/* Nav-widget lists, used on the homepage */
-
-nav.index ul > li {
-  font-weight: bolder;
-  list-style-type: none;
-}
-
-nav.index li li {
-  font-weight: normal;
-}
-
-nav.index li ul li {
-  list-style-type: '\2013\00A0\00A0';
-}
-
 /* Center alignment */
 
 .center,
@@ -658,33 +708,22 @@ blockquote.center {
   border: 0;
 }
 
-/* Source code blocks */
-
-pre.src::before {
-  background-color: #0001;
-  border-radius: 1em;
-  border: 0 none;
-  color: #000c;
-  font-family: 'Iosevka Aile Web', sans-serif;
-  font-size: 0.75em;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 0 0.75em;
-  right: 0;
-}
-
 /* Selected text */
 
 ::selection {
-  background:#d3f7e0;
-  color: #0e7b80;
+  background: var(--color-select);
+  color: var(--color-focus);
 }
 
-/* List formating helpers */
+/* List items with checkboxes */
 
 li.on,
 li.off {
   list-style-type: none;
+}
+
+li.off {
+  color: var(--color-dim)
 }
 
 li.on code,

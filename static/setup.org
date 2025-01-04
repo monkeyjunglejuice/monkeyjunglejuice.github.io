@@ -1,2 +1,2 @@
 #+MACRO: T (eval (format-time-string "%Y-%m-%dT%T%z"))
-#+EXCLUDE_TAGS: noexport draft meta
+#+EXCLUDE_TAGS: noexport draft
