@@ -22,6 +22,8 @@ The webserver is an Elixir application and requires a working Erlang/Elixir
 installation."
   (interactive)
   (message "TODO: Not implemented yet!"))
+(defvar mjj-root (expand-file-name "~/Documents/monkeyjunglejuice/")
+  "The directory that contains the blog machinery.")
 
 (defun mjj-webserver-start ()
   "Launch the webserver at <http://localhost:50081/index.html>.
