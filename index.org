@@ -14,12 +14,12 @@
 
 Building an artificial universe from scratch
 #+begin_nav
-- [[file:blog/artificial-universe-introduction.project.org][Introduction]]
-- [[file:blog/artificial-universe-metaphysics.project.org][Metaphysical Framework]]
-- [[file:blog/artificial-universe-engineering.project.org][Technical Considerations]]
-- [[file:blog/artificial-universe-resources.project.org][Resources]]
-- [[file:blog/artificial-universe-model.project.org][Computational Model]]
-- [[file:blog/artificial-universe-ethics.project.org][Ethical Guidelines]]
+- [[file:blog/introduction.protoverse.project.org][Introduction]]
+- [[file:blog/metaphysics.protoverse.project.org][Metaphysics]]
+- [[file:blog/engineering.protoverse.project.org][Technical Considerations]]
+- [[file:blog/resources.protoverse.project.org][Resources]]
+- [[file:blog/model.protoverse.project.org][Computational Model]]
+- [[file:blog/ethics.protoverse.project.org][Ethical Guidelines]]
 #+end_nav
 
 -----
