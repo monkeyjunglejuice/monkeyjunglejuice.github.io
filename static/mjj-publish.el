@@ -42,11 +42,11 @@ installation."
   :defer t
   :config
   ;; Additional structure templates for Org blocks
-  (add-to-list 'org-structure-template-alist '("n" . "nav"))
-  (add-to-list 'org-structure-template-alist '("m" . "message"))
-  (add-to-list 'org-structure-template-alist '("i" . "index"))
-  (add-to-list 'org-structure-template-alist '("t" . "tree"))
-  (add-to-list 'org-structure-template-alist '("b" . "box")))
+  (cl-pushnew '("n" . "nav") org-structure-template-alist)
+  (cl-pushnew '("m" . "message") org-structure-template-alist)
+  (cl-pushnew '("i" . "index") org-structure-template-alist)
+  (cl-pushnew '("t" . "tree") org-structure-template-alist)
+  (cl-pushnew '("b" . "box") org-structure-template-alist))
 
 ;; <https://orgmode.org/manual/Publishing.html>
 (use-package ox-publish)
@@ -67,8 +67,8 @@ installation."
 (use-package recentf
   :defer t
   :config
-  (add-to-list 'recentf-exclude
-               (expand-file-name "~/Documents/monkeyjunglejuice/.*\\.html$")))
+  (cl-pushnew (expand-file-name "../.*\\.html$")
+              recentf-exclude))
 
 ;; Don't show day and hour
 ;; (setq org-html-metadata-timestamp-format "%Y-%m-%d")
@@ -157,63 +157,82 @@ installation."
 ;; Reference of all properties: "C-h v org-publish-project-alist"
 
 ;; Group projects into a superordinate project
-(add-to-list 'org-publish-project-alist
-             `("mjj"
-               :components ("mjj-page" "mjj-blog")))
+(cl-pushnew `("mjj"
+              :components ("mjj-page" "mjj-blog"))
+            org-publish-project-alist)
 
 ;;; PAGES project
-(add-to-list 'org-publish-project-alist
-             `("mjj-page"
-               :base-directory "~/Documents/monkeyjunglejuice/"
-               :base-extension "org"
-               :exclude ".draft.org"
-               :publishing-directory "~/Documents/monkeyjunglejuice/"
-               :publishing-function org-html-publish-to-html
-               :org-export-use-babel nil
-               :headline-levels 6
-               :section-numbers nil
-               :auto-sitemap nil
-               :preserve-breaks t
-               :with-title t
-               :with-toc nil
-               :with-smart-quotes t
-               :with-drawers nil
-               :html-doctype "html5"
-               :html-html5-fancy t
-               :html-toplevel-hlevel 2
-               :html-metadata-timestamp-format "%Y-%m-%d"
-               :html-head ,mjj-page-html-head
-               :html-head-include-scripts nil
-               :html-head-include-default-style nil
-               :html-preamble ,mjj-page-preamble
-               :html-postamble ,mjj-page-postamble))
+(cl-pushnew `("mjj-page"
+              :base-directory ,mjj-root
+              :base-extension "org"
+              :exclude "draft"
+              :publishing-directory ,mjj-root
+              :publishing-function org-html-publish-to-html
+              :headline-levels 6
+              :section-numbers nil
+              :auto-sitemap nil
+              :preserve-breaks t
+              :with-title t
+              :with-toc nil
+              :with-smart-quotes t
+              :with-drawers nil
+              :html-doctype "html5"
+              :html-html5-fancy t
+              :html-toplevel-hlevel 2
+              :html-metadata-timestamp-format "%Y-%m-%d"
+              :html-head ,mjj-page-html-head
+              :html-head-include-scripts nil
+              :html-head-include-default-style nil
+              :html-preamble ,mjj-page-preamble
+              :html-postamble ,mjj-page-postamble
+              )
+            org-publish-project-alist)
 
 ;;; BLOG ARTICLES project
-(add-to-list 'org-publish-project-alist
-             `("mjj-blog"
-               :base-directory "~/Documents/monkeyjunglejuice/blog/"
-               :base-extension "essay.org\\|howto.org\\|tutorial.org\\|walktrough.org\\|project.org"
-               :exclude ".draft.org"
-               :publishing-directory "~/Documents/monkeyjunglejuice/blog/"
-               :publishing-function org-html-publish-to-html
-               :org-export-use-babel nil
-               :headline-levels 6
-               :section-numbers nil
-               :auto-sitemap nil
-               :preserve-breaks t
-               :with-title t
-               :with-toc nil
-               :with-smart-quotes t
-               :with-drawers nil
-               :html-doctype "html5"
-               :html-html5-fancy t
-               :html-toplevel-hlevel 2
-               :html-metadata-timestamp-format "%Y-%m-%d"
-               :html-head ,mjj-blog-html-head
-               :html-head-include-scripts nil
-               :html-head-include-default-style nil
-               :html-preamble ,mjj-blog-preamble
-               :html-postamble ,mjj-blog-postamble))
+(cl-pushnew `("mjj-blog"
+              :base-directory ,(concat mjj-root "blog/")
+              :base-extension "essay.org\\|howto.org\\|tutorial.org\\|walktrough.org\\|project.org"
+              :exclude "draft"
+              :publishing-directory ,(concat mjj-root "blog/")
+              :publishing-function org-html-publish-to-html
+              :headline-levels 6
+              :section-numbers nil
+              :auto-sitemap nil
+              :preserve-breaks t
+              :with-title t
+              :with-toc nil
+              :with-smart-quotes t
+              :with-drawers nil
+              :html-doctype "html5"
+              :html-html5-fancy t
+              :html-toplevel-hlevel 2
+              :html-metadata-timestamp-format "%Y-%m-%d"
+              :html-head ,mjj-blog-html-head
+              :html-head-include-scripts nil
+              :html-head-include-default-style nil
+              :html-preamble ,mjj-blog-preamble
+              :html-postamble ,mjj-blog-postamble
+              )
+            org-publish-project-alist)
+
+;;; Export the Protoverse whitepaper from blog to the project directory
+(cl-pushnew `("protoverse"
+              :base-directory ,(concat mjj-root "blog/")
+              :base-extension "protoverse.project.org"
+              :exclude "draft"
+              :publishing-directory ,(expand-file-name "~/code/protoverse/whitepaper/")
+              :publishing-function org-org-publish-to-org
+              :headline-levels 6
+              :section-numbers t
+              :auto-sitemap nil
+              :preserve-breaks t
+              :with-title t
+              :with-toc t
+              :with-smart-quotes t
+              :with-drawers nil
+              :with-email t
+              )
+            org-publish-project-alist)
 
 ;;  ____________________________________________________________________________
 (provide 'mjj-publish)
