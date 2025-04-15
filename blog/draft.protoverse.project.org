@@ -1,0 +1,153 @@
+
+:draft:
+Human-Engineered Systems: Encapsulation and Predictability
+In engineering, encapsulation is used to control complexity and foster predictability. This design principle is about creating boundaries around systems (or subsystems) so that each unit can operate as independently as possible. Typically, interaction between subsystems is carefully managed through well-defined interfaces. This allows engineers to update or replace one component without risking unexpected consequences in other parts of the system. The abstraction and hiding of internal operations help prevent "spaghetti code" and make complex systems easier to maintain and scale.
+
+Natural Systems: Interconnection and Adaptation
+Natural systems, however, inherently lack of cleanly defined boundaries. They exhibit rich interconnections with high degrees of interdependence and adaptability. Instead of rigid encapsulation, they demonstrate networks of interactions where elements can be influenced by and adapt to a multitude of internal and external factors.
+
+There are no strict interfaces preventing unintended interactions, and events can cascade through multiple levels of the system. Evolution itself thrives on this interconnectedness, as it enables the flow of genetic information and selective pressures across the biosphere.
+
+Open-Ended Evolution in the Protoverse
+In your Protoverse model, considering the lack of sharp encapsulation found in natural systems could indeed be vital for fostering open-ended evolution, encouraging robustness through diversity and the ability to adapt to a wide range of conditions—mirroring the characteristics of biological systems.
+
+Rich Interactions: Allow for significant interactions between Processes, without assuming strictly defined interfaces, to promote a diversity of experiences and evolutionary possibilities.
+
+Nested Hierarchies: Just as biological organisms are part of ecosystems, which, in turn, are part of the biosphere, consider allowing Processes to form nested hierarchies, facilitating emergent complexity at various levels.
+
+Redundancy and Resilience: Unlike engineered systems where redundancy is often minimized for efficiency, natural systems use redundancy to create resilience. Your Protoverse might benefit from implementing redundant pathways for information processing and adaptation.
+
+Adaptation and Feedback: Enable Processes to adapt based on feedback from their environment, much as natural organisms do via the process of natural selection.
+
+Non-Determinism: Engineering values predictable outcomes, while evolutionary processes thrive on a certain level of randomness and non-determinism, which provides the variability upon which natural selection can act.
+:end:
+
+
+** Time, Space and the "Laws of Physics"
+
+Given that I adopt a bottom-up approach when designing the Protoverse, the fundamental premise is that all phenomena are emergent by nature. Only when this assumption ceases to provide meaningful insights, I do consider classifying the phenomenon in question as fundamental.
+
+Hence, instead of assuming that time, space and the laws of physics are fundamental, I propose that these are merely emergent phenomena and suggest a "Nested Scales of Emergence" model, where complex systems emerge within other complex systems, following their predominantly own, higher-order dynamics — akin to our universe's apparent Nested Scales of Emergence: from a quantum Scale, macro-relativistic, chemical-biological, societal, technological, information-computational, and beyond.
+
+I prefer the term 'Scales' instead of 'layers' in order to avoid the impression that these are tree-like hierarchical. Emergent phenomena at attributed to each Scale can influence the behavior and evolution of other Scales and ultimately the entirety of the system.
+
+
+*** The Geometry of The Universe
+
+Speculations about the grand "shape" are usually made in terms of /space/, because 'space' is the most intuitively experienceable abstraction (in combination with "object"), which we commonly associate with 'shape'. It would be a bit weird to think about "the universe" predominantly in terms of "space", for presumably the sole reason that the spatial relation is for us the most prominent by far, and the one that whe are able to discriminate best.
+
+If we would live in a "Colorverse", that would like describing the Colorverse primarily in /hues of green/, because we distinguish best between different greens, and therefore green would take up the largest part of awareness in the Colorverse.
+
+Time feels much more mysterious than space, and through Einstein's contribution we arrived at a relativistic understanding of spacetime.
+
+In our Colorverse, hues of "green" have been mingled together with a brightness dimension, leading to shades of green. There's much more freedom in the color universe: you can choose in which direction things will go! Towards the eternal light, or towards eternal darkness? Pick one! Choose wisely.
+
+What about the other colors in the Colorverse? Well, they seem to be there, but no one thinks about them really. Some Colorverse physicists propose that the reds have collapsed into infinitesimal small dimensions.
+
+While it might be tempting to imagine this "structure", it would depend on relative /Properties/ (realized relational states) that interacting Processes may lay upon it (as discussed earlier), so there wouldn't be an absolute or defintive structure that involves all the nested scales, network dynamics, and fractal nature. But one thing is certain: It is very likely bigger from the inside than from the outside.
+
+*** Causation and Time
+
+Right now I can't find no compelling reason to introduce time as a fundamental. We could simply say that "time" emerges merely via cause and effect (at least according to my current understanding), which could be interpreted as sequences of 'befores' and 'afters' (but don't have to).
+
+Thus, causation can be argued as prior to "time" (the other way around seems less sensible to me). Like I hinted before, we could unify time into – no, not into "spacetime" — but into Process. I do not presume time to be an intrinsic component or a universal feature underpinning Process, hence Process is not an abstraction over time.
+
+While building a self-evolving synthetic universe, one thing that may come to mind is the problem of the "initial rules" (the governing laws -- can be thought as the functions) and the "initial conditions" (the specific state at the beginning -- like inputs to the functions).
+
+Could we transcend the dichotomy of 'inital rules' and 'initial conditions'? So that there will be neither, but something else in their place?
+
+
+
+A synthetic universe which is not entirely subject to its initial rules/conditions, but is somehow very much able to diverge from its fundamentals (at least in its various scales), seems like a basic requirement to make it viable. There are some considerations:
+
+The system could spawn (fractal-like) scales.
+
+It could happen that it spawns scales that are not viable -- e.g. that converge to boring states or which are too chaotic. These non-viable scales then either continue to exist in this state, collapse, or otherwise chease to exist for some reason, e.g. through a form of "entropy". Even though it may be shockingly close to a many-worlds conception, it doesn't mean that these "worlds" have to be isolated from each other.
+
+We'd like to avoid predefining fundamentals as much as possible, teleological
+
+
+
+The idea of recursion could be enough to 'change' initial conditions, in an /immutable/ way, which fits quite elegantly into this computable universe. The Protoverse' logic could learn to identify 'favorable' states and ways to reach them more efficiently or effectively. It could spawn new dynamics previously impossible under its original rule set. Ultimately, it could build an iterative learning and self-improvement mechanism into the fabric of our universe model by utilizing recursion in a way that's consistent, self-contained, and aligned with our objectives for exploration of emergent phenomena.
+
+We could introduce the idea that causes and effects are not determined by definitive states, but /probabilities/ all the way down. Then, an effect could "exists in the future" as a probability, until they are evaluated/reduced by the 'present' and therefore determined from there on, as they vanish deeper into the past forever and ever and ever. Does that make any sense? Yes? No? /Probably?/
+
+Circular causation is the rule rather than an exception. Causation is prior to time, retro-causality is uneccessary.
+
+*** Space
+
+It happened that I couldn't find any compelling reason to introduce any notion of "space" into the Protoverse model itself. Why?
+
+Well, until I relized that my intention to implement the Protoverse as a computational universe, I disciplined myself to ignore the host system (distributed computers) entirely, in order to avoid getting caught up in implementation details too early. Turns out, I couldn't find the reason to introduce space, because space was already there — but in the computers: the data structures and ultimately, memory.
+
+This sounds kinda silly (because it is). And wouldn't it be too simplistic to think that space, in our universe, is just a data structure, or memory model? I mean the analogy seem way too naive and biased: 'entropy' corresponds to empty/unwritten, 'order' means the state of written information, 2nd law of thermodynamics implements forgetting/pruning — or could it be that space is more than just a data structure? Maybe the /complete substrate/ for computation?
+
+Let's assume that the naive analogy holds — how could I make sure that this idea of space will emerge from the Protoverse itself, becoming an emergent phenomenon, not a lame pre-defined "fundamental"? How can the processes, in themselves, give rise to the structure in which they operate?
+
+Like in cellular automata, we find that the substrate (grid) isn't a pre-defined "stage" or "space" for the automaton, but part of its very definition: Each cell's state at a given timestep is determined by the states of its neighbouring cells at the previous timestep, making the structure of the grid inherently linked to the operation of the automaton. (If you play around with a cellular automata in an app, the grid only seems to be a pre-defined stage, because it is usually limited to 100 * 100 cells or so, so that it fits the app window.)
+
+It might be possible to allow the Protoverse to define its own "topology" of interactions, like in cellular automata where the rules of interaction define the grid, the Protoverse could involve processes that define which other processes they can interact with, and how. This would create an "interaction space". And via iteration, a larger scale structure would emerge, which could be perceived as "space".
+
+So in case I would not want to rely purely on the host and make it's memory available for processes to perceive and make sense of (which is the smarter idea), I will have to focus on defining rules for interactions that can create structure, and allow "space" to emerge from those dynamics.
+
+
+
+*** Bootstrapping
+
+/[INCOMPLETE]/
+
+Self-organization; emergence of high-level coherent behavior from low-level interactions
+
+:wikipedia:
+Self-organization relies on four basic ingredients:
+
+1. strong dynamical non-linearity, often (though not necessarily) involving positive and negative feedback
+2. balance of exploitation and exploration
+3. multiple interactions among components
+4. availability of energy (to overcome the natural tendency toward entropy, or loss of free energy)
+
+any deterministic dynamic system automatically evolves towards a state of equilibrium that can be described in terms of an attractor in a basin of surrounding states. Once there, the further evolution of the system is constrained to remain in the attractor. This constraint implies a form of mutual dependency or coordination between its constituent components or subsystems. In Ashby's terms, each subsystem has adapted to the environment formed by all other subsystems.
+
+self-organization is facilitated by random perturbations ("noise") that let the system explore a variety of states in its state space. This increases the chance that the system will arrive into the basin of a "strong" or "deep" attractor, from which it then quickly enters the attractor itself.
+
+the second law of thermodynamics in the 19th century. It states that total entropy, sometimes understood as disorder, will always increase over time in an isolated system. This means that a system cannot spontaneously increase its order without an external relationship that decreases order elsewhere in the system
+
+Around 2008–2009, a concept of guided self-organization started to take shape. This approach aims to regulate self-organization for specific purposes, so that a dynamical system may reach specific attractors or outcomes. The regulation constrains a self-organizing process within a complex system by restricting local interactions between the system components, rather than following an explicit control mechanism or a global design blueprint. The desired outcomes, such as increases in the resultant internal structure and/or functionality, are achieved by combining task-independent global objectives with task-dependent constraints on local interactions.
+:end:
+
+
+---
+
+
+Its primary objective is to offer insights into emergent phenomena and faciliate open-ended, darwin-style evolution.
+
+
+* Core Ideas and Related Projects
+
+While my current views on "reality, the universe and everything" feel very personal, research quickly showed that the most ideas are neither new, nor unique:
+
+** Process Philosophy
+
+Just recently, I discovered the [[https://en.wikipedia.org/wiki/Process_philosophy][process philosophy]] of [[https://en.wikipedia.org/wiki/Alfred_North_Whitehead][Alfred North Whitehead]], and certain connections between my ideas and this philosophical concept.
+
+ Currently I think that the Protoverse will not become a computational universe based on Whithehead's process philosophy. Rather, Whitehead's philosophy offers an enormous web of extensively formulated ideas to reconcile with.
+
+** Stephen Wolfram's "A New Kind Of Science"
+
+The motivation to actually do something was triggered by Stephen Wolfram's work, as articulated in "[[https://www.wolframscience.com/nks/][A New Kind of Science]]" (and later, the [[https://wolframphysics.org/][Wolfram Physics Project]]). Both explore the phenomenon of complexity emerging from the repeated application of simple, fixed rules, with the aim of finding a "fundamental theory of physics".
+
+   The Protoverse project pursues a different approach: The perspective represents a pluralistic approach to understanding a universe, as it acknowledges the potential for different "fundamental laws" and principles emerging and operating at different scales — akin to the quantum-, macro-relativistic-, chemical-biological-, information-computational layers of our universe.
+
+   The Protoverse model emphasizes the adaptability and evolution of "the rules" themselves, similar to biological systems or cultural progressions — where "rules", akin to behaviors or strategies — unfold, propagate, transform, compose and give rise to higher-order layers. The aim is to catalyze open-ended non-biological evolution and bypass the futile challenge of identifying the "fundamental laws governing EvErYtHiNg".
+
+** Pancomputationalism
+
+I'd argue that computation as-we-know-it is a not-so-bad mechanism for modeling complex systems. I acknowledge notions of computation happening on multiple scales in our universe ('[[https://plato.stanford.edu/entries/computation-physicalsystems/][pancomputationalism]]').
+
+   If you are aware of the [[https://www.defmacro.org/2006/06/19/fp.html][functional programming paradigm]], you may notice a correlation to the ideas concerning a universe described in terms of relations and transformation rather than objects having properties. Other analogies can be drawn to higher-order functions, composition, recursion or immutability /(For Immutability-sceptics: Prove that our universe is mutable by mutating your lunch 3 days ago)/.
+
+   I could have almost just as well called the project "Lambdaverse" (according to [[https://www.inf.fu-berlin.de/lehre/WS03/alpi/lambda.pdf][λ-calculus]], a model of computation), although that would be overly simplistic, emphasizing a single aspect and implying preconceptions that could be outdated quickly. So I didn't.
+
+** Other Philosophical Ideas
+
+I don't really subscribe to philosophical doctrines, even more so as they often rely whimsically on human-centric concepts ("mind", "consciousness", etc.). That's why I tended to keep philosophy at arm's bay, until recently. From a philosophical perspective, there are some views known from conceptualism, like the views on "abstract" objects and numbers; when addressing the nature of reality itself, it leans more toward constructivism and postmodernism. There are is  more about the ontology in the [[file:artificial-universe-metaphysics.project.org][metaphysical framework]].
