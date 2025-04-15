@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-04-14 -->
+<!-- 2025-04-15 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Technical Considerations</title>
@@ -32,7 +32,7 @@
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="orgc99dad9">
+</header><nav class="pager" id="org1296cbc">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -46,7 +46,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="orgeba0c77">
+<div class="message" id="org30f8ced">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -679,13 +679,13 @@ Sentiment: Due to the Fibers library and its scheduler, Guile is quite interesti
 <li>Multiprocessor-parallelism (SMP) <a href="https://github.com/mighty-gerbils/gerbil/issues/837">not working yet</a>, depends on Gambit Scheme implementation;<br></li>
 <li>Built-in concurrency (actor model) based on light-weight Gambit threads;<br></li>
 <li>Ad-hoc distributed computing with <a href="https://cons.io/tutorials/ensemble.html">actor ensembles</a>;<br></li>
-<li>Compiles to C, overall performance on CPU-heavy tasks better than Guile&rsquo;s;<br></li>
+<li>Compiles to C, overall performance on CPU-heavy tasks probably better than Guile&rsquo;s;<br></li>
 <li>Small documentation, but gives a well-rounded overview;<br></li>
 <li>Collab opportunities: Scheme enthusiasts, academic;<br></li>
 </ul>
 
 <p>
-Sentiment: Gerbil Scheme is a promising project but in a very early stage (v18.0), and doesn&rsquo;t support multiple cores. The Emacs integration isn&rsquo;t comparable to Guile&rsquo;s, e.g. documentation or code autocompletion.<br>
+Sentiment: Gerbil Scheme is a promising project but in a very early stage (v18.0), and doesn&rsquo;t support multiple CPU cores. The Emacs integration isn&rsquo;t comparable to Guile&rsquo;s, e.g. documentation or code autocompletion.<br>
 </p>
 </div>
 </div>
@@ -700,7 +700,7 @@ Sentiment: Gerbil Scheme is a promising project but in a very early stage (v18.0
 <li>Metaprogramming is available and used extensively, looks less awkward than Elixir&rsquo;s approach;<br></li>
 <li>A running program can be debugged and modified, new functions can be defined and added (with caveats; not extensively as in Common Lisp);<br></li>
 <li>Dynamic typing, but allows type annotations (mostly for performance reasons); <a href="https://thautwarm.github.io/MLStyle.jl/latest/preview.html#generalized-algebraic-data-types">Algebraic Data Types via MLStyle.jl</a><br></li>
-<li>Parallel and distributed computing out-of-the-box (cluster-oriented);<br></li>
+<li>Parallel and distributed computing out-of-the-box (cluster-oriented), but it seems not very high-level;<br></li>
 <li>Shiny convenience libraries for all kinds of scientific stuff, visualization and plotting;<br></li>
 <li>Direct calling of C functions and access to Python libraries;<br></li>
 <li>Has native access to GPU computing (CUDA only);<br></li>
@@ -709,7 +709,7 @@ Sentiment: Gerbil Scheme is a promising project but in a very early stage (v18.0
 </ul>
 
 <p>
-Sentiment: Julia would be an interesting choice and checks many boxes, also because of its library ecosystem centered around scientific computing – if it wasn&rsquo;t totally ignorant about recursion.<br>
+Sentiment: Julia is an interesting choice and checks many boxes, also because of its library ecosystem and its focus on scientific computing – but Julia is totally ignorant about recursion.<br>
 </p>
 </div>
 </div>
@@ -727,12 +727,12 @@ Sentiment: Julia would be an interesting choice and checks many boxes, also beca
 <li><a href="http://ocamlverse.net/content/parallelism.html#domain-thread-based-parallelism">Parallelism since 5.0</a> using domainslib;<br></li>
 <li>No ad-hoc distributed computing;<br></li>
 <li>Overall performant, super fast compiler;<br></li>
-<li>Messy workflow (dune), there&rsquo;s always something that stops working;<br></li>
+<li>Messy tooling and workflow &#x2013; there&rsquo;s always a new surprise tbat something stopped working;<br></li>
 <li>Colaboration opportunities: engaged community, language ecosystem under active development, FP-pragmatics;<br></li>
 </ul>
 
 <p>
-Sentiment: It&rsquo;s my favorite language actually, but my experience with the messy tooling and the fact there&rsquo;s no real interactivity seems to be the dealbreaker. Static typing is wonderful when you work a lot with 3rd-party libraries, you just look at the tyupes and plug it together. But probably not the right tool for this job.<br>
+Sentiment: It&rsquo;s my favorite language actually, but the tooling (Opam, Dune build system, Ocaml REPL and Utop REPL) is such a horrible mess. Well and there&rsquo;s no real interactivity anyway.<br>
 </p>
 </div>
 </div>
