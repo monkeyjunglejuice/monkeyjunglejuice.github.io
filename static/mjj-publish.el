@@ -9,22 +9,6 @@
 ;;  ____________________________________________________________________________
 ;;; DEVELOPMENT WEBSERVER
 
-(defun mjj-launch-shell (command name)
-  "Launch programs via shell COMMAND. The NAME can be an arbitrary string.
-The sub-process can be managed via `list-processes'"
-  (start-process-shell-command
-   name
-   (concat "*Process " name "*")     ; with named buffer or `nil' without buffer
-   command)
-  (message (concat "Launching shell command " name "...done")))
-
-;; TODO: Put the webserver project and binary into the blog directory
-(defun mjj-webserver-build ()
-  "(Re)build the webserver binary.
-The webserver is an Elixir application and requires a working Erlang/Elixir
-installation."
-  (interactive)
-  (message "TODO: Not implemented yet!"))
 (defvar mjj-root (expand-file-name "~/Documents/monkeyjunglejuice/")
   "The directory that contains the blog machinery.")
 
