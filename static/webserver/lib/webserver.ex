@@ -4,8 +4,5 @@ defmodule Webserver do
   """
   use Plug.Builder
 
-  plug(Plug.Static,
-    at: "/",
-    from: Path.expand("../../../")
-  )
+  plug(Plug.Static, at: "/", from: Path.expand("../../"))
 end

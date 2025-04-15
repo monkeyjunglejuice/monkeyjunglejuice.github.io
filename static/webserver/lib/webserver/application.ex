@@ -10,7 +10,10 @@ defmodule Webserver.Application do
     children = [
       # Starts a worker by calling: Webserver.Worker.start_link(arg)
       # {Webserver.Worker, arg}
-      {Bandit, [plug: Webserver, port: 50081]}
+      {Plug.Cowboy,
+       scheme: :http,
+       plug: Webserver,
+       options: [ip: {127, 0, 0, 1}, port: 50081]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
