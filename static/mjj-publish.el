@@ -1,10 +1,13 @@
 ;;; mjj-publish.el --- MJJ publishing machinery  -*- lexical-binding: t; -*-
+;;
 ;;; Commentary:
 ;; The static website generator for MonkeyJungleJuice
+;; This Package is natively compiled, run `doom sync --gc --aot' after changes
+;;
 ;;; Code:
 
 ;;  ____________________________________________________________________________
-;;; DEV WEBSERVER
+;;; DEVELOPMENT WEBSERVER
 
 (defun mjj-launch-shell (command name)
   "Launch programs via shell COMMAND. The NAME can be an arbitrary string.
