@@ -6,6 +6,7 @@
 #+KEYWORDS: howto, emacs server, server name, frame title, emacs, elisp
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/emacs-server-name-frame-title.howto.html">
 #+SETUPFILE: ../static/setup.org
+#+PROPERTY: header-args+ :eval no-export
 #+OPTIONS:
 
 #+TOC: nil

@@ -1,22 +1,23 @@
 #+TITLE: Creating an Artificial Open-ended Universe Bottom-up
-#+DATE: <2023-08-22 Tue>
 #+SUBTITLE: Protoverse: Introduction
+#+DATE: <2023-08-22 Tue>
 #+LANGUAGE: en
 #+DESCRIPTION: Creating an artificial, open-ended universe from scratch.
 #+KEYWORDS: computable universe, computational philosophy, digital physics, alife, abstract universe, non-biological evolution, artificial life, dynamic systems, metaphysics
-#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/artificial-universe-introduction.project.html">
+#+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/introduction.protoverse.project.html">
 #+SETUPFILE: ../static/setup.org
+#+PROPERTY: header-args+ :eval no-export
 #+OPTIONS:
 
 #+ATTR_HTML: :class pager
 #+begin_nav
 This is part of the Protoverse project:
-- *[[file:artificial-universe-introduction.project.org][Introduction]]*
-- [[file:artificial-universe-metaphysics.project.org][Metaphysical Framework]]
-- [[file:artificial-universe-engineering.project.org][Technical Considerations]]
-- [[file:artificial-universe-resources.project.org][Resources]]
-- [[file:artificial-universe-model.project.org][Computational Model]]
-- [[file:artificial-universe-ethics.project.org][Ethical Guidelines]]
+- *[[file:introduction.protoverse.project.org][Introduction]]*
+- [[file:metaphysics.protoverse.project.org][Metaphysics]]
+- [[file:engineering.protoverse.project.org][Technical Considerations]]
+- [[file:resources.protoverse.project.org][Resources]]
+- [[file:model.protoverse.project.org][Computational Model]]
+- [[file:ethics.protoverse.project.org][Ethical Guidelines]]
 #+end_nav
 
 #+TOC: nil
@@ -43,7 +44,7 @@ The Protoverse is supposed to be purely abstract, which doesn't mean that it's c
 - There's no traditional separation of agent/environment, and no pre-conception of time, space or gravity. Processes co-evolve into higher-order Processes by continuously becoming their own nested computing substrates. /Keywords: Backdrop Independence, Computational Universe, Complex systems/
 #+end_index
 
-Please check out the [[file:artificial-universe-metaphysics.project.org][metaphysics]] for the intergration of these ideas.
+Please check out the [[file:metaphysics.protoverse.project.org][metaphysics]] for the intergration of these ideas.
 
 * FAQ
 
@@ -108,4 +109,4 @@ The Protoverse project will at any time receive the attention it deserves and th
 
 ** Don't you have ehical concerns?
 
-At this point, no -- that would be overreaching. But eventually, yes. That's why there are [[file:artificial-universe-ethics.project.org][Ethical Guidelines]] in the making.
+At this point, not really -- that would be overreaching. But eventually, yes. That's why there are [[file:ethics.protoverse.project.org][Ethical Guidelines]] in the making.

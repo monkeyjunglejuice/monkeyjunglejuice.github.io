@@ -6,6 +6,7 @@
 #+KEYWORDS: ocaml, dark mode, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html">
 #+SETUPFILE: ../static/setup.org
+#+PROPERTY: header-args+ :eval no-export
 #+OPTIONS:
 
 #+ATTR_HTML: :class pager

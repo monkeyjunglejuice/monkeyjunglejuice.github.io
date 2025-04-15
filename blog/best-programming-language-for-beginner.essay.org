@@ -6,6 +6,7 @@
 #+KEYWORDS: learn programming, learn to code, programming languages, best programming language
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/best-programming-language-for-beginner.essay.html">
 #+SETUPFILE: ../static/setup.org
+#+PROPERTY: header-args+ :eval no-export
 #+OPTIONS:
 
 #+TOC: headlines 2

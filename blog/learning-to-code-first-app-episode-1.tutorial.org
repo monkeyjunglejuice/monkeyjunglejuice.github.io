@@ -6,6 +6,7 @@
 #+KEYWORDS: common lisp, tutorial, first app, learn lisp, csv, cl-csv, lisp scripting
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learning-to-code-first-app-episode-1.tutorial.html">
 #+SETUPFILE: ../static/setup.org
+#+PROPERTY: header-args+ :eval no-export
 #+OPTIONS:
 
 #+ATTR_HTML: :class pager

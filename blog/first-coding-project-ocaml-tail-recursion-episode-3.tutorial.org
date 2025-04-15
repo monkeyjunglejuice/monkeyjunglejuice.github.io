@@ -6,6 +6,7 @@
 #+KEYWORDS: tail recursion, tail call, recursive, ocaml, tutorial, project idea, learn ocaml, csv, pattern matching
 #+HTML_HEAD_EXTRA: <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">
 #+SETUPFILE: ../static/setup.org
+#+PROPERTY: header-args+ :eval no-export
 #+OPTIONS:
 
 #+ATTR_HTML: :class pager
