@@ -24,16 +24,25 @@ installation."
   (message "TODO: Not implemented yet!"))
 
 (defun mjj-webserver-start ()
+  "Launch the webserver at <http://localhost:50081/index.html>.
+The port is still hardcoded in the Elixir app and may have changed."
   (interactive)
-  (mjj-launch-shell
-   "~/Code/webserver_ex/_build/dev/rel/webserver/bin/webserver start"
-   "MJJ Webserver"))
+  (start-process-shell-command
+   "MJJ Webserver"
+   "*Process MJJ Webserver*"  ; with named buffer or `nil' without buffer
+   (concat mjj-root
+           "static/webserver/_build/prod/rel/webserver/bin/webserver start"))
+  (message (concat "MJJ: Launching webserver...done" "")))
 
 (defun mjj-webserver-stop ()
+  "Stop the webserver at <http://localhost:50081/index.html>."
   (interactive)
-  (mjj-launch-shell
-   "~/Code/webserver_ex/_build/dev/rel/webserver/bin/webserver stop"
-   "MJJ Webserver"))
+  (start-process-shell-command
+   "MJJ Webserver"
+   nil
+   (concat mjj-root
+           "static/webserver/_build/prod/rel/webserver/bin/webserver stop"))
+  (message (concat "MJJ: Stopping webserver...done" "")))
 
 ;;  ____________________________________________________________________________
 ;;; ORG EXPORT AND PUBLISHING
