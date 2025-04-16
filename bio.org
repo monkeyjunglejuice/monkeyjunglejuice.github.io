@@ -10,30 +10,23 @@
 
 #+TOC: headlines 0
 
-* Fascination
-
 I've got a love for examining phenomena from uncommon perspectives, cross-linking patterns, and a deep fascination for things 'bottom-up'.
 
-* Profession
+Professionally, I'm best described as a generalist designer and entrepreneur. Before co-founding a footwear brand and re-thinking shoes from the ground up, I specialized in brand design, UX/UI design, followed by conversion rate optimization -- this area intrigued me due to its empirical methods of analyzing human decision-making and the measurable impact of design on persuasion. Before that, I pursued a military career, where I made it to the rank of staff seargent in the military police; I was younger and much more stupid back then, but it also means I learned a lot from that experience).
 
-I'm best described as a generalist designer and entrepreneur. Before co-founding a footwear brand and re-thinking shoes from the ground up, I specialized in brand design, later UX/UI design, followed by conversion rate optimization -- this area intrigued me due to its empirical methods of analyzing human decision-making and measurable impact of design on persuasion.
+Considering myself by what I actually do most of the time, I'm nowadays much more an "amateur" (in the original meaning of the word) rather than a "professional". That's liberating for once; but more importantly, it makes life meaningful.
 
-* Interests
-
-Considering myself by what I actually do most of the time, I'm nowadays much more an amateur (in the original meaning of the word) than a professional. That's liberating for once; but more importantly, it makes life meaningful.
-
-The range of my interests is quite extensive:
-- Metaphysics/Ontology, Epistemology (consuming most of my time right now)
-- Programming languages and paradigms, particularly Lisp
+The range of my interests is a bit all over the place:
+- Metaphysics and Ontology
 - Computation and artificial life (not to confuse with "AI")
+- Programming languages and paradigms, particularly Lisp
 - Emacs (check out my starterkit and Emacs themes on Github)
 - Longboarding and old-school skateboarding
 - Muay Thai training, philosophy and theory
-- Traditional archery (just started)
+- Korean traditional archery
 
-* I care about
-
-- Animal welfare and animal rights
+I care about:
+- Deepest about these who don't have a voice, that means first and foremost animal welfare and animal rights
 - Preserving, restoring and improving the natural environment
 - Migitating anthropocentrism
 - Open source and free software
