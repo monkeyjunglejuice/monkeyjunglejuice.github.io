@@ -406,7 +406,7 @@ Catalytic transitions appear when a new implementation detail emerges that signi
 Catalytic Transitions don't necessarily lead to higher complexity in newly emerging Scales -- often quite the opposite. On the other side, Scales with less complexity will likely inform the creation of further Scales.
 
 **** Examples
-Retrospective: a few examples of remarkable Catalytic Transitions to consider. Catalytic Transitions are characterized by emergent phenomena.
+Retrospective: a few examples of remarkable Catalytic Transitions to consider. Catalytic Transitions are characterized by emergent phenomena that introduce novelty.
 
 - Gravity (perhaps from an evolutionary "selective pressure" (speed limit?) favoring the trait of locality?)
 - Emergence of space
@@ -444,18 +444,18 @@ Most people will have a hard time with this: "The mind" is often falsely granted
 
 The idea that only the "physical realm" must be the "real thing" and somehow the "fundament" of everything is another source of confusion. The "physical" is how Nested Scales of Complexity "below" appear to certain observing complex systems (to us humans, lizard people, etc.), because we have evolved from that. "Physical existence" is observer-dependent appearance (expeiencing) according to the perspective of certain Processes (but remember that being an "observer" is not limited to "minds", but a spectrum that includes all Processes).
 
-**** Concrete/Abstract
+**** Concrete, Abstract and Virtual
 
 Even though there is actually no such inherent dichotomy, we regard stuff as "concrete" and "abstract" for several reasons; one of them is due to we /realize/ that we have no "physical-grade" grasping of complex systems that arise "above" or arising from our immediate Scale -- those Scales that didn't play an immediate role during our evolution. Basically, we're lacking built-in qualia for experiencing successively arising Scales -- that's what we come to consider "abstract".
 
-Even though we actually have natural means of instantation for what we consider abstract (e.g. a character in a video game, and many of us can visualize a triangle before our "inner eye"), we regard these instantiations somehow as "not real" or "not really existing", namely when the instantiation happens from the Scale of our immediate experience onwards -- e.g. our minds. Instead, we insist that only instantiation "below" is "real" (concreta). I guess this also happens because of how we humans communicate, with this crazy low bandwidth bottleneck.
+Even though we actually have natural means of instantation for what we consider virtual (e.g. a character in a video game, and many of us can visualize a triangle before our "inner eye"), we regard these instantiations somehow as "not real" or "not really existing", namely when the instantiation happens from the Scale of our immediate experience onwards -- e.g. our minds. Instead, we insist that only instantiation "below" is "real" (concreta). I guess this also happens because of how we humans communicate, with this crazy low bandwidth bottleneck.
 
 For hypothetical General AI and artificial life, that might turn out very different. Both their (co-evolved) environment plus our native "physical" world might appear naturally graspable ("physical-grade") to them. But they also will evolve, and give rise to further Nested Scales of Complexity. What will set AI or ALife vastly apart, won't be merely about "processing speed", but will be the resulting incommensurable /communication bandwith/, which will enable mobility (immediate transfer, exchange) of qualia, concepts and whole live entities.
 
 *** Questions and Answers
 
 **** Is it sensible to erect a border between 'not-living' and 'living'?
-Well, /it depends/. It depends on what we set out to reason about -- but universal borders, decleard 'valid' across all inquiry are misleading and /very bad/; temporary and purpose-specific borders are indeed /helpful/. But there is no inherent border between living systems and non-living systems.
+Well, /it depends/. It depends on what we set out to reason about -- but universal borders, declared 'valid' across all inquiry are misleading and /very bad/; temporary and purpose-specific borders are indeed /helpful/. But there is no inherent border between living systems and non-living systems.
 
 When we apply reductionism in order to focus on certain aspects, /choosing the appropriate dimension(s)/ and being consequent about it is crucial when collapsing a dynamically evolving, multi-dimensional, mycelium-like structure with fractal properties (well, that's just my imagination, but you get the point) into lower dimensions, so that the relations remain meaningful and don't suggest a skewed image that leads to screwed conclusions.
 
