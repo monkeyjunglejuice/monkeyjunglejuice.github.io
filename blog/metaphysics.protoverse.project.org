@@ -34,7 +34,7 @@ WORK IN PROGRESS -- Just landed here? You may want to check out the [[file:intro
 "I see and touch these things? Are they not ... there?"
 #+end_quote
 
-It comes quite "natural" for us to view the world as an assembly of objects or discrete entities -- The neighbour's dog's nose, justice, this book, my kitchen, the three body problem -- are conventionally understood as "objects" in the broadest sense — somehow more or less discrete "things" that "are". It's largely an /intuitive/ perspective. We're even having a special type of label for those things in our languages -- the noun.
+It comes quite "natural" for us to view the world as an assembly of objects or discrete entities -- The neighbour's dog's nose, justice, this book, my kitchen, the three body problem -- are conventionally understood as "objects" in the broadest sense —- somehow more or less discrete "things" that "are". It's largely an /intuitive/ perspective. We're even having a special type of label for those things in our languages -- the noun.
 
 #+begin_quote
 "Well, these things are there if you believe in them, sort of. It's just ... they are not what they seem ... because first and foremost, they are not "things"; and secondly, they not are ..." @@html:&ast;@@X-Files melody playing@@html:&ast;@@;
@@ -68,9 +68,9 @@ Wouldn't it be quite a stretch to assume that a primitive cognitive pattern-reco
 
 Of course that's not the whole story: Certainly, humans are developing tools and methods like mathematics and technology to overcome their limitations. But a closer look reveals that most methods are built on the the same substance-materialist preconceptions.
 
-A whole "universe" has been created around the idea of 'objects' in various manifestations, e.g. 'person', 'number' or 'particle', assuming that they must be somehow special, important or fundamental — just because they seem so /intuitive/ — "I think, therefore they are", no? Who in his right mind could deny that?
+A whole "universe" has been created around the idea of objects in various manifestations, e.g. 'person', 'number' or 'particle', assuming that they must be somehow special, important or fundamental — just because they seem so /intuitive/ — "I think, therefore they are", no? Who in his right mind could deny that?
 
-Our theories might be much more contingent on human intuition than we usually admit. There are numerous hints, that we long ago entered territory where our intuitive concept of a substance-based reality is a hindrance, has lost it's use, or is falling apart entirely: when grappling with abstract concepts (like emotions, mathematics, software), emergent phenomena (like businesses or complex systems), and fields on the edge of human knowledge (such as neuroscience or quantum mechanics).
+But our theories might be much more contingent on human intuition than we usually admit. There are numerous hints, that we long ago entered territory where our intuitive concept of a substance-based reality is a hindrance, has lost it's use, or is falling apart entirely: when grappling with abstract concepts (like emotions, mathematics, software), emergent phenomena (like businesses or complex systems), and fields on the edge of human knowledge (such as neuroscience or quantum mechanics).
 
 The nasty habit to objectify everything may cause us to miss important subtleties, so that there will be subtly growing gaps in our understanding of ever-changing complex systems, as long as we fail to /update our repertoire of intuitions/.
 
@@ -82,16 +82,9 @@ We'll need to consider a paradigm shift: a worldview constituted from /process, 
 
 It seems commonly accepted to say that there could be many patterns in our universe that certain "observers" might recognize that others might not — due to their evolutionary, cultural, cognitive or technological limitations, advancements or perspectives.
 
-A [[https://www.youtube.com/watch?v=jlqqZZ7q4-s][vine]] certainly may not experience reality like a [[https://www.youtube.com/watch?v=Qv-ETrzgOj8][gecko]] does. There are countless examples that suggest our perception and understanding of reality must be subjective too, depending on the patterns we're able to observe, describe and make sense of.
+A [[https://www.youtube.com/watch?v=jlqqZZ7q4-s][vine]] certainly may not experience reality like a [[https://www.youtube.com/watch?v=Qv-ETrzgOj8][gecko]] does. There are countless examples that suggest our perception and understanding of reality must be hopelessly subjective too, depending on the patterns we're able to observe, describe and make sense of.
 
 There are various conventions what 'observer' means, leading to much confusion. We tend to understand 'observer' as part of the duality (observer/observed), an abstract "measuring device", sometimes presume an absolute perspective, a passive role, or even a conscious entity. I used the term 'observer' out of habit when I began to throw together the first vague ideas.
-
-Let's consider an utterly boring example that is compatible with classical, relativistic and quantum physics. An entity that registers change and feeds some sort of impulse back into the system as a result is such a well acknowledged, basic yet powerful representation of stuff /happening/.
-
-#+begin_quote
-A ball, acted upon by gravity, converts potential energy into kinetic energy as it falls.
-Upon impact with the surface, the kinetic energy of the ball is partially transferred to the surface, and to the ball itself, in the form of deformation and generation of sound and heat. The surface, through this interaction, absorbs some of this energy, causing its particles to vibrate more rapidly, which is perceived as an increase in temperature. Both the ball and the surface experience entropy increase as energy is redistributed into less ordered forms such as heat. The entire system moves toward thermodynamic equilibrium as a result of the energy transfer resulting from the collision.
-#+end_quote
 
 If we speak of /happening/ rather than /being/, we shift the perspective from "things" to "processes". Processes are /immaterial/ -- spread out "over time" and "space", not neatly encapsulated within intuitive, definitive boundaries how humans like it; and Processes even change and dissolve our concept of identity ([[https://en.wikipedia.org/wiki/Ship_of_Theseus][Ship of Theseus]]). I guess that's why Processes haven't received nearly as much love as they should. Well, even matter turned out immaterial -- so it's not that much of a toad to swallow when I suggest that /all things/ existing are just conglomerates of Processes in constant flux.
 
