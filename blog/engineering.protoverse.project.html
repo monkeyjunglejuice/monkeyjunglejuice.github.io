@@ -32,7 +32,7 @@
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="org2791549">
+</header><nav class="pager" id="org5534e13">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -46,7 +46,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="org85205cd">
+<div class="message" id="orgb1c2b7f">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -76,7 +76,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org92015a9">Batch-processing</a></li>
 <li><a href="#org629d37f">Long-running</a></li>
-<li><a href="#org1e5452b">Conclusion</a></li>
+<li><a href="#org555a9b6">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org1331c45">From Metaphysics to Code</a>
@@ -130,7 +130,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org9fbd363">Chapel</a></li>
 </ul>
 </li>
-<li><a href="#org555a9b6">Conclusion</a></li>
+<li><a href="#org1355b08">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -262,9 +262,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org1e5452b" class="outline-4">
-<h4 id="org1e5452b"><a href="#org1e5452b">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org1e5452b">
+<div id="outline-container-org555a9b6" class="outline-4">
+<h4 id="org555a9b6"><a href="#org555a9b6">Conclusion</a></h4>
+<div class="outline-text-4" id="text-org555a9b6">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -894,29 +894,33 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-org555a9b6" class="outline-3">
-<h3 id="org555a9b6"><a href="#org555a9b6">Conclusion</a></h3>
-<div class="outline-text-3" id="text-org555a9b6">
+<div id="outline-container-org1355b08" class="outline-3">
+<h3 id="org1355b08"><a href="#org1355b08">Conclusion</a></h3>
+<div class="outline-text-3" id="text-org1355b08">
 <p>
-The Protoverse project ventures into uncharted territories, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology.<br>
+The Protoverse project ventures into uncharted territories, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology where possible.<br>
 </p>
 
 <p>
-I&rsquo;m not expecting to plug libraries together (how most &ldquo;software  engineering&rdquo; is done today), but to go through a journey of discovery and exploration, and think through the whole process &ldquo;from scratch&rdquo; by myself. I am aware that I&rsquo;ll be &ldquo;re-inventing the wheel&rdquo; several times, which certainly will lead to inefficient, naive implementations (evolutionary algorithms are such a candidate, for instance).<br>
+I&rsquo;m not expecting to plug libraries together (how most &ldquo;software  engineering&rdquo; is done today), but to go through a journey of discovery and exploration, and to think through the whole process &ldquo;from scratch&rdquo;, and the language should support that (it&rsquo;s pretty close to the paradigm embodied by the Scheme language).<br>
 </p>
 
 <p>
-In such cases it will be desirable to draw from established algorithms/libraries, after I have developed an understanding beforehand.<br>
+I am aware that I&rsquo;ll be &ldquo;re-inventing the wheel&rdquo; several times, which certainly will lead to inefficient, naive implementations (evolutionary algorithms are such a candidate, for instance). In such cases it will be desirable to draw from established algorithms/libraries, after I have developed an understanding beforehand.<br>
 </p>
 
 <p>
-<b>The finalists:</b><br>
+Covering much ground quickly by focussing on the model and abstractions is crucial, therefore I want to work as high-level as possible, avoiding clutter in order to free mental capacity. Therefore I didn&rsquo;t really consider Rust for once, which is too low-level, utterly complicated and verbose (syntax matters); secondly I left out Python, which is far from elegant &#x2013; beauty matters, too (which doesn&rsquo;t mean that we should be excluded from using certain libraries associated with Python&rsquo;s ecosystem, such as <a href="https://github.com/nnaisense/evotorch">Evotorch</a> or <a href="https://github.com/EMI-Group/evox">Evox</a>).<br>
+</p>
+
+<p>
+<b>The Finalists</b><br>
 </p>
 
 <ol class="org-ol">
-<li>The Erlang platform &#x2013; using the Elixir and/or the Erlang language &#x2013; might be not as performant for &ldquo;raw computation&rdquo;, but supports the actor model at the language level and therefore makes it really convenient to write highly concurrent programs, which could be later ported to high-performance implementations if necessary;<br></li>
+<li>The Erlang platform, using either Elixir and/or Erlang as the language: It might be not as performant for &ldquo;raw computation&rdquo;, but supports the actor model at the language level and therefore makes it astonishingly convenient to write highly concurrent (and parallel) programs &#x2013; which could be later ported to high-performance implementations if that&rsquo;s necessary.<br></li>
 
-<li>Julia, even though being an imperative language, offers much convenience and is backed by a substantial ecosystem focused on scientific computing;<br></li>
+<li>Julia, even though being an imperative language, is liberating because it offers a lot of convenience. It&rsquo;s also backed by a substantial ecosystem focused on scientific computing, the domain closely related.<br></li>
 </ol>
 
 <p>
