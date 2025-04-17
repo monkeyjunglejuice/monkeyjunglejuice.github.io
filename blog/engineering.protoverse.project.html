@@ -32,7 +32,7 @@
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="orgbefa993">
+</header><nav class="pager" id="org6f4ff95">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -46,7 +46,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="org8e922d0">
+<div class="message" id="orgbfdd73b">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -76,7 +76,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org92015a9">Batch-processing</a></li>
 <li><a href="#org629d37f">Long-running</a></li>
-<li><a href="#org1355b08">Conclusion</a></li>
+<li><a href="#org3e0f068">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org1331c45">From Metaphysics to Code</a>
@@ -130,7 +130,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org9fbd363">Chapel</a></li>
 </ul>
 </li>
-<li><a href="#org3e0f068">Conclusion</a></li>
+<li><a href="#orgc8dc228">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -262,9 +262,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org1355b08" class="outline-4">
-<h4 id="org1355b08"><a href="#org1355b08">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org1355b08">
+<div id="outline-container-org3e0f068" class="outline-4">
+<h4 id="org3e0f068"><a href="#org3e0f068">Conclusion</a></h4>
+<div class="outline-text-4" id="text-org3e0f068">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -324,30 +324,22 @@ Since the interesting stuff is likely to happen the longer the Protoverse runs, 
 <h3 id="org8598633"><a href="#org8598633">Massively Interacting Computations</a></h3>
 <div class="outline-text-3" id="text-org8598633">
 <p>
-A lot of stuff is going to happen in realtime. Eventually I&rsquo;m expecting many billions of smallish, interacting computations. In the early stages, where the focus is on modeling the Process abstraction and dynamics, the capacity to handle a couple of millions might be enough, which should be achievable in the cloud, on a small Rasperry Pi cluster or even a bunch of laptops.<br>
+A lot of stuff is going to happen in realtime. Eventually I&rsquo;m expecting many billions of smallish, interacting computations. In the early stages, where the focus is on modelling the Process abstraction and dynamics, the capacity to handle a couple of millions might be enough, which should be achievable in the cloud, on a small Rasperry Pi cluster or even a bunch of laptops.<br>
 </p>
 
 <p>
-Before we come to concurrency and parallelism, I would like to shed light on another perspective of both. They are often conflated, and understandably so &#x2013; because what we actually want is parallelism, and we could view concurrency as a simulation or imitation thereof.<br>
+Before we come to concurrency and parallelism: the concepts are often mixed up, and understandably so. Parallelism is a special variant of concurrency (well, not exactly - here&rsquo;s a <a href="https://stackoverflow.com/a/24684037">comprehensive explanation</a>), but it&rsquo;s the thing that we really want &#x2013; in terms of availability as well as problem decomposability.<br>
 </p>
 
 <p>
-Concurrency only seemingly allows to do certain things simultaneously, while in reality means switching between (sub)tasks very quickly (analogy: one single clerk behind multiple counters, dealing with many queues of customers back-and-forth) &#x2013; You probably can imagine the overhead of context switching while doing so. Concurrency stages (schedules) tasks <i>in time</i>.<br>
-</p>
-
-<p>
-Parallelism on the other hand means doing these (sub)tasks really at the same time (analogy: one, or even multiple clerks behind each counter). The problem with current architectures is, that parallelism isn&rsquo;t &ldquo;soft-scalable&rdquo;, which means these cores (&ldquo;clerks&rdquo;) have to be <i>physically</i> there, and there can only be so many as have been planned before.<br>
-</p>
-
-<p>
-So the ideal thing to have would be &ldquo;soft-scalable&rdquo; parallelism, that would make concurrency entirely redundant. Anyway, what do we have available right now?<br>
+The problem with current architectures is, that parallelism is tied to the number of <i>physical</i> cores available. The ideal thing to have would be something like &ldquo;soft-scalable&rdquo; parallel concurrency, but in practical terms with current architecture we need both, concurrency and parallelism.<br>
 </p>
 </div>
 <div id="outline-container-orgc99a1df" class="outline-4">
 <h4 id="orgc99a1df"><a href="#orgc99a1df">Concurrency</a></h4>
 <div class="outline-text-4" id="text-orgc99a1df">
 <p>
-Since massive concurrency is a basic need, this will practically rule out concurrency solely based on &ldquo;heavyweight&rdquo; threads scheduled by the OS kernel.<br>
+Since <i>massive</i> concurrency is a basic need, this will practically rule out concurrency solely based on &ldquo;heavyweight&rdquo; threads scheduled by the OS kernel.<br>
 </p>
 
 <p>
@@ -910,9 +902,9 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-org3e0f068" class="outline-3">
-<h3 id="org3e0f068"><a href="#org3e0f068">Conclusion</a></h3>
-<div class="outline-text-3" id="text-org3e0f068">
+<div id="outline-container-orgc8dc228" class="outline-3">
+<h3 id="orgc8dc228"><a href="#orgc8dc228">Conclusion</a></h3>
+<div class="outline-text-3" id="text-orgc8dc228">
 <p>
 The Protoverse project ventures into uncharted territories, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology where possible.<br>
 </p>
