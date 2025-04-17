@@ -21,7 +21,7 @@ This is part of the Protoverse project:
 #+end_nav
 
 #+begin_message
-WORK IN PROGRESS -- Just landed here? You may want to check out the [[file:introduction.protoverse.project.org][introduction]]. This is the current version of the metaphysics, an informal framework for the Protoverse that aims to cover ontology, cosmology and epistemology. It's largely speculative and still unpolished, and it doesn't consider technical practicability. Once the metaphysics feel integrated enough, I'm going to work on the the computational model.
+WORK IN PROGRESS -- Just landed here? You may want to check out the [[file:introduction.protoverse.project.org][introduction]]. This is the current version of the metaphysics, an informal framework for the Protoverse. It's largely speculative and still unpolished, and it doesn't consider technical practicabilit (on purpose). Once the metaphysics feel integrated enough, I'm going to work on the the computational model.
 #+end_message
 
 #+TOC: headlines 3
