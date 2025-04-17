@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-04-15 -->
+<!-- 2025-04-17 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Technical Considerations</title>
@@ -26,13 +26,13 @@
 <body>
 <div id="preamble" class="status">
 <nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2025-04-14">Last updated: 2025-04-14</time></div>
+<div class="info"><time itemprop="dateModified" datetime="2025-04-17">Last updated: 2025-04-17</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="org1296cbc">
+</header><nav class="pager" id="org2791549">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -46,7 +46,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="org30f8ced">
+<div class="message" id="org85205cd">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -122,13 +122,15 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org6049696">Common Lisp (SBCL)</a></li>
 </ul>
 </li>
-<li><a href="#org1a8e421">Specialized Programming Languages</a></li>
+<li><a href="#org2d91435">Specialized Programming Languages and Runtimes</a>
+<ul>
+<li><a href="#org897013a">Bend</a></li>
+<li><a href="#org77fb4cc">Cuneiform</a></li>
+<li><a href="#org82b7aae">Futhark</a></li>
+<li><a href="#org9fbd363">Chapel</a></li>
 </ul>
 </li>
-<li><a href="#orga1b39cc">Current Semi-Finalists</a>
-<ul>
-<li><a href="#orgb6c47d0">Elixir vs. Guile Scheme:</a></li>
-<li><a href="#org1e24b06">Julia vs. Common Lisp</a></li>
+<li><a href="#org555a9b6">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -369,24 +371,20 @@ The Proptoverses model&rsquo;s focus is on relational dynamics, recursive algori
 </p>
 
 <p>
-This seems to align well with <a href="https://en.wikipedia.org/wiki/Task_parallelism">task parallelism</a> rather than <a href="https://en.wikipedia.org/wiki/Data_parallelism">data parallelism</a>. However, data parallelism is more more widespread in use today and generally more efficient (e.g. SIMD). Hence it&rsquo;s worth considering if parts of the dynamics could be computed in a data-parallel approach.<br>
+This seems to align well with <a href="https://en.wikipedia.org/wiki/Task_parallelism">task parallelism</a> rather than <a href="https://en.wikipedia.org/wiki/Data_parallelism">data parallelism</a>. However, due to &ldquo;big data&rdquo;, data parallelism is more more widespread in use today and generally more efficient (e.g. SIMD). Hence it&rsquo;s worth considering if parts of the dynamics could be computed in a data-parallel approach.<br>
 </p>
 
 <p>
-Generally speaking, encapsulation and locality are good indicators for how effectively computations can be parallelized. What strategies in regard to parallelization deal specifically well with deeply nested structures/dynamics?<br>
+Generally speaking, encapsulation and locality are good indicators for how effectively computations can be parallelized. For deeply nested and interconnected structures, a hybrid approach might be beneficial.<br>
 </p>
-
 <ul class="org-ul">
-<li>For deeply nested and interconnected structures, a hybrid approach might be beneficial.<br>
-<ul class="org-ul">
-<li>Use task parallelism to manage the high-level structure and irregular tasks;<br></li>
+<li>Use task parallel techniques to manage the high-level structure and irregular tasks;<br></li>
 <li>Apply data-parallel techniques on subcomponents of the problem where data can be processed uniformly;<br></li>
-</ul></li>
-<li>Recursive tasks can sometimes be decomposed into smaller problems where data parallelism can be exploited, especially if parts of the computation manifest regular patterns or repeated operations.<br></li>
+<li>Recursive tasks may be decomposed into smaller problems where data parallelism can be exploited, especially if parts of the computation manifest regular patterns or repeated operations;<br></li>
 </ul>
 
 <p>
-In any case, it makes sense to have straightforward GPU computing readily available (OpenCL or CUDA) if needed.<br>
+In any case, it makes sense to have straightforward GPU computing readily available (OpenCL, CUDA or HIP) if needed.<br>
 </p>
 </div>
 </div>
@@ -725,14 +723,15 @@ Sentiment: Julia is an interesting choice and checks many boxes, also because of
 <li>No real macros but just template preprocessing of sorts, but it has a very powerful module system (which is something entirely different compared to module systems in other languages);<br></li>
 <li>Concurrency: There&rsquo;s an early-stage actor library <a href="https://github.com/riot-ml/riot">Riot</a> based on algebraic effects and effect handlers, OCaml&rsquo;s goto-concurrency <a href="https://ocaml.org/p/lwt/latest">Lwt</a> implements promises instead;<br></li>
 <li><a href="http://ocamlverse.net/content/parallelism.html#domain-thread-based-parallelism">Parallelism since 5.0</a> using domainslib;<br></li>
-<li>No ad-hoc distributed computing;<br></li>
+<li>No ad-hoc distributed computing<br></li>
+<li>There&rsquo;s <a href="https://mirage.io/">Mirage OS</a> that lets you compile your application directly into a full &ldquo;micro operating system&rdquo;, it can be used to deploy nodes for a distributed system;<br></li>
 <li>Overall performant, super fast compiler;<br></li>
 <li>Messy tooling and workflow &#x2013; there&rsquo;s always a new surprise tbat something stopped working;<br></li>
 <li>Colaboration opportunities: engaged community, language ecosystem under active development, FP-pragmatics;<br></li>
 </ul>
 
 <p>
-Sentiment: It&rsquo;s my favorite language actually, but the tooling (Opam, Dune build system, Ocaml REPL and Utop REPL) is such a horrible mess. Well and there&rsquo;s no real interactivity anyway.<br>
+Sentiment: It&rsquo;s my favorite language actually, but the tooling (Opam, Dune build system, Ocaml REPL and Utop REPL) is such a mess. Well, and there&rsquo;s no real interactive development.<br>
 </p>
 </div>
 </div>
@@ -826,32 +825,102 @@ Sentiment: I&rsquo;m afraid that Common Lisp could be a dead end when it comes t
 </div>
 </div>
 </div>
-<div id="outline-container-org1a8e421" class="outline-3">
-<h3 id="org1a8e421"><a href="#org1a8e421">Specialized Programming Languages</a></h3>
-<div class="outline-text-3" id="text-org1a8e421">
+<div id="outline-container-org2d91435" class="outline-3">
+<h3 id="org2d91435"><a href="#org2d91435">Specialized Programming Languages and Runtimes</a></h3>
+<div class="outline-text-3" id="text-org2d91435">
 <p>
-&#x2026;..<br>
+While low-level languages like CUDA or OpenCL for GPU computing are well established, high-level languages for massive parallelism are a more recent invention:<br>
 </p>
 </div>
+<div id="outline-container-org897013a" class="outline-4">
+<h4 id="org897013a"><a href="#org897013a">Bend</a></h4>
+<div class="outline-text-4" id="text-org897013a">
+<ul class="org-ul">
+<li>Two surface syntaxes: Python-style and ML-style;<br></li>
+<li>High-level: higher-order functions, closures, unrestricted recursion, continuations;<br></li>
+<li>Untyped language &#x2013; types seem to be mere documentation, ADT syntax sugar is there to define constructor functions (see <a href="https://github.com/HigherOrderCO/Bend/blob/main/FEATURES.md">features</a>);<br></li>
+<li>Aims to provide fully &ldquo;transparent&rdquo; parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);<br></li>
+<li>Compiler can generate massively parallel GPU kernels from high-level code;<br></li>
+<li>Based on interaction nets (<a href="https://en.wikipedia.org/wiki/Interaction_nets">Wikipedia</a>, <a href="https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76">paper</a>);<br></li>
+<li>Still experimenal/research state;<br></li>
+<li><a href="https://github.com/HigherOrderCO">https://github.com/HigherOrderCO</a>;<br></li>
+<li><a href="https://discourse.julialang.org/t/bend-a-new-gpu-native-language/114440/16">Discussion in Julia forum</a>;<br></li>
+<li>Gained some traction, has good marketing;<br></li>
+</ul>
 </div>
 </div>
-<div id="outline-container-orga1b39cc" class="outline-2">
-<h2 id="orga1b39cc"><a href="#orga1b39cc">Current Semi-Finalists</a></h2>
-<div class="outline-text-2" id="text-orga1b39cc">
+<div id="outline-container-org77fb4cc" class="outline-4">
+<h4 id="org77fb4cc"><a href="#org77fb4cc">Cuneiform</a></h4>
+<div class="outline-text-4" id="text-org77fb4cc">
+<ul class="org-ul">
+<li>Functional data flow language, main application field is large-scale data analysis;<br></li>
+<li>Implemented in distributed Erlang;<br></li>
+<li>Utilizes CPUs;<br></li>
+<li>Is still a research project;<br></li>
+<li><a href="https://cuneiform-lang.org">https://cuneiform-lang.org</a>;<br></li>
+</ul>
 </div>
-<div id="outline-container-orgb6c47d0" class="outline-3">
-<h3 id="orgb6c47d0"><a href="#orgb6c47d0">Elixir vs. Guile Scheme:</a></h3>
-<div class="outline-text-3" id="text-orgb6c47d0">
+</div>
+<div id="outline-container-org82b7aae" class="outline-4">
+<h4 id="org82b7aae"><a href="#org82b7aae">Futhark</a></h4>
+<div class="outline-text-4" id="text-org82b7aae">
+<ul class="org-ul">
+<li>Simple, ML-style, purely functional;<br></li>
+<li>&ldquo;<a href="https://futhark-lang.org/blog/2022-04-04-futhark-is-a-low-level-language.html">Low-level</a>&rdquo; in certain regards;<br></li>
+<li>Has a REPL, Emacs mode and language server;<br></li>
+<li>Not meant as a general-purpose language, but to generate <a href="https://en.wikipedia.org/wiki/Compute_kernel">compute kernels</a> used from other languages;<br></li>
+<li><a href="https://futhark-book.readthedocs.io/en/latest/language.html#sequential-loops">Doesn&rsquo;t support recursive functions</a>;<br></li>
+<li>Statically typed;<br></li>
+<li>Nested data-parallelism (array language);<br></li>
+<li>Targets <a href="https://futhark-lang.org/blog/2024-07-17-opencl-cuda-hip.html">CUDA, OpenCL and HIP</a>;<br></li>
+<li>Can compile to a Python module that internally uses PyOpenCL;<br></li>
+<li>Can compile to C code and WASM;<br></li>
+<li><a href="https://github.com/zshipko/futhark-bindgen">Binding generator for OCaml</a>;<br></li>
+<li>Still research project;<br></li>
+<li><a href="https://futhark-lang.org/">https://futhark-lang.org/</a>;<br></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9fbd363" class="outline-4">
+<h4 id="org9fbd363"><a href="#org9fbd363">Chapel</a></h4>
+<div class="outline-text-4" id="text-org9fbd363">
+<ul class="org-ul">
+<li>Old-school object-oriented, not very high-level;<br></li>
+<li>Task parallism, data parallism and nested parallelism;<br></li>
+<li>Portable: orignially designed for Cray supercomputers and not with GPUs in mind, it is portable and runs on Laptops as well;<br></li>
+<li>Supports GPU programming (NVIDIA and AMD);<br></li>
+<li>What is Chapel: <a href="https://developer.hpe.com/platform/chapel/home/">https://developer.hpe.com/platform/chapel/home/</a>;<br></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org555a9b6" class="outline-3">
+<h3 id="org555a9b6"><a href="#org555a9b6">Conclusion</a></h3>
+<div class="outline-text-3" id="text-org555a9b6">
 <p>
-Both embrace recursion. Guile Scheme would be interesting if it turns out performant enough in a highly concurrent/parallel setting.<br>
+The Protoverse project ventures into uncharted territories, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology.<br>
 </p>
-</div>
-</div>
-<div id="outline-container-org1e24b06" class="outline-3">
-<h3 id="org1e24b06"><a href="#org1e24b06">Julia vs. Common Lisp</a></h3>
-<div class="outline-text-3" id="text-org1e24b06">
+
 <p>
-Both are actually pretty similar in many regards; the bigger ecosystem gives Julia an edge, while Common Lisp supports conversational programming at the running program.<br>
+I&rsquo;m not expecting to plug libraries together (how most &ldquo;software  engineering&rdquo; is done today), but to go through a journey of discovery and exploration, and think through the whole process &ldquo;from scratch&rdquo; by myself. I am aware that I&rsquo;ll be &ldquo;re-inventing the wheel&rdquo; several times, which certainly will lead to inefficient, naive implementations (evolutionary algorithms are such a candidate, for instance).<br>
+</p>
+
+<p>
+In such cases it will be desirable to draw from established algorithms/libraries, after I have developed an understanding beforehand.<br>
+</p>
+
+<p>
+<b>The finalists:</b><br>
+</p>
+
+<ol class="org-ol">
+<li>The Erlang platform &#x2013; using the Elixir and/or the Erlang language &#x2013; might be not as performant for &ldquo;raw computation&rdquo;, but supports the actor model at the language level and therefore makes it really convenient to write highly concurrent programs, which could be later ported to high-performance implementations if necessary;<br></li>
+
+<li>Julia, even though being an imperative language, offers much convenience and is backed by a substantial ecosystem focused on scientific computing;<br></li>
+</ol>
+
+<p>
+<i>What do you think?</i><br>
 </p>
 </div>
 </div>
