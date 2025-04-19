@@ -12,7 +12,7 @@
 
 * Projects
 
-Building an artificial universe from scratch
+Open-ended non-biological evolution: Building an artificial universe from scratch
 #+begin_nav
 - [[file:blog/introduction.protoverse.project.org][Introduction]]
 - [[file:blog/metaphysics.protoverse.project.org][Metaphysics]]
