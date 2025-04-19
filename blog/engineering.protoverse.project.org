@@ -321,13 +321,13 @@ Sentiment: Due to the Fibers library and its scheduler, Guile is quite interesti
 
 *** Racket
 
-- Clean, higly general and expressive;
+- Clean, higly general and the most expressive I guess;
 - Racket is great for prototyping abstractions and algorithms;
 - Full metaprogramming (syntax-rules, syntax-case, defmacro);
 - Built for [[https://en.wikipedia.org/wiki/Metalinguistic_abstraction][metalinguistig abstraction]] (see also [[https://en.wikipedia.org/wiki/Language-oriented_programming][LOP]]);
-- Not bad for interactive development (Emacs with Racket-mode);
-- Various concurrency facilities;
-- Racket lacks in Parallelism: [[https://docs.racket-lang.org/guide/parallelism.html][Places]] looks quite awkward and hands-on, fully manual;
+- Not so bad for interactive development (in Emacs);
+- Various concurrency facilities, green threads;
+- Parallelism: [[https://docs.racket-lang.org/guide/parallelism.html][Places]] looks quite awkward and hands-on, fully manual;
 - Distributed: has a [[https://git.syndicate-lang.org/syndicate-lang/syndicate-rkt/src/branch/main/syndicate][Syndicated Actors]] implementation and a [[https://docs.racket-lang.org/goblins/][Spritely Goblins]] implementation that's behind the canonical one; both are experimental.
 
 *** Gambit / Gerbil Scheme
