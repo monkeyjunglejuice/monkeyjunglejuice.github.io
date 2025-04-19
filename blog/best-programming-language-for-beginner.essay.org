@@ -1,4 +1,4 @@
-#+TITLE: Which Programming Language Should I Learn First?
+#+TITLE: Best Programming Language for absolute Beginners? (2025 Update)
 #+DATE: <2020-06-25 Thu>
 #+SUBTITLE: The Right Tool for the Job
 #+LANGUAGE: en
@@ -245,7 +245,7 @@ The language is built on top of the Java platform. Software built on Java can ru
 
 It's also a practical language to build serious business software with, because it can use Java's enormous library ecosystem. And there's [[https://clojurescript.org/][ClojureScript]], a dialect of Clojure that compiles to JavaScript (so you won't have to write web apps in JavaScript).
 
-The language is a fresh take on Lisp and well designed. But there's also that Java underbelly who sticks out everywhere, coming with it's own terminology. And that's the drawback – you'll have to use Java stuff pretty soon and swallow the bleak Java speak +for a deeper understanding of Clojure+ doing even basic things.
+The language is a fresh take on Lisp and well designed. But there's also that ugly Java underbelly who sticks out everywhere, coming with it's own terminology. And that's the drawback – you'll have to use Java stuff pretty soon and swallow the bleak Java speak +for a deeper understanding of Clojure+ doing even basic things.
 
 If you want to try anyway, I recommend the book "Clojure for the Brave and True"; ok the "humor" gets annoying pretty quickly, but I had a good start with it and some enlightening moments. Well, the book convinced me also to take a look at Emacs, and I'm a fanatic Emacs user since then.
 
@@ -310,7 +310,7 @@ You can get started very easily with Scheme and Racket – one single install an
 
 ** Elixir as Your First Programming Language
 
-Elixir is a well designed, new language that runs on the Erlang platform. Elixir is pretty neat for writing little scripts and automating everyday's tasks. But actually, the Erlang platform has been built for distributed computing, like forever-running systems with millions of users. It's all about staying up and running, no matter what.
+Elixir is new language that runs on the Erlang platform. Elixir is mostly used for writing server-backends for web apps, but it's also pretty neat for writing little scripts and automating everyday's tasks.
 
 Developed at Ericsson, the Erlang platform has become not only a major building block of today's telecommunication networks. After Ericsson has open-sourced the Erlang platform, it has found a new area of application in web backends. So not only Your mobile provider's infrastructure runs likely on Erlang, but so do [[https://smartlogic.io/podcast/elixir-wizards/s6e8-fedorov/][WhatsApp]] and [[https://discord.com/blog/how-discord-scaled-elixir-to-5-000-000-concurrent-users][Discord]].
 
@@ -318,7 +318,7 @@ Unlike with other hosted languages (Clojure on Java, Elm on JavaScript, …), th
 
 Besides Elixir and the Erlang platform, there's also Erlang the (original) language. And there are quite a few more languages that run on the Erlang platform, e.g. LFE "Lisp Flavoured Erlang" and Alpaca. But these are less beginner-friendly.
 
-What I dislike about Elixir is that many constructs have 3-4 "shorthands" or special cases to write the same thing, a.k.a. "syntactic sugar". It looks a bit like the language designers couldn't decide what ideas to keep and what to throw out -- e.g. a function definition in one line has a different notation than one that spans multiple lines, and another one if function appears within a module or not.
+What I dislike about Elixir is that many constructs have 3-4 "shorthands" or special cases to write the same thing, a.k.a. "syntactic sugar". It looks a bit like the language designers couldn't decide what ideas to keep and what to throw out -- so it is often less clear what you are looking at.
 
 Does it make sense to learn programming with Elixir? Most books only go through the language itself and it's features. There is not really "how to program" learning material available for absolute beginners, but that may change. The first book I listed below is quite short and covers some basics, and there's a gap between that and the second one, which requires some prior knowledge (but not much). 
 
@@ -333,7 +333,7 @@ Does it make sense to learn programming with Elixir? Most books only go through 
 
 With JavaScript, you can build all kind of things in the browser and show it to your internet friends, without having them to download or install anything. JavaScript is the only language browsers support directly, still – and that's why everybody and their dog's fleas are coding JavaScript.
 
-JavaScript +is+ was an imperative language at the very heart, but you can write object-oriented and functional style too. JavaScript assimilates new features with each version and therefore it's getting bigger and bigger. Resistance is futile. Or is it?
+JavaScript is an imperative language at the very heart, but you can write object-oriented and functional style too. JavaScript assimilates new features with each version and therefore it's getting bigger and bigger. Resistance is futile. Or is it?
 
 The language has good tooling and is easy to start with, and you may have heard "all you need is a web browser and a text editor". Well, um, nope. That's not really the truth. Expect a lot exceptions, special cases and to work around the poor language design.
 
@@ -391,13 +391,13 @@ If you want to get into functional programming, you're probably better off to st
 
 ** OCaml as Your First Programming Language
 
-OCaml is in the same family as Elm and Haskell, but has less ideological ballast, is pragmatic, although still not as popular. How come? OCaml's main point of criticism in the past was its lack of practical tooling. But a lot has happened: Meanwhile, the editor support and interactive (REPL-driven) development experience in OCaml is on par with Haskell or even better.
+OCaml is in the same family as Elm and Haskell, but has less ideological ballast. OCaml shines where speed and correct code are are important; like financial technology, blockchain or compilers. [[https://ocaml.org/learn/companies.html][Some bigger companies]] are heavily invested in OCaml. Some universities use OCaml to teach functional programming, so I found amazing learning material for absolute beginners.
 
-It think OCaml is long overdue for a rise in popularity: OCaml shines where speed and correct code are highly sought after; like financial technology, blockchain or compilers. [[https://ocaml.org/learn/companies.html][Some bigger companies]] are heavily invested in OCaml. Many universities use OCaml to teach functional programming, so I found enough learning material for absolute beginners.
+OCaml syntax is quite similar to Haskell's syntax, but leaves more room to breathe. It looks well structured, what makes it easy to recognize patterns in the code to know what's going on. I'd say consistency and elegance are it's most remarkable attributes. So far, I've written a couple trivial programs in it, and still had no WTF moments yet (and I'm really sensitive to that regard).
 
-OCaml syntax is very similar to Haskell's syntax, but leaves more room to breathe. It looks well structured, what makes it easy to recognize patterns in the code to know what's going on. I'd say consistency and elegance are it's most remarkable attributes. So far, I've written a couple trivial programs in it, and still had no WTF moments yet (and I'm really sensitive to those kind of things).
+While OCaml the language itself is a beauty, the tooling is not as nice. Getting Opam (the package manager), Dune (the build system) and one of the REPLs (Ocaml or Utop) working together is poorly documented, spread over several websites and involves a lot of ceremony -- and there's always something not working in surprising ways.
 
-The language is geared towards unix-like systems (Linux and MacOS), and has an automatic user-setup routine for Emacs and Vim. OCaml works also pretty well on Windows, but within the [[https://docs.microsoft.com/en-us/windows/wsl/install-win10][WSL (Windows Subsystem for Linux)]].
+Nevertheless, I'd consider it very suitable as the first programming language, because it's unlikely that your learning projects spread out over multiple files and use several libraries.
 
 - [[https://learnxinyminutes.com/docs/ocaml/][OCaml code examples]]
 - [[https://ocaml.org/docs/up-and-running][Getting started with OCaml]]
@@ -418,7 +418,7 @@ I think Python is a dead end, even if it's popular right now, because programmin
 
 Beginners should not put blinkers on and march 'the pythonic way', but start with a language that opens the mind. Is Python a good first language? I considered to learn Python a couple of years ago, but after some research I found other languages far more elegant, consistant and simple.
 
-If you want a scripting language which is easier to learn, compact and highly performant, you may have fun with [[*Lua as Your First Programming Language][Lua]]. And if popularity is still such a thing for you after [[*Popularity and Commmunity][reading this]], then learn Python of course, but as your /second/ language.
+If you want a language which is easier to learn, compact and highly performant, you may have fun with [[*Julia as Your First Programming Language][Julia]]. And if popularity is still such a thing for you after [[*Popularity and Commmunity][reading this]], then learn Python of course, but better as your /second/ language.
 
 - [[https://learnxinyminutes.com/docs/python/][Python code examples]]
 - [[https://www.python.org/about/gettingstarted/][Getting started with Python]]
@@ -428,11 +428,15 @@ If you want a scripting language which is easier to learn, compact and highly pe
 
 ** Julia as Your First Programming Language
 
-Julia is being developed as a pragmatic high performance vehicle for technical and scientific computing, as an alternative to Python, Fortran, R and other languages used in the fields. I would say its a language to build neither ready-to-ship software nor small programs, but more like a system to run your computing tasks in. Julia strives to present a polished experience.
+Julia is being developed as a pragmatic high performance vehicle for technical and scientific computing, as an alternative to Python, Fortran, R and other languages used in the fields. I would say its a language to build neither ready-to-ship software, but more like a system to run your computing tasks in. Julia strives to present a polished experience.
 
-It's still a young language, but eagerly promoted by a couple of organizations. So it looks like there's more of an ecosystem than you would expect for a language in that early state. The learning material is targeted for researchers who stand on the brink to make the switch. So for now, don't expect "learn programming" stuff for total beginners.
+It's still a young language, but eagerly promoted by a couple of organizations. So it looks like there's more of an ecosystem than you would expect for a language in that early state.
 
-Julia's REPL is quite powerful (maybe second to Common Lisp's REPL) and allows a high level of interactivity. You basically don't have to leave the REPL to do anyghing, which is awesome. The language looks friendly and easy to start with, and you should definitely check it out if you're a student and work in "data science", statistics, numerical computing, mathematics or want to plot some stuff ([[*Scheme or Racket as Your First Programming Language][Racket]] shines here, too).
+Julia's REPL is quite powerful (maybe second to Common Lisp's REPL) and allows a high level of interactivity. You basically don't have to leave the REPL to do anything, which is awesome.
+
+The language looks friendly and easy to start with, and you should definitely check it out if you're a student and work in machine learning, data science, statistics, numerical computing, mathematics or just want to plot some stuff. You might have heard about Jupyter notebooks -- that's where the "Ju" comes from.
+
+The learning material is targeted for researchers who stand on the brink to make the switch. So for now, don't expect "learn programming" books for total beginners, but there are several online courses, if that's your thing.
 
 - [[https://learnxinyminutes.com/docs/julia/][Julia code examples]]
 - [[https://en.wikibooks.org/wiki/Introducing_Julia/Getting_started][Getting started with Julia]]
@@ -445,16 +449,16 @@ Julia's REPL is quite powerful (maybe second to Common Lisp's REPL) and allows a
 
 ** The 3 best Programming Languages for Absolute Beginners
 
-1. [[*OCaml as Your First Programming Language][*OCaml*]] emphasizes functional programming but supports multiple paradigms, so it allows you a well-rounded education. It is a contemporary functional language to build high-performance, mission-critical software. OCaml is elegant, highly readable and practical language, well designed without WTFs.
+1. [[*Scheme or Racket as Your First Programming Language][*Racket*]] offers the lowest entry barrier if you have not touched any code yet, and you don't even have to open a shell window. Due to its heritage in programming language research, it's also the one with the most features, and comes with educational books and exceptional documentation. It's quite academic (oh, I said the A-word) and rarely used in commercial settings, but you can build shiny things with it.
 
-2. [[*Scheme or Racket as Your First Programming Language][*Racket*]] offers the lowest entry barrier if you have not touched any code yet, and you don't even have to open a shell window. Due to its heritage in programming language research, it's also the one with the most features, and comes with educational books and exceptional documentation. It's quite academic (oh, I said the A-word) and rarely used in commercial settings. But you can build shiny things with it.
+2. [[*OCaml as Your First Programming Language][*OCaml*]] emphasizes functional programming but supports multiple paradigms, so it allows you a well-rounded education. It is a contemporary functional language to build high-performance, mission-critical software. OCaml is elegant, highly readable and practical language, well designed without WTFs.
 
-3. [[*Elixir as Your First Programming Language][*Elixir*]] is the "smallest" language of these three -- it has fewer concepts and is overall less complex. But it's also very practical, and Elixir is likely the best choice for app- and web-backends. The only downside is the lack of "how to program" learning material for absolute beginners, but that may change soon.
+3. [[*Julia as Your First Programming Language][*Julia*]] supports multiple programming paradigms, it's practical, easy to get started without ceremonies and there are no WTF moments. Therefore I think it's a great first language, even though there's not really learning material for absolute beginners in book form -- but there are several online courses. Great if you're a student and need to code something.
 
 ** My Personal Choice (C'mon eat the damn Dog Food already!)
 
 I've had a hard time choosing, and I was eventually torn between my two finalists [[*Common Lisp as Your First Programming Language][Common Lisp]] "code is data, data is code" and interactive programming style vs. [[*OCaml as Your First Programming Language][OCaml]] coming with superior readability and exquisite design. When I was looking around for learning material, I found [[https://amzn.to/308BHa0][this the most comprehensible programming book]], because it starts form /absolute zero/ and leaves no gaps. So I [[file:learning-to-code-first-app-episode-1.tutorial.org][started out with Common Lisp]].
 
-But Common Lisp is no functional language. You'll encounter mostly projects written in object-oriented style. But since I'm inclined towards functional programming (it's way simpler!), I jumped ship to [[*OCaml as Your First Programming Language ][*OCaml*]] as my first programming language.
+But Common Lisp is no functional language, and I wanted to expose myself primarily to that way of programming. In Common Lisp, You'll encounter mostly projects written in object-oriented style. But since I'm inclined towards functional programming (it's way simpler!), I jumped ship to [[*OCaml as Your First Programming Language ][*OCaml*]] as my first programming language.
 
 *Ok, so what programming language are you going to learn now?*
