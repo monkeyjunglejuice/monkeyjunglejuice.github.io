@@ -1,9 +1,9 @@
 /* Global variables */
 
 :root {
-  --color-bg: #fef7dc;
-  --color-bg-darker: #f4edd2;
-  --color-bg-lighter: #fffb;
+  --color-bg: #f4f2e9;
+  --color-bg-darker: #e6e3d9;
+  --color-bg-lighter: #fffd;
   --color-text: #46432f;
   --color-text-alt: #181611;
   --color-dim: #9b957d;
