@@ -18,7 +18,7 @@
   --font-code: 0.86em 'Iosevka Web', monospace;
   --font-data: 0.75em 'Iosevka Web', monospace;
   --font-caption: 0.75em 'Iosevka Aile Web', sans-serif;
-  --font-headline: 'Cormorant Garamond', sans-serif;
+  --font-headline: 'Cormorant Garamond', 'Garamond', serif;
 }
 
 /* Based on Sakura.css v1.3.0 https://github.com/oxalorg/sakura */
