@@ -231,7 +231,6 @@ pre.src::before {
     background-color: var(--color-bg-darker);
     border: 0;
     color: var(--color-dim);
-    display: inline;
     font: var(--font-caption);
     font-weight: 600;
     letter-spacing: 0.01em;
