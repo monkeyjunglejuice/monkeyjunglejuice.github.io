@@ -730,10 +730,6 @@ li.off {
   list-style-type: none;
 }
 
-li.off {
-  color: var(--color-dim)
-}
-
 li.on code,
 li.off code {
   background: initial;
