@@ -39,6 +39,9 @@ The port is still hardcoded in the Elixir app and may have changed."
 (use-package org
   :defer t
   :config
+  ;; No leading indentation besides standard code formatting
+  (setq org-edit-src-content-indentation 0
+        org-src-preserve-indentation nil)
   ;; Additional structure templates for Org blocks
   (cl-pushnew '("n" . "nav") org-structure-template-alist)
   (cl-pushnew '("m" . "message") org-structure-template-alist)
