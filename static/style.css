@@ -539,7 +539,8 @@ h1.title {
   max-width: 36em;
 }
 
-#content nav.pager > ul li {
+#content nav.pager > ul li,
+#content nav.pager > ol li {
   font: var(--font-caption);
   letter-spacing: 0.01em;
   line-height: 2em;
