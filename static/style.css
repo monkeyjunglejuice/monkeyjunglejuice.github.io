@@ -17,7 +17,7 @@
   --font-body: 2.0rem 'Gentium Plus', 'Garamond', 'Hoefler Text', serif;
   --font-code: 0.85em 'Fira Code', monospace;
   --font-data: 0.75em 'Fira Code', monospace;
-  --font-caption: 0.75em 'PT Sans Caption', sans-serif;
+  --font-caption: 0.75em 'PT Sans Caption', 'PT Sans', sans-serif;
   --font-headline: 'Gentium Plus', 'Garamond', 'Hoefler Text', serif;
 }
 
@@ -70,8 +70,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-family: var(--font-headline);
-  font-size: 4.8rem;
+  font-family: 'Cormorant', var(--font-headline);
+  font-size: 5.2rem;
   font-weight: 100;
   letter-spacing: 0.03em;
   line-height: 1.2;
