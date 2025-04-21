@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-03-30 -->
+<!-- 2025-04-21 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Let's code a GTK Theme Switcher for XFCE in OCaml</title>
@@ -9,10 +9,13 @@
 <meta name="description" content="Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut" />
 <meta name="keywords" content="ocaml, dark mode, gtk, xfce, gtk theme, linux, tutorial, project idea, learn ocaml" />
 <meta name="generator" content="Org Mode" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; font-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/fonts/iosevka-etoile/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
@@ -32,7 +35,7 @@
 <header>
 <h1 class="title">Let&rsquo;s code a GTK Theme Switcher for XFCE in OCaml</h1>
 <p class="subtitle" role="doc-subtitle">Code Walktrough – 1st Episode</p>
-</header><nav class="pager" id="orgaa307cc">
+</header><nav class="pager" id="org9f871f7">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -135,20 +138,20 @@ Under XFCE, you have to use the <a href="https://docs.xfce.org/xfce/xfconf/xfcon
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>Get the name of the currently active themes</label><pre class="src src-shell">  xfconf-query -c xsettings -p /Net/ThemeName
-  xfconf-query -c xsettings -p /Net/IconThemeName
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>Get the name of the currently active themes</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
+xfconf-query -c xsettings -p /Net/IconThemeName
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Set the dark UI theme and a dark icon theme</label><pre class="src src-shell">  xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita-dark"</span> &amp;&amp;
-  xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Dark"</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Set the dark UI theme and a dark icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita-dark"</span> &amp;&amp;
+xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Dark"</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Set the light UI theme and a light icon theme</label><pre class="src src-shell">  xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita"</span> &amp;&amp;
-  xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Light"</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Set the light UI theme and a light icon theme</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName -s <span class="org-string">"Adwaita"</span> &amp;&amp;
+xfconf-query -c xsettings -p /Net/IconThemeName -s <span class="org-string">"Papirus-Light"</span>
 </pre>
 </div>
 
@@ -158,20 +161,20 @@ And in GNOME there is the <a href="https://wiki.gnome.org/HowDoI/GSettings"><cod
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Get the name of the currently active themes</label><pre class="src src-shell">  gsettings get org.gnome.desktop.interface gtk-theme
-  gsettings get org.gnome.desktop.interface icon-theme
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Get the name of the currently active themes</label><pre class="src src-shell">gsettings get org.gnome.desktop.interface gtk-theme
+gsettings get org.gnome.desktop.interface icon-theme
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Set the dark UI theme and a dark icon theme</label><pre class="src src-shell">  gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita-dark"</span> &amp;&amp;
-  gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Dark"</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Set the dark UI theme and a dark icon theme</label><pre class="src src-shell">gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita-dark"</span> &amp;&amp;
+gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Dark"</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>Set the light UI theme and a light icon theme</label><pre class="src src-shell">  gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita"</span> &amp;&amp;
-  gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Light"</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>Set the light UI theme and a light icon theme</label><pre class="src src-shell">gsettings set org.gnome.desktop.interface gtk-theme <span class="org-string">"Adwaita"</span> &amp;&amp;
+gsettings set org.gnome.desktop.interface icon-theme <span class="org-string">"Papirus-Light"</span>
 </pre>
 </div>
 
@@ -249,11 +252,11 @@ Remember, we can find out what theme is currently active with the shell command 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 7: </span>Shell command</label><pre class="src src-shell">  xfconf-query -c xsettings -p /Net/ThemeName
+<label class="org-src-name"><span class="listing-number">Listing 7: </span>Shell command</label><pre class="src src-shell">xfconf-query -c xsettings -p /Net/ThemeName
 </pre>
 </div>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 8: </span>Output</label><pre class="src src-shell">  Adwaita
+<label class="org-src-name"><span class="listing-number">Listing 8: </span>Output</label><pre class="src src-shell">Adwaita
 </pre>
 </div>
 
@@ -262,7 +265,7 @@ We have to execute the shell command from inside our program, and then capture t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-module">Unix.</span>open_process_in <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span>
 </pre>
 </div>
 
@@ -271,7 +274,7 @@ This function opens an <code>in_channel</code>, but doesn&rsquo;t yet spit out t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  input_line <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-ocaml">input_line <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -280,7 +283,7 @@ Look at the parenthesis: in OCaml we use the parens for grouping, like we do in 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  - : string = <span class="org-string">"Adwaita"</span>
+<pre class="src src-ocaml">- : string = <span class="org-string">"Adwaita"</span>
 </pre>
 </div>
 </div>
@@ -300,10 +303,10 @@ One more thing before we are going to implement the function: Let&rsquo;s write 
 We can write this in a formal way OCaml understands, and define types with the keyword <code>type</code>, the name of the type (a.k.a. <i>type constructor</i>; lowercase), and variants (a.k.a. <i>data constructors</i>; capitalised):<br>
 </p>
 
-<pre class="example" id="orgcb28d51">
-  type type_constructor = Data_construtor_1
-                        | Data_constructor_2
-                        | Data_constructor_n
+<pre class="example" id="orgfd9fe88">
+type type_constructor = Data_construtor_1
+                      | Data_constructor_2
+                      | Data_constructor_n
 </pre>
 
 <p>
@@ -311,8 +314,8 @@ Here you go:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> | <span class="org-tuareg-font-lock-constructor">Gsettings</span>
-  <span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> = <span class="org-tuareg-font-lock-constructor">Ui</span> | Icon
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> | <span class="org-tuareg-font-lock-constructor">Gsettings</span>
+<span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> = <span class="org-tuareg-font-lock-constructor">Ui</span> | Icon
 </pre>
 </div>
 
@@ -325,7 +328,7 @@ So how could we express &ldquo;Use the <i>xsettings</i> backend to get the name 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
@@ -334,10 +337,10 @@ Until now, this does nothing of course. We&rsquo;ll have to give this expression
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">1st combination</span><span class="org-comment-delimiter"> *)</span>
-  get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd combination</span><span class="org-comment-delimiter"> *)</span>
-  get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">3rd combination</span><span class="org-comment-delimiter"> *)</span>
-  get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">4th combination</span><span class="org-comment-delimiter"> *)</span>
+<pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">1st combination</span><span class="org-comment-delimiter"> *)</span>
+get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd combination</span><span class="org-comment-delimiter"> *)</span>
+get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>            <span class="org-comment-delimiter">(* </span><span class="org-comment">3rd combination</span><span class="org-comment-delimiter"> *)</span>
+get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>          <span class="org-comment-delimiter">(* </span><span class="org-comment">4th combination</span><span class="org-comment-delimiter"> *)</span>
 </pre>
 </div>
 
@@ -345,11 +348,11 @@ Until now, this does nothing of course. We&rsquo;ll have to give this expression
 Let&rsquo;s write down what should happen in each case: All we have to do now is just a little &ldquo;if this, than that&rdquo;. In OCaml, we have a sleek way to do such things, namely pattern matching. Here&rsquo;s the pattern matching syntax with 3 branches:<br>
 </p>
 
-<pre class="example" id="orgf1f5a41">
-  match VALUE(S) with
-  | PATTERN_1 -&gt; EXPRESSION_1
-  | PATTERN_2 -&gt; EXPRESSION_2
-  | PATTERN_N -&gt; EXPRESSION_N
+<pre class="example" id="org477f882">
+match VALUE(S) with
+| PATTERN_1 -&gt; EXPRESSION_1
+| PATTERN_2 -&gt; EXPRESSION_2
+| PATTERN_N -&gt; EXPRESSION_N
 </pre>
 
 <p>
@@ -369,24 +372,24 @@ In the first branch we can say:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> =
-    <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;                                    <span class="org-comment-delimiter">(* </span><span class="org-comment">1st branch</span><span class="org-comment-delimiter"> *)</span>
-      input_line
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-           <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;                                  <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd branch</span><span class="org-comment-delimiter"> *)</span>
-      input_line
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-           <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;                                    <span class="org-comment-delimiter">(* </span><span class="org-comment">3rd branch</span><span class="org-comment-delimiter"> *)</span>
-      input_line
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-           <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;                                  <span class="org-comment-delimiter">(* </span><span class="org-comment">4th branch</span><span class="org-comment-delimiter"> *)</span>
-      input_line
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-           <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> =
+  <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;                                    <span class="org-comment-delimiter">(* </span><span class="org-comment">1st branch</span><span class="org-comment-delimiter"> *)</span>
+    input_line
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;                                  <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd branch</span><span class="org-comment-delimiter"> *)</span>
+    input_line
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;                                    <span class="org-comment-delimiter">(* </span><span class="org-comment">3rd branch</span><span class="org-comment-delimiter"> *)</span>
+    input_line
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;                                  <span class="org-comment-delimiter">(* </span><span class="org-comment">4th branch</span><span class="org-comment-delimiter"> *)</span>
+    input_line
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+         <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -398,8 +401,8 @@ If we fail to handle all possible cases (e.g. we forget one branch/combination),
 <b>But how does the compiler know …?</b> Because we&rsquo;ve said so before:<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> | <span class="org-tuareg-font-lock-constructor">Gsettings</span>
-  <span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> = <span class="org-tuareg-font-lock-constructor">Ui</span> | Icon
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> | <span class="org-tuareg-font-lock-constructor">Gsettings</span>
+<span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> = <span class="org-tuareg-font-lock-constructor">Ui</span> | Icon
 </pre>
 </div>
 </div>
@@ -416,38 +419,38 @@ Let&rsquo;s see what happens when we call it with various arguments:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 9: </span>Toplevel input</label><pre class="src src-ocaml">  get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 9: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 10: </span>Result</label><pre class="src src-ocaml">  - : string = <span class="org-string">"Adwaita"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Looks good &#8230;</span><span class="org-comment-delimiter"> *)</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 11: </span>Toplevel input</label><pre class="src src-ocaml">  get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>
-</pre>
-</div>
-<div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 12: </span>Result</label><pre class="src src-ocaml">  - : string = <span class="org-string">"Papirus-Light"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Ok!</span><span class="org-comment-delimiter"> *)</span>
+<label class="org-src-name"><span class="listing-number">Listing 10: </span>Result</label><pre class="src src-ocaml">- : string = <span class="org-string">"Adwaita"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Looks good &#8230;</span><span class="org-comment-delimiter"> *)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 13: </span>Toplevel input</label><pre class="src src-ocaml">  get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 11: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 14: </span>Result</label><pre class="src src-ocaml">  - : string = <span class="org-string">"'Adwaita'"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Yikes! What?</span><span class="org-comment-delimiter"> *)</span>
+<label class="org-src-name"><span class="listing-number">Listing 12: </span>Result</label><pre class="src src-ocaml">- : string = <span class="org-string">"Papirus-Light"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Ok!</span><span class="org-comment-delimiter"> *)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 15: </span>Toplevel input</label><pre class="src src-ocaml">  get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 13: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Ui</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 16: </span>Result</label><pre class="src src-ocaml">  - : string = <span class="org-string">"'Papirus-Light'"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Nonono! make those quotes go away!</span><span class="org-comment-delimiter"> *)</span>
+<label class="org-src-name"><span class="listing-number">Listing 14: </span>Result</label><pre class="src src-ocaml">- : string = <span class="org-string">"'Adwaita'"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Yikes! What?</span><span class="org-comment-delimiter"> *)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 15: </span>Toplevel input</label><pre class="src src-ocaml">get_theme <span class="org-tuareg-font-lock-constructor">Gsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span><span class="org-tuareg-font-double-semicolon">;;</span>
+</pre>
+</div>
+<div class="org-src-container">
+<label class="org-src-name"><span class="listing-number">Listing 16: </span>Result</label><pre class="src src-ocaml">- : string = <span class="org-string">"'Papirus-Light'"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- Nonono! make those quotes go away!</span><span class="org-comment-delimiter"> *)</span>
 </pre>
 </div>
 
@@ -475,7 +478,7 @@ The <a href="https://ocaml.org/api/Str.html"><code>Str</code></a> module is what
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 17: </span>Type signature</label><pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">global_replace</span> : regexp -&gt; string -&gt; string -&gt; string
+<label class="org-src-name"><span class="listing-number">Listing 17: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">global_replace</span> : regexp -&gt; string -&gt; string -&gt; string
 </pre>
 </div>
 
@@ -507,7 +510,7 @@ Now we can test the function in in the toplevel like so:<br>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> <span class="org-string">"'Freemee!'"</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> <span class="org-string">"'Freemee!'"</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
@@ -520,7 +523,7 @@ The <a href="https://ocaml.org/api/Str.html#VALregexp">documentation</a> says, t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> <span class="org-string">"'Freemee!'"</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> <span class="org-string">"'Freemee!'"</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
@@ -529,8 +532,8 @@ To make it easier to refer to that function later, let&rsquo;s wrap it in a func
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span> <span class="org-variable-name">s</span> =
-    <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> s
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span> <span class="org-variable-name">s</span> =
+  <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> s
 </pre>
 </div>
 
@@ -538,12 +541,12 @@ To make it easier to refer to that function later, let&rsquo;s wrap it in a func
 Now we can do just:<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-ocaml">  clean <span class="org-string">"'Adwaita'"</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<pre class="src src-ocaml">clean <span class="org-string">"'Adwaita'"</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 18: </span>Result</label><pre class="src src-ocaml">  - : string = <span class="org-string">"Adwaita"</span>
+<label class="org-src-name"><span class="listing-number">Listing 18: </span>Result</label><pre class="src src-ocaml">- : string = <span class="org-string">"Adwaita"</span>
 </pre>
 </div>
 </div>
@@ -565,26 +568,26 @@ Nope, we actually can&rsquo;t. What we can do though, is validating and filterin
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> =
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span> <span class="org-variable-name">s</span> =        <span class="org-comment-delimiter">(* </span><span class="org-comment">we LET the helper function IN here</span><span class="org-comment-delimiter"> *)</span>
-      <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> s <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- we use it in the 1st branch</span><span class="org-comment-delimiter"> *)</span>
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and in the 2nd branch</span><span class="org-comment-delimiter"> *)</span>
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- in the 3rd branch</span><span class="org-comment-delimiter"> *)</span>
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and in the 4th branch, too</span><span class="org-comment-delimiter"> *)</span>
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> =
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span> <span class="org-variable-name">s</span> =        <span class="org-comment-delimiter">(* </span><span class="org-comment">we LET the helper function IN here</span><span class="org-comment-delimiter"> *)</span>
+    <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> s <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- we use it in the 1st branch</span><span class="org-comment-delimiter"> *)</span>
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and in the 2nd branch</span><span class="org-comment-delimiter"> *)</span>
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- in the 3rd branch</span><span class="org-comment-delimiter"> *)</span>
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line  <span class="org-comment-delimiter">(* </span><span class="org-comment">&lt;-- and in the 4th branch, too</span><span class="org-comment-delimiter"> *)</span>
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -607,24 +610,24 @@ Once again we&rsquo;re about to wrap shell commands. The <code>set_theme</code> 
 
 
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">set_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> <span class="org-variable-name">name</span> =
-    <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface gtk-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface icon-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">set_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> <span class="org-variable-name">name</span> =
+  <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface gtk-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface icon-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-string">"Papirus-Dark"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">apply the function</span><span class="org-comment-delimiter"> *)</span>
+<pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-constructor">Icon</span> <span class="org-string">"Papirus-Dark"</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">apply the function</span><span class="org-comment-delimiter"> *)</span>
 </pre>
 </div>
 </div>
@@ -665,27 +668,27 @@ Our toggle function needs to know several preferences to wield its magic. First,
 </ol>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 19: </span>Define the function</label><pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">toggle</span> <span class="org-rainbow-delimiters-depth-1">()</span> =
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">current_ui</span> = get_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-governing">in</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd argument is the value above</span><span class="org-comment-delimiter"> *)</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_dark</span> = <span class="org-string">"Adwaita-dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_light</span> = <span class="org-string">"Adwaita"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_dark</span> = <span class="org-string">"Papirus-Dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_light</span> = <span class="org-string">"Papirus-Light"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-keyword">match</span> current_ui <span class="org-keyword">with</span>
-    | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_dark -&gt;
-      <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
-      set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
-    | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_light -&gt;
-      <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_dark <span class="org-tuareg-font-lock-governing">in</span>
-      set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_dark
-    | _ -&gt;
-      <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
-      set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+<label class="org-src-name"><span class="listing-number">Listing 19: </span>Define the function</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">toggle</span> <span class="org-rainbow-delimiters-depth-1">()</span> =
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">current_ui</span> = get_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-governing">in</span> <span class="org-comment-delimiter">(* </span><span class="org-comment">2nd argument is the value above</span><span class="org-comment-delimiter"> *)</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_dark</span> = <span class="org-string">"Adwaita-dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_light</span> = <span class="org-string">"Adwaita"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_dark</span> = <span class="org-string">"Papirus-Dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_light</span> = <span class="org-string">"Papirus-Light"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> current_ui <span class="org-keyword">with</span>
+  | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_dark -&gt;
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+  | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_light -&gt;
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_dark <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_dark
+  | _ -&gt;
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
 </pre>
 </div>
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 20: </span>Apply the function eventually</label><pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = toggle <span class="org-rainbow-delimiters-depth-1">()</span>
+<label class="org-src-name"><span class="listing-number">Listing 20: </span>Apply the function eventually</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = toggle <span class="org-rainbow-delimiters-depth-1">()</span>
 </pre>
 </div>
 
@@ -710,64 +713,64 @@ Ok ok, relax. We are not there yet. For now it runs in the toplevel, yes. Take a
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 21: </span>Working prototype</label><pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> | <span class="org-tuareg-font-lock-constructor">Gsettings</span>
-  <span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> = <span class="org-tuareg-font-lock-constructor">Ui</span> | <span class="org-tuareg-font-lock-constructor">Icon</span>
+<label class="org-src-name"><span class="listing-number">Listing 21: </span>Working prototype</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> | <span class="org-tuareg-font-lock-constructor">Gsettings</span>
+<span class="org-tuareg-font-lock-governing">type</span> <span class="org-type">widget</span> = <span class="org-tuareg-font-lock-constructor">Ui</span> | <span class="org-tuareg-font-lock-constructor">Icon</span>
 
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> =
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span> <span class="org-variable-name">s</span> =
-      <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> s <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
-               <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
-                  <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">get_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> =
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">clean</span> <span class="org-variable-name">s</span> =
+    <span class="org-tuareg-font-lock-module">Str.</span>global_replace <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Str.</span>regexp <span class="org-string">"^'\\|'$"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-string">""</span> s <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"gsettings get org.gnome.desktop.interface gtk-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    clean <span class="org-rainbow-delimiters-depth-1">(</span>input_line
+             <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-tuareg-font-lock-module">Unix.</span>open_process_in
+                <span class="org-string">"gsettings get org.gnome.desktop.interface icon-theme"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">set_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> <span class="org-variable-name">name</span> =
-    <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface gtk-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
-    | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
-      <span class="org-tuareg-font-lock-module">Unix.</span>open_process
-        <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface icon-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">set_theme</span> <span class="org-variable-name">backend</span> <span class="org-variable-name">widget</span> <span class="org-variable-name">name</span> =
+  <span class="org-keyword">match</span> backend, widget <span class="org-keyword">with</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/ThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Xsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"xfconf-query -c xsettings -p /Net/IconThemeName -s "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Ui</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface gtk-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
+  | <span class="org-tuareg-font-lock-constructor">Gsettings</span>, <span class="org-tuareg-font-lock-constructor">Icon</span> -&gt;
+    <span class="org-tuareg-font-lock-module">Unix.</span>open_process
+      <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-string">"gsettings set org.gnome.desktop.interface icon-theme "</span> <span class="org-tuareg-font-lock-operator">^</span> name<span class="org-rainbow-delimiters-depth-1">)</span>
 
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">toggle</span> <span class="org-rainbow-delimiters-depth-1">()</span> =
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">current_ui</span> = get_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_dark</span> = <span class="org-string">"Adwaita-dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_light</span> = <span class="org-string">"Adwaita"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_dark</span> = <span class="org-string">"Papirus-Dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_light</span> = <span class="org-string">"Papirus-Light"</span> <span class="org-tuareg-font-lock-governing">in</span>
-    <span class="org-keyword">match</span> current_ui <span class="org-keyword">with</span>
-    | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_dark -&gt;
-      <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
-      set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
-    | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_light -&gt;
-      <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_dark <span class="org-tuareg-font-lock-governing">in</span>
-      set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_dark
-    | _ -&gt;
-      <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
-      set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-function-name">toggle</span> <span class="org-rainbow-delimiters-depth-1">()</span> =
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">backend</span> = <span class="org-tuareg-font-lock-constructor">Xsettings</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">current_ui</span> = get_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_dark</span> = <span class="org-string">"Adwaita-dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ui_light</span> = <span class="org-string">"Adwaita"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_dark</span> = <span class="org-string">"Papirus-Dark"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">icon_light</span> = <span class="org-string">"Papirus-Light"</span> <span class="org-tuareg-font-lock-governing">in</span>
+  <span class="org-keyword">match</span> current_ui <span class="org-keyword">with</span>
+  | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_dark -&gt;
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
+  | c <span class="org-keyword">when</span> <span class="org-tuareg-font-lock-module">String.</span>equal c ui_light -&gt;
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_dark <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_dark
+  | _ -&gt;
+    <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = set_theme backend <span class="org-tuareg-font-lock-constructor">Ui</span> ui_light <span class="org-tuareg-font-lock-governing">in</span>
+    set_theme backend <span class="org-tuareg-font-lock-constructor">Icon</span> icon_light
 
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = toggle <span class="org-rainbow-delimiters-depth-1">()</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = toggle <span class="org-rainbow-delimiters-depth-1">()</span>
 </pre>
 </div>
 

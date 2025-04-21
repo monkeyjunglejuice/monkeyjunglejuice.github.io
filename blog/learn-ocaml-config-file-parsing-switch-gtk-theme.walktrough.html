@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-03-30 -->
+<!-- 2025-04-21 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GTK Theme Switcher in OCaml: Config File Parsing</title>
@@ -9,10 +9,13 @@
 <meta name="description" content="Writing a GTK Theme Switcher for XFCE4 to toggle light/dark mode via shortcut" />
 <meta name="keywords" content="learn ocaml, parsing, config file, dark mode, gtk, xfce, gtk theme, project ideas" />
 <meta name="generator" content="Org Mode" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; font-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/fonts/iosevka-etoile/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/cormorant/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/fonts/gentium-basic/fonts.css" type="text/css">
@@ -32,7 +35,7 @@
 <header>
 <h1 class="title">GTK Theme Switcher in OCaml: Config File Parsing</h1>
 <p class="subtitle" role="doc-subtitle">Code Walktrough – 2nd Episode</p>
-</header><nav class="pager" id="orge6c21c4">
+</header><nav class="pager" id="orgf55cb64">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -113,70 +116,70 @@ Most important is a huge impressive ASCII art banner to show off your prowess. B
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>File <code>/home/YOUR_USER_NAME/.config/switch_gtk_theme.conf</code></label><pre class="src src-conf">  <span class="org-comment-delimiter">#   </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;  &#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9617;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9608;&#9608;&#9608;     &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;          &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;          &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;    &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608; &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;     &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;      &#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;       &#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;      &#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;      &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;  &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;&#9617;</span>
-  <span class="org-comment-delimiter">#    </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#   </span><span class="org-comment">&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9617;</span>
-  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;     &#9617;&#9617;&#9617; &#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9617;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;             &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#   </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;     &#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;</span>
-  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;  &#9608; &#9617;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;  &#9608; &#9617;</span>
-  <span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;    &#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;</span>
-  <span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9608; &#9617;&#9608;&#9608;&#9608;      &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9608;</span>
-  <span class="org-comment-delimiter">#     </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-  <span class="org-comment-delimiter">#    </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;     &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>File <code>/home/YOUR_USER_NAME/.config/switch_gtk_theme.conf</code></label><pre class="src src-conf"><span class="org-comment-delimiter">#   </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;  &#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9617;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9608;&#9608;&#9608;     &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;          &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;          &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;    &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608; &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;     &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;      &#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;       &#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;      &#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;      &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;  &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;&#9617;</span>
+<span class="org-comment-delimiter">#    </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9617;</span>
+<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;     &#9617;&#9617;&#9617; &#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9617;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;             &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;     &#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;</span>
+<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;  &#9608; &#9617;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;  &#9608; &#9617;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;    &#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9608; &#9617;&#9608;&#9608;&#9608;      &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9608;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
+<span class="org-comment-delimiter">#    </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;     &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span>
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Dark GTK theme versions are usually named with a '-dark' suffix.</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">This is however not a fixed rule. If you added a theme on your own,</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">and it's not working as expected, please check first if your theme names</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">are spelled correctly (names must not contain spaces!).</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Dark GTK theme versions are usually named with a '-dark' suffix.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">This is however not a fixed rule. If you added a theme on your own,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">and it's not working as expected, please check first if your theme names</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">are spelled correctly (names must not contain spaces!).</span>
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">UI --------------------------------------------------------------------------</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Configure your GTK themes here. Uncomment a theme pair or add your own:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">UI --------------------------------------------------------------------------</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Configure your GTK themes here. Uncomment a theme pair or add your own:</span>
 
-  <span class="org-variable-name">ui_light</span> = Adwaita
-  <span class="org-variable-name">ui_dark</span> = Adwaita-dark
+<span class="org-variable-name">ui_light</span> = Adwaita
+<span class="org-variable-name">ui_dark</span> = Adwaita-dark
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Breeze</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Breeze-Dark</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Breeze</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Breeze-Dark</span>
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Greybird</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Greybird-dark</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Greybird</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Greybird-dark</span>
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">ICONS -----------------------------------------------------------------------</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Must be set. If you don't want to switch icon themes, then set the same name</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">for both 'icon_light' and 'icon_dark':</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">ICONS -----------------------------------------------------------------------</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Must be set. If you don't want to switch icon themes, then set the same name</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">for both 'icon_light' and 'icon_dark':</span>
 
-  <span class="org-variable-name">icon_light</span> = Papirus-Light
-  <span class="org-variable-name">icon_dark</span> = Papirus-Dark
+<span class="org-variable-name">icon_light</span> = Papirus-Light
+<span class="org-variable-name">icon_dark</span> = Papirus-Dark
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = breeze</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = breeze-dark</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = breeze</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = breeze-dark</span>
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = Paper</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = Paper</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = Paper</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = Paper</span>
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">BACKEND ---------------------------------------------------------------------</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Set your preferred backend. If one doesn't do anything, try the other.</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Use "xsettings" with the XFCE Desktop Environment. The package 'xfconf'</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">should have been installed along with XFCE.</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Or uncomment "gsettings" if you are using the GNOME Desktop Environment,</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">and/or Wayland rather than Xorg:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">BACKEND ---------------------------------------------------------------------</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Set your preferred backend. If one doesn't do anything, try the other.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Use "xsettings" with the XFCE Desktop Environment. The package 'xfconf'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">should have been installed along with XFCE.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Or uncomment "gsettings" if you are using the GNOME Desktop Environment,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">and/or Wayland rather than Xorg:</span>
 
-  <span class="org-variable-name">backend</span> = xsettings
-  <span class="org-comment-delimiter">#</span><span class="org-comment">backend = gsettings</span>
+<span class="org-variable-name">backend</span> = xsettings
+<span class="org-comment-delimiter">#</span><span class="org-comment">backend = gsettings</span>
 </pre>
 </div>
 </div>
@@ -214,7 +217,7 @@ Using the <code>$HOME</code> environment variable, we can assemble the absolute 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Expression (in the toplevel)</label><pre class="src src-ocaml">  <span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Expression (in the toplevel)</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
@@ -231,7 +234,7 @@ The <a href="https://www.ocaml.org/api/Stdlib.html#VAL(%5E)"><code>^</code></a> 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Expression in the toplevel</label><pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Expression in the toplevel</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 </div>
@@ -287,17 +290,17 @@ A channel needs to be closed when we’re done with it, using the function <a hr
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Toplevel</label><pre class="src src-ocaml">  <span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Toplevel</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-tuareg-font-double-semicolon">;;</span>
 
-  <span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
 
-  <span class="org-comment-delimiter">(* </span><span class="org-comment">3. Read one line from the [in_channel] and bind it to the name [line]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">line</span> = input_line ic<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">3. Read one line from the [in_channel] and bind it to the name [line]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">line</span> = input_line ic<span class="org-tuareg-font-double-semicolon">;;</span>
 
-  <span class="org-comment-delimiter">(* </span><span class="org-comment">4. Close the [in_channel]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = close_in ic<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">4. Close the [in_channel]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = close_in ic<span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
@@ -310,8 +313,8 @@ If the file exists and you got the path right, you’ll see this result:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Result – the first line of the config file</label><pre class="src src-ocaml">  <span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">line</span> : string =
-    <span class="org-string">"#   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;"</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Result – the first line of the config file</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">line</span> : string =
+  <span class="org-string">"#   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;"</span>
 </pre>
 </div>
 
@@ -328,17 +331,17 @@ To get all the lines, we must apply <a href="https://ocaml.org/api/Stdlib.html#V
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>File <code>switch_gtk_theme.ml</code></label><pre class="src src-ocaml">  <span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>File <code>switch_gtk_theme.ml</code></label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-  <span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
 
-  <span class="org-comment-delimiter">(* </span><span class="org-comment">3. Read one line from the [in_channel] and bind it to the name [line]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">line</span> = input_line ic<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">3. Read one line from the [in_channel] and bind it to the name [line]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">line</span> = input_line ic<span class="org-tuareg-font-double-semicolon">;;</span>
 
-  <span class="org-comment-delimiter">(* </span><span class="org-comment">4. Close the [in_channel]</span><span class="org-comment-delimiter"> *)</span>
-  <span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = close_in ic<span class="org-tuareg-font-double-semicolon">;;</span>
+<span class="org-comment-delimiter">(* </span><span class="org-comment">4. Close the [in_channel]</span><span class="org-comment-delimiter"> *)</span>
+<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = close_in ic<span class="org-tuareg-font-double-semicolon">;;</span>
 </pre>
 </div>
 
