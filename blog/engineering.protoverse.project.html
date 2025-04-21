@@ -25,13 +25,13 @@
 <body>
 <div id="preamble" class="status">
 <nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2025-04-19">Last updated: 2025-04-19</time></div>
+<div class="info"><time itemprop="dateModified" datetime="2025-04-21">Last updated: 2025-04-21</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="org4da21a8">
+</header><nav class="pager" id="org36231ae">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -45,7 +45,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="org0d1e503">
+<div class="message" id="orga621f66">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -75,7 +75,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org92015a9">Batch-processing</a></li>
 <li><a href="#org629d37f">Long-running</a></li>
-<li><a href="#org6220722">Conclusion</a></li>
+<li><a href="#orge20613a">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org1331c45">From Metaphysics to Code</a></li>
@@ -87,16 +87,16 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 </ul>
 </li>
 <li><a href="#org0f16a35">Support for Deep Reccursion</a></li>
-<li><a href="#orgeee0d68">Computation by Need</a></li>
-<li><a href="#org44b6c9a">Observability: Visualization, Analysis and Profiling</a></li>
-<li><a href="#org4fd7dbc">Interfacing With Other Ecosystems</a></li>
-<li><a href="#org5d7a412">State Management, Pruning and Data Compression</a></li>
-<li><a href="#orgd986a00">Portability</a></li>
 <li><a href="#org1090e58">Scalability</a>
 <ul>
 <li><a href="#org6295abc">Distributed Computing</a></li>
 </ul>
 </li>
+<li><a href="#org5d7a412">State Management, Pruning and Data Compression</a></li>
+<li><a href="#orgeee0d68">Computation by Need</a></li>
+<li><a href="#orgd986a00">Portability</a></li>
+<li><a href="#org44b6c9a">Observability: Visualization, Analysis and Profiling</a></li>
+<li><a href="#org4fd7dbc">Interfacing With Other Ecosystems</a></li>
 </ul>
 </li>
 <li><a href="#orgb6301d1">Programming Environment and Language</a>
@@ -122,7 +122,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org9fbd363">Chapel</a></li>
 </ul>
 </li>
-<li><a href="#orge20613a">Conclusion</a>
+<li><a href="#org5bece84">Conclusion</a>
 <ul>
 <li><a href="#org4c84d2a">The Finalists</a></li>
 </ul>
@@ -258,9 +258,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org6220722" class="outline-4">
-<h4 id="org6220722"><a href="#org6220722">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org6220722">
+<div id="outline-container-orge20613a" class="outline-4">
+<h4 id="orge20613a"><a href="#orge20613a">Conclusion</a></h4>
+<div class="outline-text-4" id="text-orge20613a">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -421,6 +421,43 @@ While both workarounds are pragmatic, they come with a cognitive overhead and be
 </p>
 </div>
 </div>
+<div id="outline-container-org1090e58" class="outline-3">
+<h3 id="org1090e58"><a href="#org1090e58">Scalability</a></h3>
+<div class="outline-text-3" id="text-org1090e58">
+<p>
+Open-endedness is fundamentally about scaling.<br>
+</p>
+
+<p>
+First and foremost, the Protoverse will undergo increasing counsumption of resources. Therefore relatively straightforward scaling should be baked-in from the very beginning. It depends on the principal modus operandi of the Protoverse which scaling model to prefer:<br>
+</p>
+
+<ul class="org-ul">
+<li>Batch-processing: This approach leans toward vertical scaling, throwing more powerful hardware on it, e.g. CPU/GPU arrays. This hardware wouldn&rsquo;t have to be available all the time.<br></li>
+<li>Long-running: The Protoverse as a continuously running application could benefit from a horizontal, distributed scaling model. Permanent access to the hardware infrastructure is required.<br></li>
+</ul>
+</div>
+<div id="outline-container-org6295abc" class="outline-4">
+<h4 id="org6295abc"><a href="#org6295abc">Distributed Computing</a></h4>
+<div class="outline-text-4" id="text-org6295abc">
+<p>
+Since I anticipate the Protoverse rather as a forever-running application than a batch computation (open-ended quasi-darwinian evolution), I lean towards a distributed, horizontal scaling model with redundant nodes, that runs in the cloud, and eventually might even run on commodity hardware (e.g. a heterogenous peer-to-peer network): much like BOINC, or even like Ethereum or Bitcoin.<br>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org5d7a412" class="outline-3">
+<h3 id="org5d7a412"><a href="#org5d7a412">State Management, Pruning and Data Compression</a></h3>
+<div class="outline-text-3" id="text-org5d7a412">
+<p>
+We probably have to consider resource-saving techniques earlier in the development process; also taking into consideration, how much of Protoverse history will have to be kept around. We have to consider if a Markovian approach (history-less) would be possible, and where.<br>
+</p>
+
+<p>
+Clever resource management plays a larger role if he Protoverse takes the path of being implemeted as a long-running application. There could be intrinsic selection (as a part of the Protoverse dynamics) that effectively prunes certain Nested Scales Of Complexity when it is highly probable that nothing interesting happens at these; e.g. when they turn out random and too boring and therefore &ldquo;non-viable&rdquo;. On the other side &#x2013; even inconspicuous, boring dynamics can turn out to be further influential for evolution, and the extent may be unforeseeable.<br>
+</p>
+</div>
+</div>
 <div id="outline-container-orgeee0d68" class="outline-3">
 <h3 id="orgeee0d68"><a href="#orgeee0d68">Computation by Need</a></h3>
 <div class="outline-text-3" id="text-orgeee0d68">
@@ -439,6 +476,23 @@ I&rsquo;ve got a feeling that infinite structures for data representation (open-
 <p>
 Theoretically, might turn out practical to follow such an approach to save computing resources; but it might also turn out extremely impractical (piling up thunks). Any way, it deserves consideration and further thought.<br>
 </p>
+</div>
+</div>
+<div id="outline-container-orgd986a00" class="outline-3">
+<h3 id="orgd986a00"><a href="#orgd986a00">Portability</a></h3>
+<div class="outline-text-3" id="text-orgd986a00">
+<p>
+Unforseen complications may likely require to switch certain parts of the implementation during development, e.g. the runtime. It would make sense to write the model in a language that could be ported to something else without too much effort.<br>
+</p>
+
+<p>
+The first what comes to mind are C and C++. But these are very low-level or and ugly, and I&rsquo;m pretty sure I wouldn&rsquo;t come very far with one of these as a modeling language. But there are other aspects:<br>
+</p>
+
+<ol class="org-ol">
+<li>Use a high-level language that compiles to either a low-level language or can target multiple backends; for instance, there are a few Scheme dialects that target various platforms, and a growing number of languages target WASM, which could be an interesting runtime, especially with <a href="https://lunatic.solutions/">projects like this</a>.<br></li>
+<li>Adher to portable code, that means following a standard closely (e.g. R6RS for the Scheme language).<br></li>
+</ol>
 </div>
 </div>
 <div id="outline-container-org44b6c9a" class="outline-3">
@@ -460,56 +514,6 @@ Meta-functionality is complicated stuff and imposes overhead that eats away deve
 <p>
 It might turn out beneficial if a bigger language ecosystem is within reach, either by directly building on that very ecosystem/platform, or via straightforward interop. This might be useful for analysis, visualization, measuring; or to offload heavy computations if they cannot be implemented efficiently in the primary language/runtime; or to use specific scientific libraries. Possible targets are the usual suspects: Rust, C, C++, but also Java and Python.<br>
 </p>
-</div>
-</div>
-<div id="outline-container-org5d7a412" class="outline-3">
-<h3 id="org5d7a412"><a href="#org5d7a412">State Management, Pruning and Data Compression</a></h3>
-<div class="outline-text-3" id="text-org5d7a412">
-<p>
-We probably have to consider resource-saving techniques earlier in the development process; also taking into consideration, how much of Protoverse history will have to be kept around. We have to consider if a Markovian approach (history-less) would be possible, and where.<br>
-</p>
-
-<p>
-Clever resource management plays a larger role if he Protoverse takes the path of being implemeted as a long-running application. There could be intrinsic selection (as a part of the Protoverse dynamics) that effectively prunes certain Nested Scales Of Complexity when it is highly probable that nothing interesting happens at these; e.g. when they turn out random and too boring and therefore &ldquo;non-viable&rdquo;. On the other side &#x2013; even inconspicuous, boring dynamics can turn out to be further influential for evolution, and the extent may be unforeseeable.<br>
-</p>
-</div>
-</div>
-<div id="outline-container-orgd986a00" class="outline-3">
-<h3 id="orgd986a00"><a href="#orgd986a00">Portability</a></h3>
-<div class="outline-text-3" id="text-orgd986a00">
-<p>
-Unforseen complications may likely require to switch certain parts of the implementation during development, e.g. the runtime. It would make sense to write the model in a language that could be ported to something else without too much effort.<br>
-</p>
-
-<p>
-The first what comes to mind are C and C++. But these are very low-level or and ugly, and I&rsquo;m pretty sure I wouldn&rsquo;t come very far with one of these as a modeling language. But there are other aspects:<br>
-</p>
-
-<ol class="org-ol">
-<li>Use a high-level language that compiles to either a low-level language or can target multiple backends; for instance, there are a few Scheme dialects that target various platforms, and a growing number of languages target WASM, which could be an interesting runtime, especially with <a href="https://lunatic.solutions/">projects like this</a>.<br></li>
-<li>Adher to portable code, that means following a standard closely (e.g. R6RS for the Scheme language).<br></li>
-</ol>
-</div>
-</div>
-<div id="outline-container-org1090e58" class="outline-3">
-<h3 id="org1090e58"><a href="#org1090e58">Scalability</a></h3>
-<div class="outline-text-3" id="text-org1090e58">
-<p>
-First and foremost, the prevalent status will be &ldquo;under development&rdquo;; and increasing counsumption of resources. Therefore relatively straightforward scaling should be baked-in from the very beginning. It depends on the principal modus operandi of the Protoverse which scaling model to prefer:<br>
-</p>
-
-<ul class="org-ul">
-<li>Batch-processing: This approach leans toward vertical scaling, throwing more powerful hardware on it, e.g. CPU/GPU arrays. This hardware wouldn&rsquo;t have to be available all the time.<br></li>
-<li>Long-running: The Protoverse as a continuously running application could benefit from a horizontal, distributed scaling model. Permanent access to the hardware infrastructure is required.<br></li>
-</ul>
-</div>
-<div id="outline-container-org6295abc" class="outline-4">
-<h4 id="org6295abc"><a href="#org6295abc">Distributed Computing</a></h4>
-<div class="outline-text-4" id="text-org6295abc">
-<p>
-Since I anticipate the Protoverse rather as a forever-running application than a batch computation (open-ended quasi-darwinian evolution), I lean towards a distributed, horizontal scaling model with redundant nodes, that runs in the cloud, and eventually might even run on commodity hardware (e.g. a heterogenous peer-to-peer network): much like BOINC, or even like Ethereum or Bitcoin.<br>
-</p>
-</div>
 </div>
 </div>
 </div>
@@ -890,9 +894,9 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-orge20613a" class="outline-3">
-<h3 id="orge20613a"><a href="#orge20613a">Conclusion</a></h3>
-<div class="outline-text-3" id="text-orge20613a">
+<div id="outline-container-org5bece84" class="outline-3">
+<h3 id="org5bece84"><a href="#org5bece84">Conclusion</a></h3>
+<div class="outline-text-3" id="text-org5bece84">
 <p>
 The Protoverse project ventures into uncharted territories, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology where possible.<br>
 </p>
