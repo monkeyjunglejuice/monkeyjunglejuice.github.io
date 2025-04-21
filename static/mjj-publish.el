@@ -99,6 +99,11 @@ The port is still hardcoded in the Elixir app and may have changed."
        "<link rel=\"stylesheet\" href=\"/static/normalize.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/org.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/style.css\" type=\"text/css\">\n"
+
+       "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n"
+       "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
+       "<link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">\n"
+
        "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka-etoile/fonts.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/fonts/cormorant/fonts.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/fonts/gentium-basic/fonts.css\" type=\"text/css\">\n"
@@ -134,6 +139,11 @@ The port is still hardcoded in the Elixir app and may have changed."
        "<link rel=\"stylesheet\" href=\"/static/normalize.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/org.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/style.css\" type=\"text/css\">\n"
+
+       "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n"
+       "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
+       "<link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">\n"
+
        "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka-etoile/fonts.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/fonts/cormorant/fonts.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/fonts/gentium-basic/fonts.css\" type=\"text/css\">\n"
