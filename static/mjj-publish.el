@@ -104,11 +104,6 @@ The port is still hardcoded in the Elixir app and may have changed."
        "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
        "<link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">\n"
 
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka-etoile/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/cormorant/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/gentium-basic/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka-aile/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka/fonts.css\" type=\"text/css\">\n"
        "<link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/monkeyjunglejuice.svg\">\n"
        "<link rel=\"apple-touch-icon\" href=\"/static/monkeyjunglejuice-icon180.png\">\n"
        "<script defer src=\"/static/header.js\"></script>\n"))
@@ -144,11 +139,6 @@ The port is still hardcoded in the Elixir app and may have changed."
        "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
        "<link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">\n"
 
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka-etoile/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/cormorant/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/gentium-basic/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka-aile/fonts.css\" type=\"text/css\">\n"
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka/fonts.css\" type=\"text/css\">\n"
        "<link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/monkeyjunglejuice.svg\">\n"
        "<link rel=\"apple-touch-icon\" href=\"/static/monkeyjunglejuice-icon180.png\">\n"
        "<script defer src=\"/static/header.js\"></script>"))
