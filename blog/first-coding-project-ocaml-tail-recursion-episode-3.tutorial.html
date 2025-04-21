@@ -10,12 +10,13 @@
 <meta name="keywords" content="tail recursion, tail call, recursive, ocaml, tutorial, project idea, learn ocaml, csv, pattern matching" />
 <meta name="generator" content="Org Mode" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; font-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <script defer src="/static/header.js"></script>
@@ -30,7 +31,7 @@
 <header>
 <h1 class="title">Eat my huge Files: Tail Recursion in OCaml</h1>
 <p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 3rd Episode</p>
-</header><nav class="pager" id="org9b53bd6">
+</header><nav class="pager" id="orgf0106e4">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -278,7 +279,7 @@ sum <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highli
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="org4290c8d">
+<pre class="example" id="org0ed53db">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -353,7 +354,7 @@ sum <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highli
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="org3c1611c">
+<pre class="example" id="org8c3cec4">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -664,9 +665,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </pre>
 </div>
 </div>
-<div id="outline-container-org7f49f7f" class="outline-4">
-<h4 id="org7f49f7f"><a href="#org7f49f7f">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-org7f49f7f">
+<div id="outline-container-orge684ea3" class="outline-4">
+<h4 id="orge684ea3"><a href="#orge684ea3">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-orge684ea3">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> : 'a list -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'b<span class="org-rainbow-delimiters-depth-1">)</span> list -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'b<span class="org-rainbow-delimiters-depth-1">)</span> list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -858,9 +859,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </pre>
 </div>
 </div>
-<div id="outline-container-orgd52c527" class="outline-4">
-<h4 id="orgd52c527"><a href="#orgd52c527">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-orgd52c527">
+<div id="outline-container-org43de31e" class="outline-4">
+<h4 id="org43de31e"><a href="#org43de31e">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-org43de31e">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'a<span class="org-rainbow-delimiters-depth-1">)</span> list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
