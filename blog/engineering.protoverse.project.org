@@ -125,7 +125,7 @@ Since I asssume the more interesting stuff is likely to happen the longer the Pr
 
 A lot of stuff is going to happen in realtime. Eventually I'm expecting many billions of smallish, interacting computations. In the early stages, where the focus is on modelling the Process abstraction and dynamics, the capacity to handle a couple of millions might be enough, which should be achievable in the cloud, on a small Rasperry Pi cluster or even a bunch of laptops.
 
-Before we come to concurrency and parallelism: the concepts are often mixed up, and understandably so. Parallelism can be seen as a special variant of concurrency, and it's the thing that we really want.
+Before we come to concurrency and parallelism: the concepts are often mixed up, and understandably so -- [[https://wiki.haskell.org/index.php?title=Parallelism_vs._Concurrency][here's an explanation]]. Parallelism is the thing that we really want.
 
 The crux with current architectures is that parallelism is tied to the number of /physical/ cores available. Regular CPUs have a dozen up to a couple of dozen cores, GPUs around 16,000 cores. The ideal thing to have would be something like "real-time-soft-scalable" parallelism, but in practical terms with current architecture we need both, the "normal" interleaving or time-slicing concurrency and true parallelism.
 
