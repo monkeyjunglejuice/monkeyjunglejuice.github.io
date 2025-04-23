@@ -14,11 +14,11 @@
   --color-bright-light: #ffefb6;
   --color-strong: #ac390c;
   --color-strong-light: #ffdac2;
-  --font-body: 2.0rem 'Gentium Plus', 'Garamond', 'Hoefler Text', serif;
-  --font-code: 0.85em 'Fira Code', monospace;
-  --font-data: 0.75em 'Fira Code', monospace;
-  --font-caption: 0.75em 'PT Sans Caption', 'PT Sans', sans-serif;
   --font-headline: 'Gentium Plus', 'Garamond', 'Hoefler Text', serif;
+  --font-body: 2.0rem 'Gentium Plus', 'Garamond', 'Hoefler Text', serif;
+  --font-caption: 0.75em 'PT Sans Caption', 'PT Sans', sans-serif;
+  --font-code: 0.86em 'Iosevka Web', monospace;
+  --font-data: 0.75em 'Iosevka Web', monospace;
 }
 
 /* Based on Sakura.css v1.3.0 https://github.com/oxalorg/sakura */
