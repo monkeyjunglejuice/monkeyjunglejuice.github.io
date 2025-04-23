@@ -17,8 +17,8 @@
   --font-headline: 'Gentium Plus', 'Garamond', 'Hoefler Text', serif;
   --font-body: 2.0rem 'Gentium Plus', 'Garamond', 'Hoefler Text', serif;
   --font-caption: 0.75em 'PT Sans Caption', 'PT Sans', sans-serif;
-  --font-code: 0.86em 'Iosevka Web', monospace;
-  --font-data: 0.75em 'Iosevka Web', monospace;
+  --font-code: 0.86em 'Iosevka', monospace;
+  --font-data: 0.75em 'Iosevka', monospace;
 }
 
 /* Based on Sakura.css v1.3.0 https://github.com/oxalorg/sakura */
