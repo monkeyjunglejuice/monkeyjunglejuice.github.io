@@ -210,13 +210,11 @@ textarea { overflow-x: auto; }
 }
 .org-doc {
   /* font-lock-doc-face */
-  color: #8d8973;
-  font-style: italic;
-}
+  color: #8d8973;}
+
 .org-function-name {
   /* font-lock-function-name-face */
   color: #343327;
-  font-style: italic;
   font-weight: bold;
 }
 .org-keyword {
@@ -234,9 +232,8 @@ textarea { overflow-x: auto; }
 }
 .org-tuareg-font-double-colon {
   /* tuareg-font-double-colon-face */
-  color: #de8621;
-  font-weight: bold;
-}
+  color: #de8621;}
+
 .org-tuareg-font-lock-attribute {
   /* tuareg-font-lock-attribute-face */
   color: #a93308;
