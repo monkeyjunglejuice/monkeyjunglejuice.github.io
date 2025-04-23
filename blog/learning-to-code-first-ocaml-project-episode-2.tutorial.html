@@ -25,14 +25,14 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="index" href="/index.html">Index</a><a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
 <div class="info"><time itemprop="dateModified" datetime="2025-03-24">Last updated: 2025-03-24</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">Rewrite in OCaml: Tooling, Association Lists and Pattern Matching</h1>
 <p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 2nd Episode</p>
-</header><nav class="pager" id="org5fe3f01">
+</header><nav class="pager" id="orgf75a1f5">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -638,7 +638,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org9c5eb2e">
+<pre class="example" id="org2043853">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -798,7 +798,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org880c379">
+<pre class="example" id="org010c78d">
 "b"|"d"
 "2"|"4"
 "6"|"8"

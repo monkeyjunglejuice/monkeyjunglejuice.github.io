@@ -25,14 +25,14 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
+<nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="index" href="/index.html">Index</a><a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
 <div class="info"><time itemprop="dateModified" datetime="2025-03-24">Last updated: 2025-03-24</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">Eat my huge Files: Tail Recursion in OCaml</h1>
 <p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 3rd Episode</p>
-</header><nav class="pager" id="orgfa100a9">
+</header><nav class="pager" id="orgc0cc7e7">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -280,7 +280,7 @@ sum <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highli
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="org1a098ab">
+<pre class="example" id="orgd2ee8a5">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -355,7 +355,7 @@ sum <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highli
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="org07b77d6">
+<pre class="example" id="org1a17ac2">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -666,9 +666,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </pre>
 </div>
 </div>
-<div id="outline-container-org33967b6" class="outline-4">
-<h4 id="org33967b6"><a href="#org33967b6">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-org33967b6">
+<div id="outline-container-orgcd2294b" class="outline-4">
+<h4 id="orgcd2294b"><a href="#orgcd2294b">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-orgcd2294b">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> : 'a list -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'b<span class="org-rainbow-delimiters-depth-1">)</span> list -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'b<span class="org-rainbow-delimiters-depth-1">)</span> list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -860,9 +860,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </pre>
 </div>
 </div>
-<div id="outline-container-orge793518" class="outline-4">
-<h4 id="orge793518"><a href="#orge793518">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-orge793518">
+<div id="outline-container-org2722ad1" class="outline-4">
+<h4 id="org2722ad1"><a href="#org2722ad1">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-org2722ad1">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'a<span class="org-rainbow-delimiters-depth-1">)</span> list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
