@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-04-21 -->
+<!-- 2025-04-23 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Technical Considerations</title>
@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
@@ -31,7 +32,7 @@
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="org36231ae">
+</header><nav class="pager" id="org7ec017f">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -45,7 +46,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="orga621f66">
+<div class="message" id="org057521f">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -75,7 +76,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org92015a9">Batch-processing</a></li>
 <li><a href="#org629d37f">Long-running</a></li>
-<li><a href="#orge20613a">Conclusion</a></li>
+<li><a href="#org7f66e38">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org1331c45">From Metaphysics to Code</a></li>
@@ -122,7 +123,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org9fbd363">Chapel</a></li>
 </ul>
 </li>
-<li><a href="#org5bece84">Conclusion</a>
+<li><a href="#org5951d50">Conclusion</a>
 <ul>
 <li><a href="#org4c84d2a">The Finalists</a></li>
 </ul>
@@ -258,9 +259,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-orge20613a" class="outline-4">
-<h4 id="orge20613a"><a href="#orge20613a">Conclusion</a></h4>
-<div class="outline-text-4" id="text-orge20613a">
+<div id="outline-container-org7f66e38" class="outline-4">
+<h4 id="org7f66e38"><a href="#org7f66e38">Conclusion</a></h4>
+<div class="outline-text-4" id="text-org7f66e38">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -894,9 +895,9 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-org5bece84" class="outline-3">
-<h3 id="org5bece84"><a href="#org5bece84">Conclusion</a></h3>
-<div class="outline-text-3" id="text-org5bece84">
+<div id="outline-container-org5951d50" class="outline-3">
+<h3 id="org5951d50"><a href="#org5951d50">Conclusion</a></h3>
+<div class="outline-text-3" id="text-org5951d50">
 <p>
 The Protoverse project ventures into uncharted territories, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology where possible.<br>
 </p>
@@ -922,7 +923,7 @@ I&rsquo;d like to pick two languages/platforms that are somewhat orthogonal:<br>
 
 <ol class="org-ol">
 <li><p>
-The <b>Erlang</b> platform, using either Elixir and/or Erlang, follows a connectivity-based approach (message passing): The BEAM is not performant for CPU-bound-, but for IO-bound computing. However, CPU-intensive parts could be later ported to high-performance implementations if that&rsquo;s necessary.<br>
+The <b>Erlang</b> platform, using either Elixir and/or Erlang, follows a connectivity-based approach (message passing): The BEAM is not very performant for CPU-bound-, but for IO-bound computing. However, CPU-intensive parts could be later ported to high-performance implementations if that&rsquo;s necessary.<br>
 </p>
 
 <p>
