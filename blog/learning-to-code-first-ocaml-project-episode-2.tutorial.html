@@ -15,7 +15,8 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learning-to-code-first-ocaml-project-episode-2.tutorial.html">
@@ -29,7 +30,7 @@
 <header>
 <h1 class="title">Rewrite in OCaml: Tooling, Association Lists and Pattern Matching</h1>
 <p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 2nd Episode</p>
-</header><nav class="pager" id="orgd8c8254">
+</header><nav class="pager" id="orgc669ee4">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -635,7 +636,7 @@ How do we get from our data structure, the association list …<br>
 … to a CSV file <code>csvcleaner/output.csv</code> like this?<br>
 </p>
 
-<pre class="example" id="org6cada44">
+<pre class="example" id="orgc151381">
 "b"|"d"
 "2"|"4"
 "6"|"8"
@@ -795,7 +796,7 @@ Finally, we can apply the function <code>Csv.save</code> from the Csv module. Th
 When we apply that function, suddenly a new CSV file <code>csvcleaner/output.csv</code> appears in the project directory!<br>
 </p>
 
-<pre class="example" id="org0503df3">
+<pre class="example" id="orgfdf0d12">
 "b"|"d"
 "2"|"4"
 "6"|"8"

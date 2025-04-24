@@ -15,7 +15,8 @@
 <link rel="stylesheet" href="/static/style.css" type="text/css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
 <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/first-coding-project-ocaml-tail-recursion-episode-3.tutorial.html">
@@ -29,7 +30,7 @@
 <header>
 <h1 class="title">Eat my huge Files: Tail Recursion in OCaml</h1>
 <p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 3rd Episode</p>
-</header><nav class="pager" id="orged6a5f3">
+</header><nav class="pager" id="orga6d5da3">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -277,7 +278,7 @@ sum <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highli
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="org9c27673">
+<pre class="example" id="org57eeb7d">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -352,7 +353,7 @@ sum <span class="org-rainbow-delimiters-depth-1">[</span><span class="org-highli
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="orgd582d6a">
+<pre class="example" id="orgb488c2c">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -663,9 +664,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </pre>
 </div>
 </div>
-<div id="outline-container-orge966e5f" class="outline-4">
-<h4 id="orge966e5f"><a href="#orge966e5f">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-orge966e5f">
+<div id="outline-container-org323df51" class="outline-4">
+<h4 id="org323df51"><a href="#org323df51">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-org323df51">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">remove_cols</span> : 'a list -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'b<span class="org-rainbow-delimiters-depth-1">)</span> list -&gt; <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'b<span class="org-rainbow-delimiters-depth-1">)</span> list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
@@ -857,9 +858,9 @@ We fixed the outer function <code>dissoc</code> already, now let&rsquo;s improve
 </pre>
 </div>
 </div>
-<div id="outline-container-org323df51" class="outline-4">
-<h4 id="org323df51"><a href="#org323df51">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-org323df51">
+<div id="outline-container-org733b4d8" class="outline-4">
+<h4 id="org733b4d8"><a href="#org733b4d8">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-org733b4d8">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">dissoc</span> : <span class="org-rainbow-delimiters-depth-1">(</span>'a * 'a<span class="org-rainbow-delimiters-depth-1">)</span> list list -&gt; 'a list list = &lt;<span class="org-keyword">fun</span>&gt;
 </pre>
