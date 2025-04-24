@@ -97,16 +97,15 @@ The port is still hardcoded in the Elixir app and may have changed."
        "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; font-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;\">\n"
        "<meta name=\"google-site-verification\" content=\"WUje0h1DXIUXINogHFZva1zk3Lw1oSpgrqva9dubYq0\">\n"
 
-       "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n"
-       "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
-       "<link href=\"https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap\" rel=\"stylesheet\">\n"
-       "<link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">\n"
-
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka/fonts.css\" type=\"text/css\">\n"
-
        "<link rel=\"stylesheet\" href=\"/static/normalize.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/org.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/style.css\" type=\"text/css\">\n"
+
+       "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n"
+       "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
+       "<link href=\"https://fonts.googleapis.com/css2?family=Cormorant:wght@300&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">"
+
+       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka/fonts.css\" type=\"text/css\">\n"
 
        "<link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/monkeyjunglejuice.svg\">\n"
        "<link rel=\"apple-touch-icon\" href=\"/static/monkeyjunglejuice-icon180.png\">\n"
@@ -137,16 +136,15 @@ The port is still hardcoded in the Elixir app and may have changed."
       (concat
        "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; font-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;\">\n"
 
-       "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n"
-       "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
-       "<link href=\"https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap\" rel=\"stylesheet\">\n"
-       "<link href=\"https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">\n"
-
-       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka/fonts.css\" type=\"text/css\">\n"
-
        "<link rel=\"stylesheet\" href=\"/static/normalize.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/org.css\" type=\"text/css\">\n"
        "<link rel=\"stylesheet\" href=\"/static/style.css\" type=\"text/css\">\n"
+
+       "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n"
+       "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n"
+       "<link href=\"https://fonts.googleapis.com/css2?family=Cormorant:wght@300&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap\" rel=\"stylesheet\">"
+
+       "<link rel=\"stylesheet\" href=\"/static/fonts/iosevka/fonts.css\" type=\"text/css\">\n"
 
        "<link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/monkeyjunglejuice.svg\">\n"
        "<link rel=\"apple-touch-icon\" href=\"/static/monkeyjunglejuice-icon180.png\">\n"
