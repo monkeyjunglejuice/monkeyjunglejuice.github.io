@@ -30,7 +30,7 @@
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="org2033e82">
+</header><nav class="pager" id="orgdf80e8f">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -44,7 +44,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="orgf2fa0b9">
+<div class="message" id="org039fc58">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -74,7 +74,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org92015a9">Batch-processing</a></li>
 <li><a href="#org629d37f">Long-running</a></li>
-<li><a href="#org8941c5e">Conclusion</a></li>
+<li><a href="#org50b4dad">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org1331c45">From Metaphysics to Code</a></li>
@@ -122,7 +122,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org8ac0e61">Lunatic (WASM runtime)</a></li>
 </ul>
 </li>
-<li><a href="#org50b4dad">Conclusion</a>
+<li><a href="#orgf93b3b9">Conclusion</a>
 <ul>
 <li><a href="#org4c84d2a">The Finalists</a></li>
 </ul>
@@ -258,9 +258,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org8941c5e" class="outline-4">
-<h4 id="org8941c5e"><a href="#org8941c5e">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org8941c5e">
+<div id="outline-container-org50b4dad" class="outline-4">
+<h4 id="org50b4dad"><a href="#org50b4dad">Conclusion</a></h4>
+<div class="outline-text-4" id="text-org50b4dad">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -905,9 +905,9 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-org50b4dad" class="outline-3">
-<h3 id="org50b4dad"><a href="#org50b4dad">Conclusion</a></h3>
-<div class="outline-text-3" id="text-org50b4dad">
+<div id="outline-container-orgf93b3b9" class="outline-3">
+<h3 id="orgf93b3b9"><a href="#orgf93b3b9">Conclusion</a></h3>
+<div class="outline-text-3" id="text-orgf93b3b9">
 <p>
 The Protoverse project ventures into uncharted territory, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology where possible.<br>
 </p>
@@ -925,7 +925,7 @@ To me, it seems that covering much ground quickly by focussing on the model and 
 </p>
 
 <p>
-Most &ldquo;scientific&rdquo; projects are currently done in Python, in combination with certain libraries that are written in C and C++ who are doing the heavy lifting; and there&rsquo;s a huge amount done in Java, too &#x2013; but I don&rsquo;t really want to work with these languages (they are all quite ugly); even Scala and Rust don&rsquo;t seem to be great options, either (verbose, low-level, manual). So?<br>
+Most &ldquo;scientific&rdquo; projects are currently done in Python, in combination with certain libraries that are written in C and C++ who are doing the heavy lifting; and there&rsquo;s a huge amount done in Java, too (and Scala to some degree) &#x2013; but I don&rsquo;t really want to work with these languages (they are all quite complicated, verbose and ugly); even Rust doesn&rsquo;t seem to be a great option either (verbose, low-level, manual). So?<br>
 </p>
 </div>
 <div id="outline-container-org4c84d2a" class="outline-4">
@@ -934,10 +934,13 @@ Most &ldquo;scientific&rdquo; projects are currently done in Python, in combinat
 <p>
 I&rsquo;d like to pick two languages/platforms that are somewhat orthogonal:<br>
 </p>
-
-<ol class="org-ol">
-<li>The <b>Erlang</b> platform, using either Elixir and/or Erlang, follows a connectivity-based approach (message passing): The BEAM is not very performant for CPU-bound-, but for IO-bound computing. However, CPU-intensive parts could be later ported to high-performance implementations if that&rsquo;s necessary.<br></li>
-</ol>
+</div>
+<div id="outline-container-org950fd14" class="outline-5">
+<h5 id="org950fd14"><a href="#org950fd14">1. Erlang (Elixir)</a></h5>
+<div class="outline-text-5" id="text-org950fd14">
+<p>
+The Erlang platform, using either Elixir and/or Erlang, follows a connectivity-based approach (message passing): The BEAM is not very performant for CPU-bound-, but for IO-bound computing. However, CPU-intensive parts could be later ported to high-performance implementations if that&rsquo;s necessary.<br>
+</p>
 
 <p>
 The actor model, available at the language level, makes it convenient to write concurrent (and parallel) programs. As per my current view, it seems close to how I picture the Protoverse model (I might be wrong).<br>
@@ -946,10 +949,10 @@ The actor model, available at the language level, makes it convenient to write c
 <p>
 The actor model basically nudges you into decoupling your code, and the scheduler parallizes automatically where it sees fit. But it doesn&rsquo;t stop there: each Erlang process has it&rsquo;s own stack, heap and garbage collector - and you can have a million or more of these processes in a single node.<br>
 </p>
-
-<ol class="org-ol">
-<li>And what should be the other finalist?<br></li>
-</ol>
+</div>
+</div>
+<div id="outline-container-orgef392fd" class="outline-5">
+<h5 id="orgef392fd"><a href="#orgef392fd">2. And what should be the other finalist?</a></h5>
 </div>
 </div>
 </div>
