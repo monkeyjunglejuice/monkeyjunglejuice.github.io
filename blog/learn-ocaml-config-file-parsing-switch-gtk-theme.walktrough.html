@@ -24,13 +24,13 @@
 <body>
 <div id="preamble" class="status">
 <nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="index" href="/index.html">Index</a><a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2025-03-24">Last updated: 2025-03-24</time></div>
+<div class="info"><time itemprop="dateModified" datetime="2025-04-24">Last updated: 2025-04-24</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">GTK Theme Switcher in OCaml: Config File Parsing</h1>
 <p class="subtitle" role="doc-subtitle">Code Walktrough – 2nd Episode</p>
-</header><nav class="pager" id="orga2350ec">
+</header><nav class="pager" id="org13cf501">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -136,45 +136,45 @@ Most important is a huge impressive ASCII art banner to show off your prowess. B
 <span class="org-comment-delimiter">#     </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
 <span class="org-comment-delimiter">#    </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;     &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">Dark GTK theme versions are usually named with a '-dark' suffix.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">This is however not a fixed rule. If you added a theme on your own,</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">and it's not working as expected, please check first if your theme names</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">are spelled correctly (names must not contain spaces!).</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Dark GTK theme versions are usually named with a '-dark' suffix.</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">This is however not a fixed rule. If you added a theme on your own,</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">and it's not working as expected, please check first if your theme names</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">are spelled correctly (names must not contain spaces!).</span>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">UI --------------------------------------------------------------------------</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Configure your GTK themes here. Uncomment a theme pair or add your own:</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">UI --------------------------------------------------------------------------</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Configure your GTK themes here. Uncomment a theme pair or add your own:</span>
 
-<span class="org-variable-name">ui_light</span> = Adwaita
-<span class="org-variable-name">ui_dark</span> = Adwaita-dark
+  <span class="org-variable-name">ui_light</span> = Adwaita
+  <span class="org-variable-name">ui_dark</span> = Adwaita-dark
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Breeze</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Breeze-Dark</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Breeze</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Breeze-Dark</span>
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Greybird</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Greybird-dark</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Greybird</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Greybird-dark</span>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">ICONS -----------------------------------------------------------------------</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Must be set. If you don't want to switch icon themes, then set the same name</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">for both 'icon_light' and 'icon_dark':</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">ICONS -----------------------------------------------------------------------</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Must be set. If you don't want to switch icon themes, then set the same name</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">for both 'icon_light' and 'icon_dark':</span>
 
-<span class="org-variable-name">icon_light</span> = Papirus-Light
-<span class="org-variable-name">icon_dark</span> = Papirus-Dark
+  <span class="org-variable-name">icon_light</span> = Papirus-Light
+  <span class="org-variable-name">icon_dark</span> = Papirus-Dark
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = breeze</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = breeze-dark</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = breeze</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = breeze-dark</span>
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = Paper</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = Paper</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = Paper</span>
+  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = Paper</span>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">BACKEND ---------------------------------------------------------------------</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Set your preferred backend. If one doesn't do anything, try the other.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Use "xsettings" with the XFCE Desktop Environment. The package 'xfconf'</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">should have been installed along with XFCE.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Or uncomment "gsettings" if you are using the GNOME Desktop Environment,</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">and/or Wayland rather than Xorg:</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">BACKEND ---------------------------------------------------------------------</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Set your preferred backend. If one doesn't do anything, try the other.</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Use "xsettings" with the XFCE Desktop Environment. The package 'xfconf'</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">should have been installed along with XFCE.</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Or uncomment "gsettings" if you are using the GNOME Desktop Environment,</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">and/or Wayland rather than Xorg:</span>
 
-<span class="org-variable-name">backend</span> = xsettings
-<span class="org-comment-delimiter">#</span><span class="org-comment">backend = gsettings</span>
+  <span class="org-variable-name">backend</span> = xsettings
+  <span class="org-comment-delimiter">#</span><span class="org-comment">backend = gsettings</span>
 </pre>
 </div>
 </div>
