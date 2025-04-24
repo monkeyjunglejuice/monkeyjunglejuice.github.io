@@ -110,7 +110,7 @@ The port is still hardcoded in the Elixir app and may have changed."
 
        "<link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/monkeyjunglejuice.svg\">\n"
        "<link rel=\"apple-touch-icon\" href=\"/static/monkeyjunglejuice-icon180.png\">\n"
-       "<script defer src=\"/static/header.js\"></script>\n"))
+       ))
 
 (defvar mjj-page-preamble nil "Header for pages.")
 (setq mjj-page-preamble
@@ -150,7 +150,7 @@ The port is still hardcoded in the Elixir app and may have changed."
 
        "<link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/monkeyjunglejuice.svg\">\n"
        "<link rel=\"apple-touch-icon\" href=\"/static/monkeyjunglejuice-icon180.png\">\n"
-       "<script defer src=\"/static/header.js\"></script>"))
+       ))
 
 (defvar mjj-blog-preamble nil "Header for blog articles.")
 (setq mjj-blog-preamble
