@@ -30,7 +30,7 @@
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="org10c3e9e">
+</header><nav class="pager" id="org1090b43">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -44,7 +44,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="org43ba1fd">
+<div class="message" id="org605bb18">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -74,7 +74,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org92015a9">Batch-processing</a></li>
 <li><a href="#org629d37f">Long-running</a></li>
-<li><a href="#org6a4f7b4">Conclusion</a></li>
+<li><a href="#orge031ff4">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org1331c45">From Metaphysics to Code</a></li>
@@ -119,9 +119,10 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org897013a">Bend</a></li>
 <li><a href="#org82b7aae">Futhark</a></li>
 <li><a href="#org9fbd363">Chapel</a></li>
+<li><a href="#org8ac0e61">Lunatic (WASM runtime)</a></li>
 </ul>
 </li>
-<li><a href="#orge031ff4">Conclusion</a>
+<li><a href="#org8941c5e">Conclusion</a>
 <ul>
 <li><a href="#org4c84d2a">The Finalists</a></li>
 </ul>
@@ -257,9 +258,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org6a4f7b4" class="outline-4">
-<h4 id="org6a4f7b4"><a href="#org6a4f7b4">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org6a4f7b4">
+<div id="outline-container-orge031ff4" class="outline-4">
+<h4 id="orge031ff4"><a href="#orge031ff4">Conclusion</a></h4>
+<div class="outline-text-4" id="text-orge031ff4">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -549,7 +550,7 @@ The following assessment is about choosing the primary platform/language for mod
 </ul>
 
 <p>
-Sentiment: The question would be if the Protoverse model will eventually translate well to the actor model &#x2013; on the BEAM, everything is done via actors, there&rsquo;s nothing else. Physical simulations, as far as they might be related, are usually numeric where each data point affects the others.<br>
+<i>Sentiment: The question would be if the Protoverse model will eventually translate well to the actor model &#x2013; on the BEAM, everything is done via actors, there&rsquo;s nothing else. Physical simulations, as far as they might be related, are usually numeric where each data point affects the others.</i><br>
 </p>
 </div>
 <div id="outline-container-org50792c5" class="outline-5">
@@ -572,7 +573,7 @@ Sentiment: The question would be if the Protoverse model will eventually transla
 </ul>
 
 <p>
-Sentiment: Erlang has no Lisp-style macros, but I think I will need them. And there are some rocks on the road to flowy interactive, explorative programming.<br>
+<i>Sentiment: Erlang has no Lisp-style macros, but I think I will need them. And there are some rocks on the road to flowy interactive, explorative programming.</i><br>
 </p>
 </div>
 </div>
@@ -600,7 +601,7 @@ Sentiment: Erlang has no Lisp-style macros, but I think I will need them. And th
 </ul>
 
 <p>
-Sentiment: I find Elxir rather inconsistent, verbose and a bit clumsy &#x2013; syntax-wise, mostly. There are quite a lot WTFs, but Elixir is more interactive-friendly and has at least compile-time macros.<br>
+<i>Sentiment: I find Elxir rather inconsistent, verbose and a bit clumsy &#x2013; syntax-wise, mostly. There are quite a lot WTFs, but Elixir is more interactive-friendly and has at least compile-time macros.</i><br>
 </p>
 </div>
 </div>
@@ -627,7 +628,7 @@ Sentiment: I find Elxir rather inconsistent, verbose and a bit clumsy &#x2013; s
 </ul>
 
 <p>
-Sentiment: Lisp on the BEAM would be an interesting match if LFE wasn&rsquo;t just a 2-person hobby project.<br>
+<i>Sentiment: Lisp on the BEAM would be an interesting match if LFE wasn&rsquo;t just a 2-person hobby project.</i><br>
 </p>
 </div>
 </div>
@@ -653,7 +654,7 @@ Sentiment: Lisp on the BEAM would be an interesting match if LFE wasn&rsquo;t ju
 </ul>
 
 <p>
-Sentiment: Due to the Fibers library and its scheduler, Guile is quite interesting; but I have no idea how it compares to Erlang, for instance.<br>
+<i>Sentiment: Due to the Fibers library and its scheduler, Guile is quite interesting; but I have no idea how it compares to Erlang, for instance.</i><br>
 </p>
 </div>
 </div>
@@ -667,7 +668,7 @@ Sentiment: Due to the Fibers library and its scheduler, Guile is quite interesti
 <li>Built for <a href="https://en.wikipedia.org/wiki/Metalinguistic_abstraction">metalinguistig abstraction</a> (see also <a href="https://en.wikipedia.org/wiki/Language-oriented_programming">LOP</a>);<br></li>
 <li>Not so bad for interactive development (in Emacs);<br></li>
 <li>Various concurrency facilities, green threads;<br></li>
-<li>Parallelism: <a href="https://docs.racket-lang.org/guide/parallelism.html">Places</a> looks quite awkward and hands-on, fully manual;<br></li>
+<li>Parallelism: <a href="https://docs.racket-lang.org/guide/parallelism.html">Places</a> looks quite awkward, bolted-on and fully manual;<br></li>
 <li>Distributed: has a <a href="https://git.syndicate-lang.org/syndicate-lang/syndicate-rkt/src/branch/main/syndicate">Syndicated Actors</a> implementation and a <a href="https://docs.racket-lang.org/goblins/">Spritely Goblins</a> implementation that&rsquo;s behind the canonical one; both are experimental.<br></li>
 </ul>
 </div>
@@ -693,7 +694,7 @@ Sentiment: Due to the Fibers library and its scheduler, Guile is quite interesti
 </ul>
 
 <p>
-Sentiment: Gerbil Scheme is a promising project but in a very early stage (v18.0), and doesn&rsquo;t support multiple CPU cores. The Emacs integration isn&rsquo;t comparable to Guile&rsquo;s, e.g. documentation or code autocompletion.<br>
+<i>Sentiment: Gerbil Scheme is a promising project but in a very early stage (v18.0), and doesn&rsquo;t support multiple CPU cores. The interactivity and Emacs integration isn&rsquo;t comparable to Guile&rsquo;s, e.g. documentation or code autocompletion.</i><br>
 </p>
 </div>
 </div>
@@ -717,7 +718,7 @@ Sentiment: Gerbil Scheme is a promising project but in a very early stage (v18.0
 </ul>
 
 <p>
-Sentiment: Julia is an interesting choice and checks many boxes &#x2013; the ecosystem fits the domain, which is scientific computing and simulation, and Julia is a good fit for CPU-bound workloads. But I&rsquo;m not convinced because conceptually, deep recursion will play a crucial role in the Protoverse model, which doessn&rsquo;t translate well to how things are done in Julia.<br>
+<i>Sentiment: Julia is an interesting choice and checks many boxes &#x2013; the ecosystem fits the domain, which is scientific computing and simulation, and Julia is a good fit for CPU-bound workloads. But I&rsquo;m not convinced because conceptually, deep recursion will play a crucial role in the Protoverse model, which doessn&rsquo;t translate well to how things are done in Julia.</i><br>
 </p>
 </div>
 </div>
@@ -741,7 +742,7 @@ Sentiment: Julia is an interesting choice and checks many boxes &#x2013; the eco
 </ul>
 
 <p>
-Sentiment: It&rsquo;s my favorite language actually, but the tooling (Opam, Dune build system, Ocaml REPL and Utop REPL) is such a mess. Well, and there&rsquo;s no real interactive development.<br>
+<i>Sentiment: It&rsquo;s my favorite language actually, but the tooling (Opam, Dune build system, Ocaml REPL and Utop REPL) is such a mess and I couldn&rsquo;t get it to work fine in Emacs, even though I spent considerable time with it. Well, and there&rsquo;s no real interactive development.</i><br>
 </p>
 </div>
 </div>
@@ -761,7 +762,7 @@ Sentiment: It&rsquo;s my favorite language actually, but the tooling (Opam, Dune
 </ul>
 
 <p>
-Sentiment: I&rsquo;m afraid of lazy-per-default, that reasoning about resource usage may become too complicated and a lot time is spent on fighting Haskell&rsquo;s opinions. Seems no great choice for explorative programming, except maybe you work basically on the type level.<br>
+<i>Sentiment: I&rsquo;m afraid of lazy-per-default, that reasoning about resource usage may become too complicated and a lot time is spent on fighting Haskell&rsquo;s opinions. Seems no great choice for explorative programming, except maybe you work basically on the type level.</i><br>
 </p>
 </div>
 </div>
@@ -806,7 +807,7 @@ Sentiment: I&rsquo;m afraid of lazy-per-default, that reasoning about resource u
 </ul>
 
 <p>
-Sentiment: Dealing with the Java stuff and lingo is unpleasant yet unavoidable. Clojure is a functional language, but since it runs on the JVM, it doesn&rsquo;t offer the full spectrum of what makes a functional language, but employs workarounds instead. It resorts to Java interop for all kinds of (even basic) functionality, which is confusing.<br>
+<i>Sentiment: Dealing with the Java stuff and lingo is unpleasant yet unavoidable. Clojure is a functional language, but since (the canonical implementation) runs on the JVM, it doesn&rsquo;t offer the full spectrum of what makes a functional language. Instead, it employs workarounds &#x2013; depending on the host platform. It resorts to Java interop for all kinds of (even basic) functionality, which is confusing.</i><br>
 </p>
 </div>
 </div>
@@ -831,7 +832,7 @@ Sentiment: Dealing with the Java stuff and lingo is unpleasant yet unavoidable. 
 </ul>
 
 <p>
-Sentiment: I&rsquo;m afraid that Common Lisp could be a dead end when it comes to massive concurrency &amp; parallelism: &ldquo;<a href="https://www.reddit.com/r/lisp/comments/tw7zqr/what_is_a_feature_of_other_languages_that_you/">(..) high level parallelism in lisp just sucks</a>&rdquo;. But it might be sensible to set up some benchmarks, (e.g. with Sento) before dismissing CL, because otherwise CL seems pretty nice for such a project &#x2013; at least for prototyping.<br>
+<i>Sentiment: I&rsquo;m afraid that Common Lisp could be a dead end when it comes to massive concurrency &amp; parallelism: &ldquo;<a href="https://www.reddit.com/r/lisp/comments/tw7zqr/what_is_a_feature_of_other_languages_that_you/">(..) high level parallelism in lisp just sucks</a>&rdquo;. But it might be sensible to set up some benchmarks, (e.g. with Sento) before dismissing CL, because otherwise CL seems an excellent choice for such a project.</i><br>
 </p>
 </div>
 </div>
@@ -850,7 +851,7 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 <li>Two surface syntaxes: Python-style and ML-style;<br></li>
 <li>High-level: higher-order functions, closures, unrestricted recursion, continuations;<br></li>
 <li>Untyped language &#x2013; types seem to be mere documentation, ADT syntax sugar is there to define constructor functions (see <a href="https://github.com/HigherOrderCO/Bend/blob/main/FEATURES.md">features</a>);<br></li>
-<li>Aims to provide fully &ldquo;transparent&rdquo; parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);<br></li>
+<li>Aims to provide fully transparent (implicit?) parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);<br></li>
 <li>Compiler can generate massively parallel GPU kernels from high-level code;<br></li>
 <li>Based on interaction nets (<a href="https://en.wikipedia.org/wiki/Interaction_nets">Wikipedia</a>, <a href="https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76">paper</a>);<br></li>
 <li>Still experimenal/research state;<br></li>
@@ -892,16 +893,27 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </ul>
 </div>
 </div>
+<div id="outline-container-org8ac0e61" class="outline-4">
+<h4 id="org8ac0e61"><a href="#org8ac0e61">Lunatic (WASM runtime)</a></h4>
+<div class="outline-text-4" id="text-org8ac0e61">
+<ul class="org-ul">
+<li>&ldquo;<a href="https://github.com/lunatic-solutions/lunatic">Lunatic</a> is an Erlang-inspired runtime for WebAssembly&rdquo;;<br></li>
+<li>Supports <a href="https://github.com/lunatic-solutions/lunatic-rs">Rust</a> and <a href="https://github.com/lunatic-solutions/as-lunatic">AssemblyScript</a> (for now);<br></li>
+<li>Theoretically, it also could support Guile with <a href="https://codeberg.org/spritely/hoot">Hoot</a>; but that&rsquo;s a lot of work;<br></li>
+<li>Still experimental, and seems abandoned too;<br></li>
+</ul>
 </div>
-<div id="outline-container-orge031ff4" class="outline-3">
-<h3 id="orge031ff4"><a href="#orge031ff4">Conclusion</a></h3>
-<div class="outline-text-3" id="text-orge031ff4">
+</div>
+</div>
+<div id="outline-container-org8941c5e" class="outline-3">
+<h3 id="org8941c5e"><a href="#org8941c5e">Conclusion</a></h3>
+<div class="outline-text-3" id="text-org8941c5e">
 <p>
-The Protoverse project ventures into uncharted territories, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology where possible.<br>
+The Protoverse project ventures into uncharted territory, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology where possible.<br>
 </p>
 
 <p>
-I&rsquo;m not expecting to plug libraries together (how most &ldquo;software  engineering&rdquo; is done today), but to go through a journey of discovery and exploration, and to think through the whole process &ldquo;from scratch&rdquo;, and the language should support that (it&rsquo;s pretty close to the paradigm embodied by the Scheme language).<br>
+I&rsquo;m not expecting to plug libraries together (how most &ldquo;software engineering&rdquo; is done today), but to go through a journey of discovery and exploration, and to think through the whole process &ldquo;from scratch&rdquo;, and the language should support that (it&rsquo;s pretty close to the paradigm embodied by the Scheme language).<br>
 </p>
 
 <p>
