@@ -266,10 +266,7 @@ What really fascinates me, is that Lisp is no obscure magic box, where you write
 
 The tooling is excellent and designed for interactive development. *There's a really nice [[https://apps.apple.com/us/app/cl-repl/id1511296102][App for iOS]] and [[https://play.google.com/store/apps/details?id=org.eql5.android.repl][Android]] called "CL REPL".* You can use it to tinker around when ever you feel like /"Damn, I wish I could write some Lisp right now!"/ You can. It's in fact a complete Common Lisp IDE with SLIME, the "Superior Lisp Interaction Mode for Emacs".
 
-But usually you want it on your laptop. There are plugins for [[https://atom.io/packages/slima][Atom]], [[https://marketplace.visualstudio.com/items?itemName=ailisp.commonlisp-vscode][VSCode]] and [[https://github.com/vlime/vlime][Vim]], although I recommend Emacs, which is straightforward to install [[https://portacle.github.io/][via Portacle]], a ready-made bundle coming with everything you need. If you don't know Emacs yet, do:
-1. Menu → "Options" → "Use CUA keys"
-2. Menu → "Options" → "Save options"
-– then copy & paste works like everywhere else.
+But usually you want it on your laptop. There are plugins for [[https://atom.io/packages/slima][Atom]], [[https://marketplace.visualstudio.com/items?itemName=ailisp.commonlisp-vscode][VSCode]] and [[https://github.com/vlime/vlime][Vim]], although I recommend Emacs, which is straightforward to install [[https://github.com/doomemacs/doomemacs][via Doom Emacs]].
 
 - [[https://learnxinyminutes.com/docs/common-lisp/][Common Lisp code examples]]
 - [[https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/][Getting started with Common Lisp]] and [[https://portacle.github.io/][the Portacle IDE]]
