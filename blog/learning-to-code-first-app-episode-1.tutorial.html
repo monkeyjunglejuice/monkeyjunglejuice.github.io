@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-04-23 -->
+<!-- 2025-04-24 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Manipulating CSV Files in Common Lisp</title>
@@ -10,17 +10,14 @@
 <meta name="keywords" content="common lisp, tutorial, first app, learn lisp, csv, cl-csv, lisp scripting" />
 <meta name="generator" content="Org Mode" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://wa.skred.net/; connect-src https://wa.skred.net/; style-src 'self' https://*; font-src 'self' https://*; img-src 'self' https://*; media-src 'self' https://*;">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="stylesheet" href="/static/normalize.css" type="text/css">
 <link rel="stylesheet" href="/static/org.css" type="text/css">
 <link rel="stylesheet" href="/static/style.css" type="text/css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow:wght@400;700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="/static/fonts/iosevka/fonts.css" type="text/css">
 <link rel="icon" type="image/svg+xml" href="/static/monkeyjunglejuice.svg">
 <link rel="apple-touch-icon" href="/static/monkeyjunglejuice-icon180.png">
-<script defer src="/static/header.js"></script>
 <link rel="canonical" href="https://monkeyjunglejuice.github.io/blog/learning-to-code-first-app-episode-1.tutorial.html">
 </head>
 <body>
@@ -32,7 +29,7 @@
 <header>
 <h1 class="title">Manipulating CSV Files in Common Lisp</h1>
 <p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 1st Episode</p>
-</header><nav class="pager" id="orga47f0f8">
+</header><nav class="pager" id="org5ee88e6">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -185,7 +182,7 @@ We&rsquo;ll go ahead with <code>defparameter</code> to define a variable <code>*
 </pre>
 </div>
 
-<div class="note" id="org3684350">
+<div class="note" id="org7f44495">
 <p>
 <b>Let&rsquo;s throw in a little explainer about Lisp source code, shall we?</b><br>
 </p>
@@ -276,7 +273,7 @@ Example: If don&rsquo;t want the column &ldquo;Size&rdquo; appearing in the resu
 For that, we would need to define all the columns we don&rsquo;t want. We could do that here, directly in the source file in the form of a list of all column headers to get rid of. But then if we want to change something, we would always have to touch the source file &#x2026; meh. Better we specify those columns outside of the app&rsquo;s logic in another CSV which will serve as a template. Let&rsquo;s be creative and call it &rsquo;template.csv&rsquo;.<br>
 </p>
 
-<div class="note" id="org377dfe8">
+<div class="note" id="org1c02936">
 <p>
 <b>So here we&rsquo;ll make a little break to introduce a literary figure: <i>Future Me</i> writing here!</b><br>
 </p>
@@ -364,7 +361,7 @@ When we use <code>mapcar</code> to apply the function <code>get-col-position</co
 </pre>
 </div>
 
-<div class="note" id="org240d0d8">
+<div class="note" id="orge62749a">
 <p>
 It&rsquo;s me again &#x2013; former <i>Future Me</i>! Merging into your present time line and becoming just me again!<br>
 </p>
