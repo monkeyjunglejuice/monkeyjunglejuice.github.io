@@ -1,0 +1,3 @@
+#+title: Serving Static HTML with Elixir, Plug and Cowboy
+
+Simple webserver for local development
