@@ -34,4 +34,4 @@ I care about:
 -----
 CREDITS:
 Static site generator: [[https://www.gnu.org/software/emacs/][Emacs]] with [[https://orgmode.org/features.html#publishing][Org-mode]]
-CSS frameworks: [[http://necolas.github.io/normalize.css/][normalize.css]] and [[https://github.com/oxalorg/sakura][sakura]]
+CSS frameworks: [[https://github.com/csstools/normalize.css][normalize.css]] and [[https://github.com/oxalorg/sakura][sakura]]
