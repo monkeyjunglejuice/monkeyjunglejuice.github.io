@@ -1,5 +1,5 @@
 ;;;  Start the webserver from the commmand line via 'sbcl -l webserver.lisp'
-;;;  or successively evaluate each toplevel form in the REPL.
+;;;  or evaluate each toplevel form in the REPL.
 
 (ql:quickload 'hunchentoot)
 
