@@ -82,8 +82,7 @@ The port is still hardcoded in the Elixir app and may have changed."
 (use-package recentf
   :defer t
   :config
-  (cl-pushnew (expand-file-name "../.*\\.html$")
-              recentf-exclude))
+  (cl-pushnew (concat mjj-root ".*\\.html$") recentf-exclude))
 
 ;; Don't show day and hour
 ;; (setq org-html-metadata-timestamp-format "%Y-%m-%d")
