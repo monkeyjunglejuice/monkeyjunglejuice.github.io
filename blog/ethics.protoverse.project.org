@@ -1,4 +1,4 @@
-#+TITLE: A Perspective On Ethics
+#+TITLE: A Perspective on Ethics
 #+SUBTITLE: Protoverse: Ethical Guidelines
 #+DATE: <2023-08-22 Tue>
 #+LANGUAGE: en
