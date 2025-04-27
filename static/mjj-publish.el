@@ -21,7 +21,7 @@ The port is still hardcoded in the Elixir app and may have changed."
    "*Process MJJ Webserver*"  ; with named buffer or `nil' without buffer
    (concat mjj-root
            "static/webserver/_build/prod/rel/webserver/bin/webserver start"))
-  (message (concat "MJJ: Launching webserver...done" "")))
+  (message "MJJ: Launching webserver...done"))
 
 (defun mjj-webserver-stop ()
   "Stop the webserver at <http://localhost:50081/index.html>."
@@ -31,7 +31,7 @@ The port is still hardcoded in the Elixir app and may have changed."
    nil
    (concat mjj-root
            "static/webserver/_build/prod/rel/webserver/bin/webserver stop"))
-  (message (concat "MJJ: Stopping webserver...done" "")))
+  (message "MJJ: Stopping webserver...done"))
 
 ;;  ____________________________________________________________________________
 ;;; ORG EXPORT AND PUBLISHING
