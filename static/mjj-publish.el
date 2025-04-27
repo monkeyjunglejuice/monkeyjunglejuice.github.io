@@ -119,13 +119,15 @@ The port is still hardcoded in the Elixir app and may have changed."
        "<a id=\"index\" href=\"/index.html\">Index</a>"
        "<a id=\"bio\" href=\"/bio.html\">Bio</a>"
        "<a id=\"github\" href=\"https://github.com/monkeyjunglejuice\">Github</a>"
-       "</nav>"))
+       "</nav>"
+       ))
 
 (defvar mjj-page-postamble nil "Footer for pages.")
 (setq mjj-page-postamble
       (concat
        "<div class=\"footer\">Published by <span class=\"author\"><a href=\"/bio.html\">%a</a></span></div>\n"
-       "<script defer src=\"/static/footer.js\"></script>"))
+       "<script defer src=\"/static/footer.js\"></script>"
+       ))
 
 ;;  ____________________________________________________________________________
 ;;; BLOG TEMPLATE
@@ -159,13 +161,15 @@ The port is still hardcoded in the Elixir app and may have changed."
        "<a id=\"bio\" href=\"/bio.html\">Bio</a>"
        "<a id=\"github\" href=\"https://github.com/monkeyjunglejuice\">Github</a>"
        "</nav>\n"
-       "<div class=\"info\"><time itemprop=\"dateModified\" datetime=\"%C\">Last updated: %C</time></div>"))
+       "<div class=\"info\"><time itemprop=\"dateModified\" datetime=\"%C\">Last updated: %C</time></div>"
+       ))
 
 (defvar mjj-blog-postamble nil "Footer for blog articles.")
 (setq mjj-blog-postamble
       (concat
        "<div class=\"footer\">Published by <span class=\"author\"><a href=\"/bio.html\">%a</a></span></div>\n"
-       "<script defer src=\"/static/footer.js\"></script>"))
+       "<script defer src=\"/static/footer.js\"></script>"
+       ))
 
 ;;  ____________________________________________________________________________
 ;;; EXPORT SETTINGS
