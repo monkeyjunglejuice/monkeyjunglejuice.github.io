@@ -52,15 +52,7 @@ The port is still hardcoded in the Elixir app and may have changed."
 ;; <https://orgmode.org/manual/Publishing.html>
 (use-package ox-publish
   :config
-  (setq org-publish-list-skipped-files nil)
-  (defun org-publish-use-timestamps ()
-    "Toggle wether to re-export Org files that haven't been changed."
-    (interactive)
-    (if (equal org-publish-use-timestamps-flag t)
-        (progn (setq org-publish-use-timestamps-flag nil)
-               (message "Re-export unchanged files"))
-      (progn (setq org-publish-use-timestamps-flag t)
-             (message "Don't re-export unchanged files (default)")))))
+  (setq org-publish-list-skipped-files nil))
 
 ;; <https://orgmode.org/manual/HTML-Export.html>
 (use-package ox-html
