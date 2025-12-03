@@ -51,11 +51,13 @@ The port is still hardcoded in the Elixir app and may have changed."
 
 ;; <https://orgmode.org/manual/Publishing.html>
 (use-package ox-publish
+  :ensure nil
   :config
   (setq org-publish-list-skipped-files nil))
 
 ;; <https://orgmode.org/manual/HTML-Export.html>
 (use-package ox-html
+  :ensure nil
   :defer t
   :config
   (setq org-html-checkbox-type 'unicode
@@ -64,6 +66,7 @@ The port is still hardcoded in the Elixir app and may have changed."
 
 ;; <https://github.com/hniksic/emacs-htmlize>
 (use-package htmlize
+  :ensure nil
   :defer t
   :config
   ;; Set external 'css' or 'inline-css' for code snippets created by htmlize
@@ -72,6 +75,7 @@ The port is still hardcoded in the Elixir app and may have changed."
 
 ;; Prevent littering the recently visited files with exported HTML
 (use-package recentf
+  :ensure nil
   :defer t
   :config
   (cl-pushnew (concat mjj-root ".*\\.html$") recentf-exclude))
