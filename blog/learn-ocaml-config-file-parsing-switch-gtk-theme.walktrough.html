@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-04-24 -->
+<!-- 2025-12-03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GTK Theme Switcher in OCaml: Config File Parsing</title>
@@ -30,7 +30,7 @@
 <header>
 <h1 class="title">GTK Theme Switcher in OCaml: Config File Parsing</h1>
 <p class="subtitle" role="doc-subtitle">Code Walktrough – 2nd Episode</p>
-</header><nav class="pager" id="org13cf501">
+</header><nav class="pager" id="org38a4fcb">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -44,18 +44,18 @@ This post is part of a miniseries:<br>
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org34be515">The Config File</a>
+<li><a href="#org6cca82b">The Config File</a>
 <ul>
-<li><a href="#org46f9a5c">Is there a Syntax or Convention for Config Files?</a></li>
-<li><a href="#orgaecb6e3">Let&rsquo;s design a beautiful Config File!</a></li>
-<li><a href="#org2a82cf4">Where to put this Config File?</a></li>
-<li><a href="#orga24ce54">The Config File Path</a></li>
+<li><a href="#orgae0aa4b">Is there a Syntax or Convention for Config Files?</a></li>
+<li><a href="#orgb32aa8c">Let&rsquo;s design a beautiful Config File!</a></li>
+<li><a href="#orgd021c49">Where to put this Config File?</a></li>
+<li><a href="#org63b5c40">The Config File Path</a></li>
 </ul>
 </li>
-<li><a href="#org7b3259e">Reading a Config File in OCaml</a>
+<li><a href="#orgbe60a94">Reading a Config File in OCaml</a>
 <ul>
-<li><a href="#org8e55ac0">Getting the Data from the File</a></li>
-<li><a href="#orgf4d3da3">Reading the whole File and building the Data Structure</a></li>
+<li><a href="#org3e37aa6">Getting the Data from the File</a></li>
+<li><a href="#org3c4b50b">Reading the whole File and building the Data Structure</a></li>
 </ul>
 </li>
 </ul>
@@ -71,9 +71,9 @@ This post is part of a miniseries:<br>
 <p>
 Welcome to the 2nd episode of <i>&ldquo;We&rsquo;re writing a GTK Theme Switcher for XFCE4 to toggle between light/dark modes via shortcut&rdquo;</i>. <a href="learn-ocaml-light-dark-theme-switcher-gtk.tutorial.html">Here&rsquo;s the previous episode</a>.<br>
 </p>
-<div id="outline-container-org34be515" class="outline-2">
-<h2 id="org34be515"><a href="#org34be515">The Config File</a></h2>
-<div class="outline-text-2" id="text-org34be515">
+<div id="outline-container-org6cca82b" class="outline-2">
+<h2 id="org6cca82b"><a href="#org6cca82b">The Config File</a></h2>
+<div class="outline-text-2" id="text-org6cca82b">
 <p>
 Until now, we have &ldquo;hardcoded&rdquo; preferences – that means, we specified those preferences within the program code itself – like what is the dark theme, what&rsquo;s the light theme, and which backend we use to talk to the daemon.<br>
 </p>
@@ -91,9 +91,9 @@ There are three common solutions to this &ldquo;problem&rdquo;:<br>
 <li>Specifying the preferences in a plain text file that is read by the program during startup. Those files are called &ldquo;run control files&rdquo; (that&rsquo;s why they often end in <code>"rc"</code>, eg. <code>.vimrc</code>); a.k.a. &ldquo;dotfiles&rdquo;.<br></li>
 </ul>
 </div>
-<div id="outline-container-org46f9a5c" class="outline-3">
-<h3 id="org46f9a5c"><a href="#org46f9a5c">Is there a Syntax or Convention for Config Files?</a></h3>
-<div class="outline-text-3" id="text-org46f9a5c">
+<div id="outline-container-orgae0aa4b" class="outline-3">
+<h3 id="orgae0aa4b"><a href="#orgae0aa4b">Is there a Syntax or Convention for Config Files?</a></h3>
+<div class="outline-text-3" id="text-orgae0aa4b">
 <p>
 There are several formats in use: INI-style files, XML, YAML, S-expressions, and even JSON. But for simplicity&rsquo;s sake, let&rsquo;s stick closely to the <a href="https://web.archive.org/web/20191007042721/http://www.faqs.org/docs/artu/ch10s03.html">Unix-conventions</a>:<br>
 </p>
@@ -103,85 +103,85 @@ There are several formats in use: INI-style files, XML, YAML, S-expressions, and
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaecb6e3" class="outline-3">
-<h3 id="orgaecb6e3"><a href="#orgaecb6e3">Let&rsquo;s design a beautiful Config File!</a></h3>
-<div class="outline-text-3" id="text-orgaecb6e3">
+<div id="outline-container-orgb32aa8c" class="outline-3">
+<h3 id="orgb32aa8c"><a href="#orgb32aa8c">Let&rsquo;s design a beautiful Config File!</a></h3>
+<div class="outline-text-3" id="text-orgb32aa8c">
 <p>
 Most important is a huge impressive ASCII art banner to show off your prowess. Besides that, it’s probably a good idea to provide some comments how to use the file. And then there are the actual preferences. Here you go:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 1: </span>File <code>/home/YOUR_USER_NAME/.config/switch_gtk_theme.conf</code></label><pre class="src src-conf"><span class="org-comment-delimiter">#   </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;  &#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9617;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9608;&#9608;&#9608;     &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;          &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;   &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;          &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;    &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608; &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;     &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;      &#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;       &#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;      &#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;      &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;  &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;&#9617;</span>
-<span class="org-comment-delimiter">#    </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#   </span><span class="org-comment">&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9617;</span>
-<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;     &#9617;&#9617;&#9617; &#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9617;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;             &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#   </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;     &#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;</span>
-<span class="org-comment-delimiter">#  </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;&#9608;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;   &#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9617;&#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#9617;   &#9617;&#9608;&#9608;&#9608;  &#9617;  &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;  &#9608; &#9617;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;  &#9608; &#9617;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;&#9608;&#9608; &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9617;&#9617;&#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;    &#9617;&#9608;&#9608;&#9608; &#9617;&#9617;&#9617;  &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608;&#9617;&#9617;&#9608;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9617;&#9608;&#9608;&#9608;     &#9617;&#9608;&#9608;&#9608;    &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9608; &#9617;&#9608;&#9608;&#9608;      &#9617;&#9608;&#9608;&#9608;  &#9617;&#9608;&#9608;&#9608; &#9617;   &#9608;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">&#9608;&#9608;&#9608;&#9608;&#9608;    &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;     &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span>
-<span class="org-comment-delimiter">#    </span><span class="org-comment">&#9617;&#9617;&#9617;&#9617;&#9617;    &#9617;&#9617;&#9617;&#9617;&#9617;   &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;     &#9617;&#9617;&#9617;&#9617;&#9617; &#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;&#9617;</span>
+<label class="org-src-name"><span class="listing-number">Listing 1: </span>File <code>/home/YOUR_USER_NAME/.config/switch_gtk_theme.conf</code></label><pre class="src src-conf">#   █████████  █████   ███   █████ █████ ███████████   █████████  █████   █████
+#  ███░░░░░███░░███   ░███  ░░███ ░░███ ░█░░░███░░░█  ███░░░░░███░░███   ░░███
+# ░███    ░░░  ░███   ░███   ░███  ░███ ░   ░███  ░  ███     ░░░  ░███    ░███
+# ░░█████████  ░███   ░███   ░███  ░███     ░███    ░███          ░███████████
+#  ░░░░░░░░███ ░░███  █████  ███   ░███     ░███    ░███          ░███░░░░░███
+#  ███    ░███  ░░░█████░█████░    ░███     ░███    ░░███     ███ ░███    ░███
+# ░░█████████     ░░███ ░░███      █████    █████    ░░█████████  █████   █████
+#  ░░░░░░░░░       ░░░   ░░░      ░░░░░    ░░░░░      ░░░░░░░░░  ░░░░░   ░░░░░
+#    █████████  ███████████ █████   ████
+#   ███░░░░░███░█░░░███░░░█░░███   ███░
+#  ███     ░░░ ░   ░███  ░  ░███  ███
+# ░███             ░███     ░███████
+# ░███    █████    ░███     ░███░░███
+# ░░███  ░░███     ░███     ░███ ░░███
+#  ░░█████████     █████    █████ ░░████
+#   ░░░░░░░░░     ░░░░░    ░░░░░   ░░░░
+#  ███████████ █████   █████ ██████████ ██████   ██████ ██████████
+# ░█░░░███░░░█░░███   ░░███ ░░███░░░░░█░░██████ ██████ ░░███░░░░░█
+# ░   ░███  ░  ░███    ░███  ░███  █ ░  ░███░█████░███  ░███  █ ░
+#     ░███     ░███████████  ░██████    ░███░░███ ░███  ░██████
+#     ░███     ░███░░░░░███  ░███░░█    ░███ ░░░  ░███  ░███░░█
+#     ░███     ░███    ░███  ░███ ░   █ ░███      ░███  ░███ ░   █
+#     █████    █████   █████ ██████████ █████     █████ ██████████
+#    ░░░░░    ░░░░░   ░░░░░ ░░░░░░░░░░ ░░░░░     ░░░░░ ░░░░░░░░░░
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Dark GTK theme versions are usually named with a '-dark' suffix.</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">This is however not a fixed rule. If you added a theme on your own,</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">and it's not working as expected, please check first if your theme names</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">are spelled correctly (names must not contain spaces!).</span>
+  # Dark GTK theme versions are usually named with a '-dark' suffix.
+  # This is however not a fixed rule. If you added a theme on your own,
+  # and it's not working as expected, please check first if your theme names
+  # are spelled correctly (names must not contain spaces!).
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">UI --------------------------------------------------------------------------</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Configure your GTK themes here. Uncomment a theme pair or add your own:</span>
+  # UI --------------------------------------------------------------------------
+  # Configure your GTK themes here. Uncomment a theme pair or add your own:
 
-  <span class="org-variable-name">ui_light</span> = Adwaita
-  <span class="org-variable-name">ui_dark</span> = Adwaita-dark
+  ui_light = Adwaita
+  ui_dark = Adwaita-dark
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Breeze</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Breeze-Dark</span>
+  #ui_light = Breeze
+  #ui_dark = Breeze-Dark
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_light = Greybird</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">ui_dark = Greybird-dark</span>
+  #ui_light = Greybird
+  #ui_dark = Greybird-dark
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">ICONS -----------------------------------------------------------------------</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Must be set. If you don't want to switch icon themes, then set the same name</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">for both 'icon_light' and 'icon_dark':</span>
+  # ICONS -----------------------------------------------------------------------
+  # Must be set. If you don't want to switch icon themes, then set the same name
+  # for both 'icon_light' and 'icon_dark':
 
-  <span class="org-variable-name">icon_light</span> = Papirus-Light
-  <span class="org-variable-name">icon_dark</span> = Papirus-Dark
+  icon_light = Papirus-Light
+  icon_dark = Papirus-Dark
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = breeze</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = breeze-dark</span>
+  #icon_light = breeze
+  #icon_dark = breeze-dark
 
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_light = Paper</span>
-  <span class="org-comment-delimiter">#</span><span class="org-comment">icon_dark = Paper</span>
+  #icon_light = Paper
+  #icon_dark = Paper
 
-  <span class="org-comment-delimiter"># </span><span class="org-comment">BACKEND ---------------------------------------------------------------------</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Set your preferred backend. If one doesn't do anything, try the other.</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Use "xsettings" with the XFCE Desktop Environment. The package 'xfconf'</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">should have been installed along with XFCE.</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Or uncomment "gsettings" if you are using the GNOME Desktop Environment,</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">and/or Wayland rather than Xorg:</span>
+  # BACKEND ---------------------------------------------------------------------
+  # Set your preferred backend. If one doesn't do anything, try the other.
+  # Use "xsettings" with the XFCE Desktop Environment. The package 'xfconf'
+  # should have been installed along with XFCE.
+  # Or uncomment "gsettings" if you are using the GNOME Desktop Environment,
+  # and/or Wayland rather than Xorg:
 
-  <span class="org-variable-name">backend</span> = xsettings
-  <span class="org-comment-delimiter">#</span><span class="org-comment">backend = gsettings</span>
+  backend = xsettings
+  #backend = gsettings
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org2a82cf4" class="outline-3">
-<h3 id="org2a82cf4"><a href="#org2a82cf4">Where to put this Config File?</a></h3>
-<div class="outline-text-3" id="text-org2a82cf4">
+<div id="outline-container-orgd021c49" class="outline-3">
+<h3 id="orgd021c49"><a href="#orgd021c49">Where to put this Config File?</a></h3>
+<div class="outline-text-3" id="text-orgd021c49">
 <p>
 As per <a href="https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html">Freedesktop.org conventions</a>, config files for (desktop-)applications should be put under <code>$XDG_CONFIG_HOME</code>. That&rsquo;s an environment variable, referring to the the user&rsquo;s config directory. If this environment variable is not set, &ldquo;a default equal to <code>$HOME/.config</code> should be used&rdquo; (<code>$HOME</code> is another environment variable, but one that <i>is</i> usually set. It points to the user’s home directory).<br>
 </p>
@@ -191,9 +191,9 @@ So that means we could name the config file <code>$HOME/.config/switch_gtk_theme
 </p>
 </div>
 </div>
-<div id="outline-container-orga24ce54" class="outline-3">
-<h3 id="orga24ce54"><a href="#orga24ce54">The Config File Path</a></h3>
-<div class="outline-text-3" id="text-orga24ce54">
+<div id="outline-container-org63b5c40" class="outline-3">
+<h3 id="org63b5c40"><a href="#org63b5c40">The Config File Path</a></h3>
+<div class="outline-text-3" id="text-org63b5c40">
 <p>
 On my laptop, my <code>$HOME</code> directory is <code>/home/dan</code>, and the config file is there: <code>/home/dan/.config/switch_gtk_theme.conf</code>.<br>
 </p>
@@ -212,7 +212,7 @@ Using the <code>$HOME</code> environment variable, we can assemble the absolute 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 2: </span>Expression (in the toplevel)</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 2: </span>Expression (in the toplevel)</label><pre class="src src-ocaml">Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf";;
 </pre>
 </div>
 
@@ -229,15 +229,15 @@ The <a href="https://www.ocaml.org/api/Stdlib.html#VAL(%5E)"><code>^</code></a> 
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 3: </span>Expression in the toplevel</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 3: </span>Expression in the toplevel</label><pre class="src src-ocaml">let path = Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf";;
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org7b3259e" class="outline-2">
-<h2 id="org7b3259e"><a href="#org7b3259e">Reading a Config File in OCaml</a></h2>
-<div class="outline-text-2" id="text-org7b3259e">
+<div id="outline-container-orgbe60a94" class="outline-2">
+<h2 id="orgbe60a94"><a href="#orgbe60a94">Reading a Config File in OCaml</a></h2>
+<div class="outline-text-2" id="text-orgbe60a94">
 <p>
 Ok fine, we’re going to read a file. What&rsquo;s going to happen with it when we&rsquo;ve done that? What will it become? And how will it look like? And why all that?<br>
 </p>
@@ -265,9 +265,9 @@ In fact, our theme switcher needs only the key-value pairs like <code>ui_light =
 <li>Eventually, we feed that into the switch mechanism to control it<br></li>
 </ol>
 </div>
-<div id="outline-container-org8e55ac0" class="outline-3">
-<h3 id="org8e55ac0"><a href="#org8e55ac0">Getting the Data from the File</a></h3>
-<div class="outline-text-3" id="text-org8e55ac0">
+<div id="outline-container-org3e37aa6" class="outline-3">
+<h3 id="org3e37aa6"><a href="#org3e37aa6">Getting the Data from the File</a></h3>
+<div class="outline-text-3" id="text-org3e37aa6">
 <p>
 According to the <a href="https://www.ocaml.org/learn/tutorials/file_manipulation.html#Reading">official tutorial</a>, we’ll have to open an <code>in_channel</code> first, using the function <a href="https://ocaml.org/api/Stdlib.html#VALopen_in"><code>open_in</code></a>. An <code>in_channel</code> is not a file itself, but more like a tornado; its funnel&rsquo;s end at your disposal, pointing initially to the beginning of a file. Yeah programming is exciting. You probably know that already.<br>
 </p>
@@ -285,17 +285,17 @@ A channel needs to be closed when we’re done with it, using the function <a hr
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 4: </span>Toplevel</label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-tuareg-font-double-semicolon">;;</span>
+<label class="org-src-name"><span class="listing-number">Listing 4: </span>Toplevel</label><pre class="src src-ocaml">(* 1. Assemble the path and bind it to the name [path] *)
+let path = (Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf");;
 
-<span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
+(* 2. Define the [in_channel] and bind it to the name [ic] *)
+let ic = open_in path;;
 
-<span class="org-comment-delimiter">(* </span><span class="org-comment">3. Read one line from the [in_channel] and bind it to the name [line]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">line</span> = input_line ic<span class="org-tuareg-font-double-semicolon">;;</span>
+(* 3. Read one line from the [in_channel] and bind it to the name [line] *)
+let line = input_line ic;;
 
-<span class="org-comment-delimiter">(* </span><span class="org-comment">4. Close the [in_channel]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = close_in ic<span class="org-tuareg-font-double-semicolon">;;</span>
+(* 4. Close the [in_channel] *)
+let _ = close_in ic;;
 </pre>
 </div>
 
@@ -308,8 +308,8 @@ If the file exists and you got the path right, you’ll see this result:<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 5: </span>Result – the first line of the config file</label><pre class="src src-ocaml"><span class="org-tuareg-font-lock-governing">val</span> <span class="org-function-name">line</span> : string =
-  <span class="org-string">"#   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608; &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;  &#9608;&#9608;&#9608;&#9608;&#9608;   &#9608;&#9608;&#9608;&#9608;&#9608;"</span>
+<label class="org-src-name"><span class="listing-number">Listing 5: </span>Result – the first line of the config file</label><pre class="src src-ocaml">val line : string =
+  "#   █████████  █████   ███   █████ █████ ███████████   █████████  █████   █████"
 </pre>
 </div>
 
@@ -318,25 +318,25 @@ Not so bad! But wasn’t our plan to ignore comments, starting with <code>#</cod
 </p>
 </div>
 </div>
-<div id="outline-container-orgf4d3da3" class="outline-3">
-<h3 id="orgf4d3da3"><a href="#orgf4d3da3">Reading the whole File and building the Data Structure</a></h3>
-<div class="outline-text-3" id="text-orgf4d3da3">
+<div id="outline-container-org3c4b50b" class="outline-3">
+<h3 id="org3c4b50b"><a href="#org3c4b50b">Reading the whole File and building the Data Structure</a></h3>
+<div class="outline-text-3" id="text-org3c4b50b">
 <p>
 To get all the lines, we must apply <a href="https://ocaml.org/api/Stdlib.html#VALinput_line"><code>input_line</code></a> repeatedly to the <code>in_channel</code>. In most other languages, repetition is done via loops. But loops are clumsy low-level made-up things, mutating variables in-place. Nonono, we don’t do that here. <a href="https://ocaml.org/learn/tutorials/if_statements_loops_and_recursion.html">In OCaml, we have cooler things: recursion</a> – a function calling itself over and over again, until a base case is reached.<br>
 </p>
 
 <div class="org-src-container">
-<label class="org-src-name"><span class="listing-number">Listing 6: </span>File <code>switch_gtk_theme.ml</code></label><pre class="src src-ocaml"><span class="org-comment-delimiter">(* </span><span class="org-comment">1. Assemble the path and bind it to the name [path]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">path</span> = <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-tuareg-font-lock-module">Unix.</span>getenv <span class="org-string">"HOME"</span> <span class="org-tuareg-font-lock-operator">^</span> <span class="org-string">"/.config/switch_gtk_theme.conf"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<label class="org-src-name"><span class="listing-number">Listing 6: </span>File <code>switch_gtk_theme.ml</code></label><pre class="src src-ocaml">(* 1. Assemble the path and bind it to the name [path] *)
+let path = (Unix.getenv "HOME" ^ "/.config/switch_gtk_theme.conf")
 
-<span class="org-comment-delimiter">(* </span><span class="org-comment">2. Define the [in_channel] and bind it to the name [ic]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">ic</span> = open_in path<span class="org-tuareg-font-double-semicolon">;;</span>
+(* 2. Define the [in_channel] and bind it to the name [ic] *)
+let ic = open_in path;;
 
-<span class="org-comment-delimiter">(* </span><span class="org-comment">3. Read one line from the [in_channel] and bind it to the name [line]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">line</span> = input_line ic<span class="org-tuareg-font-double-semicolon">;;</span>
+(* 3. Read one line from the [in_channel] and bind it to the name [line] *)
+let line = input_line ic;;
 
-<span class="org-comment-delimiter">(* </span><span class="org-comment">4. Close the [in_channel]</span><span class="org-comment-delimiter"> *)</span>
-<span class="org-tuareg-font-lock-governing">let</span> <span class="org-variable-name">_</span> = close_in ic<span class="org-tuareg-font-double-semicolon">;;</span>
+(* 4. Close the [in_channel] *)
+let _ = close_in ic;;
 </pre>
 </div>
 
