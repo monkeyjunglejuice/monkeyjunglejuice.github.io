@@ -553,6 +553,6 @@ Guile provides high-level concurrency facilites (fibers in conjunction with a wo
 
 It may be surprising, but Guile Scheme looks quite feasible as a candidate for the primary language, because it has become much more than just an "extension language" for "scripting applications written in C". For instance, it seems to handle large data structures and hefty allocation quite well -- out-of-the-box, in the REPL.
 
-The GC (as of version 3.0.10) seems to need less attention compared to SBCL's ccurrent GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time with GC. Overall, Guile feels well balanced and therefore quite fast, suited for writing code ad-hoc without ceremony.
+The GC (as of version 3.0.10) seems to need less attention compared to SBCL's current GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time with GC. Overall, Guile feels well balanced and therefore quite fast, suited for writing code ad-hoc without ceremony.
 
 Guile's focus is less on infrastructure (like the BEAM languages), and more on expressivity (and exploration), which might be beneficial in the early stages. Nevertheless, there's also stuff going on with distributed computing (e.g. Spritely Goblins).
