@@ -30,7 +30,7 @@
 <header>
 <h1 class="title">Eat my huge Files: Tail Recursion in OCaml</h1>
 <p class="subtitle" role="doc-subtitle">Project »CSV Cleaner« – 3rd Episode</p>
-</header><nav class="pager" id="orge878514">
+</header><nav class="pager" id="org7b8b630">
 <p>
 This post is part of a miniseries:<br>
 </p>
@@ -278,7 +278,7 @@ sum [1; 2; 3; 4; 5];;            (* function call with a list as the argument*)
 Here is how the <code>sum</code> function is applied to the list of 5 elements, producing 6 nested function calls (in the test before, we fed a list with 500000 elements to such a function). For each nested function call a new <i>stack frame</i> is created on the stack:<br>
 </p>
 
-<pre class="example" id="org7a7fce8">
+<pre class="example" id="org1be78fc">
 sum &lt;-- [1; 2; 3; 4; 5]
 sum &lt;-- [2; 3; 4; 5]
 sum &lt;-- [3; 4; 5]
@@ -353,7 +353,7 @@ sum [1; 2; 3; 4; 5];;   (* applying the function to a list of numbers *)
 <p>
 Check failed – warning:<br>
 </p>
-<pre class="example" id="orgab06b85">
+<pre class="example" id="org08c5a21">
 Line 4, characters 23-42:
 4 |     | hd :: tl -&gt; hd + (sum [@tailcall]) tl;;
                            ^^^^^^^^^^^^^^^^^^^^
@@ -664,9 +664,9 @@ Since we have already fixed the function <code>clean</code> by writing a tail-re
 </pre>
 </div>
 </div>
-<div id="outline-container-orgbd29e81" class="outline-4">
-<h4 id="orgbd29e81"><a href="#orgbd29e81">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-orgbd29e81">
+<div id="outline-container-org294a4b4" class="outline-4">
+<h4 id="org294a4b4"><a href="#org294a4b4">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-org294a4b4">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 12: </span>Type signature</label><pre class="src src-ocaml">val remove_cols : 'a list -&gt; ('a * 'b) list -&gt; ('a * 'b) list = &lt;fun&gt;
 </pre>
@@ -858,9 +858,9 @@ let dissoc =
 </pre>
 </div>
 </div>
-<div id="outline-container-org294a4b4" class="outline-4">
-<h4 id="org294a4b4"><a href="#org294a4b4">What is it doing?</a></h4>
-<div class="outline-text-4" id="text-org294a4b4">
+<div id="outline-container-orga2ad354" class="outline-4">
+<h4 id="orga2ad354"><a href="#orga2ad354">What is it doing?</a></h4>
+<div class="outline-text-4" id="text-orga2ad354">
 <div class="org-src-container">
 <label class="org-src-name"><span class="listing-number">Listing 21: </span>Type signature</label><pre class="src src-ocaml">val dissoc : ('a * 'a) list list -&gt; 'a list list = &lt;fun&gt;
 </pre>
