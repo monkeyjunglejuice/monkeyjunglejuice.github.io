@@ -75,7 +75,7 @@ Today I learned that the idea of using channels as "dimensions" is central to /[
 My intuition suggests that this would be equivalent to using channels of two distinct types, one type representing the hierarchical context and the other representing connectivity. Such a typed approach could accommodate more than just two dimensions. However, I might be confusing things here; the key point seems rather that Robin Milner explicitly defined the formal specification and interactions for each of these two connected graphs, which provides a rigurous formalism.
 
 ** Interaction Nets (Interaction Combinators)
-Stumbled upon "[[https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76][Interaction nets]]" as a distributed model of computation which is [[https://github.com/HigherOrderCO/HVM][implemented as the HVM]], a parallel virtual machine behind the Bend language ([[https://docs.google.com/viewer?url=https://raw.githubusercontent.com/HigherOrderCO/HVM/main/paper/HVM2.pdf][paper]]).
+Stumbled upon "[[https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76][Interaction nets]]" as a distributed model of computation which is [[https://github.com/HigherOrderCO/HVM][implemented as the HVM]], a parallel virtual machine behind the Bend language ([[https://docs.google.com/viewer?url=https://raw.githubusercontent.com/HigherOrderCO/HVM/main/paper/HVM2.pdf][paper]]). On a first glance, the idea of Interaction Nets seems to share some commonality with Protoverse processes. The resemblance could be merely superficial though, but I wouldn't know unless I'll go down the rabbit hole.
 
 * Requirements
 
@@ -488,12 +488,12 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 
 *** Bend
 
-- Two surface syntaxes: Python-style and ML-style;
+- The interesting thing is the runtime HVM2, as it is based on a different model of computiation, namely "Interaction Nets" rather some partial implementation of Lambda Calculus or the Actor Model ([[https://en.wikipedia.org/wiki/Interaction_nets][Wikipedia]], [[https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76][paper]]);
 - High-level: higher-order functions, closures, unrestricted recursion, continuations;
 - Untyped language -- types seem to be mere documentation, ADT syntax sugar is there to define constructor functions (see [[https://github.com/HigherOrderCO/Bend/blob/main/FEATURES.md][features]]);
-- Aims to provide fully transparent "automatic" parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);
+- Aims to provide transparent "automatic" parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);
 - Compiler can generate massively parallel GPU kernels from high-level code;
-- Based on interaction nets ([[https://en.wikipedia.org/wiki/Interaction_nets][Wikipedia]], [[https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76][paper]]);
+- Two surface syntaxes: Python-style and ML-style;
 - Still experimenal/research state;
 - https://github.com/HigherOrderCO;
 - [[https://discourse.julialang.org/t/bend-a-new-gpu-native-language/114440/16][Discussion in Julia forum]];
@@ -535,21 +535,19 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 
 The Protoverse project ventures into uncharted territory, and my gut feeling says that I should counterbalance that notion with adhering to mature, "industrial-grade" technology wherever possible.
 
-I'm not expecting to plug libraries together (how most "software engineering" is done today), but to go through a journey of discovery and exploration, and to think through the whole process "from scratch", and the language should support that.
+I'm not expecting to plug libraries together, but to go through a journey of discovery and exploration, and to think through the whole process "from scratch", and the language should support that.
 
-I'll be "re-inventing the wheel" several times, which certainly will lead to inefficient, naive implementations (evolutionary algorithms are such a candidate, for instance). In such cases it will be desirable to draw from established algorithms/libraries, after I have developed an understanding beforehand.
+I'll be "re-inventing the wheel" several times, which certainly will lead to inefficient, naive implementations. In such cases it will be desirable to draw from established algorithms/libraries, after I have developed an understanding beforehand.
 
 To me, it seems that covering much ground quickly by focussing on the model and abstractions is crucial, therefore I want to work as high-level as possible, avoiding clutter in order to free mental capacity.
 
-Most "scientific" projects are currently done in Python, in combination with certain libraries that are written in C and C++ responsible for the heavy lifting; and there's a huge amount done in Java, too (and Scala to some degree) -- but I don't really want to work with these languages, as these are all quite complicated, verbose and ugly); even Rust doesn't seem to be a great option either (verbose syntax, low-level, manual). So?
-
 *** The Finalists
 
-I'd like to consider two languages/platforms for the role of the primary language/runtime.
+I'd like to consider two languages/platforms.
 
 What they have in common:
 
-- Deep recursion is idiomatic (no stack overflows);
+- Recursion is idiomatic;
 - Both offer high-level concurrency facilities;
 - Both are "multicore" capable without manual thread management;
 - Both offer different degrees of interactivity;
@@ -557,18 +555,20 @@ What they have in common:
 
 **** 1. BEAM (Erlang, Elixir, LFE)
 
-The actor model - available at the language level - makes it convenient to write concurrent programs, and the BEAM parallelizes automatically where it sees fit. Each Erlang process has it's own stack, heap and garbage collector - and you can have a million or more of these processes in a single node. Overall, the GC story is pretty compelling.
+The Actor Model -- available at the language level -- and Erlang's implementation thereof in conjunction with OTP makes it convenient to write concurrent programs, and the BEAM parallelizes automatically where it sees fit.
 
-The BEAM is not very performant for CPU-bound-, but for IO-bound computing. E.g. Guile turns out twice as fast as Elixir (benchmark: sequential, non-tail-recursive algorithms on binary trees with ~67 million nodes). However, CPU-intensive parts could be ported to high-performance implementations where necessary.
+Each Erlang process has it's own stack, heap and garbage collector - and you can have a million or more of these processes in a single node. Overall, that's pretty compelling.
 
-The BEAM is rather "infrastructure" and "industry" centred, and its languages require quite a bit of ceremony. Overall, the framework character (OTP) shines through - it's rather "translate your problem to OTP" rather than "mold your language to fit the problem". That feels a bit clunky for ad-hoc experimentation -- on the other hand, people are capable to write quite sophisticated things in something like C++. Probably I should take a second look at LFE though.
+The BEAM is rather "infrastructure" and "industry" centred, and its languages require quite a bit of ceremony. Overall, the framework character (OTP) shines through -- it's rather "translate your problem to OTP" rather than "mold your language to fit the problem". That may be too limiting, and I don't think Elixir or even LFE are general enough for this kind of task.
+
+Therefore it seems quite likely that I may not end up modeling Protoverse dynamics directly in the Actor Model, but rather a "Protoverse Calculus" that would have to be ported to run on the BEAM.
 
 **** 2. Guile Scheme
 
 Guile provides high-level concurrency facilites (fibers in conjunction with a work-stealing scheduler) and a channel-based concurrency model (like concurrent ML or Golang). Workload can be spread over multiple cores without manual thread management.
 
-It may be surprising, but Guile Scheme looks quite feasible as a candidate for the primary language, because it has become much more than just an "extension language" for "scripting applications written in C". For instance, it seems to handle large data structures and hefty allocation quite well -- out-of-the-box, in the REPL.
+It may seem surprising, but Guile Scheme looks quite feasible as a candidate for the primary language, because it has become much more than just an "extension language" for "scripting applications written in C". For instance, it seems to handle large data structures and hefty allocation quite well -- out-of-the-box, in the REPL.
 
-The GC (as of version 3.0.10) seems to need less attention compared to SBCL's current GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time in GC. Overall, Guile feels well balanced and therefore quite fast, suited for writing code ad-hoc without ceremony.
+The GC (as of version 3.0.10) seems to need less attention compared to SBCL's current GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time in GC. With annotations and optimization, SBCL tured out a tiny bit faster that Guile.
 
-Guile's focus is less on infrastructure (like the BEAM languages), and more on expressivity (and exploration), which might be beneficial in the early stages. Nevertheless, there's also stuff going on with distributed computing (e.g. Spritely Goblins).
+Overall, Guile feels well balanced. Guile's focus is more on generality and expressivity. It enables exploration and provides creative freedom, which will be beneficial during the early stages. Nevertheless, there's also stuff going on with distributed computing (e.g. Spritely Goblins).

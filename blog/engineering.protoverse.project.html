@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-12-04 -->
+<!-- 2025-12-05 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Technical Considerations</title>
@@ -24,13 +24,13 @@
 <body>
 <div id="preamble" class="status">
 <nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="index" href="/index.html">Index</a><a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2025-12-04">Last updated: 2025-12-04</time></div>
+<div class="info"><time itemprop="dateModified" datetime="2025-12-05">Last updated: 2025-12-05</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="orgef8de18">
+</header><nav class="pager" id="org506d807">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -44,7 +44,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="org0d7e26c">
+<div class="message" id="org01ca36d">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -76,7 +76,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org05ec19b">Batch-processing</a></li>
 <li><a href="#org0cfc677">Long-running</a></li>
-<li><a href="#org6a95a73">Conclusion</a></li>
+<li><a href="#org9d703d6">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org2135ed3">From Metaphysics to Code</a></li>
@@ -125,7 +125,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org03bd7d2">Lunatic (WASM runtime)</a></li>
 </ul>
 </li>
-<li><a href="#org9d703d6">Conclusion</a>
+<li><a href="#org09fcba9">Conclusion</a>
 <ul>
 <li><a href="#org08dcdbd">The Finalists</a></li>
 </ul>
@@ -234,7 +234,7 @@ My intuition suggests that this would be equivalent to using channels of two dis
 <h3 id="org7eb7ce2"><a href="#org7eb7ce2">Interaction Nets (Interaction Combinators)</a></h3>
 <div class="outline-text-3" id="text-org7eb7ce2">
 <p>
-Stumbled upon &ldquo;<a href="https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76">Interaction nets</a>&rdquo; as a distributed model of computation which is <a href="https://github.com/HigherOrderCO/HVM">implemented as the HVM</a>, a parallel virtual machine behind the Bend language (<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/HigherOrderCO/HVM/main/paper/HVM2.pdf">paper</a>).<br>
+Stumbled upon &ldquo;<a href="https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76">Interaction nets</a>&rdquo; as a distributed model of computation which is <a href="https://github.com/HigherOrderCO/HVM">implemented as the HVM</a>, a parallel virtual machine behind the Bend language (<a href="https://docs.google.com/viewer?url=https://raw.githubusercontent.com/HigherOrderCO/HVM/main/paper/HVM2.pdf">paper</a>). On a first glance, the idea of Interaction Nets seems to share some commonality with Protoverse processes. The resemblance could be merely superficial though, but I wouldn&rsquo;t know unless I&rsquo;ll go down the rabbit hole.<br>
 </p>
 </div>
 </div>
@@ -269,9 +269,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org6a95a73" class="outline-4">
-<h4 id="org6a95a73"><a href="#org6a95a73">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org6a95a73">
+<div id="outline-container-org9d703d6" class="outline-4">
+<h4 id="org9d703d6"><a href="#org9d703d6">Conclusion</a></h4>
+<div class="outline-text-4" id="text-org9d703d6">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -897,12 +897,12 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 <h4 id="org7bf7460"><a href="#org7bf7460">Bend</a></h4>
 <div class="outline-text-4" id="text-org7bf7460">
 <ul class="org-ul">
-<li>Two surface syntaxes: Python-style and ML-style;<br></li>
+<li>The interesting thing is the runtime HVM2, as it is based on a different model of computiation, namely &ldquo;Interaction Nets&rdquo; rather some partial implementation of Lambda Calculus or the Actor Model (<a href="https://en.wikipedia.org/wiki/Interaction_nets">Wikipedia</a>, <a href="https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76">paper</a>);<br></li>
 <li>High-level: higher-order functions, closures, unrestricted recursion, continuations;<br></li>
 <li>Untyped language &#x2013; types seem to be mere documentation, ADT syntax sugar is there to define constructor functions (see <a href="https://github.com/HigherOrderCO/Bend/blob/main/FEATURES.md">features</a>);<br></li>
-<li>Aims to provide fully transparent &ldquo;automatic&rdquo; parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);<br></li>
+<li>Aims to provide transparent &ldquo;automatic&rdquo; parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);<br></li>
 <li>Compiler can generate massively parallel GPU kernels from high-level code;<br></li>
-<li>Based on interaction nets (<a href="https://en.wikipedia.org/wiki/Interaction_nets">Wikipedia</a>, <a href="https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76">paper</a>);<br></li>
+<li>Two surface syntaxes: Python-style and ML-style;<br></li>
 <li>Still experimenal/research state;<br></li>
 <li><a href="https://github.com/HigherOrderCO">https://github.com/HigherOrderCO</a>;<br></li>
 <li><a href="https://discourse.julialang.org/t/bend-a-new-gpu-native-language/114440/16">Discussion in Julia forum</a>;<br></li>
@@ -955,34 +955,30 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-org9d703d6" class="outline-3">
-<h3 id="org9d703d6"><a href="#org9d703d6">Conclusion</a></h3>
-<div class="outline-text-3" id="text-org9d703d6">
+<div id="outline-container-org09fcba9" class="outline-3">
+<h3 id="org09fcba9"><a href="#org09fcba9">Conclusion</a></h3>
+<div class="outline-text-3" id="text-org09fcba9">
 <p>
 The Protoverse project ventures into uncharted territory, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology wherever possible.<br>
 </p>
 
 <p>
-I&rsquo;m not expecting to plug libraries together (how most &ldquo;software engineering&rdquo; is done today), but to go through a journey of discovery and exploration, and to think through the whole process &ldquo;from scratch&rdquo;, and the language should support that.<br>
+I&rsquo;m not expecting to plug libraries together, but to go through a journey of discovery and exploration, and to think through the whole process &ldquo;from scratch&rdquo;, and the language should support that.<br>
 </p>
 
 <p>
-I&rsquo;ll be &ldquo;re-inventing the wheel&rdquo; several times, which certainly will lead to inefficient, naive implementations (evolutionary algorithms are such a candidate, for instance). In such cases it will be desirable to draw from established algorithms/libraries, after I have developed an understanding beforehand.<br>
+I&rsquo;ll be &ldquo;re-inventing the wheel&rdquo; several times, which certainly will lead to inefficient, naive implementations. In such cases it will be desirable to draw from established algorithms/libraries, after I have developed an understanding beforehand.<br>
 </p>
 
 <p>
 To me, it seems that covering much ground quickly by focussing on the model and abstractions is crucial, therefore I want to work as high-level as possible, avoiding clutter in order to free mental capacity.<br>
-</p>
-
-<p>
-Most &ldquo;scientific&rdquo; projects are currently done in Python, in combination with certain libraries that are written in C and C++ responsible for the heavy lifting; and there&rsquo;s a huge amount done in Java, too (and Scala to some degree) &#x2013; but I don&rsquo;t really want to work with these languages, as these are all quite complicated, verbose and ugly); even Rust doesn&rsquo;t seem to be a great option either (verbose syntax, low-level, manual). So?<br>
 </p>
 </div>
 <div id="outline-container-org08dcdbd" class="outline-4">
 <h4 id="org08dcdbd"><a href="#org08dcdbd">The Finalists</a></h4>
 <div class="outline-text-4" id="text-org08dcdbd">
 <p>
-I&rsquo;d like to consider two languages/platforms for the role of the primary language/runtime.<br>
+I&rsquo;d like to consider two languages/platforms.<br>
 </p>
 
 <p>
@@ -990,7 +986,7 @@ What they have in common:<br>
 </p>
 
 <ul class="org-ul">
-<li>Deep recursion is idiomatic (no stack overflows);<br></li>
+<li>Recursion is idiomatic;<br></li>
 <li>Both offer high-level concurrency facilities;<br></li>
 <li>Both are &ldquo;multicore&rdquo; capable without manual thread management;<br></li>
 <li>Both offer different degrees of interactivity;<br></li>
@@ -1001,15 +997,19 @@ What they have in common:<br>
 <h5 id="orgb2378be"><a href="#orgb2378be">1. BEAM (Erlang, Elixir, LFE)</a></h5>
 <div class="outline-text-5" id="text-orgb2378be">
 <p>
-The actor model - available at the language level - makes it convenient to write concurrent programs, and the BEAM parallelizes automatically where it sees fit. Each Erlang process has it&rsquo;s own stack, heap and garbage collector - and you can have a million or more of these processes in a single node. Overall, the GC story is pretty compelling.<br>
+The Actor Model &#x2013; available at the language level &#x2013; and Erlang&rsquo;s implementation thereof in conjunction with OTP makes it convenient to write concurrent programs, and the BEAM parallelizes automatically where it sees fit.<br>
 </p>
 
 <p>
-The BEAM is not very performant for CPU-bound-, but for IO-bound computing. E.g. Guile turns out twice as fast as Elixir (benchmark: sequential, non-tail-recursive algorithms on binary trees with ~67 million nodes). However, CPU-intensive parts could be ported to high-performance implementations where necessary.<br>
+Each Erlang process has it&rsquo;s own stack, heap and garbage collector - and you can have a million or more of these processes in a single node. Overall, that&rsquo;s pretty compelling.<br>
 </p>
 
 <p>
-The BEAM is rather &ldquo;infrastructure&rdquo; and &ldquo;industry&rdquo; centred, and its languages require quite a bit of ceremony. Overall, the framework character (OTP) shines through - it&rsquo;s rather &ldquo;translate your problem to OTP&rdquo; rather than &ldquo;mold your language to fit the problem&rdquo;. That feels a bit clunky for ad-hoc experimentation &#x2013; on the other hand, people are capable to write quite sophisticated things in something like C++. Probably I should take a second look at LFE though.<br>
+The BEAM is rather &ldquo;infrastructure&rdquo; and &ldquo;industry&rdquo; centred, and its languages require quite a bit of ceremony. Overall, the framework character (OTP) shines through &#x2013; it&rsquo;s rather &ldquo;translate your problem to OTP&rdquo; rather than &ldquo;mold your language to fit the problem&rdquo;. That may be too limiting, and I don&rsquo;t think Elixir or even LFE are general enough for this kind of task.<br>
+</p>
+
+<p>
+Therefore it seems quite likely that I may not end up modeling Protoverse dynamics directly in the Actor Model, but rather a &ldquo;Protoverse Calculus&rdquo; that would have to be ported to run on the BEAM.<br>
 </p>
 </div>
 </div>
@@ -1021,15 +1021,15 @@ Guile provides high-level concurrency facilites (fibers in conjunction with a wo
 </p>
 
 <p>
-It may be surprising, but Guile Scheme looks quite feasible as a candidate for the primary language, because it has become much more than just an &ldquo;extension language&rdquo; for &ldquo;scripting applications written in C&rdquo;. For instance, it seems to handle large data structures and hefty allocation quite well &#x2013; out-of-the-box, in the REPL.<br>
+It may seem surprising, but Guile Scheme looks quite feasible as a candidate for the primary language, because it has become much more than just an &ldquo;extension language&rdquo; for &ldquo;scripting applications written in C&rdquo;. For instance, it seems to handle large data structures and hefty allocation quite well &#x2013; out-of-the-box, in the REPL.<br>
 </p>
 
 <p>
-The GC (as of version 3.0.10) seems to need less attention compared to SBCL&rsquo;s current GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time in GC. Overall, Guile feels well balanced and therefore quite fast, suited for writing code ad-hoc without ceremony.<br>
+The GC (as of version 3.0.10) seems to need less attention compared to SBCL&rsquo;s current GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time in GC. With annotations and optimization, SBCL tured out a tiny bit faster that Guile.<br>
 </p>
 
 <p>
-Guile&rsquo;s focus is less on infrastructure (like the BEAM languages), and more on expressivity (and exploration), which might be beneficial in the early stages. Nevertheless, there&rsquo;s also stuff going on with distributed computing (e.g. Spritely Goblins).<br>
+Overall, Guile feels well balanced. Guile&rsquo;s focus is more on generality and expressivity. It enables exploration and provides creative freedom, which will be beneficial during the early stages. Nevertheless, there&rsquo;s also stuff going on with distributed computing (e.g. Spritely Goblins).<br>
 </p>
 </div>
 </div>
