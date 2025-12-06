@@ -30,7 +30,7 @@
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="orga44de0d">
+</header><nav class="pager" id="orgbfa61e0">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -44,7 +44,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="orgf3e8387">
+<div class="message" id="org574ef33">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -79,7 +79,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org05ec19b">Batch-processing</a></li>
 <li><a href="#org0cfc677">Long-running</a></li>
-<li><a href="#org09fcba9">Conclusion</a></li>
+<li><a href="#org28bcd49">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org2135ed3">From Metaphysics to Code</a></li>
@@ -128,7 +128,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org03bd7d2">Lunatic (WASM runtime)</a></li>
 </ul>
 </li>
-<li><a href="#org28bcd49">Conclusion</a>
+<li><a href="#orgbeb9774">Conclusion</a>
 <ul>
 <li><a href="#org08dcdbd">The Finalists</a></li>
 </ul>
@@ -260,9 +260,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org09fcba9" class="outline-4">
-<h4 id="org09fcba9"><a href="#org09fcba9">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org09fcba9">
+<div id="outline-container-org28bcd49" class="outline-4">
+<h4 id="org28bcd49"><a href="#org28bcd49">Conclusion</a></h4>
+<div class="outline-text-4" id="text-org28bcd49">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -668,7 +668,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li><a href="https://www.gnu.org/software/guile/manual/guile.html#Stack-Overflow-1">Unlimited stack depth for Scheme code</a>, TCO available;<br></li>
 <li>Concurrency and multicore <a href="https://github.com/wingo/fibers/wiki/Manual#13-parallelism">parallelism</a> via <a href="https://github.com/wingo/fibers">fibers</a> (<a href="https://github.com/wingo/fibers/wiki/Manual">manual</a>), Concurrent ML / CSP style, preemptive(?) scheduler;<br></li>
 <li>Distributed: <a href="https://spritely.institute/goblins/">Goblins</a> actor-framework in the making (<a href="https://spritely.institute/files/docs/guile-goblins/0.14.0/index.html">docs</a>), for P2P;<br></li>
-<li><a href="https://github.com/opencog/atomspace">OpenCog Atomspace</a>: possible backend for the Protoverse with Guile interface; it&rsquo;s a in-RAM generalized hypergraph store and rewriting system;<br></li>
+<li><a href="https://github.com/opencog/atomspace">OpenCog Atomspace</a>: possible backend for the Protoverse with Guile interface,  largely written in Guile and C++; it&rsquo;s a in-RAM generalized hypergraph store and rewriting system;<br></li>
 <li>Performance looks well-balanced, and Guile digests allocation-heavy surprisingly well &#x2013; even though v3.0.10 has still the old garbage collector;<br></li>
 <li>Collab opportunities: GNU and Scheme enthusiasts, academic;<br></li>
 </ul>
@@ -743,7 +743,7 @@ The following assessment is about choosing the primary platform/language for pro
 </ul>
 
 <p>
-<i>Sentiment: Julia is an interesting choice and checks many boxes &#x2013; the ecosystem fits the domain, which is scientific computing and simulation, and Julia is a good fit for CPU-bound workloads. But I&rsquo;m not convinced because conceptually, deep recursion will play a crucial role in the Protoverse model, which doessn&rsquo;t translate well to how things are done in Julia.</i><br>
+<i>Sentiment: Julia is an interesting choice and checks many boxes &#x2013; the ecosystem fits the domain, and Julia is a good fit for CPU-bound workloads. But I&rsquo;m not convinced because conceptually, deep recursion will play a crucial role in the Protoverse model, which doesn&rsquo;t translate well to how things are done in Julia.</i><br>
 </p>
 </div>
 </div>
@@ -947,9 +947,9 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-org28bcd49" class="outline-3">
-<h3 id="org28bcd49"><a href="#org28bcd49">Conclusion</a></h3>
-<div class="outline-text-3" id="text-org28bcd49">
+<div id="outline-container-orgbeb9774" class="outline-3">
+<h3 id="orgbeb9774"><a href="#orgbeb9774">Conclusion</a></h3>
+<div class="outline-text-3" id="text-orgbeb9774">
 <p>
 The Protoverse project ventures into uncharted territory, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology wherever possible.<br>
 </p>
