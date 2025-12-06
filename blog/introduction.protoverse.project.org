@@ -36,7 +36,7 @@ My aim is to use an exptreme bottom-up approach to build multi-scale computation
 
 The Protoverse is supposed to be purely abstract, which doesn't mean that it's crazy exotic or totally absurd (well, not yet). You might even find the modest ontology quite boring.
 
-The Protoverse' design may resemble our universe in some aspects, but also deviate strongly in others -- I'm not interested in simulating real world phenomena, but the /integration/ of orthodox concepts, new ideas and even personal intuitions.
+The Protoverse' design may resemble our universe in some aspects, but also deviate strongly in others -- I'm not interested in simulating real world phenomena, but the /integration/ of orthodox concepts, new ideas and personal intuitions.
 
 ** Core Ideas
 
@@ -61,7 +61,7 @@ I don't know yet (that's what I consider a fun project). I can imagine some mode
 
 ** Why are you doing this?
 
-I came to realize that I should do the stuff I'm most curious about. For me, open-ended computational evolution is probably the most interesting problem I can imagine, and I want to explore the ideas and intuitions I'm carrying around for a long time.
+I came to realize that I should do the stuff I'm most curious about. For me, open-ended computational evolution is probably the most interesting problem, and I want to explore the ideas and intuitions I'm carrying around for a long time, and seem to be overlooked by academics & research who are nestled into their confinements of politics, reputation and career perspectives.
 
 ** Why not an artificial universe based on physics?
 
