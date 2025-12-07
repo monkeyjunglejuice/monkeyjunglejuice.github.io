@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2025-12-06 -->
+<!-- 2025-12-07 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Technical Considerations</title>
@@ -24,13 +24,13 @@
 <body>
 <div id="preamble" class="status">
 <nav id="nav-primary"><a id="site-name" href="/index.html">MonkeyJungleJuice</a> <a id="index" href="/index.html">Index</a><a id="bio" href="/bio.html">Bio</a><a id="github" href="https://github.com/monkeyjunglejuice">Github</a></nav>
-<div class="info"><time itemprop="dateModified" datetime="2025-12-06">Last updated: 2025-12-06</time></div>
+<div class="info"><time itemprop="dateModified" datetime="2025-12-07">Last updated: 2025-12-07</time></div>
 </div>
 <div id="content" class="content">
 <header>
 <h1 class="title">Technical Considerations</h1>
 <p class="subtitle" role="doc-subtitle">Protoverse: Engineering</p>
-</header><nav class="pager" id="orgbfa61e0">
+</header><nav class="pager" id="orgae0e533">
 <p>
 This is part of the Protoverse project:<br>
 </p>
@@ -44,7 +44,7 @@ This is part of the Protoverse project:<br>
 </ul>
 </nav>
 
-<div class="message" id="org574ef33">
+<div class="message" id="orgc102de2">
 <p>
 WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspects: modeling and technical requirements, and to identify helpful tools and skills. If you would like to ponder ideas, I&rsquo;ll be glad for your input.<br>
 </p>
@@ -79,7 +79,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <ul>
 <li><a href="#org05ec19b">Batch-processing</a></li>
 <li><a href="#org0cfc677">Long-running</a></li>
-<li><a href="#org28bcd49">Conclusion</a></li>
+<li><a href="#orgbeb9774">Conclusion</a></li>
 </ul>
 </li>
 <li><a href="#org2135ed3">From Metaphysics to Code</a></li>
@@ -128,7 +128,7 @@ WORK IN PROCESS &#x2013; The aim here is to think more about the practical aspec
 <li><a href="#org03bd7d2">Lunatic (WASM runtime)</a></li>
 </ul>
 </li>
-<li><a href="#orgbeb9774">Conclusion</a>
+<li><a href="#org6af1ef1">Conclusion</a>
 <ul>
 <li><a href="#org08dcdbd">The Finalists</a></li>
 </ul>
@@ -260,9 +260,9 @@ A long-running app might be much more interesting: real-time interaction and obs
 </p>
 </div>
 </div>
-<div id="outline-container-org28bcd49" class="outline-4">
-<h4 id="org28bcd49"><a href="#org28bcd49">Conclusion</a></h4>
-<div class="outline-text-4" id="text-org28bcd49">
+<div id="outline-container-orgbeb9774" class="outline-4">
+<h4 id="orgbeb9774"><a href="#orgbeb9774">Conclusion</a></h4>
+<div class="outline-text-4" id="text-orgbeb9774">
 <p>
 Given the nature of the Protoverse as a platform for exploring process-relational dynamics and evolution, the long-running, real-time system seems more aligned with practical goals. This approach facilitates a closer relationship between the developer and the Protoverse, embodying the co-evolutionary aspect of the conceptual framework.<br>
 </p>
@@ -554,6 +554,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Hot code reloading: support for upgrading a running application; but it&rsquo;s <a href="https://learnyousomeerlang.com/relups#the-hiccups-of-appups-and-relups">hellish complicated</a>; so it seems that it can&rsquo;t be leveraged for interactive development (preserving rather than re-creating state is the goal), and further it does not to compare to Common Lisp&rsquo;s redefining functions and classes within a running system;<br></li>
 <li>Erlang projects must be written by adhering to the OTP framework in order to reap the fruits of what Erlang has to provide;<br></li>
 <li>Erlang doesn&rsquo;t provide the same grade of tight-looped interactivity as Common Lisp;<br></li>
+<li>No delimited continuations for BEAM languages;<br></li>
 <li>Erlang has built-in observability (<a href="https://www.erlang.org/doc/system/profiling.html#large-systems">profilers and analysis tools</a>);<br></li>
 <li>Recursion is idiomatic: dynamically growing stack depth, no stack overflows;<br></li>
 <li>Each lightweight Erlang process has it&rsquo;s own stack, heap and garbage collection, no global &ldquo;stop-the-world&rdquo;;<br></li>
@@ -660,6 +661,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Astonishingly &ldquo;general purporse&rdquo; for an extension language;<br></li>
 <li>Schene is great for prototyping abstractions and algorithms;<br></li>
 <li>Full metaprogramming (syntax-rules, syntax-case, defmacro);<br></li>
+<li>Delimited continuations: somewhat orthogonal to macros &#x2013; while metaprogramming (macros) gives you the ability to &ldquo;step offstage&rdquo; and change what code exists, delimited continuations let you change how code executes, so that you can build all kinds of weird execution models;<br></li>
 <li>Capable for <a href="https://en.wikipedia.org/wiki/Metalinguistic_abstraction">metalinguistig abstraction</a> (see also <a href="https://en.wikipedia.org/wiki/Language-oriented_programming">LOP</a>);<br></li>
 <li>Good for interactive development (Emacs with Geiser);<br></li>
 <li>Relies on Guix for package management (MacOS unsupported) or homebrew;<br></li>
@@ -688,6 +690,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Built for <a href="https://en.wikipedia.org/wiki/Metalinguistic_abstraction">metalinguistig abstraction</a> (see also <a href="https://en.wikipedia.org/wiki/Language-oriented_programming">LOP</a>);<br></li>
 <li>Not so bad for interactive development (in Emacs), but much less interactive capabilites than say Common Lisp or Guile Scheme;<br></li>
 <li>Various concurrency facilities, green threads;<br></li>
+<li>Has delimited continuations to manipulate control/execution flow;<br></li>
 <li>Parallelism: <a href="https://docs.racket-lang.org/guide/parallelism.html">Places</a> looks quite limiting;<br></li>
 <li>Racket v9.0 <a href="https://blog.racket-lang.org/2025/11/parallel-threads.html">introduced parallel threads</a><br></li>
 <li>Distributed: Places are also <a href="https://docs.racket-lang.org/distributed-places/index.html">used for distribution</a>; further there are a <a href="https://git.syndicate-lang.org/syndicate-lang/syndicate-rkt/src/branch/main/syndicate">Syndicated Actors</a> implementation and a <a href="https://docs.racket-lang.org/goblins/">Spritely Goblins</a> implementation that&rsquo;s behind the canonical one; both are experimental.<br></li>
@@ -706,6 +709,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Clean, higly general, expressive;<br></li>
 <li>Scheme is great for prototyping abstractions and algorithms;<br></li>
 <li>Powerful metaprogramming;<br></li>
+<li>Has delimited continuations to manipulate control/execution flow;<br></li>
 <li>Connect REPL to running program (actor ensemble server);<br></li>
 <li>Very tiny library ecosystem;<br></li>
 <li>No LSP implementation yet, planned for v0.19 release;<br></li>
@@ -732,6 +736,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Recursion is not idiomatic, you&rsquo;ll have to use imperative loops everywhere, Julia&rsquo;s stack depth is capped;<br></li>
 <li>For deep recursion, you would have to manage a separate stack as a data structure, or resort to other workarounds.<br></li>
 <li>Metaprogramming via macros is available;<br></li>
+<li>Has library support for delimited continuations to manipulate control/execution flow;<br></li>
 <li>A running program can be debugged and modified, new functions can be defined and added (with caveats; not extensively as in Common Lisp);<br></li>
 <li>Dynamic typing, but allows type annotations (mostly for performance reasons); <a href="https://thautwarm.github.io/MLStyle.jl/latest/preview.html#generalized-algebraic-data-types">Algebraic Data Types via MLStyle.jl</a><br></li>
 <li>Parallel and distributed computing out-of-the-box (cluster-oriented), but it seems not very high-level;<br></li>
@@ -757,6 +762,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Static type system makes refactoring fun and documentation effective;<br></li>
 <li>ADTs are great for modeling;<br></li>
 <li>No real macros but just template preprocessing of sorts, but it has a very powerful module system (which is something entirely different compared to module systems in other languages);<br></li>
+<li>Has delimited continuations to manipulate control flow;<br></li>
 <li>Concurrency: There&rsquo;s an early-stage actor library <a href="https://github.com/riot-ml/riot">Riot</a> based on algebraic effects and effect handlers, OCaml&rsquo;s goto-concurrency <a href="https://ocaml.org/p/lwt/latest">Lwt</a> implements promises instead;<br></li>
 <li><a href="http://ocamlverse.net/content/parallelism.html#domain-thread-based-parallelism">Parallelism since 5.0</a> using domainslib;<br></li>
 <li>No ad-hoc distributed computing<br></li>
@@ -778,6 +784,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Functional language, expressive and low-noise, lovely syntax;<br></li>
 <li>No support to modify a running program, only REPL (what about <a href="https://hackage.haskell.org/package/rapid">rapid</a>?);<br></li>
 <li>Non-strict evaluation is elegant, simplifies handling of infinite structures; but laziness is available in other languages when you need it;<br></li>
+<li>Has delimited continuations to manipulate control/execution flow;<br></li>
 <li>Static typing simplifies refactoring and improves reasoning, type system is great for modeling;<br></li>
 <li>Concurrency: <a href="http://haskell-distributed.github.io/documentation.html#concurrency-and-distribution">Cloud Haskell</a> (actors) allows also message passing using <a href="https://haskell-distributed.github.io/documentation.html#typed-channels">typed channels</a>, where the SendPort of a channel can be passed to other processes via message; processes don&rsquo;t share state; seems unpolished, not much used and and there are few how-tos;<br></li>
 <li>While excellent Haskell learning material is abundant, libraries lack of howtos, examples and documentation;<br></li>
@@ -821,6 +828,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Some gotchas, e.g. discarding arguments when functions are applied to too many arguments, the local vs. global thing, and verbosity;<br></li>
 <li>There are workarounds, e.g. <a href="https://fennel-lang.org/">Fennel as a lispy language</a> that transpiles to Lua but keeps Lua semantics;<br></li>
 <li>Has tail call optimization, which is nice;<br></li>
+<li>No delimited continuations<br></li>
 <li>LuaJIT runtime for high performance;<br></li>
 <li>Single-core concurrency only;<br></li>
 <li>There are some attempts for multithreading, <a href="https://github.com/LuaLanes/lanes">the one under active development is LuaLanes</a>;<br></li>
@@ -836,6 +844,7 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Interactive and live-coding, working at the running program is possible;<br></li>
 <li>Great Emacs integration and prototyping ergonomics;<br></li>
 <li>Has metaprogramming (hygienic), but that seems rather discouraged;<br></li>
+<li>No delimited continuations;<br></li>
 <li>Optional type system <a href="https://github.com/typedclojure/typedclojure">Typed Clojure</a> (?); <a href="https://clojure.org/about/spec">clojure.spec</a> isn&rsquo;t a type system but for runtime validation;<br></li>
 <li>Lazy sequences;<br></li>
 <li>Concurrency: Several concurrency abstractions; <a href="https://www.youtube.com/watch?v=yJxFPoxqzWE">core.async</a> implements <a href="https://en.wikipedia.org/wiki/Communicating_sequential_processes">CSP-style</a> concurrency and allows channels to be passed as values; but memory is shared (unlike Erlang&rsquo;s processes);<br></li>
@@ -858,22 +867,23 @@ The following assessment is about choosing the primary platform/language for pro
 <li>Supports functional programming and logic programming, anything goes but not everything goes well;<br></li>
 <li>Covers a huge range of abstractions via libraries, e.g. pattern matching with trivia;<br></li>
 <li>Very moldable to the domain via metaprogramming (DSLs);<br></li>
-<li>Algebraic data types available, and there is also <a href="https://github.com/coalton-lang/coalton">Coalton</a>, an ML-style, internal DSL with type classes);<br></li>
+<li>Has condition system unwind-protect and whatnot, but no delimited continuations, which are much more general and open the doors to all kinds of interesting things;<br></li>
+<li>Algebraic data types available as a library, and there is also <a href="https://github.com/coalton-lang/coalton">Coalton</a>, an ML-style, internal DSL with type classes);<br></li>
 <li>Conversational programming at the running system is great for prototyping/exploration;<br></li>
-<li>Image-based: The running program can be paused, suspended, debugged, modified and continued without losing state &#x2013; this is what really sets CL apart;<br></li>
+<li>Image-based: The running program can be paused, suspended, debugged, modified and continued without losing state &#x2013; this is what I really like most about CL;<br></li>
 <li>The state of a running image can be dumped and restored, but that won&rsquo;t work out-of-the box for a distributed system;<br></li>
 <li>Great Emacs integration, simple tooling (sly, quicklisp, asdf and roswell)<br></li>
-<li>Concurrency: <a href="https://github.com/mdbergmann/cl-gserver">Sento</a> actor framework is the most promising; and there are <a href="https://github.com/dbmcclain/Lisp-Actors">Lisp-Actors</a> or <a href="https://github.com/zkat/chanl">ChanL</a>. Most concurrency facilities seem to rely directly on OS-threads instead of something like &ldquo;lightweight processes&rdquo;, though.<br></li>
+<li>Concurrency: <a href="https://github.com/mdbergmann/cl-gserver">Sento</a> actor framework is the most promising; and there are <a href="https://github.com/dbmcclain/Lisp-Actors">Lisp-Actors</a> or <a href="https://github.com/zkat/chanl">ChanL</a>. Most concurrency facilities seem to rely directly on OS-threads instead of something &ldquo;lightweight&rdquo;, though.<br></li>
 <li>No concurrent garbage collector but stop-the-world;<br></li>
 <li>There are <a href="https://github.com/marcoheisig/Petalisp">Petalisp</a> (data parallelism), Lparallel and <a href="https://github.com/marcoheisig/cl-mpi/">OpenMPI bindings</a> (likely an overkill, see <a href="https://www.open-mpi.org">OpenMPI</a>);<br></li>
-<li>SBCL is performant (Java ballpark);<br></li>
+<li>SBCL is overall pretty performant (Java ballpark);<br></li>
 <li>Low-level access to the language itself, plenty of optimizations;<br></li>
 <li>Problem with these &ldquo;optimizations&rdquo;: it&rsquo;s required to figure out which you need and apply them, otherwise you&rsquo;ll miss out on performace;<br></li>
 <li>Collab opportunities: Community is diverse yet enthusiastic, fragmented, less collaborative (many one-person-projects rather than common goals realized);<br></li>
 </ul>
 
 <p>
-<i>Sentiment: I&rsquo;m afraid that Common Lisp could be a dead end when it comes to massive concurrency &amp; parallelism: &ldquo;<a href="https://www.reddit.com/r/lisp/comments/tw7zqr/what_is_a_feature_of_other_languages_that_you/">(..) high level parallelism in lisp just sucks</a>&rdquo;. But it might be sensible to set up some benchmarks, (e.g. with Sento) before dismissing CL, because otherwise CL seems like an excellent choice for such a project.</i><br>
+<i>Sentiment: I&rsquo;m afraid that Common Lisp could be a dead end when it comes to massive concurrency &amp; parallelism: &ldquo;<a href="https://www.reddit.com/r/lisp/comments/tw7zqr/what_is_a_feature_of_other_languages_that_you/">(..) high level parallelism in lisp just sucks</a>&rdquo;. But it might be sensible to set up some benchmarks, (e.g. with Sento) before dismissing CL, because otherwise CL seems like an excellent choice for such a project due to its image-based runtime.</i><br>
 </p>
 </div>
 </div>
@@ -890,7 +900,7 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 <div class="outline-text-4" id="text-org7bf7460">
 <ul class="org-ul">
 <li>The interesting thing is the runtime HVM2, as it is based on a different model of computiation, namely &ldquo;Interaction Nets&rdquo; rather some partial implementation of Lambda Calculus or the Actor Model (<a href="https://en.wikipedia.org/wiki/Interaction_nets">Wikipedia</a>, <a href="https://www.semanticscholar.org/paper/Interaction-Combinators-Lafont/6cfe09aa6e5da6ce98077b7a048cb1badd78cc76">paper</a>);<br></li>
-<li>High-level: higher-order functions, closures, unrestricted recursion, continuations;<br></li>
+<li>High-level: higher-order functions, closures, unrestricted recursion, (delimited?) continuations;<br></li>
 <li>Untyped language &#x2013; types seem to be mere documentation, ADT syntax sugar is there to define constructor functions (see <a href="https://github.com/HigherOrderCO/Bend/blob/main/FEATURES.md">features</a>);<br></li>
 <li>Aims to provide transparent &ldquo;automatic&rdquo; parallelism, no manual managment of parallelization (no thread creation, locks, mutexes, etc.);<br></li>
 <li>Compiler can generate massively parallel GPU kernels from high-level code;<br></li>
@@ -947,9 +957,9 @@ While low-level languages like CUDA or OpenCL for GPU computing are well establi
 </div>
 </div>
 </div>
-<div id="outline-container-orgbeb9774" class="outline-3">
-<h3 id="orgbeb9774"><a href="#orgbeb9774">Conclusion</a></h3>
-<div class="outline-text-3" id="text-orgbeb9774">
+<div id="outline-container-org6af1ef1" class="outline-3">
+<h3 id="org6af1ef1"><a href="#org6af1ef1">Conclusion</a></h3>
+<div class="outline-text-3" id="text-org6af1ef1">
 <p>
 The Protoverse project ventures into uncharted territory, and my gut feeling says that I should counterbalance that notion with adhering to mature, &ldquo;industrial-grade&rdquo; technology wherever possible.<br>
 </p>
@@ -972,24 +982,12 @@ To me, it seems that covering much ground quickly by focussing on the model and 
 <p>
 I&rsquo;d like to consider two languages/platforms.<br>
 </p>
-
-<p>
-What they have in common:<br>
-</p>
-
-<ul class="org-ul">
-<li>Recursion is idiomatic;<br></li>
-<li>Both offer high-level concurrency facilities;<br></li>
-<li>Both are &ldquo;multicore&rdquo; capable without manual thread management;<br></li>
-<li>Both offer different degrees of interactivity;<br></li>
-<li>Both provide excellent interoperability with low-level code;<br></li>
-</ul>
 </div>
 <div id="outline-container-org7287245" class="outline-5">
 <h5 id="org7287245"><a href="#org7287245">1. Guile Scheme</a></h5>
 <div class="outline-text-5" id="text-org7287245">
 <p>
-Guile provides high-level concurrency facilites (fibers in conjunction with a work-stealing scheduler) and a channel-based concurrency model (like concurrent ML or Golang). Workload can be spread over multiple cores without manual thread management.<br>
+After some back- and forth, mainly favoring a BEAM language like Erlang, Elixir or LFE mostly because of BEAM&rsquo;s fine-tuning for concurrency and ad-hoc distribution, I realized that the BEAM has quite a narrow focus and therefore restrictive for conceptual experimentation. I don&rsquo;t want to encounter dead ends during the exploration phase, so I want a language and runtime that&rsquo;s as unlimited as possible and lets me do all kinds of (weird?) stuff, that&rsquo;s why Guile Scheme is my number one candidate.<br>
 </p>
 
 <p>
@@ -997,7 +995,11 @@ It may seem surprising, but Guile Scheme looks quite feasible as a candidate for
 </p>
 
 <p>
-The GC (as of version 3.0.10) seems to need less attention compared to SBCL&rsquo;s current GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time in GC. With annotations and optimization, SBCL tured out a tiny bit faster that Guile.<br>
+Guile provides high-level concurrency facilites (fibers in conjunction with a work-stealing scheduler) and a channel-based concurrency model (like concurrent ML or Golang). Workload can be spread over multiple cores without manual thread management.<br>
+</p>
+
+<p>
+Guile&rsquo;s GC (as of version 3.0.10) seems to need less attention compared to SBCL&rsquo;s current GC (version 2.5.10). When I did some benchmarks with deep non-tail-recursion on binary trees with ~67 million nodes (sequential), Guile turned out 1.5 times faster than SBCL, which spent 3/4 of the time in GC. With annotations and optimization, SBCL tured out a tiny bit faster that Guile.<br>
 </p>
 
 <p>
@@ -1005,23 +1007,19 @@ Overall, Guile feels well balanced. Guile&rsquo;s focus is more on generality an
 </p>
 </div>
 </div>
-<div id="outline-container-orga416fc0" class="outline-5">
-<h5 id="orga416fc0"><a href="#orga416fc0">2. BEAM (Erlang, Elixir, LFE)</a></h5>
-<div class="outline-text-5" id="text-orga416fc0">
+<div id="outline-container-org43e2296" class="outline-5">
+<h5 id="org43e2296"><a href="#org43e2296">2. OCaml</a></h5>
+<div class="outline-text-5" id="text-org43e2296">
 <p>
-The Actor Model &#x2013; available at the language level &#x2013; and Erlang&rsquo;s implementation thereof in conjunction with OTP makes it convenient to write concurrent programs, and the BEAM parallelizes automatically where it sees fit.<br>
+My second candidate should be somewhat orthogonal, and I really like ML family languages, from syntax to type system. A static type system is great for refactoring &#x2013; and pattern matching is even more fantastic when it comes packaged with static guarantees, and above all I like how one can model structures concisely with types.<br>
 </p>
 
 <p>
-Each Erlang process has it&rsquo;s own stack, heap and garbage collector - and you can have a million or more of these processes in a single node. Overall, that&rsquo;s pretty compelling.<br>
+However, common static type systems are only half of the way &#x2013; the real thing are dependent types, who let you describe invariants precisely without the clumsy &ldquo;this list can only have integers&rdquo; and so on, as that requires you to think around several corners, or multiple turns ahead all the time.<br>
 </p>
 
 <p>
-The BEAM is rather &ldquo;infrastructure&rdquo; and &ldquo;industry&rdquo; centred, and its languages require quite a bit of ceremony. Overall, the framework character (OTP) shines through &#x2013; it&rsquo;s rather &ldquo;translate your problem to OTP&rdquo; rather than &ldquo;mold your language to fit the problem&rdquo;. That may be too limiting, and I don&rsquo;t think Elixir or even LFE are general enough for this kind of task.<br>
-</p>
-
-<p>
-Therefore it seems quite likely that I may not end up modeling Protoverse dynamics directly in the Actor Model, but rather a &ldquo;Protoverse Calculus&rdquo; that would have to be ported to run on the BEAM or others.<br>
+On the other hand, dependent types break down the barrier between interface and implementation. This barrier is a nice thing to have, and dependent types become tricky when it gets more complex. So I&rsquo;ll put OCaml here in the second slot for now, but I&rsquo;m also going to toy around with dependent types a bit.<br>
 </p>
 </div>
 </div>
