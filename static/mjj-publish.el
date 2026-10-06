@@ -36,11 +36,10 @@ The port is still hardcoded in the Elixir app and may have changed."
 ;;  ____________________________________________________________________________
 ;;; ORG EXPORT AND PUBLISHING
 
-(use-package org
-  :defer t
+(use-package org :ensure nil
   :config
   ;; No leading indentation besides standard code formatting
-  (setq org-edit-src-content-indentation 0
+  (setq org-src-content-indentation 0
         org-src-preserve-indentation nil)
   ;; Additional structure templates for Org blocks
   (cl-pushnew '("n" . "nav") org-structure-template-alist)
@@ -50,33 +49,26 @@ The port is still hardcoded in the Elixir app and may have changed."
   (cl-pushnew '("b" . "box") org-structure-template-alist))
 
 ;; <https://orgmode.org/manual/Publishing.html>
-(use-package ox-publish
-  :ensure nil
+(use-package ox-publish :ensure nil
   :config
   (setq org-publish-list-skipped-files nil))
 
 ;; <https://orgmode.org/manual/HTML-Export.html>
-(use-package ox-html
-  :ensure nil
-  :defer t
+(use-package ox-html :ensure nil
   :config
   (setq org-html-checkbox-type 'unicode
         org-html-prefer-user-labels t
         org-html-self-link-headlines t))
 
 ;; <https://github.com/hniksic/emacs-htmlize>
-(use-package htmlize
-  :ensure nil
-  :defer t
+(use-package htmlize :ensure t
   :config
   ;; Set external 'css' or 'inline-css' for code snippets created by htmlize
   ;; CSS file can be generated with 'org-html-htmlize-generate-css'
   (setq org-html-htmlize-output-type 'css))
 
 ;; Prevent littering the recently visited files with exported HTML
-(use-package recentf
-  :ensure nil
-  :defer t
+(use-package recentf :ensure nil
   :config
   (cl-pushnew (concat mjj-root ".*\\.html$") recentf-exclude))
 
@@ -178,83 +170,85 @@ The port is still hardcoded in the Elixir app and may have changed."
 
 ;; Reference of all properties: "C-h v org-publish-project-alist"
 
-;; Group projects into a superordinate project
-(cl-pushnew `("mjj"
-              :components ("mjj-page" "mjj-blog"))
-            org-publish-project-alist)
+(with-eval-after-load 'ox-publish
 
-;;; PAGES project
-(cl-pushnew `("mjj-page"
-              :base-directory ,mjj-root
-              :base-extension "org"
-              :exclude "draft"
-              :publishing-directory ,mjj-root
-              :publishing-function org-html-publish-to-html
-              :headline-levels 6
-              :section-numbers nil
-              :auto-sitemap nil
-              :preserve-breaks t
-              :with-title t
-              :with-toc nil
-              :with-smart-quotes t
-              :with-drawers nil
-              :html-doctype "html5"
-              :html-html5-fancy t
-              :html-toplevel-hlevel 2
-              :html-metadata-timestamp-format "%Y-%m-%d"
-              :html-head ,mjj-page-html-head
-              :html-head-include-scripts nil
-              :html-head-include-default-style nil
-              :html-preamble ,mjj-page-preamble
-              :html-postamble ,mjj-page-postamble
-              )
-            org-publish-project-alist)
+  ;; Group projects into a superordinate project
+  (cl-pushnew `("mjj"
+                :components ("mjj-page" "mjj-blog"))
+              org-publish-project-alist)
 
-;;; BLOG ARTICLES project
-(cl-pushnew `("mjj-blog"
-              :base-directory ,(concat mjj-root "blog/")
-              :base-extension "essay.org\\|howto.org\\|tutorial.org\\|walktrough.org\\|project.org"
-              :exclude "draft"
-              :publishing-directory ,(concat mjj-root "blog/")
-              :publishing-function org-html-publish-to-html
-              :headline-levels 6
-              :section-numbers nil
-              :auto-sitemap nil
-              :preserve-breaks t
-              :with-title t
-              :with-toc nil
-              :with-smart-quotes t
-              :with-drawers nil
-              :html-doctype "html5"
-              :html-html5-fancy t
-              :html-toplevel-hlevel 2
-              :html-metadata-timestamp-format "%Y-%m-%d"
-              :html-head ,mjj-blog-html-head
-              :html-head-include-scripts nil
-              :html-head-include-default-style nil
-              :html-preamble ,mjj-blog-preamble
-              :html-postamble ,mjj-blog-postamble
-              )
-            org-publish-project-alist)
+  ;; PAGES project
+  (cl-pushnew `("mjj-page"
+                :base-directory ,mjj-root
+                :base-extension "org"
+                :exclude "draft"
+                :publishing-directory ,mjj-root
+                :publishing-function org-html-publish-to-html
+                :headline-levels 6
+                :section-numbers nil
+                :auto-sitemap nil
+                :preserve-breaks t
+                :with-title t
+                :with-toc nil
+                :with-smart-quotes t
+                :with-drawers nil
+                :html-doctype "html5"
+                :html-html5-fancy t
+                :html-toplevel-hlevel 2
+                :html-metadata-timestamp-format "%Y-%m-%d"
+                :html-head ,mjj-page-html-head
+                :html-head-include-scripts nil
+                :html-head-include-default-style nil
+                :html-preamble ,mjj-page-preamble
+                :html-postamble ,mjj-page-postamble
+                )
+              org-publish-project-alist)
 
-;;; Export the Protoverse whitepaper from blog to the project directory
-(cl-pushnew `("protoverse"
-              :base-directory ,(concat mjj-root "blog/")
-              :base-extension "protoverse.project.org"
-              :exclude "draft"
-              :publishing-directory ,(expand-file-name "~/code/protoverse/whitepaper/")
-              :publishing-function org-org-publish-to-org
-              :headline-levels 6
-              :section-numbers t
-              :auto-sitemap nil
-              :preserve-breaks t
-              :with-title t
-              :with-toc t
-              :with-smart-quotes t
-              :with-drawers nil
-              :with-email t
-              )
-            org-publish-project-alist)
+  ;; BLOG ARTICLES project
+  (cl-pushnew `("mjj-blog"
+                :base-directory ,(concat mjj-root "blog/")
+                :base-extension "essay.org\\|howto.org\\|tutorial.org\\|walktrough.org\\|project.org"
+                :exclude "draft"
+                :publishing-directory ,(concat mjj-root "blog/")
+                :publishing-function org-html-publish-to-html
+                :headline-levels 6
+                :section-numbers nil
+                :auto-sitemap nil
+                :preserve-breaks t
+                :with-title t
+                :with-toc nil
+                :with-smart-quotes t
+                :with-drawers nil
+                :html-doctype "html5"
+                :html-html5-fancy t
+                :html-toplevel-hlevel 2
+                :html-metadata-timestamp-format "%Y-%m-%d"
+                :html-head ,mjj-blog-html-head
+                :html-head-include-scripts nil
+                :html-head-include-default-style nil
+                :html-preamble ,mjj-blog-preamble
+                :html-postamble ,mjj-blog-postamble
+                )
+              org-publish-project-alist)
+
+  ;; Export the Protoverse whitepaper from blog to the project directory
+  (cl-pushnew `("protoverse"
+                :base-directory ,(concat mjj-root "blog/")
+                :base-extension "protoverse.project.org"
+                :exclude "draft"
+                :publishing-directory ,(expand-file-name "~/code/protoverse/whitepaper/")
+                :publishing-function org-org-publish-to-org
+                :headline-levels 6
+                :section-numbers t
+                :auto-sitemap nil
+                :preserve-breaks t
+                :with-title t
+                :with-toc t
+                :with-smart-quotes t
+                :with-drawers nil
+                :with-email t
+                )
+              org-publish-project-alist))
 
 ;;  ____________________________________________________________________________
 (provide 'mjj-publish)
